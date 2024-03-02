@@ -1,0 +1,30 @@
+---
+# https://github.com/woodpecker-ci/woodpecker
+version : '3'
+
+volumes :
+  woodpecker-data:
+
+services:
+  woodpecker-server:
+    image: woodpeckerci/woodpecker-server:latest
+    container_name: woodpecker-server
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${SERV_PORT}:8000
+    volumes:
+    - woodpecker-data:/var/lib/woodpecker/
+
+  woodpecker-agent:
+    image: woodpeckerci/woodpecker-agent:latest
+    container_name: woodpecker-agent
+    restart: unless-stopped
+    depends_on:
+    - woodpecker-server
+    env_file:
+    - ./.env
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    command: agent

@@ -1,0 +1,13 @@
+---
+# https://github.com/devdoz/filetas
+version : '3'
+services:
+  filetas:
+    image: jetsung/filetas:latest
+    container_name: filetas
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${PORT}:8000
+    command: [gunicorn, -w, '4', -b, 0.0.0.0:8000, app:app]

@@ -1,0 +1,24 @@
+---
+##
+# https://github.com/ekzhang/rustpad
+#   ekzhang/rustpad:latest
+# https://github.com/forkdo/rustpad
+#   ghcr.io/forkdo/rustpad:latest
+#   registry.cn-shenzhen.aliyuncs.com/idevsig/rustpad:latest
+##
+#   mkdir ./data; chmod -R 777 ./data
+##
+
+version : '3'
+
+services:
+  rustpad:
+    image: ghcr.io/forkdo/rustpad:latest
+    container_name: rustpad
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./data:/app
+    ports:
+    - ${SERV_PORT}:3030

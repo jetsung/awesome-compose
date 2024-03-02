@@ -1,0 +1,46 @@
+---
+# https://github.com/thx/rap2-delos
+# https://raw.githubusercontent.com/thx/rap2-delos/master/docker-compose.yml
+
+version : '3'
+
+networks:
+  mysql:
+    external: true
+
+services:
+  # frontend
+  dolores:
+    image: rapteam/rap2-dolores:latest
+    restart: unless-stopped
+    ports:
+      # 冒号前可以自定义前端端口号，冒号后不要动
+    - ${FRONTEND_PORT}:38081
+
+  # backend
+  delos:
+    image: rapteam/rap2-delos:latest
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+      # 这里的配置不要改哦
+    - ${BACKEND_PORT}:38080
+
+    ###### 'sleep 30 && node scripts/init' will drop the tables
+    ###### RUN ONLY ONCE THEN REMOVE 'sleep 30 && node scripts/init'
+    command: /bin/sh -c 'node dispatch.js'
+    # init the databases
+    # command: sleep 30 && node scripts/init && node dispatch.js
+    # without init
+    # command: node dispatch.js
+    depends_on:
+    - redis
+    networks:
+    - mysql
+
+  redis:
+    image: redis:7
+    restart: unless-stopped
+    networks:
+    - mysql

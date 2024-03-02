@@ -1,0 +1,15 @@
+---
+# https://github.com/whyour/qinglong
+version : '3'
+
+services:
+  qinglong:
+    image: whyour/qinglong:latest
+    container_name: qinglong
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./data:/ql/data
+    ports:
+    - ${QINGLONG_PORT}:5700

@@ -1,0 +1,14 @@
+---
+version : '3'
+
+services:
+  memos:
+    image: neosmemo/memos:latest
+    container_name: memos
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./data:/var/opt/memos
+    ports:
+    - ${MEMOS_PORT}:${MEMOS_PORT}

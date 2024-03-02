@@ -1,0 +1,16 @@
+---
+# https://github.com/jetsung/docker-git
+version : '3'
+
+services:
+  git:
+    image: devcto/git:latest
+    container_name: git
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./init.sh:/app/init.sh
+    - ./.ssh:/root/.ssh
+    - /work_code:/srv
+    command: -D

@@ -1,0 +1,13 @@
+---
+# https://github.com/TimWolla/docker-adminer
+version : '3'
+
+services:
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${SERV_PORT}:8080

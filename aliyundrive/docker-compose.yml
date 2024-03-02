@@ -1,0 +1,13 @@
+---
+# https://github.com/messense/aliyundrive-webdav
+version : '3'
+
+services:
+  webdav:
+    image: messense/aliyundrive-webdav
+    container_name: aliyundrive-webdav
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${SERV_PORT}:8080

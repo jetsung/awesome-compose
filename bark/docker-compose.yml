@@ -1,0 +1,13 @@
+---
+# https://github.com/Finb/bark-server
+version : '3.3'
+
+services:
+  bark:
+    image: finab/bark-server:latest
+    container_name: bark
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${BARK_PORT}:8080"

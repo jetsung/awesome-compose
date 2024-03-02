@@ -1,0 +1,9 @@
+---
+version : '3'
+
+services:
+  php-fpm:
+    image: php:fpm-alpine
+    container_name: php-fpm
+    volumes:
+    - ./html:/var/www/html:rw

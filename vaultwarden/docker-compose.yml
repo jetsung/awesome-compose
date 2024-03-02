@@ -1,0 +1,15 @@
+---
+# https://github.com/dani-garcia/vaultwarden
+version : '3'
+
+services:
+  vaultwarden:
+    image: vaultwarden/server:latest
+    container_name: vaultwarden
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - /srv/vaultwarden:/data
+    ports:
+    - ${SERV_PORT}:80

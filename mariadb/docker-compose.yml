@@ -1,0 +1,14 @@
+---
+version : '3'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./data:/var/lib/mysql
+    ports:
+    - ${MYSQL_PORT}:3306

@@ -1,0 +1,19 @@
+---
+# https://github.com/mindoc-org/mindoc/blob/master/docker-compose.yml
+version : '3'
+
+services:
+  mindoc:
+    image: registry.cn-hangzhou.aliyuncs.com/mindoc-org/mindoc:v2.1-beta.6
+    container_name: mindoc
+    privileged: false
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - /srv/mindoc:/mindoc-sync-host
+    ports:
+    - ${SERV_PORT}:8181
+    dns:
+    - 223.5.5.5
+    - 223.6.6.6

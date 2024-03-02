@@ -1,0 +1,14 @@
+---
+# https://hub.docker.com/r/fatedier/frpc
+version : '3'
+
+services:
+  frpc:
+    image: fatedier/frpc:v0.46.1
+    container_name: frpc
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+    - ./frpc.ini:/app/frpc.ini
+    network_mode: host

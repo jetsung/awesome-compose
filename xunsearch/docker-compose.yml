@@ -1,0 +1,16 @@
+---
+# https://github.com/hightman/xunsearch
+version : '3'
+
+services:
+  xunsearch:
+    image: hightman/xunsearch:latest
+    container_name: xunsearch
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./data:/usr/local/xunsearch/data
+    ports:
+    - ${SERV_PORT}:8383
+    - ${SERV_PORT_1}:8384

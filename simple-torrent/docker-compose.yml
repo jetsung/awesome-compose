@@ -1,0 +1,16 @@
+---
+# https://github.com/boypt/simple-torrent
+version : '3'
+
+services:
+  cloud-torrent:
+    image: boypt/cloud-torrent:latest
+    container_name: cloud-torrent
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./downloads:/downloads
+    - ./torrents:/torrents
+    ports:
+    - ${SERV_PORT}:3000

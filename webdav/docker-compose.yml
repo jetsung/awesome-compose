@@ -1,0 +1,15 @@
+---
+# https://github.com/BytemarkHosting/docker-webdav
+version : '3'
+
+services:
+  webdav:
+    image: bytemark/webdav:latest
+    container_name: webdav
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./data:/var/lib/dav
+    ports:
+    - ${SERV_PORT}:80

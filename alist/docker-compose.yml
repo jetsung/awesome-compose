@@ -1,0 +1,19 @@
+---
+# https://hub.docker.com/r/xhofe/alist
+version : '3'
+services:
+  alist:
+    image: xhofe/alist:main
+    container_name: alist
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${ALIST_PORT}:5244
+    volumes:
+    - ./data:/opt/alist/data
+
+  ocr:
+    image: xhofe/ddddocr_server:main
+    container_name: ocr
+    restart: unless-stopped

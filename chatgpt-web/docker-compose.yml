@@ -1,0 +1,14 @@
+---
+# https://github.com/869413421/chatgpt-web
+
+version : '3'
+
+services:
+  chatgpt-web:
+    image: qingshui869413421/chatgpt-web:latest
+    container_name: chatgpt
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${CHATGPT_PORT}:8080

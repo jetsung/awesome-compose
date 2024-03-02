@@ -1,0 +1,13 @@
+---
+# https://hub.docker.com/r/dpage/pgadmin4/
+version : '3'
+
+services:
+  pgadmin4:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${PGADMIN_PORT}:80

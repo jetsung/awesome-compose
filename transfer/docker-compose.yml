@@ -1,0 +1,14 @@
+---
+# https://github.com/dutchcoders/transfer.sh
+version : '3'
+
+services:
+  transfer:
+    image: dutchcoders/transfer.sh:latest
+    container_name: transfer
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    ports:
+    - ${SERV_PORT}:8080
+    command: [--provider, local, --basedir, /tmp/]
