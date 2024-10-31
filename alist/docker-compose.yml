@@ -1,6 +1,5 @@
 ---
 # https://hub.docker.com/r/xhofe/alist
-version : '3'
 services:
   alist:
     image: xhofe/alist:main

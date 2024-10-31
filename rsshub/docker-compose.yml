@@ -1,6 +1,5 @@
 ---
 # https://github.com/DIYgod/RSSHub
-version : '3'
 
 volumes :
   redis-data:

@@ -1,6 +1,5 @@
 ---
 # https://github.com/Finb/bark-server
-version : '3.3'
 
 services:
   bark:

@@ -1,6 +1,5 @@
 ---
 # https://www.wiz.cn/docker.html
-version : '3'
 
 services:
   wiz:

@@ -1,6 +1,5 @@
 ---
 # https://github.com/laurent22/joplin/tree/dev/packages/server
-version : '3'
 
 services:
   joplin:

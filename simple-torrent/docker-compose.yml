@@ -1,6 +1,5 @@
 ---
 # https://github.com/boypt/simple-torrent
-version : '3'
 
 services:
   cloud-torrent:

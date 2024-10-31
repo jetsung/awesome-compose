@@ -18,6 +18,7 @@
 - gitea
 - gitlab-runner
 - joplin
+- listmonk
 - matomo
 - mariadb
 - memos

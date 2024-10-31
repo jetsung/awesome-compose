@@ -1,6 +1,6 @@
 ---
 # https://github.com/acmesh-official/acme.sh
-version : '3'
+version: "3"
 
 services:
   acme:
@@ -8,9 +8,8 @@ services:
     container_name: acme.sh
     restart: unless-stopped
     env_file:
-    - ./.env
+      - ./.env
     volumes:
-    - /srv/acme/out:/acme.sh
-    - /srv/acme/ssl:/data/ssl
+      - /srv/acme/out:/acme.sh
+      - /srv/acme/ssl:/data/ssl
     command: [daemon]
-

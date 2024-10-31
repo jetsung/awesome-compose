@@ -1,6 +1,5 @@
 ---
 # https://github.com/chanify/chanify
-version : '3'
 
 services:
   chanify:

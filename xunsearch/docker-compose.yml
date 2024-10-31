@@ -1,6 +1,5 @@
 ---
 # https://github.com/hightman/xunsearch
-version : '3'
 
 services:
   xunsearch:

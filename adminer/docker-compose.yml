@@ -1,6 +1,5 @@
 ---
 # https://github.com/TimWolla/docker-adminer
-version : '3'
 
 services:
   adminer:

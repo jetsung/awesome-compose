@@ -1,6 +1,5 @@
 ---
 # https://github.com/minio/minio/tree/master/docs/orchestration/docker-compose
-version : '3'
 
 services:
   minio:

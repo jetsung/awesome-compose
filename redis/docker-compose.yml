@@ -1,6 +1,5 @@
 ---
 # https://hub.docker.com/_/redis
-version : '3'
 services:
   redis:
     image: redis:latest

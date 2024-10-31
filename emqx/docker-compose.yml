@@ -1,6 +1,5 @@
 ---
 # https://github.com/emqx/emqx
-version : '3'
 
 services:
   emqx:

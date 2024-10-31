@@ -1,6 +1,5 @@
 ---
 # https://github.com/mindoc-org/mindoc/blob/master/docker-compose.yml
-version : '3'
 
 services:
   mindoc:

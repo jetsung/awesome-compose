@@ -1,6 +1,5 @@
 ---
 # https://github.com/messense/aliyundrive-webdav
-version : '3'
 
 services:
   webdav:

@@ -9,7 +9,6 @@
 #   mkdir ./data; chmod -R 777 ./data
 ##
 
-version : '3'
 
 services:
   rustpad:

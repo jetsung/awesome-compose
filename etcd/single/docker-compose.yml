@@ -1,6 +1,5 @@
 ---
 # https://github.com/etcd-io/etcd
-version : '3'
 
 services:
   etcd:

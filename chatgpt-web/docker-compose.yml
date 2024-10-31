@@ -1,7 +1,6 @@
 ---
 # https://github.com/869413421/chatgpt-web
 
-version : '3'
 
 services:
   chatgpt-web:

@@ -1,6 +1,5 @@
 ---
 # https://github.com/whyour/qinglong
-version : '3'
 
 services:
   qinglong:

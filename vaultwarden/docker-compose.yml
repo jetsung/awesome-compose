@@ -1,6 +1,5 @@
 ---
 # https://github.com/dani-garcia/vaultwarden
-version : '3'
 
 services:
   vaultwarden:

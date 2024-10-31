@@ -1,6 +1,5 @@
 ---
 # https://docs.gitlab.com/runner/install/docker.html
-version : '3'
 
 services:
   gitlab-runner:

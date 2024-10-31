@@ -1,5 +1,4 @@
 ---
-version : '3'
 services:
   rclone:
     image: rclone/rclone:latest

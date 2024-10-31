@@ -1,6 +1,5 @@
 ---
 # https://github.com/devdoz/filetas
-version : '3'
 services:
   filetas:
     image: jetsung/filetas:latest

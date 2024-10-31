@@ -2,7 +2,6 @@
 # https://github.com/thx/rap2-delos
 # https://raw.githubusercontent.com/thx/rap2-delos/master/docker-compose.yml
 
-version : '3'
 
 services:
   # frontend

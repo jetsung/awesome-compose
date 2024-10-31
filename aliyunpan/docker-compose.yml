@@ -1,6 +1,5 @@
 ---
 # https://hub.docker.com/r/tickstep/aliyunpan-webdav
-version : '3'
 
 services:
   webdav:

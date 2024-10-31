@@ -1,6 +1,5 @@
 ---
 # https://github.com/dutchcoders/transfer.sh
-version : '3'
 
 services:
   transfer:

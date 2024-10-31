@@ -1,6 +1,5 @@
 ---
 # https://github.com/BytemarkHosting/docker-webdav
-version : '3'
 
 services:
   webdav:

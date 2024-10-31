@@ -6,7 +6,6 @@ networks:
   database:
     external: true
 
-version : '3'
 services:
   matomo:
     image: matomo:latest

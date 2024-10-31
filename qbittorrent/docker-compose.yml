@@ -1,6 +1,5 @@
 ---
 # https://github.com/gshang2017/docker/tree/master/qBittorrent
-version : '3'
 
 services:
   qbittorrent:
