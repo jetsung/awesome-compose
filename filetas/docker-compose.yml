@@ -1,12 +1,12 @@
 ---
-# https://github.com/devdoz/filetas
+# https://github.com/idevsig/filetas
 services:
   filetas:
     image: jetsung/filetas:latest
     container_name: filetas
     restart: unless-stopped
     env_file:
-    - ./.env
+      - ./.env
     ports:
-    - ${PORT}:8000
-    command: [gunicorn, -w, '4', -b, 0.0.0.0:8000, app:app]
+      - ${PORT}:8000
+    command: [gunicorn, -w, "4", -b, 0.0.0.0:8000, app:app]

@@ -3,7 +3,7 @@
 自建文件下载加速服务
 
 - https://framagit.org/idev/filetas
-- https://github.com/idev-sig/filetas
+- https://github.com/idevsig/filetas
 
 ```
 TITLE=文件加速下载 # 网站标题
