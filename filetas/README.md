@@ -2,8 +2,8 @@
 
 自建文件下载加速服务
 
-- https://jihulab.com/devdo/filetas
-- https://github.com/devdoz/filetas
+- https://framagit.org/idev/filetas
+- https://github.com/idev-sig/filetas
 
 ```
 TITLE=文件加速下载 # 网站标题
