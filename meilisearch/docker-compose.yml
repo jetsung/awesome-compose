@@ -1,0 +1,14 @@
+---
+# https://www.meilisearch.com/docs/guides/misc/docker
+
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: meilisearch
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - $(pwd)/meili_data:/meili_data
+    ports:
+    - ${SERV_PORT}:7700

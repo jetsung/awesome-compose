@@ -21,6 +21,7 @@
 - listmonk
 - matomo
 - mariadb
+- meilisearch
 - memos
 - mindoc
 - minio
