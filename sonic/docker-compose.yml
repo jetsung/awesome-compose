@@ -1,0 +1,14 @@
+---
+# https://github.com/valeriansaliou/sonic
+
+services:
+  sonic:
+    image: valeriansaliou/sonic:latest
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./config.cfg:/etc/sonic.cfg
+    - /srv/sonic/store/:/var/lib/sonic/store/
+    ports:
+    - ${SERV_PORT}:1491

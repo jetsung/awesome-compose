@@ -6,6 +6,6 @@ services:
     container_name: filetas
     restart: unless-stopped
     env_file:
-      - ./.env
+    - ./.env
     ports:
-      - ${SERV_PORT}:8000
+    - ${SERV_PORT}:8000

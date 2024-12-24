@@ -38,6 +38,7 @@
 - rsshub
 - rustpad
 - simple-torrent
+- sonic
 - swagger
 - syncthing
 - transfer
