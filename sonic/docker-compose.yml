@@ -4,6 +4,7 @@
 services:
   sonic:
     image: valeriansaliou/sonic:latest
+    container_name: sonic
     restart: unless-stopped
     env_file:
     - ./.env

@@ -1,6 +1,5 @@
 ---
 # https://github.com/acmesh-official/acme.sh
-version : '3'
 
 services:
   acme:
