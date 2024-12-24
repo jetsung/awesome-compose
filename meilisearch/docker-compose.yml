@@ -9,6 +9,6 @@ services:
     env_file:
     - ./.env
     volumes:
-    - $(pwd)/meili_data:/meili_data
+    - /srv/meili_data:/meili_data
     ports:
     - ${SERV_PORT}:7700
