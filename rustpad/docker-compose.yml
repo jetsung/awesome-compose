@@ -1,14 +1,5 @@
 ---
-##
 # https://github.com/ekzhang/rustpad
-#   ekzhang/rustpad:latest
-# https://github.com/forkdo/rustpad
-#   ghcr.io/forkdo/rustpad:latest
-#   registry.cn-shenzhen.aliyuncs.com/idevsig/rustpad:latest
-##
-#   mkdir ./data; chmod -R 777 ./data
-##
-
 
 services:
   rustpad:

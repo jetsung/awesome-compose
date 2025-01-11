@@ -17,6 +17,7 @@
 - git
 - gitea
 - gitlab-runner
+- hedgedoc
 - joplin
 - listmonk
 - matomo
