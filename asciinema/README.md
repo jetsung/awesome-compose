@@ -41,7 +41,42 @@ volumes:
 ### 数据库使用宿主机的 `Postgres`
 
 - 创建 `Postgres` 的用户
-  - 1. 
+  1. **登录 PostgreSQL**
+     使用超级用户连接到 PostgreSQL：
+
+     ```bash
+     psql -U postgres
+     ```
+
+  2. **创建数据库**
+     为 `asciinema` 创建数据库：
+
+     ```sql
+     CREATE DATABASE asciinema;
+     ```
+
+  3. **创建用户**
+     创建一个专用用户来访问数据库，并设置密码：
+
+     ```sql
+     CREATE USER asciinema_user WITH PASSWORD 'your_password';
+     ```
+
+  4. **授予权限**
+     将该用户赋予 `asciinema` 数据库的权限：
+
+     ```sql
+     GRANT ALL PRIVILEGES ON DATABASE asciinema TO asciinema_user;
+     ```
+
+  5. **测试连接**   
+     在服务器上运行以下命令测试连接是否成功：
+
+      ```bash
+      psql -h <external-db-host> -U asciinema_user -d asciinema
+      ```
+
+      输入密码后，应能够连接到数据库。
 
 - 查看宿主机的网络
 ```bash
