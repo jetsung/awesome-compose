@@ -1,0 +1,19 @@
+---
+# https://github.com/asciinema/asciinema-server
+# https://ghcr.io/asciinema/asciinema-server
+#
+# 数据库使用 Docker
+#
+
+services:
+  asciinema:
+    image: ghcr.io/asciinema/asciinema-server:latest
+    container_name: asciinema
+    env_file:
+    - ./.env
+    volumes:
+    - asciinema_data:/var/opt/asciinema
+    ports:
+    - $SERV_PORT:4000
+volumes :
+  asciinema_data:

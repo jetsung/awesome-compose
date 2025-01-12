@@ -5,6 +5,7 @@
 - alist
 - aliyundrive
 - aliyunpan
+- asciinema
 - bark
 - chanify
 - chatgpt-web
