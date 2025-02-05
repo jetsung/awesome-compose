@@ -38,6 +38,7 @@
 - rap2
 - rclone
 - redis
+- remark42
 - rsshub
 - rustpad
 - simple-torrent
