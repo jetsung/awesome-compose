@@ -4,7 +4,7 @@
 
 - https://github.com/acmesh-official/acme.sh/wiki/dns-manual-mode
 
-```bash
+```sh
 # 切换 CA 为 Let's Encrypt
 docker exec acme.sh acme.sh --set-default-ca --server letsencrypt
 
@@ -21,4 +21,4 @@ docker exec acme.sh --renew --dns --keylength ec-256 --ecc --force --yes-I-know-
 docker exec acme.sh --install-cert --ecc --key-file /data/ssl/xx.com.key --fullchain-file /data/ssl/xx.com.fullchain.cer -d xx.com
 ```
 
-## [更多教程](https://www.jetsung.com/d/525)
+## [更多教程](https://forum.idev.top/d/525)
