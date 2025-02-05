@@ -48,11 +48,12 @@ get_base_exec() {
         # 服务器中
         SSL_SAVE_PATH="$SSL_PATH"
     fi
-    echo "BASE_EXEC: $BASE_EXEC"
+    # echo "BASE_EXEC: $BASE_EXEC"
 }
 
 # 服务器重载命令（按实际环境修改）
 restart_server() {
+    # shellcheck disable=SC2009
     if [ "$(ps -ef | grep 'nginx: master' | grep -v "grep" | awk '{print $3}')" -eq 1 ]; then
         # 正在运行 nginx
         if [ -f "/etc/init.d/nginx" ]; then
@@ -102,7 +103,7 @@ set_cron() {
 
             # 输出随机生成的 Cron 时间
             cat > /etc/cron.d/dockeracme <<EOF
-            $MINUTE $HOUR * * * root cd $script_path; /bin/bash ./$script_name -c
+$MINUTE $HOUR * * * root cd $script_path; /bin/bash ./$script_name -c
 EOF
             systemctl restart cron
             ;;
@@ -166,7 +167,7 @@ judgment_parameters() {
             '-c' | '--cron')
                 # 定时任务
                 CRON="run"
-                if [ $# -ge 1 ] && [[ "$1" != -* ]]; then
+                if [ $# -ge 2 ] && [[ "$2" != -* ]]; then
                     CRON="install"
                     shift         
                 fi
@@ -257,7 +258,7 @@ do_action() {
         set_ca
     fi
 
-    if [ -n "${DO_CRON:-}" ]; then 
+    if [ -n "${CRON:-}" ]; then
         set_cron
     fi
 
