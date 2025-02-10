@@ -30,6 +30,7 @@
 - mrdoc
 - mysql
 - nginx-php
+- open-webui
 - pgadmin
 - phpmyadmin
 - postgres

@@ -10,9 +10,9 @@ services:
     env_file:
     - ./.env
     volumes:
-    - /srv/mindoc:/mindoc-sync-host
+    - ./mindoc:/mindoc-sync-host
     ports:
-    - ${SERV_PORT}:8181
+    - ${SERV_PORT:-8181}:8181
     dns:
     - 223.5.5.5
     - 223.6.6.6
