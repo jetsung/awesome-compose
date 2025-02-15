@@ -3,13 +3,13 @@
 
 services:
   chanify:
-    image: wizjin/chanify:dev
+    image: wizjin/chanify:latest
     container_name: chanify
     restart: unless-stopped
     env_file:
     - ./.env
     ports:
-    - ${SERV_PORT}:80
+    - ${SERV_PORT:-80}:80
     volumes:
     - ./data:/data
     - ./chanify.yml:/root/.chanify.yml

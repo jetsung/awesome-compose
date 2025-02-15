@@ -9,6 +9,6 @@ services:
     env_file:
     - ./.env
     volumes:
+    - ./data:/etc/gitlab-runner
     - /var/run/docker.sock:/var/run/docker.sock
-      # - /run/user/1001/docker.sock:/var/run/docker.sock
-    - ./config:/etc/gitlab-runner
+    # - /run/user/1001/docker.sock:/var/run/docker.sock

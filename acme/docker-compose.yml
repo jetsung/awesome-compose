@@ -9,6 +9,6 @@ services:
     env_file:
     - ./.env
     volumes:
-    - /srv/acme/out:/acme.sh
-    - /srv/acme/ssl:/data/ssl
+    - ./data/out:/acme.sh
+    - ./data/ssl:/data/ssl
     command: [daemon]

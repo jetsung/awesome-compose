@@ -9,4 +9,4 @@ services:
     env_file:
     - ./.env
     ports:
-    - ${SERV_PORT}:23077
+    - ${SERV_PORT:-23077}:23077

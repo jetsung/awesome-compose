@@ -11,15 +11,15 @@
 # 【快速安装】
 # 或者直接使用 Caddy 直接创建服务，再通过浏览器访问域名即可。不需要再进行其它操作。   
 # 此方式将禁止 3000 端口对外。取消则将 docker-compose.yml 中去掉 '#- 3000' 的注释即可。
-wget -qO - https://jihulab.com/jetsung/docker-compose/-/raw/main/gitea/run.sh | bash -s init xxx.com
+wget -qO - https://framagit.org/jetsung/docker-compose/-/raw/main/gitea/run.sh | bash -s init xxx.com
 
 # 默认配置，执行之后，需通过浏览器访问 IP:3000，设置 Gitea 相关信息，以便生成 app.ini 配置文件。
 # 或者配置好 caddy / nginx 的 ssl 服务后，通过需要直接访问，再配置即可。
-wget https://jihulab.com/jetsung/docker-compose/-/raw/main/gitea/run.sh
+wget https://framagit.org/jetsung/docker-compose/-/raw/main/gitea/run.sh
 chmod +x run.sh
 ./run.sh
 
-# 手动安装（Caddy）
+# 手动安装
 ./run.sh init xxx.com
 ```
 

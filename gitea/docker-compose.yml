@@ -8,8 +8,8 @@ services:
     env_file:
     - ./.env
     ports:
-    - ${GITEA_HTTP_PORT}:3000
-    - ${GITEA_SSL_PORT}:22
+    - ${GITEA_HTTP_PORT:-3000}:3000
+    - ${GITEA_SSL_PORT:-22}:22
     volumes:
     - ./gitea:/data
     - /etc/timezone:/etc/timezone:ro
@@ -18,7 +18,7 @@ services:
     - db
 
   db:
-    image: postgres:13
+    image: postgres:16
     restart: unless-stopped
     env_file:
     - ./.env

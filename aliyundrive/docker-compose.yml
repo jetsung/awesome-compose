@@ -3,10 +3,10 @@
 
 services:
   webdav:
-    image: messense/aliyundrive-webdav
+    image: messense/aliyundrive-webdav:latest
     container_name: aliyundrive-webdav
     restart: unless-stopped
     env_file:
     - ./.env
     ports:
-    - ${SERV_PORT}:8080
+    - ${SERV_PORT:-8080}:8080

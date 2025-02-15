@@ -8,14 +8,11 @@
 - asciinema
 - bark
 - chanify
-- chatgpt-web
 - drone
 - emqx
 - etcd
 - filetas
-- frpc
-- frps
-- git
+- frp
 - gitea
 - gitlab-runner
 - hedgedoc

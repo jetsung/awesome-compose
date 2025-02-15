@@ -11,9 +11,7 @@ services:
     container_name: asciinema
     env_file:
     - ./.env
-    volumes:
-    - asciinema_data:/var/opt/asciinema
     ports:
-    - $SERV_PORT:4000
-volumes :
-  asciinema_data:
+    - ${SERV_PORT:-4000}:4000
+    volumes:
+    - ./data:/var/opt/asciinema

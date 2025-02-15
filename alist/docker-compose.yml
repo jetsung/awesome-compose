@@ -2,13 +2,13 @@
 # https://hub.docker.com/r/xhofe/alist
 services:
   alist:
-    image: xhofe/alist:main
+    image: xhofe/alist:latest
     container_name: alist
     restart: unless-stopped
     env_file:
     - ./.env
     ports:
-    - ${ALIST_PORT}:5244
+    - ${SERV_PORT:-5244}:5244
     volumes:
     - ./data:/opt/alist/data
 

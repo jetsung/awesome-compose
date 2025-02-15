@@ -1,0 +1,13 @@
+---
+# https://github.com/fatedier/frp
+
+services:
+  frpc:
+    image: fatedier/frpc:v0.61.1
+    container_name: frpc
+    restart: unless-stopped
+    env_file:
+    - ./.env
+    volumes:
+    - ./frpc.toml:/app/frpc.toml
+    network_mode: host
