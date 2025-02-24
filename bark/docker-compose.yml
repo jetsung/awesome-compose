@@ -9,4 +9,4 @@ services:
     env_file:
     - ./.env
     ports:
-    - ${BARK_PORT:-}:8080"
+    - ${BARK_PORT:-8080}:8080

@@ -1,0 +1,6 @@
+---
+# https://github.com/idevsig/filetas
+services:
+  filetas:
+    env_file:
+    - ./.env

@@ -1,0 +1,20 @@
+---
+services:
+  mail-server:
+    image: stalwartlabs/mail-server:latest
+    container_name: stalwart-mail
+    tty: true
+    stdin_open: true
+    volumes:
+    - ./data:/opt/stalwart-mail
+    - /opt/stalwart-mail/webadmin.zip:/app/webadmin.zip
+    ports:
+    - ${HTTP_PORT:-8080}:8080
+    - ${HTTPS_PORT:-443}:443
+    - ${SMTP_PORT:-25}:25
+    - ${SMTPSSL_PORT:-465}:465
+    - ${SMTPTLS_PORT:-587}:587
+    - ${IMAP_PORT:-143}:143
+    - ${IMAPS_PORT:-993}:993
+    - ${POP3_PORT:-110}:110
+    - ${POP3S_PORT:-995}:995

@@ -1,0 +1,7 @@
+---
+# https://github.com/open-webui/open-webui
+
+services:
+  webui:
+    env_file:
+    - ./.env

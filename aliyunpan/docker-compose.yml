@@ -6,7 +6,5 @@ services:
     image: tickstep/aliyunpan-webdav:v0.1.5
     container_name: aliyunpan-webdav
     restart: unless-stopped
-    env_file:
-    - ./.env
     ports:
     - ${SERV_PORT:-23077}:23077

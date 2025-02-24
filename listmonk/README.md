@@ -1,5 +1,7 @@
 # listmonk
 
+> 高性能，自托管，通讯和邮件列表管理器与现代仪表板。单二进制应用程序。
+
 listmonk is a standalone, self-hosted, newsletter and mailing list manager. It is fast, feature-rich, and packed into a single binary. It uses a PostgreSQL (⩾ 12) database as its data store.
 
 Visit [listmonk.app](https://listmonk.app) for more info. Check out the [**live demo**](https://demo.listmonk.app).

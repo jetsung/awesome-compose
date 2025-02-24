@@ -6,19 +6,15 @@ services:
     image: joplin/server:latest
     container_name: joplin
     restart: unless-stopped
-    env_file:
-    - ./.env
     depends_on:
     - postgres
     ports:
-    - ${SERV_PORT}:22300
+    - ${SERV_PORT:-22300}:22300
 
-    postgres:
-      image: postgres:15
-      restart: unless-stopped
-      env_file:
-      - ./.env
-      ports:
-      - ${POSTGRES_PORT}:5432
-      volumes:
-      - ./postgres:/var/lib/postgresql/data
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    ports:
+    - ${POSTGRES_PORT:-5432}:5432
+    volumes:
+    - ./data/postgres:/var/lib/postgresql/data

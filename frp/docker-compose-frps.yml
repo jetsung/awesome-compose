@@ -6,8 +6,6 @@ services:
     image: fatedier/frps:v0.61.1
     container_name: frps
     restart: unless-stopped
-    env_file:
-    - ./.env
     volumes:
     - ./frps.toml:/app/frps.toml
     network_mode: host

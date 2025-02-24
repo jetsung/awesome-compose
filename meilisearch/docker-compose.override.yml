@@ -1,0 +1,7 @@
+---
+# https://www.meilisearch.com/docs/guides/misc/docker
+
+services:
+  meilisearch:
+    env_file:
+    - ./.env

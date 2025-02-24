@@ -1,5 +1,7 @@
 # hedgedoc
 
+> 实时协作的 Markdown [笔记](https://docs.hedgedoc.dev/tutorials/setup/)   
+
 https://github.com/hedgedoc/hedgedoc
 
 ## 部署教程
@@ -174,6 +176,4 @@ https://github.com/hedgedoc/hedgedoc
         return 301 https://$host$request_uri;
     }
     ```
-**相关教程：**
-- https://docs.hedgedoc.dev/tutorials/setup/
   

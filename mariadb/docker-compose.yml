@@ -1,13 +1,12 @@
 ---
+# https://hub.docker.com/_/mariadb
 
 services:
   mariadb:
     image: mariadb:latest
     container_name: mariadb
     restart: unless-stopped
-    env_file:
-    - ./.env
+    ports:
+    - ${SERV_PORT:-3306}:3306
     volumes:
     - ./data:/var/lib/mysql
-    ports:
-    - ${MYSQL_PORT}:3306

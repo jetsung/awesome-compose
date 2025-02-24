@@ -1,0 +1,11 @@
+---
+# https://github.com/fatedier/frp
+
+services:
+  frps:
+    env_file:
+    - ./.env
+
+  frpc:
+    env_file:
+    - ./.env

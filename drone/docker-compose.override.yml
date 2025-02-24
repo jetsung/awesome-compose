@@ -1,0 +1,11 @@
+---
+# https://github.com/harness/drone
+
+services:
+  drone-server:
+    env_file:
+    - ./.env
+
+  drone-runner:
+    env_file:
+    - ./.env

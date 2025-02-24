@@ -1,0 +1,11 @@
+---
+# https://github.com/asciinema/asciinema-server
+# https://ghcr.io/asciinema/asciinema-server
+#
+# 服务全部 Docker
+#
+
+services:
+  asciinema:
+    env_file:
+    - ./.env

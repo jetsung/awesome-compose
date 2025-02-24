@@ -1,0 +1,7 @@
+---
+# https://github.com/etcd-io/etcd
+
+services:
+  etcd:
+    env_file:
+    - ./.env

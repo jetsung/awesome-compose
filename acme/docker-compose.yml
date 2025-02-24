@@ -6,8 +6,6 @@ services:
     image: neilpang/acme.sh
     container_name: acme.sh
     restart: unless-stopped
-    env_file:
-    - ./.env
     volumes:
     - ./data/out:/acme.sh
     - ./data/ssl:/data/ssl

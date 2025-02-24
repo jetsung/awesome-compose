@@ -24,7 +24,6 @@
 - memos
 - mindoc
 - minio
-- mrdoc
 - mysql
 - nginx-php
 - open-webui
@@ -41,6 +40,7 @@
 - rustpad
 - simple-torrent
 - sonic
+- stalwart
 - swagger
 - syncthing
 - transfer

@@ -6,8 +6,6 @@ services:
     image: emqx/emqx:latest
     container_name: emqx
     restart: unless-stopped
-    env_file:
-    - ./.env
     ports:
     - ${MQTT_PORT:-1883}:1883
     - ${WS_PORT:-8083}:8083

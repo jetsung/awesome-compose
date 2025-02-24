@@ -1,4 +1,6 @@
-# 集成 mysql / mariadb 和 phpmyadmin
+# MySQL + phpMyAdmin
+
+集成 mysql / mariadb 和 phpmyadmin
 
 ## 操作
 

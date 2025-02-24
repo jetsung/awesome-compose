@@ -1,0 +1,7 @@
+---
+# https://github.com/chanify/chanify
+
+services:
+  chanify:
+    env_file:
+    - ./.env

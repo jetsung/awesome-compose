@@ -3,12 +3,10 @@
 
 services:
   webui:
-    image: ghcr.io/open-webui/open-webui:${DOCKER_TAG-main}
+    image: ghcr.io/open-webui/open-webui:${DOCKER_TAG:-main}
     container_name: webui
     privileged: false
     restart: unless-stopped
-    env_file:
-    - ./.env
     volumes:
     - ./data:/app/backend/data
     ports:

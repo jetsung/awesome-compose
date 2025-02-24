@@ -1,5 +1,9 @@
 # matomo
 
+> [Matomo](https://matomo.org/) 是领先的开源分析平台。
+
+https://github.com/matomo-org/docker
+
 ## 环境要求
 
 - 已在宿主机安装 `MySQL` 或 `MariaDB`
@@ -8,7 +12,7 @@
 
 ### 1. MySQL 配置
 
-1. 参考 https://www.jetsung.com/d/366 教程，使容器可以访问宿主机的 MySQL。
+1. 参考 https://forum.idev.top/d/366 教程，使容器可以访问宿主机的 MySQL。
    **配置**
 
 ```bash

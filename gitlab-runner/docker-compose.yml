@@ -6,8 +6,6 @@ services:
     image: gitlab/gitlab-runner:latest
     container_name: gitlab-runner
     restart: unless-stopped
-    env_file:
-    - ./.env
     volumes:
     - ./data:/etc/gitlab-runner
     - /var/run/docker.sock:/var/run/docker.sock

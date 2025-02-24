@@ -1,0 +1,7 @@
+---
+# https://github.com/emqx/emqx
+
+services:
+  emqx:
+    env_file:
+    - ./.env

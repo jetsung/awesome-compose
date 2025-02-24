@@ -1,0 +1,7 @@
+---
+# https://github.com/minio/minio/tree/master/docs/orchestration/docker-compose
+
+services:
+  minio:
+    env_file:
+    - ./.env

@@ -9,8 +9,6 @@ services:
   asciinema:
     image: ghcr.io/asciinema/asciinema-server:latest
     container_name: asciinema
-    env_file:
-    - ./.env
     ports:
     - ${SERV_PORT:-4000}:4000
     volumes:

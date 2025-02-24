@@ -1,0 +1,11 @@
+---
+# https://github.com/laurent22/joplin/tree/dev/packages/server
+
+services:
+  joplin:
+    env_file:
+    - ./.env
+
+  postgres:
+    env_file:
+    - ./.env

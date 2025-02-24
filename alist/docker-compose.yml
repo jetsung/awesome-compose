@@ -5,8 +5,6 @@ services:
     image: xhofe/alist:latest
     container_name: alist
     restart: unless-stopped
-    env_file:
-    - ./.env
     ports:
     - ${SERV_PORT:-5244}:5244
     volumes:

@@ -1,0 +1,7 @@
+---
+# https://github.com/Finb/bark-server
+
+services:
+  bark:
+    env_file:
+    - ./.env

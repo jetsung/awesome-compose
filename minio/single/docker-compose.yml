@@ -3,18 +3,17 @@
 
 services:
   minio:
-    image: quay.io/minio/minio:${MINIO_IMAGE_VERSION}
+    image: quay.io/minio/minio:${MINIO_IMAGE_VERSION:-RELEASE.2025-02-18T16-25-55Z}
     container_name: minio
     restart: unless-stopped
     command: server --console-address ":9001" /data
-    env_file: ./.env
     healthcheck:
       test: [CMD, curl, -f, http://localhost:9000/minio/health/live]
       interval: 30s
       timeout: 20s
       retries: 3
     volumes:
-    - /srv/minio:/data
+    - ./data:/data
     ports:
-    - ${MINIO_SERVER_PORT}:9000
-    - ${MINIO_CONSOLE_PORT}:9001
+    - ${MINIO_SERVER_PORT:-9000}:9000
+    - ${MINIO_CONSOLE_PORT:-9001}:9001
