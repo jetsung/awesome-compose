@@ -12,6 +12,8 @@ x-backup-common: &backup-common
 services       :
   backup1:
     <<: *backup-common
+    env_file:
+    - ./.env
 
 ## 多重备份
 #  backup2:

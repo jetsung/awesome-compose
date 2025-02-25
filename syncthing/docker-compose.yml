@@ -6,12 +6,10 @@ services:
     image: syncthing/syncthing:latest
     container_name: syncthing
     restart: unless-stopped
-    env_file:
-    - ./.env
     ports:
-    - ${WEB_PORT}:8384         # Web UI
-    - ${SERV_PORT}:22000/tcp         # TCP file transfers
-    - ${SERV_PORT}:22000/udp         # QUIC file transfers
-    - ${DISCOVERY_PORT}:21027/udp         # Receive local discovery broadcasts
+    - ${WEB_PORT:-8384}:8384         # Web UI
+    - ${SERV_PORT:-22000}:22000/tcp         # TCP file transfers
+    - ${SERV_PORT:-22000}:22000/udp         # QUIC file transfers
+    - ${DISCOVERY_PORT:-21027}:21027/udp         # Receive local discovery broadcasts
     volumes:
     - ./syncthing:/var/syncthing

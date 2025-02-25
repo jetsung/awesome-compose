@@ -1,5 +1,6 @@
 ---
+
 services:
-  mail-server:
+  postgres:
     env_file:
-    - .env
+    - ./.env

@@ -6,12 +6,10 @@ services:
     image: johngong/qbittorrent:latest
     container_name: qbittorrent
     restart: unless-stopped
-    env_file:
-    - ./.env
     ports:
-    - ${QB_WEBUI_PORT}:${QB_WEBUI_PORT}
-    - ${QB_BT_PORT}:6881
-    - ${QB_BT_PORT}:6881/udp
+    - ${QB_WEBUI_PORT:-8989}:${QB_WEBUI_PORT:-8989}
+    - ${QB_BT_PORT:-6881}:6881
+    - ${QB_BT_PORT:-6881}/udp:6881/udp
     volumes:
     - /srv/qbittorrent/config:/config
     - /srv/qbittorrent/downloads:/Downloads

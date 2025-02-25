@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-GHPROXY="https://ghproxy.com/"
+GHPROXY="${GHPROXY:-https://fastfile.asfd.cn/}"
 
 git clone "${GHPROXY}https://github.com/msojocs/wechat-web-devtools-linux.git" .
 

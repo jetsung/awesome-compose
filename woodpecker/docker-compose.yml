@@ -9,10 +9,8 @@ services:
     image: woodpeckerci/woodpecker-server:latest
     container_name: woodpecker-server
     restart: unless-stopped
-    env_file:
-    - ./.env
     ports:
-    - ${SERV_PORT}:8000
+    - ${SERV_PORT:-8000}:8000
     volumes:
     - woodpecker-data:/var/lib/woodpecker/
 
@@ -20,10 +18,8 @@ services:
     image: woodpeckerci/woodpecker-agent:latest
     container_name: woodpecker-agent
     restart: unless-stopped
-    depends_on:
-    - woodpecker-server
-    env_file:
-    - ./.env
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock
     command: agent
+    depends_on:
+    - woodpecker-server

@@ -6,9 +6,7 @@ services:
     image: vaultwarden/server:latest
     container_name: vaultwarden
     restart: unless-stopped
-    env_file:
-    - ./.env
+    ports:
+    - ${SERV_PORT:-80}:80
     volumes:
     - /srv/vaultwarden:/data
-    ports:
-    - ${SERV_PORT}:80

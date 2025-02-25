@@ -6,11 +6,9 @@ services:
     image: wiznote/wizserver:latest
     container_name: wiz
     restart: unless-stopped
-    env_file:
-    - ./.env
-    volumes:
-    - ./storage:/wiz/storage
     ports:
-    - ${WEB_PORT}:80
-    - ${SERV_PORT}:9269/tcp
-    - ${SERV_PORT}:9269/udp
+    - ${WEB_PORT:-80}:80
+    - ${SERV_PORT:-9269/tcp}:9269/tcp
+    - ${SERV_PORT:-9269/udp}:9269/udp
+    volumes:
+    - ./data:/wiz/storage

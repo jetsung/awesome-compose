@@ -1,0 +1,7 @@
+---
+# https://github.com/dani-garcia/vaultwarden
+
+services:
+  vaultwarden:
+    env_file:
+    - ./.env

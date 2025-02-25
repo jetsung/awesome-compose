@@ -1,5 +1,9 @@
 # docker-compose
 
+[**Play With Docker**](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/jetsung/docker-compose/refs/heads/main/filetas/docker-compose.yml)
+
+## 列表
+
 - acme
 - adminer
 - alist
@@ -32,7 +36,6 @@
 - postgres
 - qbittorrent
 - qinglong
-- rap2
 - rclone
 - redis
 - remark42

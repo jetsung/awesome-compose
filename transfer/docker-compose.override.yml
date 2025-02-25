@@ -1,0 +1,7 @@
+---
+# https://github.com/dutchcoders/transfer.sh
+
+services:
+  transfer:
+    env_file:
+    - ./.env

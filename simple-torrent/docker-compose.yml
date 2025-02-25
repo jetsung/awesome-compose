@@ -6,10 +6,8 @@ services:
     image: boypt/cloud-torrent:latest
     container_name: cloud-torrent
     restart: unless-stopped
-    env_file:
-    - ./.env
+    ports:
+    - ${SERV_PORT:-3000}:3000
     volumes:
     - ./downloads:/downloads
     - ./torrents:/torrents
-    ports:
-    - ${SERV_PORT}:3000

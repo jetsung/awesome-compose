@@ -6,9 +6,7 @@ services:
     image: ghcr.io/forkdo/rustpad:latest
     container_name: rustpad
     restart: unless-stopped
-    env_file:
-    - ./.env
     volumes:
     - ./data:/app
     ports:
-    - ${SERV_PORT}:3030
+    - ${SERV_PORT:-3030}:3030

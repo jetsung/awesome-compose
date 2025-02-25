@@ -1,0 +1,14 @@
+---
+# https://github.com/DIYgod/RSSHub
+
+volumes :
+  redis-data:
+
+services:
+  rsshub:
+    env_file:
+    - ./.env
+
+  redis:
+    env_file:
+    - ./.env

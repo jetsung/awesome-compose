@@ -1,0 +1,10 @@
+---
+# https://github.com/woodpecker-ci/woodpecker
+
+services:
+  woodpecker-server:
+    env_file:
+    - ./.env
+
+  woodpecker-agent:
+  - ./.env

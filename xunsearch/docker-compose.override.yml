@@ -1,0 +1,7 @@
+---
+# https://github.com/hightman/xunsearch
+
+services:
+  xunsearch:
+    env_file:
+    - ./.env

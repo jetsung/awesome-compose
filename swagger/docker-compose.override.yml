@@ -1,0 +1,5 @@
+---
+services:
+  swagger-ui:
+    env_file:
+    - ./.env

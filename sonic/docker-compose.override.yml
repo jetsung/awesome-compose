@@ -1,0 +1,7 @@
+---
+# https://github.com/valeriansaliou/sonic
+
+services:
+  sonic:
+    env_file:
+    - ./.env

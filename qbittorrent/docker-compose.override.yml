@@ -1,0 +1,7 @@
+---
+# https://github.com/gshang2017/docker/tree/master/qBittorrent
+
+services:
+  qbittorrent:
+    env_file:
+    - ./.env

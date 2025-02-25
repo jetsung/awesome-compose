@@ -7,15 +7,10 @@ volumes :
 services:
   rsshub:
     image: diygod/rsshub:latest
+    container_name: rsshub
     restart: unless-stopped
-    environment:
-      TZ: Asia/Shanghai
-      NODE_ENV: production
-      CACHE_TYPE: redis
-      REDIS_URL: redis://redis:6379/
-      PUPPETEER_WS_ENDPOINT: ws://browserless:3000
     ports:
-    - ${SERV_PORT}:1200
+    - ${SERV_PORT:-1200}:1200
     depends_on:
     - redis
     - browserless
@@ -32,7 +27,5 @@ services:
   redis:
     image: redis:alpine
     restart: unless-stopped
-    environment:
-      TZ: Asia/Shanghai
     volumes:
     - redis-data:/data

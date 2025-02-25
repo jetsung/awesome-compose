@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -eu
+
 add_crond() {
     DEVPATH=$(pwd)
 
@@ -18,7 +20,7 @@ copy_files() {
     # 创建缓存文件夹
     [ -d /rsync ] || mkdir /rsync
 
-    cd /app
+    cd /app || exit 1
 
     # 过滤一些文件的缓存
     #cp -r /data/!(*~) /rsync
@@ -36,7 +38,7 @@ copy_files() {
 apk_add() {
     RSYNC_CMD=$(which rsync)
     
-    if [ -z "${RSYNC_CMD}" ]; then
+    if [ -z "$RSYNC_CMD" ]; then
         sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
         apk update
         apk add rsync
@@ -55,6 +57,7 @@ notify() {
     fi
 
     if [ -f "./notify.sh" ] && [ -f "./.env" ]; then
+        # shellcheck disable=SC1091
         . ./.env
         sh ./notify.sh -u "${URL}" -s "${SECRET}" -m "rclone 同步成功"
     fi

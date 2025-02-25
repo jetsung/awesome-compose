@@ -1,11 +1,10 @@
-#!/bin／sh
+#!/bin/sh
 
 ## 钉钉、飞书 通知
 
 get_vars() {
-    while [ $# -gt 0 ]
-    do
-    case "${1}" in
+    while [ $# -gt 0 ];do
+    case "${1:-}" in
         # 需要发送的消息内容
         -m | --message )
         MESSAGE="${2}"
@@ -34,62 +33,55 @@ get_vars() {
     done
 }
 
+get_dingtalk_msg() {
+    printf '{"msgtype":"text","text":{"content":"消息通知： %s "},"at":{"isAtAll":false}}' "${1:-}" 
+}
+
+get_feishu_msg() {
+	printf '{"msg_type":"text","content":{"text":"消息通知: %s "},"sign":"%s","timestamp":%d}' "${1:-}" "${2:-}" "${3:-}" 
+}
+
 send_msg() {
-    [ -n "${TS}" ] || TS="$(date +%s)"
+    [ -n "$TS" ] || TS="$(date +%s)"
 
-	sendData1='{
-		"msg_type": "text",
-		"content": {"text": "消息通知: %s "},
-		"sign": "%s",
-		"timestamp": %d
-	}'
-
-	sendData2='{
-  "msgtype": "text",
-  "text": {
-    "content": "消息通知： %s "
-  },
-  "at": {
-    "isAtAll": false
-  }
-}'    
-
-    if [ -n $(echo "${URL}" | grep "oapi.dingtalk.com") ]; then
+    if echo "$URL" | grep -q oapi.dingtalk.com; then
         [ ${#TS} -lt 11 ] && TS="${TS}000"
         get_sign 2
-        semd_msg=$(printf "${sendData2}" ${MESSAGE} )
-        URL=$(printf "${URL}&timestamp=%s&sign=%s" ${TS} ${SIGN})
-    elif [ -n $(echo "${URL}" | grep "open.feishu.cn") ]; then
+        semd_msg=$(get_dingtalk_msg "$MESSAGE")
+        URL=$(printf "$URL&timestamp=%s&sign=%s" "$TS" "$SIGN")
+    elif echo "$URL" | grep -q open.feishu.cn; then
         get_sign 1
-        semd_msg=$(printf "${sendData1}" ${MESSAGE} ${SIGN} ${TS})
+        semd_msg=$(get_feishu_msg "$MESSAGE" "$SIGN" "$TS")
     else
-        printf "此方式（%s）不支持\n" "${URL}"
+        printf "此方式（%s）不支持\n" "$URL"
         return
     fi
 
-    echo "${semd_msg}"
+    echo "$semd_msg"
+    echo "URL: $URL"
     # printf '%s\ntimestamp: %s\nsecret: %s\nsign: %s\n' ${URL} ${TS} ${SECRET} ${SIGN}
-    curl -XPOST -s -L "${URL}" -H "Content-Type:application/json" -H "charset:utf-8"  -d "${semd_msg}"
+    curl -X POST -L "$URL" -H "Content-Type:application/json" -H "charset:utf-8"  -d "$semd_msg"
 }
 
 get_sign() {
     mode="${1}"
-    string_to_sign="${TS}\n${SECRET}"
+    string_to_sign="$TS\n$SECRET"
 
     data=""
-    if [ "${mode}" = "1" ]; then
-        sign_str="${string_to_sign}"
-    elif [ "${mode}" = "2" ]; then
-        sign_str="${SECRET}"
-        data="${string_to_sign}"
+    if [ "$mode" = "1" ]; then
+        sign_str="$string_to_sign"
+    elif [ "$mode" = "2" ]; then
+        sign_str="$SECRET"
+        data="$string_to_sign"
     else
-        printf "此方式（%s）不支持\n" "${URL}"
+        printf "此方式（%s）不支持\n" "$URL"
         exit 1
     fi
 
     # echo ${sign_str}
     # printf "${data}"
-    SIGN=$(printf "${data}" | openssl dgst -sha256 -hmac "${sign_str}" -binary | base64)
+    # shellcheck disable=SC2059
+    SIGN=$(printf "$data" | openssl dgst -sha256 -hmac "$sign_str" -binary | base64)
     #echo $SIGN    
 }
 

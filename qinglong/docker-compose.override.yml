@@ -1,0 +1,7 @@
+---
+# https://github.com/whyour/qinglong
+
+services:
+  qinglong:
+    env_file:
+    - ./.env

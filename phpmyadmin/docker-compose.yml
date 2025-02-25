@@ -5,7 +5,5 @@ services:
     image: phpmyadmin:latest
     container_name: phpmyadmin
     restart: unless-stopped
-    env_file:
-    - ./.env
     ports:
-    - ${PHPMYADMIN_PORT}:80
+    - ${SERV_PORT:-80}:80

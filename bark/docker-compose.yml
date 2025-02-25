@@ -6,7 +6,5 @@ services:
     image: finab/bark-server:latest
     container_name: bark
     restart: unless-stopped
-    env_file:
-    - ./.env
     ports:
     - ${BARK_PORT:-8080}:8080

@@ -6,9 +6,7 @@ services:
     image: bytemark/webdav:latest
     container_name: webdav
     restart: unless-stopped
-    env_file:
-    - ./.env
+    ports:
+    - ${SERV_PORT:-80}:80
     volumes:
     - ./data:/var/lib/dav
-    ports:
-    - ${SERV_PORT}:80
