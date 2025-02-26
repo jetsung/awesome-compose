@@ -1,5 +1,5 @@
 ---
-# https://github.com/syncthing/syncthing/blob/main/README-Docker.md
+# https://hub.docker.com/r/syncthing/syncthing
 
 services:
   syncthing:

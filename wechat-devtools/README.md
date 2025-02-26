@@ -1,6 +1,6 @@
 # 微信开发者工具
 
-项目地址：https://github.com/msojocs/wechat-web-devtools-linux
+https://github.com/msojocs/wechat-web-devtools-linux
 
 ## 使用
 1. 克隆

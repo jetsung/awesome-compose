@@ -51,7 +51,6 @@
 - vaultwarden-backup
 - webdav
 - wechat-devtools
-- wiz
 - woodpecker
 - xunsearch
 

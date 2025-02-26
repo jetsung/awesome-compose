@@ -1,5 +1,5 @@
 ---
-# https://github.com/valeriansaliou/sonic
+# https://hub.docker.com/r/valeriansaliou/sonic
 
 services:
   sonic:

@@ -1,13 +1,12 @@
 ---
-# https://github.com/ttionya/vaultwarden-backup
-version        : '3'
+# https://hub.docker.com/r/ttionya/vaultwarden-backup
 
 x-backup-common: &backup-common
   image: ttionya/vaultwarden-backup:latest
   restart: unless-stopped
   volumes:
-  - /srv/vaultwarden:/bitwarden/data/
-  - /srv/vaultwarden-backup:/config/
+  - ./data:/bitwarden/data/
+  - ./data:/config/
 
 services       :
   backup1:

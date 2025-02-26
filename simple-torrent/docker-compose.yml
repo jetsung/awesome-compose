@@ -1,9 +1,9 @@
 ---
-# https://github.com/boypt/simple-torrent
+# https://hub.docker.com/r/jpillora/cloud-torrent
 
 services:
   cloud-torrent:
-    image: boypt/cloud-torrent:latest
+    image: jpillora/cloud-torrent:latest
     container_name: cloud-torrent
     restart: unless-stopped
     ports:

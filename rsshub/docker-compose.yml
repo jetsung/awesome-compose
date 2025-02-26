@@ -1,5 +1,5 @@
 ---
-# https://github.com/DIYgod/RSSHub
+# https://hub.docker.com/r/diygod/rsshub
 
 volumes :
   redis-data:

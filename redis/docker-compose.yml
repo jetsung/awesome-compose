@@ -1,5 +1,7 @@
 ---
 # https://hub.docker.com/_/redis
+# https://github.com/redis/docker-library-redis
+
 services:
   redis:
     image: redis:latest

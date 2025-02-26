@@ -1,4 +1,6 @@
 ---
+# https://hub.docker.com/r/umputun/remark42
+
 services:
   remark:
     image: umputun/remark42:latest

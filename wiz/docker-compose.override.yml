@@ -1,7 +1,0 @@
----
-# https://www.wiz.cn/docker.html
-
-services:
-  wiz:
-    env_file:
-    - ./.env
