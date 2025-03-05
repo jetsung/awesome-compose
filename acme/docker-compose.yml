@@ -1,5 +1,5 @@
 ---
-# https://github.com/acmesh-official/acme.sh
+# https://hub.docker.com/r/neilpang/acme.sh
 
 services:
   acme:
