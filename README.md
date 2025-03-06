@@ -12,6 +12,7 @@
 - asciinema
 - bark
 - chanify
+- croc
 - drone
 - emqx
 - etcd

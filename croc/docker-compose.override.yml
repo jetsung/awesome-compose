@@ -1,0 +1,7 @@
+---
+# https://hub.docker.com/r/schollz/croc
+
+services:
+  croc:
+    env_file:
+    - ./.env

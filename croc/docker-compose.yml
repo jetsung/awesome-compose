@@ -1,0 +1,10 @@
+---
+# https://hub.docker.com/r/schollz/croc
+
+services:
+  croc:
+    image: schollz/croc:latest
+    container_name: croc
+    restart: unless-stopped
+    ports:
+    - ${SERV_PORT:-9009-9013}:9009-9013
