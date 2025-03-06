@@ -7,4 +7,5 @@ services:
     container_name: croc
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-9009-9013}:9009-9013
+    - 9009-9013:9009-9013
+    command: [relay]

@@ -110,7 +110,7 @@ do_issue() {
     # shellcheck disable=SC2206
     ARGS=(
         --domain "$DOMAIN"
-        --ddomain "*.$DOMAIN"
+        --domain "*.$DOMAIN"
         --dns "$DNS_TYPE"
         --keylength ec-256
         --ecc
@@ -156,7 +156,6 @@ do_renew() {
     # 签发并部署证书
     # shellcheck disable=SC2086
     $DOCKER_EXEC $RENEW ${EXTEND:-}
-    do_deploy
 }
 
 help_renew() {
@@ -251,7 +250,7 @@ EOF
 # 服务器重载命令（按实际环境修改）
 restart_server() {
     # shellcheck disable=SC2009
-    if [ "$(ps -ef | grep 'nginx: master' | grep -v "grep" | awk '{print $3}')" -eq 1 ]; then
+    if [[ "$(ps -ef | grep 'nginx: master' | grep -v "grep" | awk '{print $3}')" -eq 1 ]]; then
         # 正在运行 nginx
         if [ -f "/etc/init.d/nginx" ]; then
             # bt
@@ -263,7 +262,7 @@ restart_server() {
         fi
         
         echo -e "$(date -R) nginx reload"
-    elif [ "$(ps -ef | grep 'angie: master' | grep -v "grep" | awk '{print $3}')" -eq 1 ]; then
+    elif [[ "$(ps -ef | grep 'angie: master' | grep -v "grep" | awk '{print $3}')" -eq 1 ]]; then
         # 正在运行 angie
         systemctl reload angie
         
@@ -398,7 +397,7 @@ show_top_help() {
     -a,  --action     <ca|is>                执行操作
             ca setca                         切换 CA
             is issue                         签发证书
-            ne renew                         续签证书
+            re renew                         续签证书
             cr cron                          计划任务
             bk backup                        执行备份
 
@@ -417,7 +416,7 @@ show_help() {
             help_issue
             ;;
 
-        'ne' | 'renew')
+        're' | 'renew')
             help_renew
             ;;
 

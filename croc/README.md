@@ -17,4 +17,43 @@
 [1]:https://schollz.com/tinker/croc6
 [2]:https://github.com/schollz/croc
 [3]:https://hub.docker.com/r/schollz/croc
-[4]:https://github.com/schollz/croc?tab=readme-ov-file#usage
+[4]:https://github.com/schollz/croc#usage
+
+## 部署教程
+
+```yaml
+---
+# 默认端口
+
+services:
+  croc:
+    image: schollz/croc:latest
+    container_name: croc
+    restart: unless-stopped
+    ports:
+    - 9009-9013:9009-9013
+
+# 指定端口
+services:
+  croc:
+    image: schollz/croc:latest
+    container_name: croc
+    restart: unless-stopped
+    ports:
+    - 39009-39013:39009-39013
+    command: ["relay", "--ports", "39009,39010,39011,39012,39013"]
+```
+
+## 使用教程
+
+1. 发布消息
+```bash
+# 文件
+croc send <file>
+
+# 文字
+croc send --text hello
+
+# 使用自托管服务发送文件
+croc --relay "myrelay.example.com:39009" send <file>
+```
