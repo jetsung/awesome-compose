@@ -29,6 +29,10 @@ tip() {
     echo -e "\033[32m$1\033[0m"
 }
 
+is_command() {
+    command -v "$1" >/dev/null 2>&1
+}
+
 # 获取执行命令
 get_docker_exec() {
     if docker ps --filter "name=acme.sh" --quiet | grep -q .; then
@@ -38,6 +42,11 @@ get_docker_exec() {
     else
         # 服务器
         DOCKER_EXEC="acme.sh"
+        
+        if ! is_command "$DOCKER_EXEC"; then
+            error_exit "未安装 acme.sh"
+        fi
+        
         if [[ -z "${SSL_PATH:-}" ]]; then
             SSL_PATH="$SAVE_SSL_PATH"
         fi
@@ -52,15 +61,13 @@ get_docker_exec() {
 ## https://zerossl.com 90 days
 ## https://acme.zerossl.com/v2/DV90
 ##
-## https://www.buypass.com 180 days
-## https://api.buypass.com/acme/directory
-## https://api.test4.buypass.no/acme/directory
-##
-## https://cloud.google.com/certificate-manager/docs/public-ca-tutorial
+## https://cloud.google.com/certificate-manager/docs/public-ca-tutorial 90 days
 ## https://dv.acme-v02.api.pki.goog/directory
 ## https://dv.acme-v02.test-api.pki.goog/directory
 ##
-## https://freessl.cn 90 days
+## https://www.buypass.com 180 days
+## https://api.buypass.com/acme/directory
+## https://api.test4.buypass.no/acme/directory
 ##
 do_setca() {
     $DOCKER_EXEC --set-default-ca --server "$CA_SERVER"
@@ -102,12 +109,12 @@ do_issue() {
 
     # shellcheck disable=SC2206
     ARGS=(
-        --ecc
-        --force
-        -d "$DOMAIN"
-        -d "*.$DOMAIN"
+        --domain "$DOMAIN"
+        --ddomain "*.$DOMAIN"
         --dns "$DNS_TYPE"
         --keylength ec-256
+        --ecc
+        --force
         ${EXTEND:-}
     )
 
@@ -132,6 +139,34 @@ help_issue() {
             dns_dpi                          DNSPod 国际版
             ...                              更多请查看 acme.sh 文档
     -ch, --challenge <challenge>             可选, 交换域名
+    -ex, --extend <extend>                   可选, 扩展参数
+
+EOF
+}
+
+do_renew() {
+    if [[ -z "${DOMAIN:-}" ]]; then
+        RENEW="--renew-all"
+    else
+        RENEW="--renew --domain $DOMAIN"
+    fi
+    
+    [[ -n "${FORCE:-}" ]] && RENEW+=" --force"
+
+    # 签发并部署证书
+    # shellcheck disable=SC2086
+    $DOCKER_EXEC $RENEW ${EXTEND:-}
+    do_deploy
+}
+
+help_renew() {
+    cat <<EOF
+用法: $0 -a $ACTION [options]
+      $(warn "续签证书")
+选项:
+    -h,  --help                              显示帮助信息
+    -d,  --domain <domain>                   可选, 记录域名（若无此参数则为全部更新）
+    -fo, --force                             可选, 强制更新
     -ex, --extend <extend>                   可选, 扩展参数
 
 EOF
@@ -164,7 +199,13 @@ do_cron() {
         # 随机生成小时（0-7）
         HOUR=$((RANDOM % 8))
 
-        echo "$MINUTE $HOUR * * * root cd $script_path; /bin/bash ./$script_name --action"
+        if [[ -n "${REAL_SSL_PATH:-}" ]]; then
+            echo "REAL_SSL_PATH=$REAL_SSL_PATH" > ./.confpath
+
+            mkdir -p "$REAL_SSL_PATH"
+            cp "${SAVE_SSL_PATH}/"* "$REAL_SSL_PATH"
+        fi
+
         # 输出随机生成的 Cron 时间
         cat > /etc/cron.d/dockeracme <<EOF
 $MINUTE $HOUR * * * root cd $script_path; /bin/bash ./$script_name --action cron
@@ -173,12 +214,24 @@ EOF
         ;;
         
     *)
-        # 运行定时任务
-        if find "$SAVE_SSL_PATH" -type f -mtime -"$MTIME" | grep -q .; then
+        # 运行定时任务：如果 SSL 证书目录内文件在 $MTIME 天内修改过，则重启服务器
+        if [[ -d "$SAVE_SSL_PATH" ]] && find "$SAVE_SSL_PATH" -type f -mtime -"${MTIME}" | grep -q .; then
+
+            # 若 REAL_SSL_PATH 存在，则将证书复制到 REAL_SSL_PATH
+            if [[ -f ".confpath" ]]; then
+                # shellcheck source=/dev/null
+                source .confpath
+
+                if [[ -n "${REAL_SSL_PATH:-}" ]]; then
+                    SAVE_SSL_PATH="$REAL_SSL_PATH"
+                fi
+            fi       
+
+            # 重启服务器
             restart_server | tee -a "$UPDATE_LOG"
-        fi            
+        fi
         ;;        
-    esac    
+    esac
 }
 
 # 显示帮助信息 定时任务
@@ -189,6 +242,7 @@ help_cron() {
 选项:
     -h,  --help                              显示帮助信息
     -se, --setup                             可选, 安装计划任务（无参数则运行计划任务）
+    -pa, --path <path>                       可选, 证书保存路径, 比如 /usr/local/nginx/conf/ssl 
     -mt, --mtime <mtime>                     可选, 证书更新时间, 默认 1
     
 EOF
@@ -304,7 +358,12 @@ judgment_parameters() {
                 # 扩展参数
                 shift
                 EXTEND="${1:?"错误: 扩展参数 (extend) 不能为空."}"
-                ;;     
+                ;;   
+
+            '-fo' | '--force')
+                # 强制更新
+                FORCE="1"
+                ;;
 
             '-se' | '--setup')
                 SETUP=1
@@ -314,6 +373,11 @@ judgment_parameters() {
                 shift
                 MTIME="${1:?"错误: 最近几天内是否有文件修改 (mtime) 不能为空."}"
                 ;;       
+            '-pa' | '--path')
+                # 证书路径
+                shift
+                REAL_SSL_PATH="${1:?"错误: 证书路径 (path) 不能为空."}"
+                ;;  
 
             *)
                 echo "$0: 未知选项 -- $1" >&2
@@ -334,6 +398,7 @@ show_top_help() {
     -a,  --action     <ca|is>                执行操作
             ca setca                         切换 CA
             is issue                         签发证书
+            ne renew                         续签证书
             cr cron                          计划任务
             bk backup                        执行备份
 
@@ -350,6 +415,10 @@ show_help() {
 
         'is' | 'issue')
             help_issue
+            ;;
+
+        'ne' | 'renew')
+            help_renew
             ;;
 
         'cr' | 'cron')
@@ -397,6 +466,11 @@ main() {
         'is' | 'issue')
             # 签发
             do_issue
+            ;;
+
+        'ne' |'renew')
+            # 续期
+            do_renew
             ;;
 
         'cr' | 'cron')

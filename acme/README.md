@@ -86,6 +86,41 @@ docker compose up -d
 ./deploy.sh -a is -d example.com -ch challenge.com
 ```
 
+5.2 续签证书并且部署
+```bash
+# 或 更新全部域名证书
+./deploy.sh -a ne
+
+# 续签证书
+./deploy.sh -a ne -d example.com
+
+# 强制更新证书
+./deploy.sh -a ne -d example.com -fo
+```
+
+6. 安装定时任务
+```bash
+# 安装定时任务
+./deploy.sh -a cr --setup
+
+# 安装定时任务并指定证书路径。默认路径为 ${PWD}/data/ssl
+./deploy.sh -a cr --setup --path /usr/local/nginx/conf/ssl
+```
+
+5. 执行定时任务
+```bash
+# 执行定时任务更新服务器与证书
+./deploy.sh -a cr
+```
+
+6. 查看证书
+```bash
+# 查看证书
+ls "${PWD}/data/ssl"
+```
+
+### 部署到 Nginx
+
 ## 官方教程
 
 - https://github.com/acmesh-official/acme.sh/wiki/dns-manual-mode
