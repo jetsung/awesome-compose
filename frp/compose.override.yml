@@ -1,5 +1,4 @@
 ---
-# https://github.com/fatedier/frp
 
 services:
   frps:

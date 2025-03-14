@@ -1,6 +1,56 @@
-# docker-compose
+# awesome-compose
 
-[**Play With Docker**](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/jetsung/docker-compose/refs/heads/main/filetas/docker-compose.yml)
+我的 `docker-compose` 仓库
+
+[**Compose 规范**](https://github.com/compose-spec/compose-spec) ● 
+
+[**Play With Docker**](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/compose.yml)
+
+## 待办
+
+- [ ] 将 `docker-compose.yml` 改名为 `compose.yml`
+- [ ] 重写 `README.md`
+
+> 审阅至 `frp`
+
+## 规范
+
+- 每个服务都可以有一个 `.env` 文件
+- 每个服务都有一个单独的 `compose.yml` 文件和 `override.yml` 文件
+- 每个服务都有一个单独的 `README.md` 文件
+
+### 模板
+- **README.md** 
+   ```markdown
+   # 服务名
+
+   [Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+
+   ---
+
+   > [服务名][1] 
+
+   [1]:
+   [2]:
+   [3]:
+   [4]:
+   ```
+
+- **override.yml**
+  ```yaml
+  ---
+
+  services:
+    SERVER_NAME:
+      env_file:
+      - ./.env
+  ```
+
+- **.env**
+  ```dotenv
+  TZ=Asia/Shanghai
+  SERV_PORT=
+  ```
 
 ## 列表
 
@@ -79,7 +129,7 @@
 
 ## 仓库镜像
 
-- https://git.jetsung.com/jetsung/docker-compose
-- https://framagit.org/jetsung/docker-compose
-- https://gitcode.com/jetsung/docker-compose
-- https://github.com/jetsung/docker-compose
+- https://git.jetsung.com/jetsung/awesome-compose
+- https://framagit.org/jetsung/awesome-compose
+- https://gitcode.com/jetsung/awesome-compose
+- https://github.com/jetsung/awesome-compose

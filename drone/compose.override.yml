@@ -1,5 +1,4 @@
 ---
-# https://github.com/harness/drone
 
 services:
   drone-server:

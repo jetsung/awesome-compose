@@ -166,7 +166,7 @@ ls "${PWD}/data/ssl"
     }
   ```
 
-- **Nginx 域名配置**
+- **Nginx 域名配置**   
 泛域名通用配置位于 `/usr/local/nginx/conf/vhost/hello.example.com`   
   ```nginx
     server {

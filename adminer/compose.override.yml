@@ -1,5 +1,4 @@
 ---
-# https://github.com/TimWolla/docker-adminer
 
 services:
   adminer:

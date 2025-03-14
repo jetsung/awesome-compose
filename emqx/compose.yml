@@ -1,5 +1,5 @@
 ---
-# https://github.com/emqx/emqx
+# https://hub.docker.com/r/emqx/emqx
 
 services:
   emqx:

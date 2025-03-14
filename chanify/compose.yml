@@ -1,5 +1,5 @@
 ---
-# https://github.com/chanify/chanify
+# https://hub.docker.com/r/wizjin/chanify
 
 services:
   chanify:

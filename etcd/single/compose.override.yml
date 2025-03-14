@@ -1,7 +1,6 @@
 ---
-# https://github.com/emqx/emqx
 
 services:
-  emqx:
+  etcd:
     env_file:
     - ./.env

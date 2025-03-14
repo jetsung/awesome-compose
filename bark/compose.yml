@@ -1,5 +1,5 @@
 ---
-# https://github.com/Finb/bark-server
+# https://hub.docker.com/r/finab/bark-server
 
 services:
   bark:

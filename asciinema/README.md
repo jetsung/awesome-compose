@@ -1,6 +1,15 @@
-# asciinema
+# asciinema server
 
-> [asciinema server](https://github.com/asciinema/asciinema-server)    
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+
+---
+
+> [asciinema server][1] 是一个免费的开源解决方案，用于录制终端会话并在 Web 上共享它们。
+
+[1]:https://asciinema.org/
+[2]:https://github.com/asciinema/asciinema-server
+[3]:https://ghcr.io/asciinema/asciinema-server
+[4]:https://docs.asciinema.org/manual/server/
 
 ## 前置服务
 1. 安装 `nginx` 和 `docker`

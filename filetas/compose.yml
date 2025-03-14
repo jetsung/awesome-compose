@@ -1,5 +1,6 @@
 ---
-# https://github.com/idevsig/filetas
+# https://hub.docker.com/r/idevsig/filetas
+
 services:
   filetas:
     image: idevsig/filetas:latest

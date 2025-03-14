@@ -199,7 +199,7 @@ do_cron() {
         HOUR=$((RANDOM % 8))
 
         if [[ -n "${REAL_SSL_PATH:-}" ]]; then
-            echo "REAL_SSL_PATH=$REAL_SSL_PATH" > ./.confpath
+            echo "REAL_SSL_PATH=$REAL_SSL_PATH" > ./.conf
 
             mkdir -p "$REAL_SSL_PATH"
             cp "${SAVE_SSL_PATH}/"* "$REAL_SSL_PATH"
@@ -217,9 +217,9 @@ EOF
         if [[ -d "$SAVE_SSL_PATH" ]] && find "$SAVE_SSL_PATH" -type f -mtime -"${MTIME}" | grep -q .; then
 
             # 若 REAL_SSL_PATH 存在，则将证书复制到 REAL_SSL_PATH
-            if [[ -f ".confpath" ]]; then
+            if [[ -f ".conf" ]]; then
                 # shellcheck source=/dev/null
-                source .confpath
+                source .conf
 
                 if [[ -n "${REAL_SSL_PATH:-}" ]]; then
                     SAVE_SSL_PATH="$REAL_SSL_PATH"

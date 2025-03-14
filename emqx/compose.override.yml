@@ -1,7 +1,6 @@
 ---
-# https://github.com/etcd-io/etcd
 
 services:
-  etcd:
+  emqx:
     env_file:
     - ./.env
