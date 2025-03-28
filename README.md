@@ -16,35 +16,35 @@
 ## 规范
 
 - 每个服务都可以有一个 `.env` 文件
-- 每个服务都有一个单独的 `compose.yml` 文件和 `override.yml` 文件
+- 每个服务都有一个单独的 `compose.yml` 文件和 `compose.override.yml` 文件
 - 每个服务都有一个单独的 `README.md` 文件
 
 ### 模板
 - **README.md** 
-   ```markdown
-   # 服务名
+```markdown
+# 服务名
 
-   [Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
 
-   ---
+---
 
-   > [服务名][1] 
+> [服务名][1] 
 
-   [1]:
-   [2]:
-   [3]:
-   [4]:
-   ```
+[1]:
+[2]:
+[3]:
+[4]:
+```
 
-- **override.yml**
-  ```yaml
-  ---
+- **compose.override.yml**
+```yaml
+---
 
-  services:
-    SERVER_NAME:
-      env_file:
-      - ./.env
-  ```
+services:
+  SERVER_NAME:
+    env_file:
+    - ./.env
+```
 
 - **.env**
   ```dotenv
