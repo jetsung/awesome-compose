@@ -1,0 +1,13 @@
+---
+# https://hub.docker.com/r/valkey/valkey
+# https://github.com/valkey-io/valkey-container
+
+services:
+  valkey:
+    image: valkey/valkey:latest
+    container_name: valkey
+    restart: unless-stopped
+    volumes:
+    - ./data:/data
+    ports:
+    - ${SERV_PORT:-6379}:6379

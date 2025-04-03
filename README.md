@@ -98,6 +98,7 @@ services:
 - swagger
 - syncthing
 - transfer
+- valkey
 - vaultwarden
 - vaultwarden-backup
 - webdav
