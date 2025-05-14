@@ -1,0 +1,7 @@
+---
+# https://github.com/idevsig/shortener-server
+
+services:
+  shortener:
+    env_file:
+    - ./.env
