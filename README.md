@@ -81,6 +81,7 @@ services:
 - minio
 - mysql
 - nginx-php
+- ntfy
 - open-webui
 - pgadmin
 - phpmyadmin
@@ -92,6 +93,7 @@ services:
 - remark42
 - rsshub
 - rustpad
+- shortener
 - simple-torrent
 - sonic
 - stalwart
