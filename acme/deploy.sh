@@ -181,7 +181,8 @@ do_deploy() {
         --ecc \
         -d "$DOMAIN" \
         --key-file "${SSL_PATH}/${DOMAIN}.key" \
-        --fullchain-file "${SSL_PATH}/${DOMAIN}.fullchain.cer"
+        --fullchain-file "${SSL_PATH}/${DOMAIN}.fullchain.cer" \
+        --ca-file "${SSL_PATH}/${DOMAIN}.ca.cer"
 }
 
 # 定时任务
@@ -467,7 +468,7 @@ main() {
             do_issue
             ;;
 
-        'ne' |'renew')
+        're' |'renew')
             # 续期
             do_renew
             ;;

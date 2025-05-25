@@ -6,12 +6,15 @@ services:
     image: emqx/emqx:latest
     container_name: emqx
     restart: unless-stopped
+    user: 0:0
     ports:
-    - ${MQTT_PORT:-1883}:1883
+    - ${TCP_PORT:-1883}:1883
+    - ${SSL_PORT:-8883}:8883
     - ${WS_PORT:-8083}:8083
-    - ${HTTP_PORT:-8084}:8084
-    - ${MQTTS_PORT:-8883}:8883
+    - ${WSS_PORT:-8084}:8084
     - ${DASH_PORT:-18083}:18083
     volumes:
     - ./data/data:/opt/emqx/data
     - ./data/log:/opt/emqx/log
+    # - /srv/acme/ssl/emqx.io.key:/etc/emqx/certs/emqx.key
+    # - /srv/acme/ssl/emqx.io.fullchain.cer:/etc/emqx/certs/emqx.cer
