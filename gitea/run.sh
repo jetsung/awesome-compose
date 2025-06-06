@@ -6,38 +6,39 @@ load_vars() {
 }
 
 download_files() {
-    local FILES="Caddyfile README.md docker-compose.caddy.yml docker-compose.yml docker-compose.nginx.yml nginx.conf run.sh .env"
+    local FILES="README.md compose.yml compose.override.yml Caddyfile nginx.conf run.sh .env"
     for FILE in ${FILES}; do
         if [ ! -f "${FILE}" ]; then
-            printf "Fetching file '${FILE}'\n"
+            echo "Fetching file '${FILE}'"
             wget -q "${DOWN_URL}/${FILE}"
         fi
     done
 }
 
 check_docker() {
-    local CHECK_CMD=$(docker compose version 2>&1)
+    local CHECK_CMD
+    CHECK_CMD=$(docker compose version 2>&1)
 
     if [[ "${CHECK_CMD}" =~ "not" ]]; then
-        printf "${CHECK_CMD}\n"
+        echo "${CHECK_CMD}"
         exit 1
     fi
 }
 
 all_start_caddy() {
-    docker compose -f docker-compose.yml -f docker-compose.caddy.yml up -d
+    docker compose --profile caddy up -d
 }
 
 all_stop_caddy() {
-    docker compose -f docker-compose.yml -f docker-compose.caddy.yml down
+    docker compose --profile caddy down
 }
 
 all_start_nginx() {
-    docker compose -f docker-compose.yml -f docker-compose.nginx.yml up -d
+    docker compose --profile nginx up -d
 }
 
 all_stop_nginx() {
-    docker compose -f docker-compose.yml -f docker-compose.nginx.yml down
+    docker compose --profile nginx down
 }
 
 first_install() {
@@ -50,7 +51,7 @@ first_install() {
     if [[ -z "${1}" ]]; then
         docker compose up -d
     else
-        sed -i "s/[^#]\- 3000/\#\- 3000/" ./docker-compose.yml
+        sed -i "s/[^#]\- 3000/\#\- 3000/" ./compose.yml
         sed -i "s/.*{/${1} {/" ./Caddyfile
         all_start_caddy
     fi
@@ -105,7 +106,7 @@ update_drone_files() {
     sed -ri "s#(DRONE_RPC_SECRET=).*#\1${DRONE_RPC_SECRET}#" "${DRONE_ENV}"
     sed -ri "s#(DRONE_SERVER_HOST=).*#\1${DRONE_SERVER_HOST}#" "${DRONE_ENV}"
 
-    if [ -z "`grep ${DRONE_SERVER_HOST} ./Caddyfile`" ];then
+    if grep -q "${DRONE_SERVER_HOST}" ./Caddyfile;then
         tee -a ./Caddyfile << EOF
         
 ${DRONE_SERVER_HOST} {
@@ -149,7 +150,7 @@ update_woodpecker_files() {
     sed -ri "s#(WOODPECKER_AGENT_SECRET=).*#\1${WOODPECKER_AGENT_SECRET}#" "${WOODPECKER_ENV}"
     sed -ri "s#(WOODPECKER_HOST=).*#\1https\:\/\/${WOODPECKER_HOST}#" "${WOODPECKER_ENV}"
 
-    if [ -z "`grep ${WOODPECKER_HOST} ./Caddyfile`" ];then
+    if grep -q "${WOODPECKER_HOST}" ./Caddyfile;then
         tee -a ./Caddyfile << EOF
         
 ${WOODPECKER_HOST} {
@@ -222,22 +223,22 @@ main() {
     fi
 
     case "${1}" in
-        stop | stop_caddy)
+        cstop | stop_caddy)
             echo "stop caddy"
             all_stop_caddy
         ;;
 
-        start | start_caddy)
+        cstart | start_caddy)
             echo "start caddy"
             all_start_caddy
         ;;
 
-        stop2 | stop_nginx)
+        nstop | stop_nginx)
             echo "stop nginx"
             all_stop_nginx
         ;;
 
-        start2 | start_nginx)
+        nstart | start_nginx)
             echo "start nginx"
             all_start_nginx
         ;;

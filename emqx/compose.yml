@@ -6,13 +6,14 @@ services:
     image: emqx/emqx:latest
     container_name: emqx
     restart: unless-stopped
-    user: 0:0
+    user: $EMQX_UID:$EMQX_GID
     ports:
     - ${TCP_PORT:-1883}:1883
     - ${SSL_PORT:-8883}:8883
     - ${WS_PORT:-8083}:8083
     - ${WSS_PORT:-8084}:8084
-    - ${DASH_PORT:-18083}:18083
+    - ${HTTP_PORT:-18083}:18083
+    - ${HTTPS_PORT:-18084}:18084
     volumes:
     - ./data/data:/opt/emqx/data
     - ./data/log:/opt/emqx/log

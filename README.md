@@ -11,7 +11,7 @@
 - [ ] 将 `docker-compose.yml` 改名为 `compose.yml`
 - [ ] 重写 `README.md`
 
-> 审阅至 `frp`
+> 审阅至 `gitea`
 
 ## 规范
 

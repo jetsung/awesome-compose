@@ -13,6 +13,7 @@
 
 ## 配置
 
+- 放开端口：`1883,8883,8083,8084,18083,18084`
 - 配置文件：`/opt/emqx/etc/emqx.conf`
 - [环境变量](https://docs.emqx.com/zh/emqx/latest/configuration/dashboard.html)
 - [首次登录](https://docs.emqx.com/zh/emqx/latest/dashboard/introduction.html#%E9%A6%96%E6%AC%A1%E7%99%BB%E5%BD%95)
@@ -51,6 +52,14 @@
     EMQX_LISTENERS__WSS__DEFAULT__SSL_OPTIONS__CERTFILE=/etc/emqx/certs/emqx.cer
     EMQX_LISTENERS__WSS__DEFAULT__SSL_OPTIONS__KEYFILE=/etc/emqx/certs/emqx.key
     EMQX_LISTENERS__WSS__DEFAULT__SSL_OPTIONS__CACERTFILE=
+    ```
+
+- [DASHBOARD 配置](https://docs.emqx.com/zh/emqx/latest/configuration/dashboard.html)
+    1. 修改 `.env` 配置文件，去除 `#` 注释
+    ```bash
+    #EMQX_DASHBOARD__LISTENERS__HTTPS__BIND=0.0.0.0:18084
+    #EMQX_DASHBOARD__LISTENERS__HTTPS__SSL_OPTIONS__CERTFILE=/etc/emqx/certs/emqx.cer 
+    #EMQX_DASHBOARD__LISTENERS__HTTPS__SSL_OPTIONS__KEYFILE=/etc/emqx/certs/emqx.key
     ```
 
 ## 运行
