@@ -106,6 +106,7 @@ services:
 - webdav
 - wechat-devtools
 - woodpecker
+- wordpress
 - xunsearch
 
 ## 提交与格式化
