@@ -134,3 +134,13 @@ cp -r /path/to/wordpress/wp-content/themes ./data/wordpress/wp-content/themes
 # 每天凌晨 0 点执行备份
 0 0 * * * /path/to/backup.sh
 ```
+
+### 通过 Rest API 发布文章
+
+1. 添加用户 robot，角色选择“作者（Author）”。
+2. 为 robot 用户生成一个 API 密钥。
+3. 将上述密钥添加到 [Python 脚本 `publish.py`](publish.py)对应的配置信息。
+4. 执行脚本
+```bash
+python publish.py
+```
