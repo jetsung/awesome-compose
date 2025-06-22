@@ -1,0 +1,8 @@
+---
+services:
+  video-downloader:
+    image: ghcr.io/idevsig/video-downloader:dev
+    container_name: video-downloader
+    restart: unless-stopped
+    volumes:
+    - ./downloads:/app/downloads

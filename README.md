@@ -103,6 +103,7 @@ services:
 - valkey
 - vaultwarden
 - vaultwarden-backup
+- video-downloader
 - webdav
 - wechat-devtools
 - woodpecker
