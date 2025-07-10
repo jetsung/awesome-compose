@@ -6,13 +6,6 @@
 
 [**Play With Docker**](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/compose.yml)
 
-## 待办
-
-- [ ] 将 `docker-compose.yml` 改名为 `compose.yml`
-- [ ] 重写 `README.md`
-
-> 审阅至 `gitea`
-
 ## 规范
 
 - 每个服务都可以有一个 `.env` 文件
@@ -56,7 +49,6 @@ services:
 
 - acme
 - adminer
-- alist
 - aliyundrive
 - aliyunpan
 - asciinema
@@ -83,8 +75,11 @@ services:
 - nginx-php
 - ntfy
 - open-webui
+- openlist
 - pgadmin
+- pgadmin-db
 - phpmyadmin
+- phpmyadmin-db
 - postgres
 - qbittorrent
 - qinglong
@@ -118,6 +113,8 @@ services:
 
   ```python
   pip install pre-commit
+  # or uv
+  uv tool install pre-commit
 
   # ever commit
   pre-commit install

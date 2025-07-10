@@ -1,5 +1,5 @@
 ---
 services:
-  phpmyadmin:
+  mail-server:
     env_file:
     - ./.env

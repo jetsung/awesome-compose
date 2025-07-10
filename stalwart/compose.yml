@@ -20,3 +20,15 @@ services:
     - ${IMAPS_PORT:-993}:993
     - ${POP3_PORT:-110}:110
     - ${POP3S_PORT:-995}:995
+
+  mail-server-host:
+    image: stalwartlabs/mail-server:latest
+    container_name: stalwart-mail
+    tty: true
+    stdin_open: true
+    volumes:
+    - ./data:/opt/stalwart-mail
+    - /opt/stalwart-mail/webadmin.zip:/tmp/webadmin.zip
+    network_mode: host
+    profiles:
+    - host

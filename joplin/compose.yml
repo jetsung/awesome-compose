@@ -1,5 +1,5 @@
 ---
-# https://github.com/laurent22/joplin/tree/dev/packages/server
+# http://hub.docker.com/r/joplin/server
 
 services:
   joplin:

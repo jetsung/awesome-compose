@@ -1,5 +1,5 @@
 ---
-# https://github.com/open-webui/open-webui
+# https://github.com/orgs/open-webui/packages/container/package/open-webui
 
 services:
   webui:

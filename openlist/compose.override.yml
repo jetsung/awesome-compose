@@ -1,6 +1,6 @@
 ---
 
 services:
-  alist:
+  openlist:
     env_file:
     - ./.env

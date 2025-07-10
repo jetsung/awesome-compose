@@ -1,0 +1,17 @@
+---
+# https://hub.docker.com/r/openlistteam/openlist
+
+services:
+  openlist:
+    image: openlistteam/openlist:latest
+    container_name: openlist
+    restart: unless-stopped
+    ports:
+    - ${SERV_PORT:-5244}:5244
+    volumes:
+    - ./data:/opt/openlist/data
+
+  ocr:
+    image: openlistteam/ocr_api_server:main
+    container_name: ocr
+    restart: unless-stopped

@@ -1,8 +1,17 @@
 # hedgedoc
 
-> 实时协作的 Markdown [笔记](https://docs.hedgedoc.dev/tutorials/setup/)   
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
 
-https://github.com/hedgedoc/hedgedoc
+---
+
+> [hedgedoc][1] 是一款实时协作的 Markdown 笔记
+
+[1]:https://docs.hedgedoc.dev/
+[2]:https://github.com/hedgedoc/hedgedoc
+[3]:https://github.com/orgs/hedgedoc/packages?repo_name=hedgedoc
+[4]:https://docs.hedgedoc.dev/tutorials/setup/
+
+---
 
 ## 部署教程
 1. **使用 Docker Compose 部署**

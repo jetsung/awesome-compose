@@ -1,9 +1,9 @@
 ---
-# https://github.com/mindoc-org/mindoc/blob/master/docker-compose.yml
+# https://hub.docker.com/r/forkdo/mindoc
 
 services:
   mindoc:
-    image: ghcr.io/forkdo/mindoc:latest
+    image: forkdo/mindoc:latest
     container_name: mindoc
     privileged: false
     restart: unless-stopped

@@ -1,6 +1,17 @@
 # listmonk
 
-> 高性能，自托管，通讯和邮件列表管理器与现代仪表板。单二进制应用程序。
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+
+---
+
+> [listmonk][1] 是一个自托管的、高性能的单向邮件列表和新闻通讯管理器。它作为独立的二进制文件提供，唯一的依赖项是 Postgres 数据库。
+
+[1]:https://listmonk.app/
+[2]:https://github.com/knadh/listmonk
+[3]:https://hub.docker.com/r/listmonk/listmonk
+[4]:https://listmonk.app/docs/
+
+---
 
 listmonk is a standalone, self-hosted, newsletter and mailing list manager. It is fast, feature-rich, and packed into a single binary. It uses a PostgreSQL (⩾ 12) database as its data store.
 
@@ -35,7 +46,3 @@ See [installation docs](https://listmonk.app/docs/installation)
 - Run `./listmonk` and visit `http://localhost:9000`
 
 See [installation docs](https://listmonk.app/docs/installation)
-
----
-
-https://github.com/knadh/listmonk

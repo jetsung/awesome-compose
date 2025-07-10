@@ -1,5 +1,5 @@
 ---
-# https://www.meilisearch.com/docs/guides/misc/docker
+# http://hub.docker.com/r/getmeili/meilisearch
 
 services:
   meilisearch:
