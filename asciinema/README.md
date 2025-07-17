@@ -183,6 +183,7 @@ config :asciinema, Asciinema.Emails.Mailer,
     customize_hostname_check: [match_fun: :public_key.pkix_verify_hostname_match_fun(:https)]
   ]
 ```
+或者跳过验证（不安全）
 ```exs
 # custom.exs
 import Config
