@@ -117,7 +117,7 @@
 
   # SMTP 加密配置
   SMTP_TLS=always # 加密方式
-  SMTP_ALLOWED_TLS_VERSIONS=tlsv1.2 # 允许的 TLS 版本
+  SMTP_ALLOWED_TLS_VERSIONS=tlsv1.2,tlsv1.3 # 允许的 TLS 版本
 
   # SMTP 认证配置
   SMTP_AUTH=always # 验证方式
@@ -164,3 +164,31 @@
   docker compose exec asciinema admin_add admin@example.com
   ```
   
+- 邮箱配置如果出现无法发送邮件，可[**自行扩展**](https://docs.asciinema.org/manual/server/self-hosting/configuration/#advanced-configuration)
+> 此问题暂时无法修复，但可临时禁止检测
+```yaml
+# compose.yml
+    volumes:
+      - ./custom.exs:/opt/app/etc/custom.exs
+```
+```exs
+# custom.exs
+import Config
+
+config :asciinema, Asciinema.Emails.Mailer,
+  tls_options: [
+    cacerts: :public_key.cacerts_get(), 
+    server_name_indication: ~c"#{System.get_env("SMTP_HOST")}",
+    depth: 99,
+    customize_hostname_check: [match_fun: :public_key.pkix_verify_hostname_match_fun(:https)]
+  ]
+```
+```exs
+# custom.exs
+import Config
+
+config :asciinema, Asciinema.Emails.Mailer,
+  tls_options: [
+    verify: :verify_none, # <-- TEMPORARY FOR DEBUGGING ONLY! NOT FOR PRODUCTION!
+  ]
+```

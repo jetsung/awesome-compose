@@ -8,7 +8,8 @@ services:
     ports:
     - ${SERV_PORT:-4000}:4000
     volumes:
-    - asciinema_data:/var/opt/asciinema
+    - ./custom.exs:/opt/app/etc/custom.exs
+    - ./data/asciinema:/var/opt/asciinema
     depends_on:
       postgres:
         condition: service_healthy
@@ -17,12 +18,23 @@ services:
     environment:
     - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
-    - postgres_data:/var/lib/postgresql/data
+    - ./data/postgres:/var/lib/postgresql/data
     healthcheck:
       test: [CMD-SHELL, pg_isready -U postgres]
       interval: 2s
       timeout: 5s
       retries: 10
-volumes :
-  asciinema_data:
-  postgres_data:
+  asciinema-local:
+    image: ghcr.io/asciinema/asciinema-server:latest
+    container_name: asciinema
+    ports:
+    - ${SERV_PORT:-4000}:4000
+    environment:
+    - DATABASE_URL=postgresql://username:password@host.docker.internal/dbname
+    volumes:
+    - ./custom.exs:/opt/app/etc/custom.exs
+    - ./data/asciinema:/var/opt/asciinema
+    extra_hosts:
+    - host.docker.internal:host-gateway
+    profiles:
+    - local
