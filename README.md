@@ -92,6 +92,7 @@ services:
 - simple-torrent
 - sonic
 - stalwart
+- static-web-server
 - swagger
 - syncthing
 - transfer

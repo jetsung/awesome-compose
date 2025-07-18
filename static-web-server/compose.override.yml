@@ -1,6 +1,6 @@
 ---
 
 services:
-  sonic:
+  static-web-server:
     env_file:
     - ./.env

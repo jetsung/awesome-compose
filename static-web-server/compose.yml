@@ -1,0 +1,12 @@
+---
+# https://github.com/orgs/static-web-server/packages/container/package/static-web-server
+
+services:
+  static-web-server:
+    image: ghcr.io/static-web-server/static-web-server:latest
+    restart: unless-stopped
+    volumes:
+    - ./data/downloads:/app/downloads
+    ports:
+    - ${SERV_PORT:-80}:80
+    command: [--root, /app/downloads, -z]
