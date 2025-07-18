@@ -1,0 +1,14 @@
+* {
+    auto_tls_cache "/var/cache/acme-cache"
+}
+
+// Replace "example.com" with your website's domain name
+example.com {
+    root "/var/www/ferron"
+}
+
+*:80 {
+    no_redirect_to_https
+    root "/var/www/ferron"
+    directory_listing
+}
