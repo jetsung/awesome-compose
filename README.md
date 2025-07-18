@@ -58,6 +58,7 @@ services:
 - drone
 - emqx
 - etcd
+- ferron
 - filetas
 - frp
 - gitea

@@ -1,0 +1,38 @@
+---
+# https://hub.docker.com/r/ferronserver/ferron
+
+services:
+  ferron:
+    image: ferronserver/ferron:latest
+    restart: unless-stopped
+    volumes:
+    - ./data/html:/var/www/ferron
+    ports:
+    - ${SERV_PORT:-80}:80
+
+  # Ferron container
+  ferron-server:
+    image: ferronserver/ferron:latest
+    restart: unless-stopped
+    ports:
+    - 80:80
+    - 443:443
+    volumes:
+    - ./ferron.yaml:/etc/ferron.yaml     # Ferron configuration file
+    - ./data/ferron-acme:/var/cache/acme-cache     # This volume is needed for persistent automatic TLS cache, otherwise the web server will obtain a new certificate on each restart
+    depends_on:
+      ferron-acme-change-vol-ownership:
+        condition: service_completed_successfully
+    profiles:
+    - acme
+
+  # Container to change ownership of the volume, necessary for the ACME cache to work properly
+  ferron-acme-change-vol-ownership:
+    image: alpine
+    restart: unless-stopped
+    user: root
+    volumes:
+    - ./data/ferron-acme:/tmp/change-ownership
+    command: chown nobody:nogroup /tmp/change-ownership
+    profiles:
+    - acme

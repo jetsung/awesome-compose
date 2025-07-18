@@ -1,0 +1,6 @@
+---
+
+services:
+  ferron:
+    env_file:
+    - .env

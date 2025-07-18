@@ -24,7 +24,7 @@ docker compose up -d
 1. 本地启动时，可能会出现错误：
 
 ```bash
-rror response from daemon: driver failed programming external connectivity on endpoint nginx (xxx): Error starting userland proxy: error while calling PortManager.AddPort(): cannot expose privileged port 80, you can add 'net.ipv4.ip_unprivileged_port_start=80' to /etc/sysctl.conf (currently 1024), or set CAP_NET_BIND_SERVICE on rootlesskit binary, or choose a larger port number (>= 1024): listen tcp4 0.0.0.0:80: bind: permission denied
+error response from daemon: driver failed programming external connectivity on endpoint nginx (xxx): Error starting userland proxy: error while calling PortManager.AddPort(): cannot expose privileged port 80, you can add 'net.ipv4.ip_unprivileged_port_start=80' to /etc/sysctl.conf (currently 1024), or set CAP_NET_BIND_SERVICE on rootlesskit binary, or choose a larger port number (>= 1024): listen tcp4 0.0.0.0:80: bind: permission denied
 ```
 
 **原因**：  

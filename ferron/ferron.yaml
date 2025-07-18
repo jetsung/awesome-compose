@@ -1,0 +1,9 @@
+---
+global:
+  secure: true
+  enableAutomaticTLS: true
+  automaticTLSContactCacheDirectory: /var/cache/acme-cache
+
+hosts :
+- domain: example.com     # Replace "example.com" with your website's domain name
+  wwwroot: /var/www/ferron
