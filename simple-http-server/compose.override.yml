@@ -1,0 +1,6 @@
+---
+
+services:
+  simple-http-server:
+    env_file:
+    - ./.env

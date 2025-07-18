@@ -89,6 +89,7 @@ services:
 - rsshub
 - rustpad
 - shortener
+- simple-http-server
 - simple-torrent
 - sonic
 - stalwart

@@ -1,0 +1,12 @@
+---
+# https://github.com/forkdo/simple-http-server/pkgs/container/simple-http-server
+
+services:
+  simple-http-server:
+    image: ghcr.io/forkdo/simple-http-server:latest
+    restart: unless-stopped
+    volumes:
+    - ./data/html:/var/www/html
+    ports:
+    - ${SERV_PORT:-8000}:8000
+    command: [--index]
