@@ -56,6 +56,7 @@ services:
 - chanify
 - croc
 - drone
+- dufs
 - emqx
 - etcd
 - ferron

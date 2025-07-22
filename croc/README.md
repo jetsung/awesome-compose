@@ -19,6 +19,7 @@
 [3]:https://hub.docker.com/r/schollz/croc
 [4]:https://github.com/schollz/croc#usage
 
+---
 ## 部署教程
 
 ```yaml
@@ -56,4 +57,10 @@ croc send --text hello
 
 # 使用自托管服务发送文件
 croc --relay "myrelay.example.com:39009" send <file>
+# 带密钥
+CROC_SECRET=***  --relay "myrelay.example.com:39009" send <file>
+
+# 或者设置环境变量
+export CROC_RELAY="myrelay.example.com:39009"
+export CROC_PASS="mycroc"
 ```

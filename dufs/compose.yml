@@ -1,0 +1,12 @@
+---
+# https://hub.docker.com/r/sigoden/dufs
+
+services:
+  dufs:
+    image: sigoden/dufs:latest
+    container_name: dufs
+    restart: unless-stopped
+    ports:
+    - ${SERV_PORT:-5000}:5000
+    volumes:
+    - ./data:/data
