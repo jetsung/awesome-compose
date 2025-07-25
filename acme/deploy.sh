@@ -73,12 +73,17 @@ do_setca() {
     $DOCKER_EXEC --set-default-ca --server "$CA_SERVER"
     
     if [[ -n "${CA_EMAIL:-}" ]]; then
+        # shellcheck disable=SC2206
+        ARGS=(
+            --server "$CA_SERVER" 
+            --email "$CA_EMAIL"
+            ${EXTEND:-}
+        )        
         if [[ -n "${EAB_KID:-}" ]] && [[ -n "${EAB_HMAC_KEY:-}" ]]; then
-            $DOCKER_EXEC --register-account --server "$CA_SERVER" --email "$CA_EMAIL" \
-                --eab-kid "$EAB_KID" --eab-hmac-key "$EAB_HMAC_KEY"
-        else
-            $DOCKER_EXEC --register-account --server "$CA_SERVER" --email "$CA_EMAIL"
+            ARGS+=(--eab-kid "$EAB_KID" --eab-hmac-key "$EAB_HMAC_KEY")
         fi
+        
+        $DOCKER_EXEC --register-account "${ARGS[@]}"
     fi    
 }
 
@@ -94,6 +99,7 @@ help_setca() {
 
     -ek, --eab-kid <eab-kid>                 可选, 设置 EAB 密钥 ID
     -eh, --eab-hmac-key <eab-hmac-key>       可选, 设置 EAB HMAC 密钥
+    -ex, --extend <extend>                   可选, 扩展参数
 
 EOF
 }
@@ -177,12 +183,13 @@ do_deploy() {
         error_exit "错误: 域名 (domain) 不能为空."
     fi
 
+    # shellcheck disable=SC2086
     $DOCKER_EXEC --install-cert \
         --ecc \
         -d "$DOMAIN" \
         --key-file "${SSL_PATH}/${DOMAIN}.key" \
         --fullchain-file "${SSL_PATH}/${DOMAIN}.fullchain.cer" \
-        --ca-file "${SSL_PATH}/${DOMAIN}.ca.cer"
+        --ca-file "${SSL_PATH}/${DOMAIN}.ca.cer" ${EXTEND:-}
 }
 
 # 定时任务

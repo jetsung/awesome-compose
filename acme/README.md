@@ -229,4 +229,30 @@ docker exec acme.sh --renew --dns --keylength ec-256 --ecc --force --yes-I-know-
 docker exec acme.sh --install-cert --ecc --key-file /data/ssl/xx.com.key --fullchain-file /data/ssl/xx.com.fullchain.cer -d xx.com
 ```
 
+### [Google Public CA](https://cloud.google.com/certificate-manager/docs/public-ca-tutorial?hl=zh-cn)
+1. [GCP 控制台面板](https://console.cloud.google.com/apis/library/publicca.googleapis.com)
+   ```bash
+	gcloud services enable publicca.googleapis.com
+	```
+
+2. 创建项目
+   ```bash
+   # 若项目不存在
+	gcloud projects create [project ID]
+	
+	gcloud config set project [project ID]
+   ```
+
+3. 获取 EAB 密钥 ID 和 HMAC
+	```bash
+	gcloud publicca external-account-keys create
+	```
+
+4. 生成
+   ```bash
+    Created an external account key
+    [b64MacKey: xxxxxxxxxxxxxxxxxxxxxxx eab-kid
+    keyId: xxxxxxxxxxxxxxx] eab-hmac-key
+   ```
+
 ## [更多文档说明](https://forum.idev.top/d/525)
