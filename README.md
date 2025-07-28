@@ -60,6 +60,7 @@ services:
 - emqx
 - etcd
 - ferron
+- file-downloader
 - filetas
 - frp
 - gitea
@@ -102,7 +103,6 @@ services:
 - valkey
 - vaultwarden
 - vaultwarden-backup
-- video-downloader
 - webdav
 - wechat-devtools
 - woodpecker

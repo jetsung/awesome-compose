@@ -1,5 +1,5 @@
 ---
 services:
-  video-downloader:
+  file-downloader:
     env_file:
     - ./.env
