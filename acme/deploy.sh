@@ -15,6 +15,9 @@ else
     set -euo pipefail
 fi
 
+script_path=$(dirname "$(readlink -f "$0")")
+script_name=$(basename "$0")
+
 # 输出错误信息并退出
 error_exit() {
     echo -e "\033[31merror: $1\033[0m" >&2
@@ -198,10 +201,6 @@ do_deploy() {
 do_cron() {
     case "${SETUP:-}" in
     "1")
-        # 安装定时任务
-        script_path=$(dirname "$(readlink -f "$0")")
-        script_name=$(basename "$0")
-
         # 随机生成分钟（0-59）
         MINUTE=$((RANDOM % 60))
 
@@ -257,8 +256,24 @@ help_cron() {
 EOF
 }
 
+# 服务器重载自定义脚本（按实际环境添加）
+restart_server_scripts() {
+    _this="$(realpath "${BASH_SOURCE[0]}")"
+    for script in "$RESTART_SERVER_PATH"/*.sh; do
+        if [ -r "$script" ] && [ "$(realpath "$script")" != "$_this" ]; then
+            # shellcheck disable=SC1090
+            source "$script"
+        fi
+    done
+}
+
 # 服务器重载命令（按实际环境修改）
 restart_server() {
+    if [[ -d "$RESTART_SERVER_PATH" ]]; then
+        restart_server_scripts
+        return
+    fi
+
     # shellcheck disable=SC2009
     if [[ "$(ps -ef | grep 'nginx: master' | grep -v "grep" | awk '{print $3}')" -eq 1 ]]; then
         # 正在运行 nginx
@@ -470,6 +485,8 @@ main() {
 
     DNS_TYPE="${DNS_TYPE:-dns_cf}" # DNS 类型
     CA_SERVER="${CA_SERVER:-letsencrypt}" # CA 服务器
+
+    RESTART_SERVER_PATH="${script_path}/restart"
 
     case "${ACTION:-}" in
         'ca' | 'setca')
