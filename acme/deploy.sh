@@ -124,7 +124,8 @@ do_issue() {
         ${EXTEND:-}
     )
 
-    [ -n "${CHALLENGE:-}" ] && ARGS+=(--challenge-alias "$CHALLENGE")
+    [ -n "${CHALLENGE_ALIAS:-}" ] && ARGS+=(--challenge-alias "$CHALLENGE_ALIAS")
+    [ -n "${DOMAIN_ALIAS:-}" ] && ARGS+=(--domain-alias "$DOMAIN_ALIAS")
 
     # 签发并部署证书
     $DOCKER_EXEC --issue "${ARGS[@]}" && \
@@ -144,7 +145,8 @@ help_issue() {
             dns_dp                           DNSPod 中国版
             dns_dpi                          DNSPod 国际版
             ...                              更多请查看 acme.sh 文档
-    -ch, --challenge <challenge>             可选, 交换域名
+    -ch, --challenge-alias <challenge>       可选, 域别名
+    -do, --domain-alias <domain>             可选, 质询别名
     -ex, --extend <extend>                   可选, 扩展参数
 
 EOF
@@ -356,11 +358,16 @@ judgment_parameters() {
                     DNS_TYPE="dns_$DNS_TYPE"
                 fi
                 ;;                
-            '-ch' | '--challenge')
-                # 交换域名
+            '-ch' | '--challenge-alias')
+                # 域别名
                 shift
-                CHALLENGE="${1:?"错误: 交换域名 (challenge) 不能为空."}"
-                ;;                
+                CHALLENGE_ALIAS="${1:?"错误: 域别名 (--challenge-alias) 不能为空."}"
+                ;;      
+            '-do' | '--domain-alias')
+                # 质询别名
+                shift
+                DOMAIN_ALIAS="${1:?"错误: 质询别名 (--domain-alias) 不能为空."}"
+                ;;                           
             '-ex' | '--extend')
                 # 扩展参数
                 shift
