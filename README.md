@@ -78,6 +78,7 @@ services:
 - nginx-php
 - ntfy
 - open-webui
+- opengist
 - openlist
 - pgadmin
 - pgadmin-db
