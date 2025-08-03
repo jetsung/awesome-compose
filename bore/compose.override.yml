@@ -1,0 +1,5 @@
+---
+services:
+  bore:
+    env_file:
+    - ./.env

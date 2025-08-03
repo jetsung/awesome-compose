@@ -53,6 +53,7 @@ services:
 - aliyunpan
 - asciinema
 - bark
+- bore
 - chanify
 - croc
 - drone

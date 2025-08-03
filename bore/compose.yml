@@ -1,0 +1,9 @@
+---
+# https://hub.docker.com/r/ekzhang/bore
+services:
+  bore:
+    image: ekzhang/bore:latest
+    container_name: bore
+    restart: unless-stopped
+    command: [server]
+    network_mode: host
