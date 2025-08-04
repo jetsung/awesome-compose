@@ -1,0 +1,10 @@
+---
+services:
+  gotify:
+    env_file:
+    - ./.env
+  igotify:
+    env_file:
+    - ./.env
+    profiles:
+    - igotify

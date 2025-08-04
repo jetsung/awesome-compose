@@ -6,6 +6,12 @@
 
 [**Play With Docker**](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/compose.yml)
 
+## 创建项目
+```bash
+# 创建项目，-p 则使用前面的部分，即 gotify 作为文件夹
+make init n=https://hub.docker.com/r/gotify/server p=1
+```
+
 ## 规范
 
 - 每个服务都可以有一个 `.env` 文件
@@ -66,6 +72,7 @@ services:
 - frp
 - gitea
 - gitlab-runner
+- gotify
 - hedgedoc
 - joplin
 - listmonk
