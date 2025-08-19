@@ -21,8 +21,6 @@ services:
     security_opt:
     - no-new-privileges:true
     pull_policy: always
-    ports:
-    - ${API_PORT:-8080}:8080
     volumes:
     - /data/igotify:/app/data
     profiles:
