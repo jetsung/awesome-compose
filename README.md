@@ -114,6 +114,7 @@ services:
 - vaultwarden-backup
 - webdav
 - wechat-devtools
+- wingetty
 - woodpecker
 - wordpress
 - xunsearch

@@ -69,7 +69,7 @@ create:
 	@echo "    hostname: $(proj)" >> "$(proj)/compose.yml"
 	@echo "    restart: unless-stopped" >> "$(proj)/compose.yml"
 	@echo "#     ports:" >> "$(proj)/compose.yml"
-	@echo "#     - $$${SERV_PORT:-80}:80" >> "$(proj)/compose.yml"
+	@echo '#     - $${SERV_PORT:-80}:80' >> "$(proj)/compose.yml"
 	@echo "#     volumes:" >> "$(proj)/compose.yml"
 	@echo "#     - ./data:/data" >> "$(proj)/compose.yml"
 

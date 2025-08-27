@@ -58,6 +58,9 @@ export DPI_Key="<key>"
 export Tencent_SecretId="<Your SecretId>"
 export Tencent_SecretKey="<Your SecretKey>"
 
+# GCore
+export GCORE_Key="<key>"
+
 ...
 ```
 
@@ -74,6 +77,10 @@ docker compose up -d
 # 或
 # 切换 CA 为 Let's Encrypt，并设置邮箱
 ./deploy.sh -a ca -s letsencrypt -e me@example.com
+
+# google
+# zerossl
+# letsencrypt
 ```
 
 5. 签发证书并且部署
@@ -125,88 +132,101 @@ ls "${PWD}/data/ssl"
 - **泛域名证书配置（多个次级域名共用）**   
 泛域名通用配置位于 `/usr/local/nginx/conf/wildcard/example.com.conf`   
 域名证书目录位于 `/usr/local/nginx/conf/ssl`
-  ```nginx
-    # 监听 IPv4 和 IPv6 的 443 端口，启用 SSL
-    listen 443 ssl;
-    listen [::]:443 ssl;
+```bash
+include extend/ssl.conf;
 
-    # 指定 SSL 证书和私钥的位置
-    ssl_certificate /usr/local/nginx/conf/ssl/example.com.fullchain.cer;
-    ssl_certificate_key /usr/local/nginx/conf/ssl/example.com.key;
+# 指定 SSL 证书和私钥的位置
+ssl_certificate ssl/example.com.fullchain.cer;
+ssl_certificate_key ssl/example.com.key;    
+```
 
-    # 仅启用 TLSv1.3
-    ssl_protocols TLSv1.3;
+- **通用 SSL 信息配置**
+通用配置位于 `/usr/local/nginx/conf/extend/ssl.conf`   
+```bash
+#listen [::]:443 ssl ipv6only=off reuseport;
+#listen [::]:443 quic reuseport ipv6only=off;
 
-    # 默认密码套件
-    ssl_ciphers DEFAULT;
+listen 443 ssl;
+listen 443 quic;
+listen [::]:443 ssl;
+listen [::]:443 quic;
 
-    # 优先使用服务器指定的密码套件
-    ssl_prefer_server_ciphers on;
+# 监听 IPv4 和 IPv6 的 443 端口，启用 SSL
+http2 on;
 
-    # 启用 SSL 会话缓存，提高性能
-    ssl_session_cache shared:SSL:10m;
-    ssl_session_timeout 10m;
+# 仅启用 TLSv1.3
+ssl_protocols TLSv1.2 TLSv1.3;
 
-    # 设置 SSL 缓冲区大小，优化性能
-    ssl_buffer_size 1400;
+# 默认密码套件
+ssl_ciphers DEFAULT;
 
-    # 设置 HSTS 头部，强制客户端使用 HTTPS
-    add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload";
+# 优先使用服务器指定的密码套件
+ssl_prefer_server_ciphers on;
 
-    # 启用 OCSP  stapling，提高证书验证效率
-    ssl_stapling on;
-    ssl_stapling_verify on;
+# 启用 SSL 会话缓存，提高性能
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 10m;
 
-    # 错误页重定向，HTTP 1.1 协议的 401 Unauthorized 状态码已被废弃，使用 403 Forbidden
-    error_page 403 https://$host$request_uri;
+# 设置 SSL 缓冲区大小，优化性能
+ssl_buffer_size 1400;
 
-    # HTTP 到 HTTPS 重定向
-    if ($to_https = 1) {
-        return 301 https://$host$request_uri;
-    }
-  ```
+# 设置 HSTS 头部，强制客户端使用 HTTPS
+add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload";
+
+# 启用 OCSP  stapling，提高证书验证效率
+ssl_stapling off;
+ssl_stapling_verify off;
+
+# 错误页重定向，HTTP 1.1 协议的 401 Unauthorized 状态码已被废弃，使用 403 Forbidden
+error_page 403 https://$host$request_uri;
+
+# HTTP 到 HTTPS 重定向
+if ($to_https = 1) {
+    return 301 https://$host$request_uri;
+}
+```
 
 - **Nginx 域名配置**   
 泛域名通用配置位于 `/usr/local/nginx/conf/vhost/hello.example.com`   
-  ```nginx
-    server {
-        listen 80;
-        listen [::]:80; 
+```bash
+server {
+    listen 80;
+    listen [::]:80; 
 
-        server_name hello.example.com;
+    server_name hello.example.com;
 
-        set $to_https 0;
-        if ($scheme = "http") {
-            set $to_https 1;
-        }
-
-        include wildcard/example.com.conf;
-        # 或者 真实路径
-        # include /usr/local/nginx/conf/ssl/example.com.conf;
-
-        index  index.html index.htm;
-        root   /etc/nginx/html;
-        
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   /usr/share/nginx/html;
-        }
-
-        # proxy
-        location / {
-            proxy_pass   http://127.0.0.1:8080;
-
-            client_max_body_size  1024m;
-            proxy_set_header Host $host:$server_port;
-            proxy_set_header X-Real-Ip $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
-            proxy_connect_timeout 99999;
-        }
+    set $to_https 0;
+    if ($scheme = "http") {
+        set $to_https 1;
     }
-  ```
+
+    include wildcard/example.com.conf;
+    # 或者 真实路径
+    # include /usr/local/nginx/conf/ssl/example.com.conf;
+
+    index  index.html index.htm;
+    root   /etc/nginx/html;
+    
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    # proxy
+    location / {
+        proxy_pass   http://127.0.0.1:8080;
+
+        client_max_body_size  1024m;
+        proxy_set_header Host $host:$server_port;
+        proxy_set_header X-Real-Ip $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_connect_timeout 99999;
+    }
+}
+```
 
 ## 官方教程
 
@@ -227,6 +247,9 @@ docker exec acme.sh --renew --dns --keylength ec-256 --ecc --force --yes-I-know-
 
 # 安装到指定目录 [deploy](deploy.sh)
 docker exec acme.sh --install-cert --ecc --key-file /data/ssl/xx.com.key --fullchain-file /data/ssl/xx.com.fullchain.cer -d xx.com
+
+# 设置通知
+docker exec acme.sh --set-notify --notify-hook feishu --notify-hook gotify
 ```
 
 ### [Google Public CA](https://cloud.google.com/certificate-manager/docs/public-ca-tutorial?hl=zh-cn)
