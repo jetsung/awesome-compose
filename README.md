@@ -75,6 +75,7 @@ services:
 - gotify
 - hedgedoc
 - joplin
+- linkding
 - listmonk
 - matomo
 - mariadb
