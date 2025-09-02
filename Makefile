@@ -80,6 +80,26 @@ create:
 	@echo "    env_file:" >> "$(proj)/compose.override.yml"
 	@echo "    - ./.env" >> "$(proj)/compose.override.yml"
 
+	# 生成 backup.sh
+	@echo "#!/usr/bin/env bash" > "$(proj)/backup.sh"
+	@echo "" >> "$(proj)/backup.sh"
+	@echo "###" >> "$(proj)/backup.sh"
+	@echo "" >> "$(proj)/backup.sh"
+	@echo "# 备份 $(proj) 数据" >> "$(proj)/backup.sh"
+	@echo "" >> "$(proj)/backup.sh"	
+	@echo "if [[ -n \"\${DEBUG:-}\" ]]; then" >> "$(proj)/backup.sh"
+	@echo "    set -eux" >> "$(proj)/backup.sh"
+	@echo "else" >> "$(proj)/backup.sh"
+	@echo "    set -euo pipefail" >> "$(proj)/backup.sh"
+	@echo "fi" >> "$(proj)/backup.sh"
+	@echo "" >> "$(proj)/backup.sh"
+	@echo "[ -f $(proj).tar.xz ] && rm -rf ./$$(proj).tar.xz" >> "$(proj)/backup.sh"
+	@echo "" >> "$(proj)/backup.sh"
+	@echo "tar -Jcf $(proj).tar.xz ./data" >> "$(proj)/backup.sh"
+	@echo "" >> "$(proj)/backup.sh"
+	@echo "#rclone copy ./$(proj).tar.xz minio:/backup/databases" >> "$(proj)/backup.sh"
+	@echo "echo \"backup $(proj) data to minio done.\"" >> "$(proj)/backup.sh"
+	@echo "echo \"Backup of $(proj) data to MinIO completed successfully.\"" >> "$(proj)/backup.sh"
 	@echo
 	@echo "项目 $(proj) 已创建"
 
