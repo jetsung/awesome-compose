@@ -7,19 +7,14 @@ MAKEFLAGS += --no-print-directory
 
 .PHONY: init
 
-# all:
-# 	@for name in $(NAMES); do \
-# 		echo; \
-# 		$(MAKE) t1 n=$$name; \
-# 	done
-
+# create proj="" git="" image="" huburl=""
 create:
 # 	proj 文件夹名称
 # 	git  仓库地址
 # 	image Docker 镜像地址
 # 	huburl Docker 镜像仓库地址
 	@if [ -z "$(proj)" ]; then \
-		echo "错误：必须指定 create init proj=<name>"; \
+		echo "错误：必须指定 create proj=<name>"; \
 		exit 1; \
 	fi
 
@@ -61,6 +56,7 @@ create:
 
     # 生成 compose.yml
 	@echo "---" > "$(proj)/compose.yml"
+	@echo "" > "$(proj)/compose.yml"
 	@echo "# $(huburl)" >> "$(proj)/compose.yml"
 	@echo "services:" >> "$(proj)/compose.yml"
 	@echo "  $(proj):" >> "$(proj)/compose.yml"
@@ -75,25 +71,28 @@ create:
 
     # 生成 compose.override.yml
 	@echo "---" > "$(proj)/compose.override.yml"
+	@echo "" > "$(proj)/compose.override.yml"
 	@echo "services:" >> "$(proj)/compose.override.yml"
 	@echo "  $(proj):" >> "$(proj)/compose.override.yml"
 	@echo "    env_file:" >> "$(proj)/compose.override.yml"
 	@echo "    - ./.env" >> "$(proj)/compose.override.yml"
-
-	# 生成 backup.sh
-	@echo "#!/usr/bin/env bash" > "$(proj)/backup.sh"
+    
+    # 生成 backup.sh
+	@echo '#!/usr/bin/env bash' > "$(proj)/backup.sh"	
 	@echo "" >> "$(proj)/backup.sh"
 	@echo "###" >> "$(proj)/backup.sh"
-	@echo "" >> "$(proj)/backup.sh"
+	@echo "#" >> "$(proj)/backup.sh"
 	@echo "# 备份 $(proj) 数据" >> "$(proj)/backup.sh"
-	@echo "" >> "$(proj)/backup.sh"	
-	@echo "if [[ -n \"\${DEBUG:-}\" ]]; then" >> "$(proj)/backup.sh"
+	@echo "#" >> "$(proj)/backup.sh"
+	@echo "###" >> "$(proj)/backup.sh"
+	@echo "" >> "$(proj)/backup.sh"
+	@echo 'if [[ -n "$${DEBUG:-}" ]]; then' >> "$(proj)/backup.sh"
 	@echo "    set -eux" >> "$(proj)/backup.sh"
 	@echo "else" >> "$(proj)/backup.sh"
 	@echo "    set -euo pipefail" >> "$(proj)/backup.sh"
 	@echo "fi" >> "$(proj)/backup.sh"
 	@echo "" >> "$(proj)/backup.sh"
-	@echo "[ -f $(proj).tar.xz ] && rm -rf ./$$(proj).tar.xz" >> "$(proj)/backup.sh"
+	@echo "[[ -f $(proj).tar.xz ]] && rm -rf ./$(proj).tar.xz" >> "$(proj)/backup.sh"
 	@echo "" >> "$(proj)/backup.sh"
 	@echo "tar -Jcf $(proj).tar.xz ./data" >> "$(proj)/backup.sh"
 	@echo "" >> "$(proj)/backup.sh"
@@ -101,11 +100,11 @@ create:
 	@echo "echo \"backup $(proj) data to minio done.\"" >> "$(proj)/backup.sh"
 	@echo "echo \"Backup of $(proj) data to MinIO completed successfully.\"" >> "$(proj)/backup.sh"
 	@echo
-	@echo "项目 $(proj) 已创建"
+	@echo "项目 $(proj) 已创建"	
 
+# n=文件夹名称、镜像名称、镜像地址
+# p=1 文件夹名称使用前面部分
 init:
-# 	n=文件夹名称、镜像名称、镜像地址
-#	p=1 文件夹名称使用前面部分
 	@if [ -z "$(n)" ]; then \
 		echo "错误：必须指定 n init n=<name>"; \
 		exit 1; \

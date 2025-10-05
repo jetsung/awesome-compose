@@ -3,3 +3,6 @@ services:
   swagger-ui:
     env_file:
     - ./.env
+  swagger-editor:
+    env_file:
+    - ./.env

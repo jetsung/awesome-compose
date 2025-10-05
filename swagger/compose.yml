@@ -4,9 +4,13 @@
 services:
   swagger-ui:
     image: swaggerapi/swagger-ui:latest
-    container_name: swagger
+    container_name: swagger-ui
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-8080}:8080
-    volumes:
-    - ./conf:/app
+    - ${UI_PORT:-8080}:8080
+  swagger-editor:
+    image: swaggerapi/swagger-editor:latest
+    container_name: swagger-editor
+    restart: unless-stopped
+    ports:
+    - ${EDITOR_PORT:-8081}:8080

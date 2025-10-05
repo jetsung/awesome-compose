@@ -101,6 +101,7 @@ services:
 - remark42
 - rsshub
 - rustpad
+- s3manager
 - shortener
 - simple-http-server
 - simple-torrent
