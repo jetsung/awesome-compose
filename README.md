@@ -74,6 +74,7 @@ services:
 - gitlab-runner
 - gotify
 - hedgedoc
+- hoppscotch
 - joplin
 - linkding
 - listmonk

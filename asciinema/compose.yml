@@ -8,7 +8,6 @@ services:
     ports:
     - ${SERV_PORT:-4000}:4000
     volumes:
-    - ./custom.exs:/opt/app/etc/custom.exs
     - ./data/asciinema:/var/opt/asciinema
     depends_on:
       postgres:
@@ -32,7 +31,6 @@ services:
     environment:
     - DATABASE_URL=postgresql://username:password@host.docker.internal/dbname
     volumes:
-    - ./custom.exs:/opt/app/etc/custom.exs
     - ./data/asciinema:/var/opt/asciinema
     extra_hosts:
     - host.docker.internal:host-gateway
