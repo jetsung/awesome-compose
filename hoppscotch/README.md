@@ -17,6 +17,7 @@
 | 参数 | 端口 | 描述 |
 |:---|:---|:---|
 | `FRONTEND_PORT` | `3000` | 前端 |
+| `APP_PORT` | `3200` | 桌面客户端 |
 | `ADMIN_PORT` | `3100` | 管理端 |
 | `BACKEND_PORT` | `3170` | 后端 |
 | `AIO_PORT` | `8080` | All-In-One 一体化 |
@@ -38,12 +39,19 @@
 ### 初始化
 1. 启动 `PostgreSQL`：
 ```bash
+# aio
 docker compose --profile init up -d
 ```
+
 2. 初始化数据库
 ```bash
+# 一体
 docker compose run --rm --entrypoint pnpm aio dlx prisma migrate deploy
+
+# 单体
+docker compose run --rm --entrypoint pnpm backend dlx prisma migrate deploy
 ```
+
 3. 启动 `Hoppscotch`：
 ```bash
 # 一体
@@ -81,4 +89,11 @@ GITHUB_CLIENT_ID=*****
 GITHUB_CLIENT_SECRET=*****
 GITHUB_CALLBACK_URL=http://localhost:3170/v1/auth/github/callback
 GITHUB_SCOPE=user:email
+```
+
+- [桌面配置](https://docs.hoppscotch.io/documentation/clients/desktop#hoppscotch-self-hosted-edition-for-community)
+域名绑定到服务的 `3200` 端口，若域名为 `a.x.com`，那么需要将 `http://app.a_x_com`(Windows)、`app://a_x_com`(Linux)平台的添加至 `WHITELISTED_ORIGINS` 列表中。
+```bash
+# app://hoppscotch_my_domain_com   for Linux and macOS machines.
+# http://app.hoppscotch_my_domain_com   for Windows machine.
 ```

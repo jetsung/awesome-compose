@@ -13,23 +13,13 @@ services:
     - one
     - aio
     - init
-
-  init:
-    image: hoppscotch/hoppscotch:latest
-    restart: unless-stopped
-    entrypoint: [ "pnpm", "dlx", "prisma", "migrate", "deploy" ]
-    depends_on:
-    - postgres
-    profiles:
-    - init
-
+  
   aio:
     image: hoppscotch/hoppscotch:latest
     restart: unless-stopped
     ports:
     - ${AIO_PORT:-8080}:80
-    depends_on:
-    - postgres    
+    - ${APP_PORT:-8080}:3200
     profiles:
     - aio
 
