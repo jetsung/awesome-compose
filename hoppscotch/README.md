@@ -19,7 +19,6 @@
 | `FRONTEND_PORT` | `3000` | 前端 |
 | `ADMIN_PORT` | `3100` | 管理端 |
 | `BACKEND_PORT` | `3170` | 后端 |
-| `APP_PORT` | `3200` | APP端 |
 | `AIO_PORT` | `8080` | All-In-One 一体化 |
 
 ## 部署教程
