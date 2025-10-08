@@ -5,10 +5,17 @@
 MAKEFLAGS += --no-print-directory
 # NAMES = test idevsig/filetas idevsig/filetas:python ghcr.io/idev-sig/filetas:latest https://github.com/idev-sig/filetas/pkgs/container/filetas https://hub.docker.com/r/idevsig/filetas
 
-.PHONY: init
+.PHONY: help
+help: ## 显示帮助信息
+	@echo "Usage: make [target]"
+	@echo ""
+	@echo "Available targets:"
+	@awk '/^[a-zA-Z_-]+:.*?##/ { \
+		printf "  \033[36m%-20s\033[0m %s\n", $$1, substr($$0, index($$0, "##") + 3) \
+	}' $(MAKEFILE_LIST)
 
-# create proj="" git="" image="" huburl=""
-create:
+.PHONY: create
+create: ## 创建项目：create proj="" git="" image="" huburl=""
 # 	proj 文件夹名称
 # 	git  仓库地址
 # 	image Docker 镜像地址
@@ -56,7 +63,7 @@ create:
 
     # 生成 compose.yml
 	@echo "---" > "$(proj)/compose.yml"
-	@echo "" > "$(proj)/compose.yml"
+	@echo "" >> "$(proj)/compose.yml"
 	@echo "# $(huburl)" >> "$(proj)/compose.yml"
 	@echo "services:" >> "$(proj)/compose.yml"
 	@echo "  $(proj):" >> "$(proj)/compose.yml"
@@ -71,7 +78,7 @@ create:
 
     # 生成 compose.override.yml
 	@echo "---" > "$(proj)/compose.override.yml"
-	@echo "" > "$(proj)/compose.override.yml"
+	@echo "" >> "$(proj)/compose.override.yml"
 	@echo "services:" >> "$(proj)/compose.override.yml"
 	@echo "  $(proj):" >> "$(proj)/compose.override.yml"
 	@echo "    env_file:" >> "$(proj)/compose.override.yml"
@@ -102,9 +109,8 @@ create:
 	@echo
 	@echo "项目 $(proj) 已创建"	
 
-# n=文件夹名称、镜像名称、镜像地址
-# p=1 文件夹名称使用前面部分
-init:
+.PHONY: init
+init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1 文件夹名称使用前面部分
 	@if [ -z "$(n)" ]; then \
 		echo "错误：必须指定 n init n=<name>"; \
 		exit 1; \

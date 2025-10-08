@@ -1,0 +1,33 @@
+---
+
+services:
+  postgres:
+    env_file:
+    - ./aio.env
+    profiles:
+    - one
+    - aio
+
+  aio:
+    env_file:
+    - ./aio.env
+    profiles:
+    - aio
+
+  admin:
+    env_file:
+    - ./one.env
+    profiles:
+    - one
+  
+  frontend:
+    env_file:
+    - ./one.env
+    profiles:
+    - one    
+  
+  backend:
+    env_file:
+    - ./one.env
+    profiles:
+    - one
