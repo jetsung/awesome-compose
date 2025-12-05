@@ -1,0 +1,6 @@
+---
+
+services:
+  claude-code-router:
+    env_file:
+    - ./.env

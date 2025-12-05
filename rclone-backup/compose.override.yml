@@ -1,0 +1,6 @@
+---
+
+services:
+  rclone-backup:
+    env_file:
+    - ./.env

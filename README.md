@@ -61,6 +61,7 @@ services:
 - bark
 - bore
 - chanify
+- claude-code-router
 - croc
 - drone
 - dufs
@@ -98,6 +99,7 @@ services:
 - qbittorrent
 - qinglong
 - rclone
+- rclone-backup
 - redis
 - remark42
 - rsshub
