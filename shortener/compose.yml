@@ -1,16 +1,17 @@
 ---
-# https://github.com/idevsig/shortener-server
+# https://github.com/jetsung/shortener
 
 services:
-  shortener:
-    image: idevsig/shortener-server:latest
-    container_name: shortener
+  backend:
+    image: jetsung/shortener-server:latest
     restart: unless-stopped
     ports:
-    - ${BACKEND_PORT:-8081}:8081
+      - ${BACKEND_PORT:-8081}:8081    
     volumes:
-    - ./data:/app/data
-    - ./config.toml:/app/config.toml
+      - ./data:/app/data
+      - ./config:/app/config
+    healthcheck:
+      disable: true    
   #   depends_on:
   #     - valkey
 
@@ -21,7 +22,7 @@ services:
   #     - TZ=Asia/Shanghai
 
   frontend:
-    image: idevsig/shortener-frontend:latest
+    image: jetsung/shortener-frontend:latest
     restart: unless-stopped
     ports:
-    - ${FRONTEND_PORT:-8080}:80
+      - ${FRONTEND_PORT:-8080}:8080

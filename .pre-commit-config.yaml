@@ -1,7 +1,7 @@
 ---
 repos:
 - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
-  rev: 0.2.1   # or other specific tag
+  rev: 0.2.3   # or other specific tag
   hooks:
   - id: yamlfmt
     args: [--mapping, '2', --sequence, '2', --offset, '0', --colons, --width, '150']

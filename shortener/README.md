@@ -4,12 +4,12 @@
 
 ---
 
-> [Shortener][1] 是一个使用 Go 语言开发的短网址生成器。后端使用 Gin 框架，前端使用 React 框架。
+> [Shortener][1] 是一个使用 Rust 编写的高性能 URL 短链接服务。
 
-[1]: https://github.com/idevsig/shortener-server
-[2]: https://github.com/idevsig/shortener-server
-[3]: https://hub.docker.com/r/idevsig/shortener-server
-[4]: https://github.com/idevsig/shortener-server#文档
+[1]: https://github.com/jetsung/shortener
+[2]: https://github.com/jetsung/shortener
+[3]: https://hub.docker.com/r/jetsung/shortener-server
+[4]: https://github.com/jetsung/shortener
 
 ## 使用
 1. 配置文件 `config.toml`
@@ -46,7 +46,7 @@
 
     # 对接 API
     location /api/ {
-        proxy_pass   http://127.0.0.1:8081/api/v1/;
+        proxy_pass   http://127.0.0.1:8081/api/;
 
         client_max_body_size  1024m;
         proxy_set_header Host $host:$server_port;
