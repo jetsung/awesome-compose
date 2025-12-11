@@ -150,7 +150,4 @@ services:
 
 ## 仓库镜像
 
-- https://git.jetsung.com/jetsung/awesome-compose
-- https://framagit.org/jetsung/awesome-compose
-- https://gitcode.com/jetsung/awesome-compose
-- https://github.com/jetsung/awesome-compose
+[MyCode](https://git.jetsung.com/jetsung/awesome-compose) ● [Framagit](https://framagit.org/jetsung/awesome-compose) ● [GitCode](https://gitcode.com/jetsung/awesome-compose) ● [GitHub](https://github.com/jetsung/awesome-compose)
