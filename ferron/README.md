@@ -32,19 +32,56 @@ globals {
 }
 ```
 
-- `example.com.kdl`
-```kdl
-// Global settings for example.com
-globals {
-    auto_tls
-    auto_tls_contact "admin@example.com" // Replace with your email address
-    auto_tls_challenge "http-01"
-    auto_tls_letsencrypt_production #false // Use staging environment
-}
-
+- `example.com.kdl` 443
+```bash
 // Host configuration for example.com
-"example.com" {
+example.com:443 {
+  auto_tls
+  auto_tls_contact "admin@example.com" // Replace with your email address
+  auto_tls_challenge "http-01"
+  auto_tls_letsencrypt_production // 生产环境
+  // auto_tls_letsencrypt_production #false // 测试环境
+  auto_tls_cache "/var/lib/ferron/letsencrypt" // Specify cache directory for certificates
+
   // Reverse proxy to a backend server
   proxy "http://localhost:8989"
+}
+```
+
+- `example.com.kdl` 80 跳转至 443
+```bash
+// HTTP configuration for example.com
+example.com:80 {
+  // Redirect HTTP to HTTPS
+  status 301 location="https://example.com{path_and_query}"
+}
+```
+
+- 80 端口
+```bash
+// /etc/ferron.d/http_default.kdl
+*:80 {
+  // This configuration handles all unbound domain accesses on port 80
+  // The * wildcard matches all hostnames not explicitly defined elsewhere
+
+  // Document root and index files
+  root "/data/wwwroot/default"
+  index "index.html" "index.htm"
+}
+```
+
+- 443 端口
+```bash
+// /etc/ferron.d/https_default.kdl
+*:443 {
+  // This configuration handles all unbound domain accesses on port 443
+  // The * wildcard matches all hostnames not explicitly defined elsewhere
+
+  // Document root and index files
+  root "/data/wwwroot/default"
+  index "index.html" "index.htm"
+
+  // Use self-signed certificates for default HTTPS access
+  tls "/etc/ferron.d/ssl/default.crt" "/etc/ferron.d/ssl/default.key"
 }
 ```
