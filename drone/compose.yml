@@ -5,6 +5,7 @@ services:
   drone-server:
     image: drone/drone:2
     container_name: drone-server
+    hostname: drone
     restart: unless-stopped
     env_file:
     - ./.env
@@ -17,6 +18,7 @@ services:
   drone-runner:
     image: drone/drone-runner-docker:1
     container_name: drone-runner
+    hostname: drone
     restart: unless-stopped
     env_file:
     - ./.env

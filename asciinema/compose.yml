@@ -5,6 +5,7 @@ services:
   asciinema:
     image: ghcr.io/asciinema/asciinema-server:latest
     container_name: asciinema
+    hostname: asciinema
     ports:
     - ${SERV_PORT:-4000}:4000
     volumes:
@@ -14,6 +15,7 @@ services:
         condition: service_healthy
   postgres:
     image: docker.io/library/postgres:16
+    hostname: asciinema
     environment:
     - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
@@ -36,3 +38,4 @@ services:
     - host.docker.internal:host-gateway
     profiles:
     - local
+    hostname: asciinema

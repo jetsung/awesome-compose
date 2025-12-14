@@ -5,6 +5,7 @@ services:
   filetas:
     image: idevsig/filetas:latest
     container_name: filetas
+    hostname: filetas
     restart: unless-stopped
     ports:
     - ${SERV_PORT:-8000}:8000

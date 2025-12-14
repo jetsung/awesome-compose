@@ -5,6 +5,7 @@ services:
   frps:
     image: fatedier/frps:v0.61.1
     container_name: frps
+    hostname: frp
     restart: unless-stopped
     volumes:
     - ./frps.toml:/app/frps.toml

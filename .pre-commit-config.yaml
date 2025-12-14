@@ -6,9 +6,9 @@ repos:
   - id: yamlfmt
     args: [--mapping, '2', --sequence, '2', --offset, '0', --colons, --width, '150']
 
-  # - repo: https://github.com/pre-commit/pre-commit-hooks
-  #   rev: v2.3.0
-  #   hooks:
-  #     - id: pretty-format-json
-  #       types: [file] # override `types: [json]`
-  #       files: \.(json|myext)$
+# - repo: https://github.com/pre-commit/pre-commit-hooks
+#   rev: v6.0.0 # Use a recent stable revision
+#   hooks:
+#     - id: check-yaml
+#     - id: end-of-file-fixer
+#     - id: trim-whitespace

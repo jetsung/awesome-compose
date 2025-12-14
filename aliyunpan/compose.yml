@@ -5,6 +5,7 @@ services:
   webdav:
     image: tickstep/aliyunpan-webdav:v0.2.7
     container_name: aliyunpan-webdav
+    hostname: aliyunpan
     restart: unless-stopped
     ports:
     - ${SERV_PORT:-23077}:23077

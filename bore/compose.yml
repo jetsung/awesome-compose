@@ -4,6 +4,7 @@ services:
   bore:
     image: ekzhang/bore:latest
     container_name: bore
+    hostname: bore
     restart: unless-stopped
     command: [server]
     network_mode: host

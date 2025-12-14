@@ -1,6 +1,6 @@
 # awesome-compose
 
-我的 `docker-compose` 仓库
+我的 `Docker Compose` 仓库
 
 [**Compose 规范**](https://github.com/compose-spec/compose-spec) ● 
 
@@ -91,6 +91,7 @@ services:
 - open-webui
 - opengist
 - openlist
+- openssh-server
 - pgadmin
 - pgadmin-db
 - phpmyadmin

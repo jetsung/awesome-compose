@@ -5,6 +5,7 @@ services:
   webdav:
     image: messense/aliyundrive-webdav:latest
     container_name: aliyundrive-webdav
+    hostname: aliyundrive
     restart: unless-stopped
     ports:
     - ${SERV_PORT:-8080}:8080

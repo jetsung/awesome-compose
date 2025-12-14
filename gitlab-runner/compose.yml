@@ -5,6 +5,7 @@ services:
   gitlab-runner:
     image: gitlab/gitlab-runner:latest
     container_name: gitlab-runner
+    hostname: gitlab-runner
     restart: unless-stopped
     volumes:
     - ./data:/etc/gitlab-runner

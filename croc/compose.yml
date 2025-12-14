@@ -5,6 +5,7 @@ services:
   croc:
     image: schollz/croc:latest
     container_name: croc
+    hostname: croc
     restart: unless-stopped
     ports:
     - 9009-9013:9009-9013

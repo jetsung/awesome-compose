@@ -72,9 +72,9 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 	@echo "    hostname: $(proj)" >> "$(proj)/compose.yml"
 	@echo "    restart: unless-stopped" >> "$(proj)/compose.yml"
 	@echo "#     ports:" >> "$(proj)/compose.yml"
-	@echo '#     - $${SERV_PORT:-80}:80' >> "$(proj)/compose.yml"
+	@echo '#       - $${SERV_PORT:-80}:80' >> "$(proj)/compose.yml"
 	@echo "#     volumes:" >> "$(proj)/compose.yml"
-	@echo "#     - ./data:/data" >> "$(proj)/compose.yml"
+	@echo "#       - ./data:/data" >> "$(proj)/compose.yml"
 
     # 生成 compose.override.yml
 	@echo "---" > "$(proj)/compose.override.yml"
@@ -82,7 +82,7 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 	@echo "services:" >> "$(proj)/compose.override.yml"
 	@echo "  $(proj):" >> "$(proj)/compose.override.yml"
 	@echo "    env_file:" >> "$(proj)/compose.override.yml"
-	@echo "    - ./.env" >> "$(proj)/compose.override.yml"
+	@echo "      - ./.env" >> "$(proj)/compose.override.yml"
     
     # 生成 backup.sh
 	@echo '#!/usr/bin/env bash' > "$(proj)/backup.sh"	

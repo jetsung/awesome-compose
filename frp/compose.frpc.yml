@@ -5,6 +5,7 @@ services:
   frpc:
     image: fatedier/frpc:v0.61.1
     container_name: frpc
+    hostname: frp
     restart: unless-stopped
     volumes:
     - ./frpc.toml:/app/frpc.toml

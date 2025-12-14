@@ -5,6 +5,7 @@ services:
   joplin:
     image: joplin/server:latest
     container_name: joplin
+    hostname: joplin
     restart: unless-stopped
     depends_on:
     - postgres
@@ -13,6 +14,7 @@ services:
 
   postgres:
     image: postgres:16
+    hostname: joplin
     restart: unless-stopped
     ports:
     - ${POSTGRES_PORT:-5432}:5432

@@ -5,6 +5,7 @@ services:
   acme:
     image: neilpang/acme.sh:latest
     container_name: acme.sh
+    hostname: acme
     restart: unless-stopped
     volumes:
     - ./data/out:/acme.sh

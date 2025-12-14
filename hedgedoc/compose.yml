@@ -2,6 +2,7 @@
 services:
   backend:
     image: ghcr.io/hedgedoc/hedgedoc/backend:develop
+    hostname: hedgedoc
     ports:
     - ${BACKEND_PORT:-3000}:3000
     volumes:
@@ -10,10 +11,12 @@ services:
 
   frontend:
     image: ghcr.io/hedgedoc/hedgedoc/frontend:develop
+    hostname: hedgedoc
     ports:
     - ${FRONTEND_PORT:-3001}:3001
 
   db:
     image: postgres:16
+    hostname: hedgedoc
     volumes:
     - ./data/postgres:/var/lib/postgresql/data

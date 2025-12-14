@@ -3,6 +3,7 @@
 services:
   server:
     image: gitea/gitea:latest
+    hostname: gitea
     restart: unless-stopped
     ports:
     - ${GITEA_HTTP_PORT:-3000}:3000
@@ -16,12 +17,14 @@ services:
 
   db:
     image: postgres:17
+    hostname: gitea
     restart: unless-stopped
     volumes:
     - ./data/postgres:/var/lib/postgresql/data
 
   caddy:
     image: caddy:latest
+    hostname: gitea
     restart: unless-stopped
     ports:
     - ${WEB_HTTP_PORT:-80}:80
@@ -35,6 +38,7 @@ services:
 
   nginx:
     image: nginx:alpine
+    hostname: gitea
     restart: unless-stopped
     ports:
     - ${WEB_HTTP_PORT:-80}:80

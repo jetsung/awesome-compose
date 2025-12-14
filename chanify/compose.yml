@@ -5,6 +5,7 @@ services:
   chanify:
     image: wizjin/chanify:latest
     container_name: chanify
+    hostname: chanify
     restart: unless-stopped
     env_file:
     - ./.env
