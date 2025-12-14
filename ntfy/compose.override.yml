@@ -4,4 +4,4 @@
 services:
   ntfy:
     env_file:
-    - ./.env
+      - ./.env

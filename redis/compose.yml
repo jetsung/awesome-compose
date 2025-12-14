@@ -6,8 +6,9 @@ services:
   redis:
     image: redis:latest
     container_name: redis
+    hostname: redis
     restart: unless-stopped
     volumes:
-    - ./data:/data
+      - ./data:/data
     ports:
-    - ${SERV_PORT:-6379}:6379
+      - ${SERV_PORT:-6379}:6379

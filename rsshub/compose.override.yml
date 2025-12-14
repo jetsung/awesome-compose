@@ -7,8 +7,8 @@ volumes :
 services:
   rsshub:
     env_file:
-    - ./.env
+      - ./.env
 
   redis:
     env_file:
-    - ./.env
+      - ./.env

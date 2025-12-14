@@ -7,9 +7,9 @@ services:
     container_name: remark42
     restart: unless-stopped
     volumes:
-    - ./data:/srv/var
+      - ./data:/srv/var
     ports:
-    - ${SERV_PORT:-8080}:8080
+      - ${SERV_PORT:-8080}:8080
 
     logging:
       driver: json-file

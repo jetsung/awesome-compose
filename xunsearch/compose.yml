@@ -7,7 +7,7 @@ services:
     container_name: xunsearch
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-8383}:8383
-    - ${SERV_PORT_1:-8384}:8384
+      - ${SERV_PORT:-8383}:8383
+      - ${SERV_PORT_1:-8384}:8384
     volumes:
-    - ./data:/usr/local/xunsearch/data
+      - ./data:/usr/local/xunsearch/data

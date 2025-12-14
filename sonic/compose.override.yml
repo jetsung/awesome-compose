@@ -3,4 +3,4 @@
 services:
   sonic:
     env_file:
-    - ./.env
+      - ./.env

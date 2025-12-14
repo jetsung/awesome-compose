@@ -7,5 +7,5 @@ server:
   datapath: /data
   register:
     enable: true
-    whitelist:     # whitelist    
-    - USER_ID
+    whitelist:     # whitelist
+      - USER_ID

@@ -4,9 +4,10 @@
 services:
   static-web-server:
     image: ghcr.io/static-web-server/static-web-server:latest
+    hostname: static-web-server
     restart: unless-stopped
     volumes:
-    - ./data/downloads:/app/downloads
+      - ./data/downloads:/app/downloads
     ports:
-    - ${SERV_PORT:-80}:80
+      - ${SERV_PORT:-80}:80
     command: [--root, /app/downloads, -z]

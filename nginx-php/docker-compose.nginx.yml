@@ -5,7 +5,7 @@ services:
     image: nginx:alpine
     container_name: nginx
     volumes:
-    - ./html:/var/www/html:rw
-    - ./conf.d:/etc/nginx/conf.d:rw
+      - ./html:/var/www/html:rw
+      - ./conf.d:/etc/nginx/conf.d:rw
     ports:
-    - 80:80
+      - 80:80

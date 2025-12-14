@@ -5,13 +5,15 @@ services:
   openlist:
     image: openlistteam/openlist:latest
     container_name: openlist
+    hostname: openlist
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-5244}:5244
+      - ${SERV_PORT:-5244}:5244
     volumes:
-    - ./data:/opt/openlist/data
+      - ./data:/opt/openlist/data
 
   ocr:
     image: openlistteam/ocr_api_server:main
     container_name: ocr
+    hostname: ocr
     restart: unless-stopped

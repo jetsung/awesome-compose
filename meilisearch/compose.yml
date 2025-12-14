@@ -7,6 +7,6 @@ services:
     container_name: meilisearch
     restart: unless-stopped
     volumes:
-    - ./data:/meili_data
+      - ./data:/meili_data
     ports:
-    - ${SERV_PORT:-7700}:7700
+      - ${SERV_PORT:-7700}:7700

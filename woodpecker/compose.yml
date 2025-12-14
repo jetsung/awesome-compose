@@ -12,16 +12,16 @@ services:
     container_name: woodpecker-server
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-8000}:8000
+      - ${SERV_PORT:-8000}:8000
     volumes:
-    - woodpecker-data:/var/lib/woodpecker/
+      - woodpecker-data:/var/lib/woodpecker/
 
   woodpecker-agent:
     image: woodpeckerci/woodpecker-agent:latest
     container_name: woodpecker-agent
     restart: unless-stopped
     volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
     command: agent
     depends_on:
-    - woodpecker-server
+      - woodpecker-server

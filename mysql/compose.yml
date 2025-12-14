@@ -7,6 +7,6 @@ services:
     container_name: mysql
     restart: unless-stopped
     volumes:
-    - ./data:/var/lib/mysql
+      - ./data:/var/lib/mysql
     ports:
-    - ${MYSQL_PORT:-3306}:3306
+      - ${MYSQL_PORT:-3306}:3306

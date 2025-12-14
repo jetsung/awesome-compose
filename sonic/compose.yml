@@ -7,8 +7,7 @@ services:
     container_name: sonic
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-1491}:1491
+      - ${SERV_PORT:-1491}:1491
     volumes:
-    - ./config.cfg:/etc/sonic.cfg
-    - /srv/sonic/store/:/var/lib/sonic/store/
-
+      - ./config.cfg:/etc/sonic.cfg
+      - /srv/sonic/store/:/var/lib/sonic/store/

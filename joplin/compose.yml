@@ -8,15 +8,15 @@ services:
     hostname: joplin
     restart: unless-stopped
     depends_on:
-    - postgres
+      - postgres
     ports:
-    - ${SERV_PORT:-22300}:22300
+      - ${SERV_PORT:-22300}:22300
 
   postgres:
     image: postgres:16
     hostname: joplin
     restart: unless-stopped
     ports:
-    - ${POSTGRES_PORT:-5432}:5432
+      - ${POSTGRES_PORT:-5432}:5432
     volumes:
-    - ./data/postgres:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data

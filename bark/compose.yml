@@ -8,4 +8,4 @@ services:
     hostname: bark
     restart: unless-stopped
     ports:
-    - ${BARK_PORT:-8080}:8080
+      - ${BARK_PORT:-8080}:8080

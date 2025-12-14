@@ -4,19 +4,19 @@ services:
     image: ghcr.io/hedgedoc/hedgedoc/backend:develop
     hostname: hedgedoc
     ports:
-    - ${BACKEND_PORT:-3000}:3000
+      - ${BACKEND_PORT:-3000}:3000
     volumes:
-    - ./backend.env:/usr/src/app/backend/.env
-    - ./data/uploads:/usr/src/app/backend/uploads
+      - ./backend.env:/usr/src/app/backend/.env
+      - ./data/uploads:/usr/src/app/backend/uploads
 
   frontend:
     image: ghcr.io/hedgedoc/hedgedoc/frontend:develop
     hostname: hedgedoc
     ports:
-    - ${FRONTEND_PORT:-3001}:3001
+      - ${FRONTEND_PORT:-3001}:3001
 
   db:
     image: postgres:16
     hostname: hedgedoc
     volumes:
-    - ./data/postgres:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data

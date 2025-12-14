@@ -5,6 +5,7 @@ services:
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: phpmyadmin
+    hostname: phpmyadmin
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-80}:80
+      - ${SERV_PORT:-80}:80

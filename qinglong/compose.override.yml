@@ -4,4 +4,4 @@
 services:
   qinglong:
     env_file:
-    - ./.env
+      - ./.env

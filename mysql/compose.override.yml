@@ -3,4 +3,4 @@
 services:
   mysql:
     env_file:
-    - ./.env
+      - ./.env

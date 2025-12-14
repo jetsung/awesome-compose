@@ -5,4 +5,4 @@
 services:
   matomo:
     env_file:
-    - ./.env
+      - ./.env

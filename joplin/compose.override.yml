@@ -4,8 +4,8 @@
 services:
   joplin:
     env_file:
-    - ./.env
+      - ./.env
 
   postgres:
     env_file:
-    - ./.env
+      - ./.env

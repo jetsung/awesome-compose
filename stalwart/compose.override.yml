@@ -2,4 +2,4 @@
 services:
   mail-server:
     env_file:
-    - ./.env
+      - ./.env

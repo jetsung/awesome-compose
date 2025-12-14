@@ -7,7 +7,7 @@ services:
     hostname: wingetty
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-8080}:8080
+      - ${SERV_PORT:-8080}:8080
     volumes:
-    - ./data/instance:/app/instance
-    - ./data/packages:/app/app/packages
+      - ./data/instance:/app/instance
+      - ./data/packages:/app/app/packages

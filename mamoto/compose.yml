@@ -10,10 +10,11 @@ services:
   matomo:
     image: matomo:latest
     container_name: matomo
+    hostname: matomo
     restart: unless-stopped
     volumes:
-    - ./html:/var/www/html
+      - ./html:/var/www/html
     ports:
-    - ${SERV_PORT:-80}:80
+      - ${SERV_PORT:-80}:80
     networks:
-    - database
+      - database

@@ -7,6 +7,6 @@ services:
     hostname: linkding
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-9090}:9090
+      - ${SERV_PORT:-9090}:9090
     volumes:
-    - ./data:/etc/linkding/data
+      - ./data:/etc/linkding/data

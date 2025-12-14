@@ -7,6 +7,6 @@ services:
     container_name: vaultwarden
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-80}:80
+      - ${SERV_PORT:-80}:80
     volumes:
-    - /srv/vaultwarden:/data
+      - /srv/vaultwarden:/data

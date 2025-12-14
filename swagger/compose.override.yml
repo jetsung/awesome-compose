@@ -2,7 +2,7 @@
 services:
   swagger-ui:
     env_file:
-    - ./.env
+      - ./.env
   swagger-editor:
     env_file:
-    - ./.env
+      - ./.env

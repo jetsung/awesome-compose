@@ -7,7 +7,7 @@ services:
     restart: unless-stopped
     env_file: ../files/.env
     ports:
-    - ${SERV_PORT:-6157}:6157
-    - ${SSH_PORT:-2222}:2222
+      - ${SERV_PORT:-6157}:6157
+      - ${SSH_PORT:-2222}:2222
     volumes:
-    - ./data:/opengist
+      - ./data:/opengist

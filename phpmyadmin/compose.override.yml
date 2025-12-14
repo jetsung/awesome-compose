@@ -2,4 +2,4 @@
 services:
   phpmyadmin:
     env_file:
-    - ./.env
+      - ./.env

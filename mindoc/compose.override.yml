@@ -4,4 +4,4 @@
 services:
   mindoc:
     env_file:
-    - ./.env
+      - ./.env

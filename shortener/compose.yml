@@ -6,12 +6,12 @@ services:
     image: jetsung/shortener-server:latest
     restart: unless-stopped
     ports:
-      - ${BACKEND_PORT:-8081}:8081    
+      - ${BACKEND_PORT:-8081}:8081
     volumes:
       - ./data:/app/data
       - ./config:/app/config
     healthcheck:
-      disable: true    
+      disable: true
   #   depends_on:
   #     - valkey
 

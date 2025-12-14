@@ -4,4 +4,4 @@
 services:
   webui:
     env_file:
-    - ./.env
+      - ./.env

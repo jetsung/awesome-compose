@@ -8,4 +8,4 @@ services:
     hostname: filetas
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-8000}:8000
+      - ${SERV_PORT:-8000}:8000

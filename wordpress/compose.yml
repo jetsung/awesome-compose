@@ -5,13 +5,13 @@ services:
     image: wordpress:latest
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-8080}:80
+      - ${SERV_PORT:-8080}:80
     volumes:
-    - ./data/wordpress:/var/www/html
+      - ./data/wordpress:/var/www/html
     depends_on:
-    - db
+      - db
   db:
     image: mysql:9
     restart: unless-stopped
     volumes:
-    - ./data/mysql:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql

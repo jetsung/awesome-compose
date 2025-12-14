@@ -7,5 +7,5 @@ services:
     container_name: transfer
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-8080}:8080
+      - ${SERV_PORT:-8080}:8080
     command: [--provider, local, --basedir, /tmp/]

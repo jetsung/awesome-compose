@@ -7,6 +7,6 @@ services:
     container_name: rustpad
     restart: unless-stopped
     volumes:
-    - ./data:/app
+      - ./data:/app
     ports:
-    - ${SERV_PORT:-3030}:3030
+      - ${SERV_PORT:-3030}:3030

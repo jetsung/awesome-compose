@@ -4,4 +4,4 @@
 services:
   rustpad:
     env_file:
-    - ./.env
+      - ./.env

@@ -1,14 +1,41 @@
 ---
 repos:
-- repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
-  rev: 0.2.3   # or other specific tag
-  hooks:
-  - id: yamlfmt
-    args: [--mapping, '2', --sequence, '2', --offset, '0', --colons, --width, '150']
-
-# - repo: https://github.com/pre-commit/pre-commit-hooks
-#   rev: v6.0.0 # Use a recent stable revision
-#   hooks:
-#     - id: check-yaml
-#     - id: end-of-file-fixer
-#     - id: trim-whitespace
+#  - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+#    rev: 0.2.3  # 或其他具体版本标签
+#    hooks:
+#      - id: yamlfmt
+#        args: [--mapping, '2', --sequence, '4', --offset, '2', --colons, --width, '150']
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0 # Use a recent stable revision
+    hooks:
+      # - id: check-added-large-files # 检查是否添加了大型文件
+      # - id: check-ast # 检查Python AST（抽象语法树）
+      # - id: check-builtin-literals # 检查Python内置类型字面量
+      # - id: check-case-conflict # 检查文件名是否导致大小写冲突
+      # - id: check-executables-have-shebangs # 检查可执行文件是否包含 shebang
+      # - id: check-illegal-windows-names # 检查文件名是否包含Windows非法字符
+      - id: check-json # 检查JSON文件语法是否有效
+      # - id: check-merge-conflict # 检查是否存在未解决的合并冲突
+      - id: check-shebang-scripts-are-executable # 检查带有shebang的脚本是否可执行
+      # - id: check-symlinks # 检查符号链接是否有效
+      - id: check-toml # 检查TOML文件语法是否有效
+      # - id: check-vcs-permalinks # 检查VCS永久链接
+      # - id: check-xml # 检查XML文件语法是否有效
+      - id: check-yaml # 检查YAML文件语法是否有效
+      # - id: debug-statements # 检查Python代码中是否存在调试语句
+      # - id: destroyed-symlinks # 检查损坏的符号链接
+      # - id: detect-aws-credentials # 检测AWS凭证
+      # - id: detect-private-key # 检测私钥
+      - id: double-quote-string-fixer # 修复双引号字符串
+      - id: end-of-file-fixer # 确保文件以换行符结尾
+      # - id: file-contents-sorter # 排序文件内容
+      # - id: fix-byte-order-marker # 修复字节顺序标记
+      # - id: forbid-new-submodules # 禁止添加新的子模块
+      # - id: forbid-submodules # 禁止使用子模块
+      # - id: mixed-line-ending # 检查混合行结尾
+      # - id: name-tests-test # 检查Python测试文件命名
+      # - id: no-commit-to-branch # 禁止提交到特定分支
+      # - id: pretty-format-json # 美化JSON文件格式
+      # - id: requirements-txt-fixer # 修复requirements.txt文件
+      # - id: sort-simple-yaml # 排序简单的YAML文件
+      - id: trailing-whitespace # 移除行尾空格

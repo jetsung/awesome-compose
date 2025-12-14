@@ -8,6 +8,6 @@ services:
     container_name: qinglong
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-5700}:5700
+      - ${SERV_PORT:-5700}:5700
     volumes:
-    - ./data:/ql/data
+      - ./data:/ql/data

@@ -3,4 +3,4 @@
 services:
   chanify:
     env_file:
-    - ./.env
+      - ./.env

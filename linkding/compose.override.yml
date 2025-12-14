@@ -2,4 +2,4 @@
 services:
   linkding:
     env_file:
-    - ./.env
+      - ./.env

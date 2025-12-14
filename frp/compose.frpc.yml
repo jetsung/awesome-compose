@@ -8,5 +8,5 @@ services:
     hostname: frp
     restart: unless-stopped
     volumes:
-    - ./frpc.toml:/app/frpc.toml
+      - ./frpc.toml:/app/frpc.toml
     network_mode: host

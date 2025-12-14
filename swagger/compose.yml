@@ -7,10 +7,10 @@ services:
     container_name: swagger-ui
     restart: unless-stopped
     ports:
-    - ${UI_PORT:-8080}:8080
+      - ${UI_PORT:-8080}:8080
   swagger-editor:
     image: swaggerapi/swagger-editor:latest
     container_name: swagger-editor
     restart: unless-stopped
     ports:
-    - ${EDITOR_PORT:-8081}:8080
+      - ${EDITOR_PORT:-8081}:8080

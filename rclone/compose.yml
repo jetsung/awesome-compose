@@ -7,9 +7,9 @@ services:
     container_name: rclone
     restart: unless-stopped
     env_file:
-    - ./.env
+      - ./.env
     volumes:
-    - ./app:/app
-    - /srv/rclone:/config
-    - ${DATA}:/data
+      - ./app:/app
+      - /srv/rclone:/config
+      - ${DATA}:/data
     entrypoint: [/bin/sh, /app/backup.sh, cron]

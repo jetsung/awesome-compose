@@ -4,4 +4,4 @@
 services:
   webdav:
     env_file:
-    - ./.env
+      - ./.env

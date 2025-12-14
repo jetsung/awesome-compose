@@ -2,4 +2,4 @@
 services:
   valkey:
     env_file:
-    - ./.env
+      - ./.env

@@ -5,9 +5,10 @@ services:
   etcd:
     image: quay.io/coreos/etcd:v3.5.18
     container_name: etcd
+    hostname: etcd
     restart: unless-stopped
     volumes:
-    - ./data:/etcd-data
+      - ./data:/etcd-data
     ports:
-    - ${SERV_PORT_1:-2379}:2379
-    - ${SERV_PORT_2:-2380}:2380
+      - ${SERV_PORT_1:-2379}:2379
+      - ${SERV_PORT_2:-2380}:2380

@@ -8,6 +8,6 @@ services:
     hostname: acme
     restart: unless-stopped
     volumes:
-    - ./data/out:/acme.sh
-    - ./data/ssl:/data/ssl
+      - ./data/out:/acme.sh
+      - ./data/ssl:/data/ssl
     command: [daemon]

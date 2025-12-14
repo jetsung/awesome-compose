@@ -8,16 +8,18 @@ services:
   rsshub:
     image: diygod/rsshub:latest
     container_name: rsshub
+    hostname: rsshub
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-1200}:1200
+      - ${SERV_PORT:-1200}:1200
     depends_on:
-    - redis
-    - browserless
+      - redis
+      - browserless
 
   browserless:
     # See issue 6680
     image: browserless/chrome:1.43-chrome-stable
+    hostname: browserless
     restart: unless-stopped
     ulimits:
       core:
@@ -26,6 +28,7 @@ services:
 
   redis:
     image: redis:alpine
+    hostname: redis
     restart: unless-stopped
     volumes:
-    - redis-data:/data
+      - redis-data:/data

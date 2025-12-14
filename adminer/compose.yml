@@ -9,4 +9,4 @@ services:
     hostname: adminer
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-8080}:8080
+      - ${SERV_PORT:-8080}:8080

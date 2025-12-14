@@ -6,8 +6,9 @@ services:
   valkey:
     image: valkey/valkey:latest
     container_name: valkey
+    hostname: valkey
     restart: unless-stopped
     volumes:
-    - ./data:/data
+      - ./data:/data
     ports:
-    - ${SERV_PORT:-6379}:6379
+      - ${SERV_PORT:-6379}:6379

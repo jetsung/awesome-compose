@@ -12,12 +12,12 @@ services        :
     container_name: listmonk_app
     restart: unless-stopped
     ports:
-    - 9000:9000                                               # To change the externally exposed port, change to: $custom_port:9000
+      - 9000:9000                                             # To change the externally exposed port, change to: $custom_port:9000
     networks:
-    - listmonk
+      - listmonk
     hostname: listmonk.example.com                            # Recommend using FQDN for hostname
     depends_on:
-    - db
+      - db
     command: [sh, -c, ./listmonk --install --idempotent --yes --config '' && ./listmonk --upgrade --yes --config '' && ./listmonk --config '']
                                                               # --config (file) param is set to empty so that listmonk only uses the env vars (below) for config.
                                                               # --install --idempotent ensures that DB installation happens only once on an empty DB, on the first ever start.
@@ -38,18 +38,19 @@ services        :
       LISTMONK_ADMIN_USER: ${LISTMONK_ADMIN_USER:-}           # If these (optional) are set during the first `docker compose up`, then the Super Admin user is automatically created.
       LISTMONK_ADMIN_PASSWORD: ${LISTMONK_ADMIN_PASSWORD:-}   # Otherwise, the user can be setup on the web app after the first visit to http://localhost:9000
     volumes:
-    - ./uploads:/listmonk/uploads:rw                          # Mount an uploads directory on the host to /listmonk/uploads inside the container.
+      - ./uploads:/listmonk/uploads:rw                        # Mount an uploads directory on the host to /listmonk/uploads inside the container.
                                                               # To use this, change directory path in Admin -> Settings -> Media to /listmonk/uploads
 
   # Postgres database
   db:
     image: postgres:17-alpine
     container_name: listmonk_db
+    hostname: listmonk_db
     restart: unless-stopped
     ports:
-    - 5432:5432
+      - 5432:5432
     networks:
-    - listmonk
+      - listmonk
     environment:
       <<: *db-credentials
     healthcheck:
@@ -58,9 +59,9 @@ services        :
       timeout: 5s
       retries: 6
     volumes:
-    - type: volume
-      source: listmonk-data
-      target: /var/lib/postgresql/data
+      - type: volume
+        source: listmonk-data
+        target: /var/lib/postgresql/data
 
 networks        :
   listmonk:

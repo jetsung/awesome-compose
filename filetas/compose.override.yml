@@ -3,4 +3,4 @@
 services:
   filetas:
     env_file:
-    - ./.env
+      - ./.env

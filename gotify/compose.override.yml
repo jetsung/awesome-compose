@@ -2,9 +2,9 @@
 services:
   gotify:
     env_file:
-    - ./.env
+      - ./.env
   igotify:
     env_file:
-    - ./.env
+      - ./.env
     profiles:
-    - igotify
+      - igotify

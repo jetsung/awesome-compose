@@ -3,8 +3,8 @@
 services:
   server:
     env_file:
-    - ./.env
+      - ./.env
 
   db:
     env_file:
-    - ./.env
+      - ./.env

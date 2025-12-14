@@ -3,5 +3,5 @@
 services:
   adminer:
     env_file:
-    - ./.env
+      - ./.env
     ports:

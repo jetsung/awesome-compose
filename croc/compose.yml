@@ -8,5 +8,5 @@ services:
     hostname: croc
     restart: unless-stopped
     ports:
-    - 9009-9013:9009-9013
+      - 9009-9013:9009-9013
     command: [relay]

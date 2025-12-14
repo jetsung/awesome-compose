@@ -3,4 +3,4 @@
 services:
   emqx:
     env_file:
-    - ./.env
+      - ./.env

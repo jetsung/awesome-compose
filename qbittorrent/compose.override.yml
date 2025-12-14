@@ -4,4 +4,4 @@
 services:
   qbittorrent:
     env_file:
-    - ./.env
+      - ./.env

@@ -2,7 +2,7 @@
 services:
   backup1:
     env_file:
-    - ./.env
+      - ./.env
 
 ## 多重备份
 #  backup2:

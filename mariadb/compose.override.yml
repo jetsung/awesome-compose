@@ -4,4 +4,4 @@
 services:
   mariadb:
     env_file:
-    - ./.env
+      - ./.env

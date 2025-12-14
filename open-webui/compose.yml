@@ -8,6 +8,6 @@ services:
     privileged: false
     restart: unless-stopped
     volumes:
-    - ./data:/app/backend/data
+      - ./data:/app/backend/data
     ports:
-    - ${SERV_PORT:-8080}:8080
+      - ${SERV_PORT:-8080}:8080

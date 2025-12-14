@@ -8,6 +8,6 @@ services:
     hostname: openssh-server
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-2222}:2222
+      - ${SERV_PORT:-2222}:2222
     volumes:
-    - ./data:/config
+      - ./data:/config

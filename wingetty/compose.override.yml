@@ -2,4 +2,4 @@
 services:
   wingetty:
     env_file:
-    - ./.env
+      - ./.env

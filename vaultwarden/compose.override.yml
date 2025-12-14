@@ -4,4 +4,4 @@
 services:
   vaultwarden:
     env_file:
-    - ./.env
+      - ./.env

@@ -3,4 +3,4 @@
 services:
   bark:
     env_file:
-    - ./.env
+      - ./.env

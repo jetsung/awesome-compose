@@ -6,4 +6,4 @@ services:
     hostname: file-downloader
     restart: unless-stopped
     volumes:
-    - ./downloads:/app/downloads
+      - ./downloads:/app/downloads

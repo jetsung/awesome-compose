@@ -3,31 +3,31 @@
 services:
   postgres:
     env_file:
-    - ./aio.env
+      - ./aio.env
     profiles:
-    - one
-    - aio
+      - one
+      - aio
 
   aio:
     env_file:
-    - ./aio.env
+      - ./aio.env
     profiles:
-    - aio
+      - aio
 
   admin:
     env_file:
-    - ./one.env
+      - ./one.env
     profiles:
-    - one
-  
+      - one
+
   frontend:
     env_file:
-    - ./one.env
+      - ./one.env
     profiles:
-    - one    
-  
+      - one
+
   backend:
     env_file:
-    - ./one.env
+      - ./one.env
     profiles:
-    - one
+      - one

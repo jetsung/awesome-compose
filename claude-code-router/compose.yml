@@ -8,6 +8,6 @@ services:
     hostname: claude-code-router
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-3456}:3456
+      - ${SERV_PORT:-3456}:3456
     volumes:
-    - ./config:/root/.claude-code-router
+      - ./config:/root/.claude-code-router

@@ -2,4 +2,4 @@
 services:
   opengist:
     env_file:
-    - ./.env
+      - ./.env

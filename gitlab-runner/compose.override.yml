@@ -4,4 +4,4 @@
 services:
   gitlab-runner:
     env_file:
-    - ./.env
+      - ./.env

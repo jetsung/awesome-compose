@@ -6,8 +6,8 @@ x-minio-common: &minio-common
   image: quay.io/minio/minio:RELEASE.2025-02-18T16-25-55Z
   command: server --console-address ":9001" http://minio{1...4}/data{1...2}
   expose:
-  - '9000'
-  - '9001'
+    - '9000'
+    - '9001'
   # environment:
     # MINIO_ROOT_USER: minioadmin
     # MINIO_ROOT_PASSWORD: minioadmin
@@ -25,43 +25,43 @@ services      :
     <<: *minio-common
     hostname: minio1
     volumes:
-    - data1-1:/data1
-    - data1-2:/data2
+      - data1-1:/data1
+      - data1-2:/data2
 
   minio2:
     <<: *minio-common
     hostname: minio2
     volumes:
-    - data2-1:/data1
-    - data2-2:/data2
+      - data2-1:/data1
+      - data2-2:/data2
 
   minio3:
     <<: *minio-common
     hostname: minio3
     volumes:
-    - data3-1:/data1
-    - data3-2:/data2
+      - data3-1:/data1
+      - data3-2:/data2
 
   minio4:
     <<: *minio-common
     hostname: minio4
     volumes:
-    - data4-1:/data1
-    - data4-2:/data2
+      - data4-1:/data1
+      - data4-2:/data2
 
   nginx:
     image: nginx:1.19.2-alpine
     hostname: nginx
     volumes:
-    - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
-    - 9000:9000
-    - 9001:9001
+      - 9000:9000
+      - 9001:9001
     depends_on:
-    - minio1
-    - minio2
-    - minio3
-    - minio4
+      - minio1
+      - minio2
+      - minio3
+      - minio4
 
 ## By default this config uses default local driver,
 ## For custom volumes replace with volume driver configuration.

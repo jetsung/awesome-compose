@@ -3,8 +3,8 @@
 services:
   drone-server:
     env_file:
-    - ./.env
+      - ./.env
 
   drone-runner:
     env_file:
-    - ./.env
+      - ./.env

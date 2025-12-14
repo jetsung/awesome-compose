@@ -4,4 +4,4 @@
 services:
   syncthing:
     env_file:
-    - ./.env
+      - ./.env

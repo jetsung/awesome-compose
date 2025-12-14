@@ -3,4 +3,4 @@
 services:
   etcd:
     env_file:
-    - ./.env
+      - ./.env

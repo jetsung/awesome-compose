@@ -5,8 +5,8 @@ x-backup-common: &backup-common
   image: ttionya/vaultwarden-backup:latest
   restart: unless-stopped
   volumes:
-  - ./data:/bitwarden/data/
-  - ./data:/config/
+    - ./data:/bitwarden/data/
+    - ./data:/config/
 
 services       :
   backup1:

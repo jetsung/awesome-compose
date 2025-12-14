@@ -7,6 +7,6 @@ services:
     container_name: webdav
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-80}:80
+      - ${SERV_PORT:-80}:80
     volumes:
-    - ./data:/var/lib/dav
+      - ./data:/var/lib/dav

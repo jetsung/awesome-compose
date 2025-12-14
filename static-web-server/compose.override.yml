@@ -3,4 +3,4 @@
 services:
   static-web-server:
     env_file:
-    - ./.env
+      - ./.env

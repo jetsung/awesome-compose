@@ -3,8 +3,8 @@
 services:
   frps:
     env_file:
-    - ./.env
+      - ./.env
 
   frpc:
     env_file:
-    - ./.env
+      - ./.env

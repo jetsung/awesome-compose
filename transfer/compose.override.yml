@@ -4,4 +4,4 @@
 services:
   transfer:
     env_file:
-    - ./.env
+      - ./.env

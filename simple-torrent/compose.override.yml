@@ -4,4 +4,4 @@
 services:
   cloud-torrent:
     env_file:
-    - ./.env
+      - ./.env

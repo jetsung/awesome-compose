@@ -6,49 +6,49 @@ services:
     hostname: gitea
     restart: unless-stopped
     ports:
-    - ${GITEA_HTTP_PORT:-3000}:3000
-    - ${GITEA_SSL_PORT:-22}:22
+      - ${GITEA_HTTP_PORT:-3000}:3000
+      - ${GITEA_SSL_PORT:-22}:22
     volumes:
-    - ./data/gitea:/data
-    - /etc/timezone:/etc/timezone:ro
-    - /etc/localtime:/etc/localtime:ro
+      - ./data/gitea:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
     depends_on:
-    - db
+      - db
 
   db:
     image: postgres:17
     hostname: gitea
     restart: unless-stopped
     volumes:
-    - ./data/postgres:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
 
   caddy:
     image: caddy:latest
     hostname: gitea
     restart: unless-stopped
     ports:
-    - ${WEB_HTTP_PORT:-80}:80
-    - ${WEB_HTTPS_PORT:-443}:443
+      - ${WEB_HTTP_PORT:-80}:80
+      - ${WEB_HTTPS_PORT:-443}:443
     volumes:
-    - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile
     depends_on:
-    - server
+      - server
     profiles:
-    - caddy
+      - caddy
 
   nginx:
     image: nginx:alpine
     hostname: gitea
     restart: unless-stopped
     ports:
-    - ${WEB_HTTP_PORT:-80}:80
-    - ${WEB_HTTPS_PORT:-443}:443
+      - ${WEB_HTTP_PORT:-80}:80
+      - ${WEB_HTTPS_PORT:-443}:443
     volumes:
-    - .:/var/www:cached
-    - ./nginx.conf:/etc/nginx/nginx.conf
-    - ./ssl:/etc/nginx/ssl
+      - .:/var/www:cached
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
     command: nginx
     depends_on:
-    - server
+      - server
     profiles:
-    - nginx
+      - nginx

@@ -5,8 +5,9 @@ services:
   memos:
     image: neosmemo/memos:latest
     container_name: memos
+    hostname: memos
     restart: unless-stopped
     ports:
-    - ${SERV_PORT:-3000}:5230
+      - ${SERV_PORT:-3000}:5230
     volumes:
-    - ./data:/var/opt/memos
+      - ./data:/var/opt/memos

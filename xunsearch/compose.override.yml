@@ -4,4 +4,4 @@
 services:
   xunsearch:
     env_file:
-    - ./.env
+      - ./.env

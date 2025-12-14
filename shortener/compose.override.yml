@@ -3,4 +3,4 @@
 services:
   shortener:
     env_file:
-    - ./.env
+      - ./.env
