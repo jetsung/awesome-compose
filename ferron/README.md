@@ -129,6 +129,32 @@ example.com:80 {
 }
 ```
 
+- `/etc/ferron/http.d/example.com.kdl`
+```kdl
+snippet "auto_tls" {
+  auto_tls
+  auto_tls_contact "admin@example.com" // Replace with your email address
+  auto_tls_challenge "http-01"
+  auto_tls_letsencrypt_production // 生产环境
+  // auto_tls_letsencrypt_production #false // 测试环境
+  auto_tls_cache "/etc/ferron/ssl/letsencrypt" // Specify cache directory for certificates
+}
+
+// Host configuration for example.com
+example.com:443 {
+  // Reverse proxy to a backend server
+  proxy "http://localhost:8989"
+
+  use "auto_tls"
+}
+
+// HTTP configuration for example.com
+example.com:80 {
+  // Redirect HTTP to HTTPS
+  status 301 location="https://example.com{path_and_query}"
+}
+```
+
 4. 通用 80 端口入口（所有未配置的域名均走此）：`/etc/ferron/http.d/http_default.kdl`
 ```kdl
 // /etc/ferron/http.d/http_default.kdl
@@ -155,6 +181,9 @@ example.com:80 {
 
   // Use self-signed certificates for default HTTPS access
   tls "/etc/ferron/ssl/dummy.crt" "/etc/ferron/ssl/dummy.key"
+
+  // Disable automatic TLS for the catch-all host
+  auto_tls #false
 }
 ```
 生成证书
