@@ -1,6 +1,6 @@
 ---
 
 services:
-  ferron:
+  server:
     env_file:
       - .env
