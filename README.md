@@ -2,7 +2,7 @@
 
 我的 `Docker Compose` 仓库
 
-[**Compose 规范**](https://github.com/compose-spec/compose-spec) ● 
+[**Compose 规范**](https://github.com/compose-spec/compose-spec) ●
 
 [**Play With Docker**](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/compose.yml)
 
@@ -19,7 +19,7 @@ make init n=https://hub.docker.com/r/gotify/server p=1
 - 每个服务都有一个单独的 `README.md` 文件
 
 ### 模板
-- **README.md** 
+- **README.md**
 ```markdown
 # 服务名
 
@@ -27,7 +27,7 @@ make init n=https://hub.docker.com/r/gotify/server p=1
 
 ---
 
-> [服务名][1] 
+> [服务名][1]
 
 [1]:
 [2]:
@@ -77,6 +77,7 @@ services:
 - hedgedoc
 - hoppscotch
 - joplin
+- komodo
 - linkding
 - listmonk
 - matomo
@@ -127,8 +128,8 @@ services:
 
 ## 提交与格式化
 
-- 预提交工具 `pre-commit`  
-  https://github.com/pre-commit/pre-commit  
+- 预提交工具 `pre-commit`
+  https://github.com/pre-commit/pre-commit
   https://pre-commit.com/
 
   ```python
@@ -146,7 +147,7 @@ services:
   pre-commit run <HOOK_ID>
   ```
 
-- 格式化 `yml` 文件  
+- 格式化 `yml` 文件
   https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
 
 ## 仓库镜像

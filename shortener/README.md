@@ -9,7 +9,7 @@
 [1]: https://github.com/jetsung/shortener
 [2]: https://github.com/jetsung/shortener
 [3]: https://hub.docker.com/r/jetsung/shortener-server
-[4]: https://github.com/jetsung/shortener
+[4]: https://shortener.ooos.top/
 
 ## 使用
 1. 配置文件 `config.toml`

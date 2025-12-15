@@ -4,17 +4,17 @@
 
 ---
 
-> [acme.sh][1] 是一个纯用 Shell（Unix shell）语言编写的 ACME 协议客户端。  
-- 完整实现了 ACME 协议。  
-- 支持 ECDSA 证书。  
-- 支持 SAN 和通配符证书。  
-- 简单、强大且非常易于使用。你只需要 3 分钟就能学会。  
-- 兼容 Bash、dash 和 sh。  
-- 完全用 Shell 编写，不依赖 Python。  
-- 只需一个脚本即可自动签发、续期和安装你的证书。  
-- 不需要 root 或 sudo 权限。  
-- 支持 Docker。  
-- 支持 IPv6。  
+> [acme.sh][1] 是一个纯用 Shell（Unix shell）语言编写的 ACME 协议客户端。
+- 完整实现了 ACME 协议。
+- 支持 ECDSA 证书。
+- 支持 SAN 和通配符证书。
+- 简单、强大且非常易于使用。你只需要 3 分钟就能学会。
+- 兼容 Bash、dash 和 sh。
+- 完全用 Shell 编写，不依赖 Python。
+- 只需一个脚本即可自动签发、续期和安装你的证书。
+- 不需要 root 或 sudo 权限。
+- 支持 Docker。
+- 支持 IPv6。
 - 支持通过 cron 任务发送续期或错误通知。
 
 [1]:https://github.com/acmesh-official/acme.sh
@@ -28,11 +28,11 @@
 ```bash
 # 推荐
 # mkdir acme && cd $_
-curl -fsSL https://s.asfd.cn/a792ec34 | bash
+curl -fsSL https://fx4.cn/acme | bash
 
 # 或
-git clone https://framagit.org/jetsung/docker-compose
-cp -r docker-compose/acme .
+git clone https://framagit.org/jetsung/awesome-compose
+cp -r awesome-compose/acme .
 # cd acme
 ```
 
@@ -129,19 +129,19 @@ ls "${PWD}/data/ssl"
 ### 部署到 Nginx
 以下以域名 `example.com` 为例
 
-- **泛域名证书配置（多个次级域名共用）**   
-泛域名通用配置位于 `/usr/local/nginx/conf/wildcard/example.com.conf`   
+- **泛域名证书配置（多个次级域名共用）**
+泛域名通用配置位于 `/usr/local/nginx/conf/wildcard/example.com.conf`
 域名证书目录位于 `/usr/local/nginx/conf/ssl`
 ```bash
 include extend/ssl.conf;
 
 # 指定 SSL 证书和私钥的位置
 ssl_certificate ssl/example.com.fullchain.cer;
-ssl_certificate_key ssl/example.com.key;    
+ssl_certificate_key ssl/example.com.key;
 ```
 
 - **通用 SSL 信息配置**
-通用配置位于 `/usr/local/nginx/conf/extend/ssl.conf`   
+通用配置位于 `/usr/local/nginx/conf/extend/ssl.conf`
 ```bash
 #listen [::]:443 ssl ipv6only=off reuseport;
 #listen [::]:443 quic reuseport ipv6only=off;
@@ -186,12 +186,12 @@ if ($to_https = 1) {
 }
 ```
 
-- **Nginx 域名配置**   
-泛域名通用配置位于 `/usr/local/nginx/conf/vhost/hello.example.com`   
+- **Nginx 域名配置**
+泛域名通用配置位于 `/usr/local/nginx/conf/vhost/hello.example.com`
 ```bash
 server {
     listen 80;
-    listen [::]:80; 
+    listen [::]:80;
 
     server_name hello.example.com;
 
@@ -206,7 +206,7 @@ server {
 
     index  index.html index.htm;
     root   /etc/nginx/html;
-    
+
     error_page   500 502 503 504  /50x.html;
     location = /50x.html {
         root   /usr/share/nginx/html;
@@ -262,7 +262,7 @@ docker exec acme.sh --set-notify --notify-hook feishu --notify-hook gotify
    ```bash
    # 若项目不存在
 	gcloud projects create [project ID]
-	
+
 	gcloud config set project [project ID]
    ```
 

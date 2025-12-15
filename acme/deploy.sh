@@ -5,7 +5,7 @@
 # Description: 部署 ACME 证书
 # Author: Jetsung Chan <i@jetsung.com>
 # Version: 0.1.0
-# CreatedAt: 
+# CreatedAt:
 # UpdatedAt: 2025-03-05
 #============================================================
 
@@ -45,18 +45,18 @@ get_docker_exec() {
     else
         # 服务器
         DOCKER_EXEC="acme.sh"
-        
+
         if ! is_command "$DOCKER_EXEC"; then
             error_exit "未安装 acme.sh"
         fi
-        
+
         if [[ -z "${SSL_PATH:-}" ]]; then
             SSL_PATH="$SAVE_SSL_PATH"
         fi
     fi
 }
 
-# 切换 CA 
+# 切换 CA
 ## https://letsencrypt.org 90 days
 ## https://acme-v02.api.letsencrypt.org/directory
 ## https://acme-staging-v02.api.letsencrypt.org/directory
@@ -68,26 +68,25 @@ get_docker_exec() {
 ## https://dv.acme-v02.api.pki.goog/directory
 ## https://dv.acme-v02.test-api.pki.goog/directory
 ##
-## https://www.buypass.com 180 days
-## https://api.buypass.com/acme/directory
-## https://api.test4.buypass.no/acme/directory
+## https://www.actalis.com/ 90 days
+## https://acme-api.actalis.com/acme/directory
 ##
 do_setca() {
     $DOCKER_EXEC --set-default-ca --server "$CA_SERVER"
-    
+
     if [[ -n "${CA_EMAIL:-}" ]]; then
         # shellcheck disable=SC2206
         ARGS=(
-            --server "$CA_SERVER" 
+            --server "$CA_SERVER"
             --email "$CA_EMAIL"
             ${EXTEND:-}
-        )        
+        )
         if [[ -n "${EAB_KID:-}" ]] && [[ -n "${EAB_HMAC_KEY:-}" ]]; then
             ARGS+=(--eab-kid "$EAB_KID" --eab-hmac-key "$EAB_HMAC_KEY")
         fi
-        
+
         $DOCKER_EXEC --register-account "${ARGS[@]}"
-    fi    
+    fi
 }
 
 # 显示帮助信息 CA
@@ -161,7 +160,7 @@ do_renew() {
     else
         RENEW="--renew --domain $DOMAIN"
     fi
-    
+
     [[ -n "${FORCE:-}" ]] && RENEW+=" --force"
 
     # 签发并部署证书
@@ -220,7 +219,7 @@ $MINUTE $HOUR * * * root cd $script_path; /bin/bash ./$script_name --action cron
 EOF
         systemctl restart cron
         ;;
-        
+
     *)
         # 运行定时任务：如果 SSL 证书目录内文件在 $MTIME 天内修改过，则重启服务器
         if [[ -d "$SAVE_SSL_PATH" ]] && find "$SAVE_SSL_PATH" -type f -mtime -"${MTIME}" | grep -q .; then
@@ -233,12 +232,12 @@ EOF
                 if [[ -n "${REAL_SSL_PATH:-}" ]]; then
                     SAVE_SSL_PATH="$REAL_SSL_PATH"
                 fi
-            fi       
+            fi
 
             # 重启服务器
             restart_server | tee -a "$UPDATE_LOG"
         fi
-        ;;        
+        ;;
     esac
 }
 
@@ -250,9 +249,9 @@ help_cron() {
 选项:
     -h,  --help                              显示帮助信息
     -se, --setup                             可选, 安装计划任务（无参数则运行计划任务）
-    -pa, --path <path>                       可选, 证书保存路径, 比如 /usr/local/nginx/conf/ssl 
+    -pa, --path <path>                       可选, 证书保存路径, 比如 /usr/local/nginx/conf/ssl
     -mt, --mtime <mtime>                     可选, 证书更新时间, 默认 1
-    
+
 EOF
 }
 
@@ -285,13 +284,13 @@ restart_server() {
             # systemd
             systemctl reload nginx
         fi
-        
+
         echo -e "$(date -R) nginx reload"
     elif [[ "$(ps -ef | grep 'angie: master' | grep -v "grep" | awk '{print $3}')" -eq 1 ]]; then
         # 正在运行 angie
         systemctl reload angie
-        
-        echo -e "$(date -R) angie reload"    
+
+        echo -e "$(date -R) angie reload"
     fi
 }
 
@@ -327,12 +326,12 @@ judgment_parameters() {
                 HELP=1
                 ;;
 
-            '-a' | '--action') 
+            '-a' | '--action')
                 # 操作
                 shift
                 ACTION="${1:?"错误: 操作类型 (action) 不能为空."}"
                 ACTION="${ACTION,,}" # 转小写
-                ;;    
+                ;;
             '-s' | '--server')
                 # CA 服务器
                 shift
@@ -342,7 +341,7 @@ judgment_parameters() {
                 # CA 邮箱
                 shift
                 CA_EMAIL="${1:?"错误: CA 邮箱 (email) 不能为空."}"
-                ;;  
+                ;;
 
             '-d' | '--domain')
                 # 签发域名
@@ -350,7 +349,7 @@ judgment_parameters() {
                 DOMAIN="${1:?"错误: 域名 (domain) 不能为空."}"
                 if [[ "$DOMAIN" != *"."* ]]; then
                     error_exit "错误: 域名 (domain) 必须包含点."
-                fi                
+                fi
                 ;;
 
             '-ek' | --eab-kid)
@@ -372,22 +371,22 @@ judgment_parameters() {
                 if [[ "$DNS_TYPE" != "dns_"* ]]; then
                     DNS_TYPE="dns_$DNS_TYPE"
                 fi
-                ;;                
+                ;;
             '-ch' | '--challenge-alias')
                 # 域别名
                 shift
                 CHALLENGE_ALIAS="${1:?"错误: 域别名 (--challenge-alias) 不能为空."}"
-                ;;      
+                ;;
             '-do' | '--domain-alias')
                 # 质询别名
                 shift
                 DOMAIN_ALIAS="${1:?"错误: 质询别名 (--domain-alias) 不能为空."}"
-                ;;                           
+                ;;
             '-ex' | '--extend')
                 # 扩展参数
                 shift
                 EXTEND="${1:?"错误: 扩展参数 (extend) 不能为空."}"
-                ;;   
+                ;;
 
             '-fo' | '--force')
                 # 强制更新
@@ -396,17 +395,17 @@ judgment_parameters() {
 
             '-se' | '--setup')
                 SETUP=1
-                ;;    
+                ;;
             '-mt' | '--mtime')
                 # 最近几天内是否有文件修改
                 shift
                 MTIME="${1:?"错误: 最近几天内是否有文件修改 (mtime) 不能为空."}"
-                ;;       
+                ;;
             '-pa' | '--path')
                 # 证书路径
                 shift
                 REAL_SSL_PATH="${1:?"错误: 证书路径 (path) 不能为空."}"
-                ;;  
+                ;;
 
             *)
                 echo "$0: 未知选项 -- $1" >&2
@@ -466,12 +465,12 @@ show_help() {
 }
 
 main() {
-    judgment_parameters "$@"    
+    judgment_parameters "$@"
 
     if [[ $# -eq 0 ]]; then
         HELP=1
     fi
-    
+
     if [[ -n "${HELP:-}" ]]; then
         show_help
     fi

@@ -79,7 +79,7 @@ PermitOpen localhost:80 localhost:443 any:22
 >[!注意]
 >除非参数标注为“可选”，否则该参数是*必填项*，必须给出相应的值。
 
-### docker - compose（推荐，[点击此处查看更多详情](https://docs.linuxserver.io/general/docker - compose)）
+### docker - compose（推荐，[点击此处查看更多详情](https://docs.linuxserver.io/general/docker-compose)）
 
 ```yaml
 ---
