@@ -1,0 +1,7 @@
+services:
+  syncthing:
+    ports: !override
+      - ${WEB_PORT:-8384}:8384
+      - ${SERV_PORT:-22000}:22000/tcp
+      - ${SERV_PORT:-22000}:22000/udp
+      - ${DISCOVERY_PORT:-21027}:21027/udp

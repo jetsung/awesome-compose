@@ -1,0 +1,13 @@
+---
+
+server:
+  endpoint: https://yourdomain.com
+  host: 0.0.0.0
+  port: 80
+  name: pusher
+  datapath: /data
+  register:
+    enable: true
+    whitelist:     # whitelist
+      - USER_ID
+  secret: yoursecret

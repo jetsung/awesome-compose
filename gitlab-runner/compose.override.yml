@@ -1,7 +1,0 @@
----
-# https://docs.gitlab.com/runner/install/docker.html
-
-services:
-  gitlab-runner:
-    env_file:
-      - ./.env

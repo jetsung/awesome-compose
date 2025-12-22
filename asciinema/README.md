@@ -1,6 +1,6 @@
 # asciinema server
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -11,19 +11,17 @@
 [3]:https://ghcr.io/asciinema/asciinema-server
 [4]:https://docs.asciinema.org/manual/server/
 
+---
+
 ## 前置服务
 1. 安装 `nginx` 和 `docker`
 2. 需要使用到 `email` 账户的 `smtp` 服务，以提供登录
 
-## 部署服务器
+## [docker Compose 部署](compose.yaml)服务器
 
 ### ）服务全部使用 `Docker`
 
-- [**`docker-compose.yml`**](docker-compose.yml)
-
 ### ）数据库使用宿主机的 `PostgreSQL`
-
-- [**`docker-compose.yml`**](docker-compose.postgres.yml)
 
 - 创建 `PostgreSQL` 的用户
   1. **登录 PostgreSQL**
@@ -54,7 +52,7 @@
      GRANT ALL PRIVILEGES ON DATABASE asciinema TO asciinema_user;
      ```
 
-  5. **测试连接**   
+  5. **测试连接**
      在服务器上运行以下命令测试连接是否成功：
 
       ```bash
@@ -67,7 +65,7 @@
   ```bash
   docker network inspect bridge | grep 'Gateway' | awk -F'"' '{print $4}'
   ```
-  将 `docker-compose.yml` 的 `hostname` 修改为上述命令查出来的 **IP**。
+  将 `compose.yaml` 的 `hostname` 修改为上述命令查出来的 **IP**。
 
 - [`.env`](.env) 文件添加一行数据库的信息，[**相关文档**](https://docs.asciinema.org/manual/server/self-hosting/configuration/#external-postgresql-server)。
   ```sh
@@ -76,8 +74,6 @@
   ```
 
 ### ）数据库使用宿主机的 `PostgreSQL` 和 `AWS S3` 对象存储
-
-- [**`docker-compose.yml`**](docker-compose.postgres-s3.yml)
 
 - [`.env`](.env) 文件添加 `S3` 相关的信息，[**相关文档**](https://docs.asciinema.org/manual/server/self-hosting/configuration/#cloudflare-r2)。
   ```sh
@@ -89,8 +85,7 @@
   S3_REGION=<REGION>
   ```
 
-## 配置信息
-- [**`.env`**](.env) 参数说明
+## [**`.env`**](.env) 配置参数说明
   ```sh
   # 是否关闭注册，默认 false
   SIGN_UP_DISABLED=false
@@ -101,7 +96,7 @@
   # 未认领的 rec 垃圾回收时长，单位（天）
   UNCLAIMED_RECORDING_TTL=30
 
-  # 密钥，使用命令生成: 
+  # 密钥，使用命令生成:
   # tr -dc A-Za-z0-9 </dev/urandom | head -c 64; echo
   SECRET_KEY_BASE=<SECRET_KEY_BASE>
 
@@ -135,8 +130,6 @@
   S3_REGION=<REGION>
   ```
 
-### 配置 `.env`
-
 - [配置邮箱信息](https://docs.asciinema.org/manual/server/self-hosting/configuration/#email)
 - 配置 NGINX 反代
   ```nginx
@@ -156,40 +149,10 @@
         proxy_next_upstream error;
         proxy_redirect off;
         proxy_buffering off;
-    }  
+    }
   ```
 
 - 添加管理邮箱
   ```sh
   docker compose exec asciinema admin_add admin@example.com
   ```
-  
-- 邮箱配置如果出现无法发送邮件，可[**自行扩展**](https://docs.asciinema.org/manual/server/self-hosting/configuration/#advanced-configuration)
-> 此问题暂时无法修复，但可临时禁止检测
-```yaml
-# compose.yml
-    volumes:
-      - ./custom.exs:/opt/app/etc/custom.exs
-```
-```exs
-# custom.exs
-import Config
-
-config :asciinema, Asciinema.Emails.Mailer,
-  tls_options: [
-    cacerts: :public_key.cacerts_get(), 
-    server_name_indication: ~c"#{System.get_env("SMTP_HOST")}",
-    depth: 99,
-    customize_hostname_check: [match_fun: :public_key.pkix_verify_hostname_match_fun(:https)]
-  ]
-```
-或者跳过验证（不安全）
-```exs
-# custom.exs
-import Config
-
-config :asciinema, Asciinema.Emails.Mailer,
-  tls_options: [
-    verify: :verify_none, # <-- TEMPORARY FOR DEBUGGING ONLY! NOT FOR PRODUCTION!
-  ]
-```

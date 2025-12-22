@@ -1,0 +1,14 @@
+---
+# https://hub.docker.com/r/ekzhang/bore
+
+services:
+  bore:
+    image: ekzhang/bore:latest
+    container_name: bore
+    hostname: bore
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    command: ["server"]
+    network_mode: host

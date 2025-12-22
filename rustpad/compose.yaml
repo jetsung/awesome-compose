@@ -1,0 +1,15 @@
+---
+# https://hub.docker.com/r/ekzhang/rustpad
+
+services:
+  rustpad:
+    image: ghcr.io/forkdo/rustpad:latest
+    container_name: rustpad
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    volumes:
+      - ./data:/app
+    ports:
+      - 3030:3030

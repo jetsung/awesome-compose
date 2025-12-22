@@ -1,0 +1,30 @@
+---
+# https://github.com/jetsung/shortener
+
+services:
+  backend:
+    image: jetsung/shortener-server:latest
+    restart: unless-stopped
+    hostname: shortener
+    ports:
+      - 8081:8081
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    healthcheck:
+      disable: true
+  #   depends_on:
+  #     - valkey
+
+  # valkey:
+  #   image: valkey/valkey:latest
+  #   restart: unless-stopped
+  #   environment:
+  #     - TZ=Asia/Shanghai
+
+  frontend:
+    image: jetsung/shortener-frontend:latest
+    restart: unless-stopped
+    hostname: shortener
+    ports:
+      - 8080:8080

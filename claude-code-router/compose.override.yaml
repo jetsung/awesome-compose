@@ -1,0 +1,6 @@
+services:
+  claude-code-router:
+    ports: !override
+      - ${SERV_PORT:-3456}:3456
+    volumes:
+      - ./data:/root/.claude-code-router

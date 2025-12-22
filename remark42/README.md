@@ -1,6 +1,6 @@
 # Remark42
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -13,7 +13,7 @@
    - 不跟踪用户行为，不涉及第三方分析服务。
    - 用户信息（如用户ID、用户名和头像链接）仅存储必要的部分，并且经过哈希处理。
    - 支持用户请求导出其数据，并提供“删除”功能以清除所有相关活动信息[^4^]。
-   
+
 2. **多样的登录方式**
    - 支持通过 Google、Twitter、Facebook、GitHub、Apple 等社交媒体平台登录[^4^]。
    - 支持通过邮箱登录，以及可选的匿名访问[^4^]。
@@ -109,4 +109,4 @@ environment:
     # Do not leave the server running with the ADMIN_PASSWD set if you don't have an intention
     # to keep creating backups manually!
     # - ADMIN_PASSWD=<your secret password>
-```      
+```

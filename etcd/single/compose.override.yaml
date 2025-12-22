@@ -1,0 +1,7 @@
+services:
+  etcd:
+    ports: !override
+      - ${SERV_PORT_1:-2379}:2379
+      - ${SERV_PORT_2:-2380}:2380
+    volumes:
+      - ./data:/etcd-data

@@ -1,7 +1,0 @@
----
-# https://hub.docker.com/_/mariadb
-
-services:
-  mariadb:
-    env_file:
-      - ./.env

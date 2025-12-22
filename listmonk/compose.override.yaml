@@ -1,0 +1,7 @@
+services:
+  app:
+    ports: !override
+      - 9000:9000
+  db:
+    ports: !override
+      - 5432:5432

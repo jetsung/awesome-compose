@@ -1,0 +1,4 @@
+services:
+  cloud-torrent:
+    ports: !override
+      - ${SERV_PORT:-3000}:3000

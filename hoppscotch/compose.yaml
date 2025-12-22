@@ -1,0 +1,55 @@
+---
+
+# https://hub.docker.com/r/hoppscotch/hoppscotch
+services:
+  postgres:
+    image: postgres:latest
+    hostname: hoppscotch
+    restart: unless-stopped
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql
+    profiles:
+      - one
+      - aio
+      - init
+
+  aio:
+    image: hoppscotch/hoppscotch:latest
+    hostname: hoppscotch
+    restart: unless-stopped
+    ports:
+      - 8080:80
+      - 8080:3200
+    profiles:
+      - aio
+
+  admin:
+    image: hoppscotch/hoppscotch-admin:latest
+    hostname: hoppscotch
+    restart: unless-stopped
+    ports:
+      - 3100:80
+    profiles:
+      - one
+
+  frontend:
+    image: hoppscotch/hoppscotch-frontend:latest
+    hostname: hoppscotch
+    restart: unless-stopped
+    ports:
+      - 3000:80
+    profiles:
+      - one
+
+  backend:
+    image: hoppscotch/hoppscotch-backend:latest
+    hostname: hoppscotch
+    restart: unless-stopped
+    ports:
+      - 3170:80
+    depends_on:
+      - postgres
+    profiles:
+      - one

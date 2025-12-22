@@ -1,0 +1,4 @@
+services:
+  openssh-server:
+    ports: !override
+      - ${SERV_PORT:-2222}:2222

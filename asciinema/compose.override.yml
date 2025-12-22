@@ -1,6 +1,0 @@
----
-
-services:
-  asciinema:
-    env_file:
-      - ./.env

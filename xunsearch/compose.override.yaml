@@ -1,0 +1,5 @@
+services:
+  xunsearch:
+    ports: !override
+      - ${SERV_PORT:-8383}:8383
+      - ${SERV_PORT_1:-8384}:8384

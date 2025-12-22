@@ -1,0 +1,7 @@
+---
+
+services:
+  acme:
+    volumes:
+      - ./data/out:/acme.sh
+      - ./data/ssl:/data/ssl

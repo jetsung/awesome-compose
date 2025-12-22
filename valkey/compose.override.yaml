@@ -1,0 +1,4 @@
+services:
+  valkey:
+    ports: !override
+      - ${SERV_PORT:-6379}:6379

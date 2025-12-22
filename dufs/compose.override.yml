@@ -1,5 +1,0 @@
----
-services:
-  dufs:
-    env_file:
-      - ./.env

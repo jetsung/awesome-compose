@@ -1,0 +1,4 @@
+services:
+  static-web-server:
+    ports: !override
+      - ${SERV_PORT:-80}:80

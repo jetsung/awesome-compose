@@ -1,0 +1,4 @@
+services:
+  pgadmin4:
+    ports: !override
+      - ${SERV_PORT:-80}:80

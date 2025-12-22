@@ -1,6 +1,0 @@
----
-
-services:
-  server:
-    env_file:
-      - .env

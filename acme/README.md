@@ -1,6 +1,6 @@
 # acme.sh
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -141,7 +141,8 @@ ssl_certificate_key ssl/example.com.key;
 ```
 
 - **通用 SSL 信息配置**
-通用配置位于 `/usr/local/nginx/conf/extend/ssl.conf`
+> SSL 通用配置文件位于 `/usr/local/nginx/conf/extend/ssl.conf`
+>
 ```bash
 #listen [::]:443 ssl ipv6only=off reuseport;
 #listen [::]:443 quic reuseport ipv6only=off;
@@ -187,7 +188,7 @@ if ($to_https = 1) {
 ```
 
 - **Nginx 域名配置**
-泛域名通用配置位于 `/usr/local/nginx/conf/vhost/hello.example.com`
+> 域名配置文件位于 `/usr/local/nginx/conf/vhost/hello.example.com.conf`
 ```bash
 server {
     listen 80;
@@ -220,12 +221,42 @@ server {
         proxy_set_header Host $host:$server_port;
         proxy_set_header X-Real-Ip $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_connect_timeout 99999;
+
+        # websocket
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
-        proxy_connect_timeout 99999;
     }
 }
+```
+
+- **使用 acme.sh 签发与续签 SSL 证书配置（无状态模式）**
+> 配置文件于 `/usr/local/nginx/conf/extend/acme_stateless.conf`
+> 配合 acme.sh 直接签发和[续签 SSL 证书](https://github.com/acmesh-official/acme.sh/wiki/Stateless-Mode)
+配置方法：
+1. 首先获取你的账户密钥指纹：
+```bash
+root@ed:~# acme.sh --register-account
+[Mon Feb  6 21:40:18 CST 2017] Registering account
+[Mon Feb  6 21:40:19 CST 2017] Already registered
+[Mon Feb  6 21:40:21 CST 2017] Update success.
+[Mon Feb  6 21:40:21 CST 2017] ACCOUNT_THUMBPRINT='6fXAG9VyG0IahirPEU2ZerUtItW2DHzDzD9wZaEKpqd'
+```
+2. `acme_stateless.conf` 配置文件的文本如下：
+```bash
+location ~ ^/\.well-known/acme-challenge/([-_a-zA-Z0-9]+)$ {
+    default_type text/plain;
+    return 200 "$1.6fXAG9VyG0IahirPEU2ZerUtItW2DHzDzD9wZaEKpqd";
+}
+```
+3. 在对应域名 `server` 配置中添加以下内容，添加至上述的 `hello.example.com.conf`：
+```bash
+include extend/acme_stateless.conf;
+```
+4. 签发证书
+```bash
+acme.sh --issue -d hello.example.com  --stateless
 ```
 
 ## 官方教程

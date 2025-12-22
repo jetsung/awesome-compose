@@ -1,6 +1,6 @@
 # EMQX
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -10,6 +10,8 @@
 [2]:https://github.com/emqx/emqx
 [3]:https://hub.docker.com/r/emqx/emqx
 [4]:https://docs.emqx.com/
+
+---
 
 ## 配置
 
@@ -26,7 +28,7 @@
     docker exec -it emqx emqx ctl admins passwd <Username> <Password>
     docker exec -it emqx emqx ctl admin <Username> <New Password>
     ```
-- [TLS 配置（MQTTS）](https://docs.emqx.com/zh/emqx/latest/network/emqx-mqtt-tls.html) （**单向**）  
+- [TLS 配置（MQTTS）](https://docs.emqx.com/zh/emqx/latest/network/emqx-mqtt-tls.html) （**单向**）
     1. 修改 `.env` 配置文件，去除 `#` 注释
     ```bash
     EMQX_LISTENERS__SSL__DEFAULT__BIND=0.0.0.0:8883
@@ -36,11 +38,11 @@
     EMQX_LISTENERS__SSL__DEFAULT__SSL_OPTIONS__VERIFY=verify_none
     EMQX_LISTENERS__SSL__DEFAULT__SSL_OPTIONS__FAIL_IF_NO_PEER_CERT=false
     ```
-    2. 将以下的证书对应的 key 和 cer 路径替换为自己的证书路径 
+    2. 将以下的证书对应的 key 和 cer 路径替换为自己的证书路径
     ```yaml
     volumes:
-    # - /srv/acme/ssl/emqx.io.key:/etc/emqx/certs/emqx.key
-    # - /srv/acme/ssl/emqx.io.fullchain.cer:/etc/emqx/certs/emqx.cer
+     - /srv/acme/ssl/emqx.io.key:/etc/emqx/certs/emqx.key
+     - /srv/acme/ssl/emqx.io.fullchain.cer:/etc/emqx/certs/emqx.cer
     ```
 
 - [WSS 配置](https://docs.emqx.com/zh/emqx/latest/configuration/listener.html#%E9%85%8D%E7%BD%AE%E5%AE%89%E5%85%A8-websocket-%E7%9B%91%E5%90%AC%E5%99%A8)
@@ -58,7 +60,7 @@
     1. 修改 `.env` 配置文件，去除 `#` 注释
     ```bash
     #EMQX_DASHBOARD__LISTENERS__HTTPS__BIND=0.0.0.0:18084
-    #EMQX_DASHBOARD__LISTENERS__HTTPS__SSL_OPTIONS__CERTFILE=/etc/emqx/certs/emqx.cer 
+    #EMQX_DASHBOARD__LISTENERS__HTTPS__SSL_OPTIONS__CERTFILE=/etc/emqx/certs/emqx.cer
     #EMQX_DASHBOARD__LISTENERS__HTTPS__SSL_OPTIONS__KEYFILE=/etc/emqx/certs/emqx.key
     ```
 

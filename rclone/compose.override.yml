@@ -1,5 +1,0 @@
----
-services:
-  rclone:
-    env_file:
-      - ./.env

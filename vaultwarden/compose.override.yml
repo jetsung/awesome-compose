@@ -1,7 +1,0 @@
----
-# https://hub.docker.com/r/vaultwarden/server
-
-services:
-  vaultwarden:
-    env_file:
-      - ./.env

@@ -1,6 +1,6 @@
 # filetas
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -11,7 +11,7 @@
 [3]:https://hub.docker.com/r/idevsig/filetas
 [4]:https://github.com/idevsig/filetas
 
-## 使用 
+## 使用
 
 ```bash
 # docker.io

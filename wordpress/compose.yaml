@@ -1,0 +1,23 @@
+---
+services:
+
+  wordpress:
+    image: wordpress:latest
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 8080:80
+    volumes:
+      - ./data/wordpress:/var/www/html
+    depends_on:
+      - db
+  db:
+    image: mysql:9
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    volumes:
+      - ./data/mysql:/var/lib/mysql

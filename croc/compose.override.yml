@@ -1,6 +1,0 @@
----
-
-services:
-  croc:
-    env_file:
-      - ./.env

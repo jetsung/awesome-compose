@@ -1,0 +1,6 @@
+services:
+  chanify:
+    ports: !override
+      - ${SERV_PORT:-80}:80
+    volumes:
+      - ./data:/data

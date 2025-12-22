@@ -1,5 +1,0 @@
----
-services:
-  pgadmin4:
-    env_file:
-      - ./.env

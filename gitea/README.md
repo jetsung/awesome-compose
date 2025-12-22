@@ -1,10 +1,10 @@
 # Gitea
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
-> [Gitea][1] 是一个轻量级的 DevOps 平台软件。从开发计划到产品成型的整个软件生命周期，他都能够高效而轻松的帮助团队和开发者。包括 Git 托管、代码审查、团队协作、软件包注册和 CI/CD。它与 GitHub、Bitbucket 和 GitLab 等比较类似。 
+> [Gitea][1] 是一个轻量级的 DevOps 平台软件。从开发计划到产品成型的整个软件生命周期，他都能够高效而轻松的帮助团队和开发者。包括 Git 托管、代码审查、团队协作、软件包注册和 CI/CD。它与 GitHub、Bitbucket 和 GitLab 等比较类似。
 
 [1]:https://gitea.com/
 [2]:https://github.com/go-gitea/gitea
@@ -17,14 +17,14 @@
 本教程以 `PostgreSQL` + `Caddy` / `Nginx` 方式进行安装。
 
 ## 先决条件
-1. 确保当前服务器的 ssh 连接端口非 22 端口。以便可以通过 ssh 方式拉取和提交代码。   
+1. 确保当前服务器的 ssh 连接端口非 22 端口。以便可以通过 ssh 方式拉取和提交代码。
 2. 将此域名绑定到此服务器 IP，以便通过域名拉取和提交代码。
 
 ## 一键安装方式
 ```bash
 # 【快速安装】
-# 或者直接使用 Caddy 直接创建服务，再通过浏览器访问域名即可。不需要再进行其它操作。   
-# 此方式将禁止 3000 端口对外。取消则将 compose.yml 中去掉 '#- 3000' 的注释即可。
+# 或者直接使用 Caddy 直接创建服务，再通过浏览器访问域名即可。不需要再进行其它操作。
+# 此方式将禁止 3000 端口对外。取消则将 compose.yaml 中去掉 '#- 3000' 的注释即可。
 wget -qO - https://git.jetsung.com/jetsung/awesome-compose/-/raw/main/gitea/run.sh | bash -s init xxx.com
 
 # 默认配置，执行之后，需通过浏览器访问 IP:3000，设置 Gitea 相关信息，以便生成 app.ini 配置文件。
@@ -37,11 +37,11 @@ chmod +x run.sh
 ./run.sh init xxx.com
 ```
 
-### Caddy 
+### Caddy
 **`PostgreSQL` + `Caddy` 方式**
-> 由于 Caddy 会自动获取 ssl 证书，故不需配置证书。   
+> 由于 Caddy 会自动获取 ssl 证书，故不需配置证书。
 
-**1、相关文件**   
+**1、相关文件**
 ```bash
 # Caddy 配置文件
 Caddyfile
@@ -56,34 +56,34 @@ localhost { # 此行修改为，http://localhost，否则会自动跳转到 http
 }
 ```
 
-**2、执行命令**  
+**2、执行命令**
 ```bash
 ## [使用 nginx 方式，则跳过下一步骤] ##
 # 独立域名执行以下命令行（需修改下述域名）
 ./run.sh domain.com
 ```
 
-### Nginx   
+### Nginx
 **`PostgreSQL` + `Nginx` 方式**
 
-**1、相关文件**   
+**1、相关文件**
 ```bash
 # nginx 配置文件
 nginx.conf
 ```
 
-**2、配置 ssl 证书**   
-1. 创建 ssl 文件夹，并将 ssl 证书保存至该文件夹。   
-2. 修改 `nginx.conf` 配置信息（域名和证书文件名）。 
+**2、配置 ssl 证书**
+1. 创建 ssl 文件夹，并将 ssl 证书保存至该文件夹。
+2. 修改 `nginx.conf` 配置信息（域名和证书文件名）。
 ```
-...   
-server_name localhost;   
-...   
-ssl_certificate    ssl/localhost.fullchain.cer;   
-ssl_certificate_key    ssl/localhost.key;   
+...
+server_name localhost;
+...
+ssl_certificate    ssl/localhost.fullchain.cer;
+ssl_certificate_key    ssl/localhost.key;
 ...
 ```
-**3、执行命令**  
+**3、执行命令**
 ```bash
 # 独立域名执行以下命令行（需修改下述域名）
 ./run.sh domain.com nginx
@@ -95,7 +95,7 @@ ssl_certificate_key    ssl/localhost.key;
 ```bash
 ## 停止所有服务（caddy）
 # docker compose --profile caddy down
-./run.sh cstop 
+./run.sh cstop
 
 ## 启动所有服务（caddy）
 # docker compose --profile caddy up -d
@@ -126,8 +126,8 @@ ssl_certificate_key    ssl/localhost.key;
 # 安装
 ./run.sh drone {{DRONE_SERVER_HOST}} {{DRONE_GITEA_CLIENT_ID}} {{DRONE_GITEA_CLIENT_SECRET}}
 ```
-> DRONE_SERVER_HOST: Drone 访问的实际域名   
-> DRONE_GITEA_CLIENT_ID: Gitea 应用客户端ID   
+> DRONE_SERVER_HOST: Drone 访问的实际域名
+> DRONE_GITEA_CLIENT_ID: Gitea 应用客户端ID
 > DRONE_GITEA_CLIENT_SECRET: Gitea 应用客户端密钥
 
 ### Woodpecker 平台
@@ -144,11 +144,11 @@ ssl_certificate_key    ssl/localhost.key;
 # 安装
 ./run.sh woodpecker {{WOODPECKER_HOST}} {{WOODPECKER_GITEA_CLIENT}} {{WOODPECKER_GITEA_SECRET}}
 ```
-> WOODPECKER_HOST: Woodpecker 访问的实际域名   
-> WOODPECKER_GITEA_CLIENT: Gitea 应用客户端ID   
+> WOODPECKER_HOST: Woodpecker 访问的实际域名
+> WOODPECKER_GITEA_CLIENT: Gitea 应用客户端ID
 > WOODPECKER_GITEA_SECRET: Gitea 应用客户端密钥
 
 ## 教程
 - **视频教程：**
-> 1. 哔哩哔哩: https://space.bilibili.com/24643475/channel/seriesdetail?sid=2579674   
+> 1. 哔哩哔哩: https://space.bilibili.com/24643475/channel/seriesdetail?sid=2579674
 > 西瓜视频: https://www.ixigua.com/7136483138939093535

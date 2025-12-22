@@ -1,6 +1,6 @@
 # croc
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -12,14 +12,15 @@
 - 允许**恢复中断**的传输
 - 无需本地服务器或端口转发
 - **IPv6 优先**，IPv4 回退
-- 可以**使用代理**，如 Tor 
+- 可以**使用代理**，如 Tor
 
-[1]:https://schollz.com/tinker/croc6
+[1]:https://schollz.com/software/croc6
 [2]:https://github.com/schollz/croc
 [3]:https://hub.docker.com/r/schollz/croc
 [4]:https://github.com/schollz/croc#usage
 
 ---
+
 ## 部署教程
 
 ```yaml
@@ -28,21 +29,16 @@
 
 services:
   croc:
-    image: schollz/croc:latest
-    container_name: croc
-    restart: unless-stopped
+    ...
     ports:
-    - 9009-9013:9009-9013
+      - 9009-9013:9009-9013
 
-# 指定端口
+# 指定其它端口
 services:
   croc:
-    image: schollz/croc:latest
-    container_name: croc
-    restart: unless-stopped
+    ...
     ports:
-    - 39009-39013:39009-39013
-    command: ["relay", "--ports", "39009,39010,39011,39012,39013"]
+      - 39009-39013:9009-9013
 ```
 
 ## 使用教程

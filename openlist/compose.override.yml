@@ -1,6 +1,0 @@
----
-
-services:
-  openlist:
-    env_file:
-      - ./.env

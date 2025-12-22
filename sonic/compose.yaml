@@ -1,0 +1,16 @@
+---
+# https://hub.docker.com/r/valeriansaliou/sonic
+
+services:
+  sonic:
+    image: valeriansaliou/sonic:latest
+    container_name: sonic
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 1491:1491
+    volumes:
+      - ./config.cfg:/etc/sonic.cfg
+      - /srv/sonic/store/:/var/lib/sonic/store/

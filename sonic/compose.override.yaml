@@ -1,0 +1,4 @@
+services:
+  sonic:
+    ports: !override
+      - ${SERV_PORT:-1491}:1491

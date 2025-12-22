@@ -1,6 +1,6 @@
 # Shortener
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -14,7 +14,7 @@
 ## 使用
 1. 配置文件 `config.toml`
 2. 若需要使用缓存，需要配置 `valkey` 缓存
-    1. 取消 `compose.yml` 中的 `valkey` 配置的注释。
+    1. 取消 `compose.yaml` 中的 `valkey` 配置的注释。
     2. 修改配置文件 `config.toml` 中的 `cache.enabled` 字段为 `true`。
     3. 修改配置文件 `config.toml` 中的 `cache.type` 字段为 `valkey`。
 3. 若需要 IP 数据，需要配置 `ip2region` 数据库

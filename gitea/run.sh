@@ -6,7 +6,7 @@ load_vars() {
 }
 
 download_files() {
-    local FILES="README.md compose.yml compose.override.yml Caddyfile nginx.conf run.sh .env"
+    local FILES="README.md compose.yaml compose.override.yaml Caddyfile nginx.conf run.sh .env"
     for FILE in ${FILES}; do
         if [ ! -f "${FILE}" ]; then
             echo "Fetching file '${FILE}'"
@@ -51,7 +51,7 @@ first_install() {
     if [[ -z "${1}" ]]; then
         docker compose up -d
     else
-        sed -i "s/[^#]\- 3000/\#\- 3000/" ./compose.yml
+        sed -i "s/[^#]\- 3000/\#\- 3000/" ./compose.yaml
         sed -i "s/.*{/${1} {/" ./Caddyfile
         all_start_caddy
     fi
@@ -61,7 +61,7 @@ second_update() {
     DOMAIN="${1}"
 
     if [[ -n "${DOMAIN}" ]]; then
-       
+
         sed -i "s/localhost/${DOMAIN}/" ./gitea/gitea/conf/app.ini
         sed  -ri "s/(ROOT_URL\s*\= ).*/\1https:\/\/${DOMAIN}\//" ./gitea/gitea/conf/app.ini
 
@@ -80,7 +80,7 @@ second_update() {
 update_drone_files() {
     load_vars
     DOWN_URL="${DOWN_URL%/*}/drone"
-    
+
     local DRONE_ENV=".env_drone"
     if [[ ! -f "${DRONE_ENV}" ]]; then
         local ENV_FILE=".env"
@@ -88,16 +88,16 @@ update_drone_files() {
         wget -qO "${DRONE_ENV}" "${DOWN_URL}/${ENV_FILE}"
     fi
 
-    local DOCKER_COMPOSE="docker-compose.drone.yml"
+    local DOCKER_COMPOSE="docker-compose.drone.yaml"
     if [[ ! -f "${DOCKER_COMPOSE}" ]]; then
-        local COMPOSE_FILE="docker-compose.yml"
+        local COMPOSE_FILE="docker-compose.yaml"
         printf "Fetching file drone '%s'\n" "${COMPOSE_FILE}"
         wget -qO "${DOCKER_COMPOSE}" "${DOWN_URL}/${COMPOSE_FILE}"
     fi
 
-    # set drone docker-compose.drone.yml file
+    # set drone docker-compose.drone.yaml file
     sed -i "s/\- \.\/\.env.*/\- \.\/\.env_drone/" "${DOCKER_COMPOSE}"
-    sed -i "/ports/d;/\- 80\:80/d;/\- 443\:443/d" "${DOCKER_COMPOSE}"  
+    sed -i "/ports/d;/\- 80\:80/d;/\- 443\:443/d" "${DOCKER_COMPOSE}"
 
     # set drone .env file
     sed -ri "s#(DRONE_GITEA_SERVER=).*#\1${DRONE_GITEA_SERVER}#" "${DRONE_ENV}"
@@ -108,7 +108,7 @@ update_drone_files() {
 
     if grep -q "${DRONE_SERVER_HOST}" ./Caddyfile;then
         tee -a ./Caddyfile << EOF
-        
+
 ${DRONE_SERVER_HOST} {
     tls mygit@outlook.com
     reverse_proxy drone-server:80
@@ -124,7 +124,7 @@ EOF
 update_woodpecker_files() {
     load_vars
     DOWN_URL="${DOWN_URL%/*}/woodpecker"
-    
+
     local WOODPECKER_ENV=".env_woodpecker"
     if [[ ! -f "${WOODPECKER_ENV}" ]]; then
         local ENV_FILE=".env"
@@ -132,16 +132,16 @@ update_woodpecker_files() {
         wget -qO "${WOODPECKER_ENV}" "${DOWN_URL}/${ENV_FILE}"
     fi
 
-    local DOCKER_COMPOSE="docker-compose.woodpecker.yml"
+    local DOCKER_COMPOSE="docker-compose.woodpecker.yaml"
     if [[ ! -f "${DOCKER_COMPOSE}" ]]; then
-        local COMPOSE_FILE="docker-compose.yml"
+        local COMPOSE_FILE="docker-compose.yaml"
         printf "Fetching file woodpecker '%s'\n" "${COMPOSE_FILE}"
         wget -qO "${DOCKER_COMPOSE}" "${DOWN_URL}/${COMPOSE_FILE}"
     fi
 
-    # set woodpecker docker-compose.drone.yml file
+    # set woodpecker docker-compose.drone.yaml file
     sed -i "s/\- \.\/\.env.*/\- \.\/\.env_woodpecker/" "${DOCKER_COMPOSE}"
-    sed -i "/ports/d;/\- 8000\:8000/d" "${DOCKER_COMPOSE}"  
+    sed -i "/ports/d;/\- 8000\:8000/d" "${DOCKER_COMPOSE}"
 
     # set woodpecker .env file
     sed -ri "s#(WOODPECKER_GITEA_URL=).*#\1${WOODPECKER_GITEA_URL}#" "${WOODPECKER_ENV}"
@@ -152,7 +152,7 @@ update_woodpecker_files() {
 
     if grep -q "${WOODPECKER_HOST}" ./Caddyfile;then
         tee -a ./Caddyfile << EOF
-        
+
 ${WOODPECKER_HOST} {
     tls mygit@outlook.com
     reverse_proxy woodpecker-server:8000
@@ -187,7 +187,7 @@ DRONE_RPC_SECRET: %s
 DRONE_SERVER_HOST: %s\n
 " "${DRONE_GITEA_SERVER}" "${DRONE_GITEA_CLIENT_ID}" "${DRONE_GITEA_CLIENT_SECRET}" "${DRONE_RPC_SECRET}" "${DRONE_SERVER_HOST}"
 
-    update_drone_files 
+    update_drone_files
 }
 
 install_woodpecker() {
@@ -212,7 +212,7 @@ WOODPECKER_AGENT_SECRET: %s
 WOODPECKER_HOST: https://%s\n
 " "${WOODPECKER_GITEA_URL}" "${WOODPECKER_GITEA_CLIENT}" "${WOODPECKER_GITEA_SECRET}" "${WOODPECKER_AGENT_SECRET}" "${WOODPECKER_HOST}"
 
-    update_woodpecker_files 
+    update_woodpecker_files
 }
 
 main() {
@@ -252,13 +252,13 @@ main() {
         drone)
             shift
             echo "Drone Initializing..."
-            install_drone "$@"      
-        ;;   
+            install_drone "$@"
+        ;;
 
         woodpecker)
             shift
             echo "Woodpecker Initializing..."
-            install_woodpecker "$@"            
+            install_woodpecker "$@"
         ;;
 
         *)

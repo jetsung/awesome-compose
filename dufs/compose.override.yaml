@@ -1,0 +1,6 @@
+services:
+  dufs:
+    ports: !override
+      - ${SERV_PORT:-5000}:5000
+    volumes:
+      - ./data:/data

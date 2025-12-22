@@ -1,0 +1,17 @@
+---
+# https://hub.docker.com/_/redis
+# https://github.com/redis/docker-library-redis
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    hostname: redis
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    volumes:
+      - ./data:/data
+    ports:
+      - 6379:6379

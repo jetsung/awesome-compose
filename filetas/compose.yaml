@@ -1,0 +1,14 @@
+---
+# https://hub.docker.com/r/idevsig/filetas
+
+services:
+  filetas:
+    image: idevsig/filetas:latest
+    container_name: filetas
+    hostname: filetas
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 8000:8000

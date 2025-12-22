@@ -1,7 +1,0 @@
----
-# https://hub.docker.com/r/dutchcoders/transfer.sh
-
-services:
-  transfer:
-    env_file:
-      - ./.env

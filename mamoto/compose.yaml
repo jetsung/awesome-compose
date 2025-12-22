@@ -1,0 +1,23 @@
+---
+# https://hub.docker.com/_/matomo/
+# https://github.com/matomo-org/docker
+
+networks:
+  database:
+    external: true
+
+services:
+  matomo:
+    image: matomo:latest
+    container_name: matomo
+    hostname: matomo
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    volumes:
+      - ./html:/var/www/html
+    ports:
+      - 80:80
+    networks:
+      - database

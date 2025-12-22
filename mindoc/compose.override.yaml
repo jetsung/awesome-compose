@@ -1,0 +1,4 @@
+services:
+  mindoc:
+    ports: !override
+      - ${SERV_PORT:-8181}:8181

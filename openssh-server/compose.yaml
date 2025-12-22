@@ -1,0 +1,16 @@
+---
+
+# https://hub.docker.com/r/linuxserver/openssh-server
+services:
+  openssh-server:
+    image: linuxserver/openssh-server:latest
+    container_name: openssh-server
+    hostname: openssh-server
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 2222:2222
+    volumes:
+      - ./data:/config

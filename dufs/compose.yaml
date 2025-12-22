@@ -1,0 +1,14 @@
+---
+# https://hub.docker.com/r/sigoden/dufs
+
+services:
+  dufs:
+    image: sigoden/dufs:latest
+    container_name: dufs
+    hostname: dufs
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 5000:5000

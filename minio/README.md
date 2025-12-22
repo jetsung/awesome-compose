@@ -1,6 +1,6 @@
 # MinIO
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -79,7 +79,7 @@ server {
 
         chunked_transfer_encoding off;
 
-        proxy_pass http://console; 
+        proxy_pass http://console;
     }
 }
 ```

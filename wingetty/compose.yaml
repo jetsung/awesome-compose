@@ -1,0 +1,16 @@
+---
+# https://github.com/thilojaeggi/wingetty/pkgs/container/wingetty
+services:
+  wingetty:
+    image: ghcr.io/thilojaeggi/wingetty:latest
+    container_name: wingetty
+    hostname: wingetty
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 8080:8080
+    volumes:
+      - ./data/instance:/app/instance
+      - ./data/packages:/app/app/packages

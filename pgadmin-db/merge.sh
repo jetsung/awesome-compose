@@ -3,12 +3,12 @@
 set -euo pipefail
 
 # remove files
-rm -rf .env ./*.yml
+rm -rf .env ./*.yaml
 
 # copy files with postgres
-cp ../postgres/{*.yml,.env} ./
+cp ../postgres/{*.yaml,.env} ./
 
 # copy files from pgadmin
 sed '/^TZ=/d' ../pgadmin/.env >> ./.env
-sed '1,4d' ../pgadmin/compose.yml >> ./compose.yml
-sed '1,2d' ../pgadmin/compose.override.yml >> ./compose.override.yml
+sed '1,4d' ../pgadmin/compose.yaml >> ./compose.yaml
+sed '1,2d' ../pgadmin/compose.override.yaml >> ./compose.override.yaml

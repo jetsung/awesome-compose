@@ -1,5 +1,0 @@
----
-services:
-  remark:
-    env_file:
-      - ./.env

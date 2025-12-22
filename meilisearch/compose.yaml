@@ -1,0 +1,15 @@
+---
+# http://hub.docker.com/r/getmeili/meilisearch
+
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: meilisearch
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    volumes:
+      - ./data:/meili_data
+    ports:
+      - 7700:7700

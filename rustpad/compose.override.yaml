@@ -1,0 +1,4 @@
+services:
+  rustpad:
+    ports: !override
+      - ${SERV_PORT:-3030}:3030

@@ -1,0 +1,4 @@
+services:
+  phpmyadmin:
+    ports: !override
+      - ${SERV_PORT:-80}:80

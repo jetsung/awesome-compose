@@ -1,0 +1,4 @@
+services:
+  croc:
+    ports: !override
+      - 9009-9013:9009-9013

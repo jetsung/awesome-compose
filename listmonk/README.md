@@ -1,6 +1,6 @@
 # listmonk
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -22,11 +22,11 @@ Visit [listmonk.app](https://listmonk.app) for more info. Check out the [**live 
 ### Docker
 
 The latest image is available on DockerHub at [`listmonk/listmonk:latest`](https://hub.docker.com/r/listmonk/listmonk/tags?page=1&ordering=last_updated&name=latest).
-Download and use the sample [docker-compose.yml](https://github.com/knadh/listmonk/blob/master/docker-compose.yml).
+Download and use the sample [docker-compose.yaml](https://github.com/knadh/listmonk/blob/master/docker-compose.yaml).
 
 ```shell
 # Download the compose file to the current directory.
-curl -LO https://github.com/knadh/listmonk/raw/master/docker-compose.yml
+curl -LO https://github.com/knadh/listmonk/raw/master/docker-compose.yaml
 
 # Run the services in the background.
 docker compose up -d

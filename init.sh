@@ -2,7 +2,7 @@
 
 ###
 #
-# 根据 composer.yml 是否存在 ./data 判断创建 backup.sh 文件的文件
+# 根据 compose.yaml 是否存在 ./data 判断创建 backup.sh 文件的文件
 #
 ###
 
@@ -56,7 +56,7 @@ EOF
 
 find_project() {
     local _override="${1:-}"
-    find . -mindepth 2 -maxdepth 2 -type f -name "compose.yml" -exec grep -q " - ./data:/" {} \; -print0 | sort -u -z | 
+    find . -mindepth 2 -maxdepth 2 -type f -name "compose.yaml" -exec grep -q " - ./data:/" {} \; -print0 | sort -u -z |
         while IFS= read -r -d '' file; do
             _project=$(awk -F'/' '{print $2}' <<< "${file}")
             pushd "${_project}" > /dev/null || exit

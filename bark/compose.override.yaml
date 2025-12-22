@@ -1,0 +1,6 @@
+services:
+  bark:
+    ports: !override
+      - ${BARK_PORT:-8080}:8080
+    volumes:
+      - ./data:/data

@@ -1,6 +1,0 @@
----
-
-services:
-  acme:
-    env_file:
-      - ./.env

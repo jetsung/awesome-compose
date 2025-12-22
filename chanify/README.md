@@ -1,6 +1,6 @@
 # chanify-server
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -10,3 +10,9 @@
 [2]:https://github.com/chanify/chanify
 [3]:https://hub.docker.com/r/wizjin/chanify
 [4]:https://www.chanify.net/
+
+---
+
+## 配置 [chanify.yaml](chanify.yaml)
+
+> `secret` 是必填选项

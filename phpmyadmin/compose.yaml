@@ -1,0 +1,14 @@
+---
+# https://hub.docker.com/_/phpmyadmin
+
+services:
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    hostname: phpmyadmin
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 80:80

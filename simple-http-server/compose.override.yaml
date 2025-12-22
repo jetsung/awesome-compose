@@ -1,0 +1,4 @@
+services:
+  simple-http-server:
+    ports: !override
+      - ${SERV_PORT:-8000}:8000

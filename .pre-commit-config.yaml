@@ -22,6 +22,7 @@ repos:
       # - id: check-vcs-permalinks # 检查VCS永久链接
       # - id: check-xml # 检查XML文件语法是否有效
       - id: check-yaml # 检查YAML文件语法是否有效
+        args: [--unsafe]
       # - id: debug-statements # 检查Python代码中是否存在调试语句
       # - id: destroyed-symlinks # 检查损坏的符号链接
       # - id: detect-aws-credentials # 检测AWS凭证

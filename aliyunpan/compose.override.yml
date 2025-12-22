@@ -1,6 +1,0 @@
----
-
-services:
-  webdav:
-    env_file:
-      - ./.env

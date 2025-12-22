@@ -1,0 +1,4 @@
+services:
+  ntfy:
+    ports: !override
+      - ${SERV_PORT:-8080}:80

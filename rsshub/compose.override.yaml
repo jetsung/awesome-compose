@@ -1,0 +1,4 @@
+services:
+  rsshub:
+    ports: !override
+      - ${SERV_PORT:-1200}:1200

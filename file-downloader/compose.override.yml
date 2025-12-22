@@ -1,5 +1,0 @@
----
-services:
-  file-downloader:
-    env_file:
-      - ./.env

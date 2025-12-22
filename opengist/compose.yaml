@@ -1,0 +1,16 @@
+---
+# https://github.com/users/thomiceli/packages/container/package/opengist
+services:
+  opengist:
+    env_file:
+      - path: ./.env
+        required: false
+    image: ghcr.io/thomiceli/opengist:latest
+    container_name: opengist
+    restart: unless-stopped
+    env_file: ../files/.env
+    ports:
+      - 6157:6157
+      - 2222:2222
+    volumes:
+      - ./data:/opengist

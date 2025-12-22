@@ -1,9 +1,0 @@
----
-services:
-  frontend:
-    env_file:
-      - .env
-
-  db:
-    env_file:
-      - .env

@@ -1,6 +1,6 @@
 # WordPress
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -28,8 +28,8 @@ server {
     if ($scheme = "http") {
         set $to_https 1;
     }
-    
-    include wildcard/domain.com.conf;    
+
+    include wildcard/domain.com.conf;
 
     # Logs
     access_log /data/wwwlogs/www.domain.com.log;

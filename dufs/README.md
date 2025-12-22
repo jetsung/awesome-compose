@@ -1,6 +1,6 @@
 # dufs
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -25,7 +25,7 @@
 
 ---
 
-```sh
+```bash
 Dufs is a distinctive utility file server - https://github.com/sigoden/dufs
 
 Usage: dufs [OPTIONS] [serve-path]
@@ -64,67 +64,67 @@ Usage: dufs [OPTIONS] [serve-path]
 
 以只读模式服务当前工作目录：
 
-```sh
+```bash
 dufs
 ```
 
 允许所有操作（如上传、删除、搜索、创建、编辑等）：
 
-```sh
+```bash
 dufs -A
 ```
 
 仅允许上传操作：
 
-```sh
+```bash
 dufs --allow-upload
 ```
 
 服务指定目录：
 
-```sh
+```bash
 dufs Downloads
 ```
 
 服务单个文件：
 
-```sh
+```bash
 dufs linux-distro.iso
 ```
 
 服务单页应用（如 **React** 或 **Vue**）：
 
-```sh
+```bash
 dufs --render-spa
 ```
 
 服务带有 **index.html** 的静态网站：
 
-```sh
+```bash
 dufs --render-index
 ```
 
 要求用户名和密码：
 
-```sh
+```bash
 dufs -a admin:123@/:rw
 ```
 
 监听特定主机和端口：
 
-```sh
+```bash
 dufs -b 127.0.0.1 -p 80
 ```
 
 监听 **Unix** 套接字：
 
-```sh
+```bash
 dufs -b /tmp/dufs.socket
 ```
 
 使用 **HTTPS**：
 
-```sh
+```bash
 dufs --tls-cert my.crt --tls-key my.key
 ```
 
@@ -132,44 +132,44 @@ dufs --tls-cert my.crt --tls-key my.key
 
 上传文件：
 
-```sh
+```bash
 curl -T path-to-file http://127.0.0.1:5000/new-path/path-to-file
 ```
 
 下载文件：
 
-```sh
+```bash
 curl http://127.0.0.1:5000/path-to-file           # 下载文件
 curl http://127.0.0.1:5000/path-to-file?hash      # 获取文件的 SHA256 哈希值
 ```
 
 将文件夹下载为 **ZIP** 文件：
 
-```sh
+```bash
 curl -o path-to-folder.zip http://127.0.0.1:5000/path-to-folder?zip
 ```
 
 删除文件或文件夹：
 
-```sh
+```bash
 curl -X DELETE http://127.0.0.1:5000/path-to-file-or-folder
 ```
 
 创建目录：
 
-```sh
+```bash
 curl -X MKCOL http://127.0.0.1:5000/path-to-folder
 ```
 
 将文件或文件夹移动到新路径：
 
-```sh
+```bash
 curl -X MOVE http://127.0.0.1:5000/path -H "Destination: http://127.0.0.1:5000/new-path"
 ```
 
 列出或搜索目录内容：
 
-```sh
+```bash
 curl http://127.0.0.1:5000?q=Dockerfile           # 搜索文件，类似于 `find -name Dockerfile`
 curl http://127.0.0.1:5000?simple                 # 仅输出名称，类似于 `ls -1`
 curl http://127.0.0.1:5000?json                   # 以 JSON 格式输出路径
@@ -177,20 +177,20 @@ curl http://127.0.0.1:5000?json                   # 以 JSON 格式输出路径
 
 使用身份验证（支持基本认证和摘要认证）：
 
-```sh
+```bash
 curl http://127.0.0.1:5000/file --user user:pass                 # 基本认证
 curl http://127.0.0.1:5000/file --user user:pass --digest        # 摘要认证
 ```
 
 断点续传下载：
 
-```sh
+```bash
 curl -C- -o file http://127.0.0.1:5000/file
 ```
 
 断点续传上传：
 
-```sh
+```bash
 upload_offset=$(curl -I -s http://127.0.0.1:5000/file | tr -d '\r' | sed -n 's/content-length: //p')
 dd skip=$upload_offset if=file status=none ibs=1 | \
   curl -X PATCH -H "X-Update-Range: append" --data-binary @- http://127.0.0.1:5000/file
@@ -198,7 +198,7 @@ dd skip=$upload_offset if=file status=none ibs=1 | \
 
 健康检查：
 
-```sh
+```bash
 curl http://127.0.0.1:5000/__dufs__/health
 ```
 
@@ -208,7 +208,7 @@ curl http://127.0.0.1:5000/__dufs__/health
 
 **Dufs** 支持基于账户的访问控制。您可以通过 `--auth` 或 `-a` 选项控制用户对不同路径的权限。
 
-```sh
+```bash
 dufs -a admin:admin@/:rw -a guest:guest@/
 dufs -a user:pass@/:rw,/dir1 -a @/
 ```
@@ -231,14 +231,14 @@ dufs -a user:pass@/:rw,/dir1 -a @/
 
 创建哈希密码：
 
-```sh
+```bash
 $ openssl passwd -6 123456 # 或 `mkpasswd -m sha-512 123456`
 $6$tWMB51u6Kb2ui3wd$5gVHP92V9kZcMwQeKTjyTRgySsYJu471Jb1I6iHQ8iZ6s07GgCIO69KcPBRuwPE5tDq05xMAzye0NxVKuJdYs/
 ```
 
 使用哈希密码：
 
-```sh
+```bash
 dufs -a 'admin:$6$tWMB51u6Kb2ui3wd$5gVHP92V9kZcMwQeKTjyTRgySsYJu471Jb1I6iHQ8iZ6s07GgCIO69KcPBRuwPE5tDq05xMAzye0NxVKuJdYs/@/:rw'
 ```
 
@@ -253,13 +253,13 @@ dufs -a 'admin:$6$tWMB51u6Kb2ui3wd$5gVHP92V9kZcMwQeKTjyTRgySsYJu471Jb1I6iHQ8iZ6s
 
 **Dufs** 支持通过 `--hidden <通配符>,...` 选项隐藏目录列表中的路径。
 
-```sh
+```bash
 dufs --hidden .git,.DS_Store,tmp
 ```
 
 > `--hidden` 中使用的通配符仅匹配文件和目录名称，而非完整路径。因此 `--hidden dir1/file` 是无效的。
 
-```sh
+```bash
 dufs --hidden '.*'                          # 隐藏点文件
 dufs --hidden '*/'                          # 隐藏所有文件夹
 dufs --hidden '*.log,*.lock'                # 按文件扩展名隐藏
@@ -282,33 +282,33 @@ dufs --hidden '*.log' --hidden '*.lock'
 
 默认日志格式为 `'$remote_addr "$request" $status'`：
 
-```sh
+```bash
 2022-08-06T06:59:31+08:00 INFO - 127.0.0.1 "GET /" 200
 ```
 
 禁用 **HTTP** 日志：
 
-```sh
+```bash
 dufs --log-format=''
 ```
 
 记录用户代理：
 
-```sh
+```bash
 dufs --log-format '$remote_addr "$request" $status $http_user_agent'
 ```
 
-```sh
+```bash
 2022-08-06T06:53:55+08:00 INFO - 127.0.0.1 "GET /" 200 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36
 ```
 
 记录远程用户：
 
-```sh
+```bash
 dufs --log-format '$remote_addr $remote_user "$request" $status' -a /@admin:admin -a /folder1@user1:pass1
 ```
 
-```sh
+```bash
 2022-08-06T07:04:37+08:00 INFO - 127.0.0.1 admin "GET /" 200
 ```
 
@@ -316,14 +316,14 @@ dufs --log-format '$remote_addr $remote_user "$request" $status' -a /@admin:admi
 
 所有选项都可以通过以 `DUFS_` 为前缀的环境变量设置。
 
-```sh
+```bash
 [serve-path]                DUFS_SERVE_PATH="."
     --config <file>         DUFS_CONFIG=config.yaml
 -b, --bind <addrs>          DUFS_BIND=0.0.0.0
 -p, --port <port>           DUFS_PORT=5000
     --path-prefix <path>    DUFS_PATH_PREFIX=/dufs
     --hidden <value>        DUFS_HIDDEN=tmp,*.log,*.lock
--a, --auth <rules>          DUFS_AUTH="admin:admin@/:rw|@/" 
+-a, --auth <rules>          DUFS_AUTH="admin:admin@/:rw|@/"
 -A, --allow-all             DUFS_ALLOW_ALL=true
     --allow-upload          DUFS_ALLOW_UPLOAD=true
     --allow-delete          DUFS_ALLOW_DELETE=true
@@ -383,7 +383,7 @@ tls-key: tests/data/key_pkcs1.pem
 
 **Dufs** 允许用户通过自定义资源目录来个性化用户界面。
 
-```sh
+```bash
 dufs --assets my-assets-dir/
 ```
 

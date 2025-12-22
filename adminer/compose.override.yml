@@ -1,7 +1,0 @@
----
-
-services:
-  adminer:
-    env_file:
-      - ./.env
-    ports:

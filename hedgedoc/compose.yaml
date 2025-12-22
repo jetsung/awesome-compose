@@ -1,0 +1,28 @@
+---
+services:
+  backend:
+    image: ghcr.io/hedgedoc/hedgedoc/backend:develop
+    hostname: hedgedoc
+    ports:
+      - 3000:3000
+    volumes:
+      - ./backend.env:/usr/src/app/backend/.env
+      - ./data/uploads:/usr/src/app/backend/uploads
+
+  frontend:
+    env_file:
+      - path: ./.env
+        required: false
+    image: ghcr.io/hedgedoc/hedgedoc/frontend:develop
+    hostname: hedgedoc
+    ports:
+      - 3001:3001
+
+  db:
+    env_file:
+      - path: ./.env
+        required: false
+    image: postgres:16
+    hostname: hedgedoc
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data

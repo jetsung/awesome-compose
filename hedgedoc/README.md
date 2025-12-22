@@ -1,6 +1,6 @@
 # hedgedoc
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -38,9 +38,9 @@
     # Auth
     HD_AUTH_LOCAL_ENABLE_LOGIN="true"
     HD_AUTH_LOCAL_ENABLE_REGISTER="true"
-    ```    
-    
-    - `docker-compose.yml`
+    ```
+
+    - `docker-compose.yaml`
     ```yaml
     services:
       backend:
@@ -70,7 +70,7 @@
         volumes:
         - ./hedgedoc_postgres:/var/lib/postgresql/data
     ```
-   
+
 2. **配置 Nginx**
    - `example.com.conf`
    ```bash
@@ -82,36 +82,36 @@
     {
             listen 80;
             listen [::]:80;
-    
+
             server_name example.com.top;
 
             # 若是 http 则跳转至 https；若不需要跳转，则删除 if 语段即可。
             set $to_https 0;
             if ($scheme = "http") {
                 set $to_https 1;
-            }	
-        
+            }
+
             include wildcard/example.conf;
-            
-            index index.html 
+
+            index index.html
             root /data/wwwroot/proxy;
 
             access_log  /data/wwwlogs/example.com.top.log;
             error_log  /data/wwwlogs/example.com.top.error.log debug;
 
             charset utf-8;
-        
+
             #ERROR-PAGE-START  错误页配置，可以注释、删除或修改
             #error_page 404 /404.html;
             #error_page 502 /502.html;
             #ERROR-PAGE-END
-            
+
             #禁止访问的文件或目录
             location ~ ^/(\.user.ini|\.htaccess|\.git|\.svn|\.project|LICENSE|README.md|install.php|install)
             {
                 return 404;
             }
-        
+
             location ~ ^/(api|public|uploads|media)/ {
                     proxy_pass http://127.0.0.1:39020;
                     proxy_set_header X-Forwarded-Host $host;
@@ -132,12 +132,12 @@
 
             location / {
                     proxy_pass http://127.0.0.1:39021;
-                    proxy_set_header X-Forwarded-Host $host; 
-                    proxy_set_header X-Real-IP $remote_addr; 
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; 
+                    proxy_set_header X-Forwarded-Host $host;
+                    proxy_set_header X-Real-IP $remote_addr;
+                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                     proxy_set_header X-Forwarded-Proto $scheme;
             }
-            
+
             #一键申请SSL证书验证目录相关设置
             location ~ \.well-known{
                 allow all;
@@ -185,4 +185,3 @@
         return 301 https://$host$request_uri;
     }
     ```
-  

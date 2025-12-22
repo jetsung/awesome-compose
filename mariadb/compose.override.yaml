@@ -1,0 +1,4 @@
+services:
+  mariadb:
+    ports: !override
+      - ${MARIADB_PORT:-3306}:3306

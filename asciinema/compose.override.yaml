@@ -1,0 +1,13 @@
+services:
+  asciinema:
+    ports: !override
+      - ${SERV_PORT:-4000}:4000
+    volumes:
+      - ./data/asciinema:/var/opt/asciinema
+  postgres:
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  asciinema-local:
+    extends:
+      service: asciinema

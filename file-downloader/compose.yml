@@ -1,9 +1,0 @@
----
-services:
-  file-downloader:
-    image: ghcr.io/idev-sig/file-downloader:dev
-    container_name: file-downloader
-    hostname: file-downloader
-    restart: unless-stopped
-    volumes:
-      - ./downloads:/app/downloads

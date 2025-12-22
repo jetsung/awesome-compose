@@ -1,6 +1,6 @@
 # pgadmin
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -8,5 +8,5 @@
 
 [1]:https://www.pgadmin.org/
 [2]:https://github.com/pgadmin-org/pgadmin4
-[3]:https://hub.docker.com/r/dpage/pgadmin4/ 
+[3]:https://hub.docker.com/r/dpage/pgadmin4/
 [4]:https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html

@@ -1,0 +1,18 @@
+---
+# https://hub.docker.com/r/syncthing/syncthing
+
+services:
+  syncthing:
+    image: syncthing/syncthing:latest
+    container_name: syncthing
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 8384:8384       # Web UI
+      - 22000:22000/tcp       # TCP file transfers
+      - 22000:22000/udp       # QUIC file transfers
+      - 21027:21027/udp       # Receive local discovery broadcasts
+    volumes:
+      - ./syncthing:/var/syncthing

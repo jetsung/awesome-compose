@@ -48,44 +48,48 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 	@echo "SERV_PORT=80" >> "$(proj)/.env"
 
     # 生成 README.md
-	@echo "# $(proj)" > "$(proj)/README.md"
-	@echo "" >> "$(proj)/README.md"
-	@echo "[Office Web][1] - [Source][2] - [Docker Image][3] - [Docment][4]" >> "$(proj)/README.md"
-	@echo "" >> "$(proj)/README.md"
-	@echo "---" >> "$(proj)/README.md"
-	@echo "" >> "$(proj)/README.md"
-	@echo "> [$(proj)][1]" >> "$(proj)/README.md"
-	@echo "" >> "$(proj)/README.md"
-	@echo "[1]:" >> "$(proj)/README.md"
-	@echo "[2]:$(git)" >> "$(proj)/README.md"
-	@echo "[3]:$(huburl)" >> "$(proj)/README.md"
-	@echo "[4]:" >> "$(proj)/README.md"
+ @echo "# $(proj)" > "$(proj)/README.md"
+ @echo "" >> "$(proj)/README.md"
+ @echo "[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]" >> "$(proj)/README.md"
+ @echo "" >> "$(proj)/README.md"
+ @echo "---" >> "$(proj)/README.md"
+ @echo "" >> "$(proj)/README.md"
+ @echo "> [$(proj)][1]" >> "$(proj)/README.md"
+ @echo "" >> "$(proj)/README.md"
+ @echo "[1]:" >> "$(proj)/README.md"
+ @echo "[2]:$(git)" >> "$(proj)/README.md"
+ @echo "[3]:$(huburl)" >> "$(proj)/README.md"
+ @echo "[4]:" >> "$(proj)/README.md"
 
-    # 生成 compose.yml
-	@echo "---" > "$(proj)/compose.yml"
-	@echo "" >> "$(proj)/compose.yml"
-	@echo "# $(huburl)" >> "$(proj)/compose.yml"
-	@echo "services:" >> "$(proj)/compose.yml"
-	@echo "  $(proj):" >> "$(proj)/compose.yml"
-	@echo "    image: $(image)" >> "$(proj)/compose.yml"
-	@echo "    container_name: $(proj)" >> "$(proj)/compose.yml"
-	@echo "    hostname: $(proj)" >> "$(proj)/compose.yml"
-	@echo "    restart: unless-stopped" >> "$(proj)/compose.yml"
-	@echo "#     ports:" >> "$(proj)/compose.yml"
-	@echo '#       - $${SERV_PORT:-80}:80' >> "$(proj)/compose.yml"
-	@echo "#     volumes:" >> "$(proj)/compose.yml"
-	@echo "#       - ./data:/data" >> "$(proj)/compose.yml"
+    # 生成 compose.yaml
+ @echo "---" > "$(proj)/compose.yaml"
+	@echo "" >> "$(proj)/compose.yaml"
+	@echo "# $(huburl)" >> "$(proj)/compose.yaml"
+	@echo "services:" >> "$(proj)/compose.yaml"
+	@echo "  $(proj):" >> "$(proj)/compose.yaml"
+	@echo "    image: $(image)" >> "$(proj)/compose.yaml"
+	@echo "    container_name: $(proj)" >> "$(proj)/compose.yaml"
+	@echo "    hostname: $(proj)" >> "$(proj)/compose.yaml"
+	@echo "    restart: unless-stopped" >> "$(proj)/compose.yaml"
+	@echo "    env_file:" >> "$(proj)/compose.yaml"
+	@echo "      - path: ./.env" >> "$(proj)/compose.yaml"
+	@echo "        required: false" >> "$(proj)/compose.yaml"
+	@echo "#     ports:" >> "$(proj)/compose.yaml"
+	@echo '#       - 80:80' >> "$(proj)/compose.yaml"
 
-    # 生成 compose.override.yml
-	@echo "---" > "$(proj)/compose.override.yml"
-	@echo "" >> "$(proj)/compose.override.yml"
-	@echo "services:" >> "$(proj)/compose.override.yml"
-	@echo "  $(proj):" >> "$(proj)/compose.override.yml"
-	@echo "    env_file:" >> "$(proj)/compose.override.yml"
-	@echo "      - ./.env" >> "$(proj)/compose.override.yml"
-    
+    # 生成 compose.override.yaml
+ @echo "---" > "$(proj)/compose.override.yaml"
+	@echo "" >> "$(proj)/compose.override.yaml"
+	@echo "services:" >> "$(proj)/compose.override.yaml"
+	@echo "  $(proj):" >> "$(proj)/compose.override.yaml"
+	@echo "#     ports: !reset []" >> "$(proj)/compose.override.yaml"
+	@echo "#     ports: !override" >> "$(proj)/compose.override.yaml"
+	@echo '#       - $${SERV_PORT:-80}:80' >> "$(proj)/compose.override.yaml"
+	@echo "#     volumes:" >> "$(proj)/compose.override.yaml"
+	@echo "#       - ./data:/data" >> "$(proj)/compose.override.yaml"
+
     # 生成 backup.sh
-	@echo '#!/usr/bin/env bash' > "$(proj)/backup.sh"	
+	@echo '#!/usr/bin/env bash' > "$(proj)/backup.sh"
 	@echo "" >> "$(proj)/backup.sh"
 	@echo "###" >> "$(proj)/backup.sh"
 	@echo "#" >> "$(proj)/backup.sh"
@@ -107,7 +111,7 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 	@echo "echo \"backup $(proj) data to minio done.\"" >> "$(proj)/backup.sh"
 	@echo "echo \"Backup of $(proj) data to MinIO completed successfully.\"" >> "$(proj)/backup.sh"
 	@echo
-	@echo "项目 $(proj) 已创建"	
+	@echo "项目 $(proj) 已创建"
 
 .PHONY: init
 init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1 文件夹名称使用前面部分
@@ -115,7 +119,7 @@ init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1
 		echo "错误：必须指定 n init n=<name>"; \
 		exit 1; \
 	fi
-	
+
 	@last_part="YES" ; \
 	if [ -n "$(p)" ]; then \
 		last_part="NO" ; \

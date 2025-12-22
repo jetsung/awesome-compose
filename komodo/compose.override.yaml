@@ -1,0 +1,4 @@
+services:
+  core:
+    ports: !override
+      - 9120:9120

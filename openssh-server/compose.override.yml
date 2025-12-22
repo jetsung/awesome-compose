@@ -1,6 +1,0 @@
----
-
-services:
-  openssh-server:
-    env_file:
-      - ./.env

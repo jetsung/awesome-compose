@@ -1,0 +1,16 @@
+---
+# https://github.com/orgs/open-webui/packages/container/package/open-webui
+
+services:
+  webui:
+    image: ghcr.io/open-webui/open-webui:${DOCKER_TAG:-main}
+    container_name: webui
+    privileged: false
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    volumes:
+      - ./data:/app/backend/data
+    ports:
+      - 8080:8080

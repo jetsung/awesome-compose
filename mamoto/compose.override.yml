@@ -1,8 +1,0 @@
----
-# https://hub.docker.com/_/matomo/
-# https://github.com/matomo-org/docker
-
-services:
-  matomo:
-    env_file:
-      - ./.env

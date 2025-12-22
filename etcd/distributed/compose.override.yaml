@@ -1,0 +1,13 @@
+services:
+  etcd1:
+    ports: !override
+      - 20000:2379
+      - 20001:2380
+  etcd2:
+    ports: !override
+      - 20002:2379
+      - 20003:2380
+  etcd3:
+    ports: !override
+      - 20004:2379
+      - 20005:2380
