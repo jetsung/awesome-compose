@@ -1,0 +1,4 @@
+services:
+  gitlab-runner:
+    volumes:
+      - ./data:/etc/gitlab-runner

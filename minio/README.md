@@ -51,9 +51,6 @@ server {
         return 404;
     }
 
-    #一键申请SSL证书验证目录相关设置
-    include wellknown/*.conf;
-
     # To allow special characters in headers
     ignore_invalid_headers off;
     # Allow any size file to be uploaded.
@@ -64,22 +61,22 @@ server {
     proxy_request_buffering off;
 
     location / {
+        proxy_pass http://console;
+        proxy_connect_timeout 300;
+
         proxy_set_header Host $http_host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-NginX-Proxy true;
-        real_ip_header X-Real-IP;
 
-        proxy_connect_timeout 300;
         # Default is HTTP/1, keepalive is only enabled in HTTP/1.1
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
 
         chunked_transfer_encoding off;
-
-        proxy_pass http://console;
+        real_ip_header X-Real-IP;
     }
 }
 ```

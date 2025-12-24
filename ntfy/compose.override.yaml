@@ -1,4 +1,8 @@
 services:
   ntfy:
     ports: !override
-      - ${SERV_PORT:-8080}:80
+      - ${SERV_PORT:-80}:80
+    volumes:
+      - ./data/cache:/var/cache/ntfy
+      - ./data/etc:/etc/ntfy
+      - ./data/lib:/var/lib/ntfy

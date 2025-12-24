@@ -4,9 +4,7 @@
 
 ---
 
-> [GitLab Runner][1] 是用 Go 编写的官方 GitLab Runner 的仓库。
-它运行测试并将结果发送到 GitLab。
-GitLab CI 是 GitLab 附带的开源持续集成服务，用于协调测试。这个项目的旧名称是 GitLab CI Multi Runner，但从现在开始请使用 “GitLab Runner” （不带 CI）。
+> [GitLab Runner][1] 是 GitLab CI/CD（持续集成 / 持续部署）系统的核心组件之一，它负责执行 CI/CD 流水线中的作业。
 
 [1]:https://docs.gitlab.com/runner/install/
 [2]:https://gitlab.com/gitlab-org/gitlab-runner
@@ -15,7 +13,7 @@ GitLab CI 是 GitLab 附带的开源持续集成服务，用于协调测试。�
 
 ---
 
-> [GitLab Runner](https://docs.gitlab.com/runner/install/docker.html) 服务
+- [GitLab Runner Docs](https://docs.gitlab.com/runner/install/docker.html)
 
 ## 使用
 

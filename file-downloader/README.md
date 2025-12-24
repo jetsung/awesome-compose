@@ -1,5 +1,7 @@
 # file-downloader
 
+# 待重构（项目将转移至 `jetsung`）
+
 [Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
@@ -8,7 +10,7 @@
 
 [1]: https://git.jetsung.com/idev/file-downloader
 [2]: https://git.jetsung.com/idev/file-downloader
-[3]: https://github.com/idev-sig/file-downloader/pkgs/container/file-downloader
+[3]: https://ghcr.io/idev-sig/file-downloader
 [4]: https://git.jetsung.com/idev/file-downloader/-/tree/main/docker
 
 ---
@@ -33,5 +35,5 @@ services:
       - USERNAME=""
       - PASSWORD=""
     volumes:
-      - ./downloads:/app/downloads
+      - ./data:/app/downloads
 ```

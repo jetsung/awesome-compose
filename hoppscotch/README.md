@@ -9,7 +9,7 @@
 [1]:https://hoppscotch.com/
 [2]:https://github.com/hoppscotch/hoppscotch
 [3]:https://hub.docker.com/r/hoppscotch/hoppscotch
-[4]:https://docs.hoppscotch.io/
+[4]:https://docs.hoppscotch.io/documentation/self-host/community-edition/getting-started
 
 ---
 
@@ -81,14 +81,27 @@ http://hostname:3170 # API
 openssl rand -hex 16
 ```
 
-- [OAuth 配置](https://docs.hoppscotch.io/documentation/self-host/community-edition/prerequisites#choosing-oauth-providers)
+- [OAuth 配置](https://docs.hoppscotch.io/documentation/self-host/community-edition/prerequisites#oauth)
 ```bash
 VITE_ALLOWED_AUTH_PROVIDERS=GOOGLE,GITHUB,MICROSOFT,EMAIL
+```
 
+- [第三方登录配置](https://docs.hoppscotch.io/documentation/self-host/community-edition/prerequisites#configuring-third-party-providers)
+```
 GITHUB_CLIENT_ID=*****
 GITHUB_CLIENT_SECRET=*****
 GITHUB_CALLBACK_URL=http://localhost:3170/v1/auth/github/callback
 GITHUB_SCOPE=user:email
+```
+
+- [邮箱登录配置（社区版不支持）](https://docs.hoppscotch.io/guides/articles/self-host-hoppscotch-on-your-own-servers#2-2-custom-mailer-configuration)
+```bash
+MAILER_SMTP_HOST=smtp.domain.com
+MAILER_SMTP_PORT=587
+MAILER_SMTP_SECURE=true
+MAILER_SMTP_USER=user@domain.com
+MAILER_SMTP_PASSWORD=pass
+MAILER_TLS_REJECT_UNAUTHORIZED=true
 ```
 
 - [桌面配置](https://docs.hoppscotch.io/documentation/clients/desktop#hoppscotch-self-hosted-edition-for-community)

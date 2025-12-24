@@ -11,5 +11,3 @@ services:
         required: false
     ports:
       - 9090:9090
-    volumes:
-      - ./data:/etc/linkding/data

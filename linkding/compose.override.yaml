@@ -2,3 +2,5 @@ services:
   linkding:
     ports: !override
       - ${SERV_PORT:-9090}:9090
+    volumes:
+      - ./data:/etc/linkding/data

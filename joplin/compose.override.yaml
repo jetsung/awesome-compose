@@ -3,5 +3,5 @@ services:
     ports: !override
       - ${SERV_PORT:-22300}:22300
   postgres:
-    ports: !override
-      - ${POSTGRES_PORT:-5432}:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data

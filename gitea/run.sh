@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 load_vars() {
-    DOWN_URL="https://framagit.org/jetsung/docker-compose/-/raw/main/gitea/run.sh"
+    DOWN_URL="https://framagit.org/jetsung/awesome-compose/-/raw/main/gitea/run.sh"
     DOWN_URL=${DOWN_URL%/*}
 }
 

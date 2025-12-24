@@ -3,25 +3,29 @@
 # https://hub.docker.com/r/hoppscotch/hoppscotch
 services:
   postgres:
-    image: postgres:latest
-    hostname: hoppscotch
+    image: postgres:18
+    hostname: postgres
     restart: unless-stopped
-    ports:
-      - 5432:5432
-    volumes:
-      - ./data:/var/lib/postgresql
+    env_file:
+      - path: ./.env
+        required: false
     profiles:
-      - one
-      - aio
       - init
+      - aio
+      - one
 
   aio:
     image: hoppscotch/hoppscotch:latest
     hostname: hoppscotch
     restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./aio.env
+        required: false
     ports:
-      - 8080:80
-      - 8080:3200
+      - 80:80
+      - 3200:3200
     profiles:
       - aio
 
@@ -29,26 +33,39 @@ services:
     image: hoppscotch/hoppscotch-admin:latest
     hostname: hoppscotch
     restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./one.env
+        required: false
     ports:
-      - 3100:80
+      - 80:80
     profiles:
       - one
-
   frontend:
     image: hoppscotch/hoppscotch-frontend:latest
     hostname: hoppscotch
     restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./one.env
+        required: false
     ports:
-      - 3000:80
+      - 80:80
     profiles:
       - one
-
   backend:
     image: hoppscotch/hoppscotch-backend:latest
     hostname: hoppscotch
     restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./one.env
+        required: false
     ports:
-      - 3170:80
+      - 80:80
     depends_on:
       - postgres
     profiles:

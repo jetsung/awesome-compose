@@ -10,14 +10,11 @@ services:
     env_file:
       - path: ./.env
         required: false
+    ports:
+      - 9000-9001:9000-9001
     command: server --console-address ":9001" /data
     healthcheck:
       test: [CMD, curl, -f, 'http://localhost:9000/minio/health/live']
       interval: 30s
       timeout: 20s
       retries: 3
-    volumes:
-      - ./data:/data
-    ports:
-      - 9000:9000
-      - 9001:9001

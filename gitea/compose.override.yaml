@@ -3,11 +3,22 @@ services:
     ports: !override
       - ${GITEA_HTTP_PORT:-3000}:3000
       - ${GITEA_SSL_PORT:-22}:22
+    volumes:
+      - ./data/gitea:/data
+
+  db:
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
   caddy:
     ports: !override
       - ${WEB_HTTP_PORT:-80}:80
       - ${WEB_HTTPS_PORT:-443}:443
+
   nginx:
     ports: !override
       - ${WEB_HTTP_PORT:-80}:80
       - ${WEB_HTTPS_PORT:-443}:443
+    volumes:
+      # - ./data/www:/var/www:cached
+      - ./data/ssl:/etc/nginx/ssl

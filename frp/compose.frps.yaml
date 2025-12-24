@@ -3,10 +3,13 @@
 
 services:
   frps:
-    image: fatedier/frps:v0.61.1
+    image: fatedier/frps:v0.65.0
     container_name: frps
     hostname: frp
     restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
     volumes:
       - ./frps.toml:/app/frps.toml
     network_mode: host

@@ -5,22 +5,17 @@ services:
   ntfy:
     image: binwiederhier/ntfy:latest
     container_name: ntfy
+    restart: unless-stopped
     hostname: ntfy
-    command:
-      - serve
+    env_file:
+      - path: ./.env
+        required: false
     # user: UID:GID # optional: replace with your own user/group or uid/gid
-    volumes:
-      - ./data/cache:/var/cache/ntfy
-      - ./data/etc:/etc/ntfy
-      - ./data/lib:/var/lib/ntfy
     ports:
-      - 8080:80
+      - 80:80
+    command: ["serve"]
     healthcheck: # optional: remember to adapt the host:port to your environment
       test: ['CMD-SHELL', 'wget -q --tries=1 http://localhost:80/v1/health -O - | grep -Eo "\"healthy\"\\s*:\\s*true" || exit 1']
       timeout: 10s
       retries: 3
       start_period: 40s
-    restart: unless-stopped
-    env_file:
-      - path: ./.env
-        required: false

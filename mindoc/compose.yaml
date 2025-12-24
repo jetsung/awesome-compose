@@ -12,8 +12,3 @@ services:
         required: false
     ports:
       - 8181:8181
-    volumes:
-      - ./data:/mindoc-sync-host
-    dns:
-      - 223.5.5.5
-      - 223.6.6.6

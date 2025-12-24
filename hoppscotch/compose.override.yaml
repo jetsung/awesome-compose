@@ -1,38 +1,19 @@
 services:
   postgres:
-    env_file:
-      - ./aio.env
-    profiles:
-      - one
-      - aio
-    ports: !override
-      - ${POSTGRES_PORT:-5432}:5432
+    volumes:
+      - ./data:/var/lib/postgresql
+
   aio:
-    env_file:
-      - ./aio.env
-    profiles:
-      - aio
     ports: !override
-      - ${AIO_PORT:-8080}:80
-      - ${APP_PORT:-8080}:3200
+      - ${AIO_PORT:-80}:80
+      - ${APP_PORT:-3200}:3200
+
   admin:
-    env_file:
-      - ./one.env
-    profiles:
-      - one
     ports: !override
       - ${ADMIN_PORT:-3100}:80
   frontend:
-    env_file:
-      - ./one.env
-    profiles:
-      - one
     ports: !override
       - ${FRONTEND_PORT:-3000}:80
   backend:
-    env_file:
-      - ./one.env
-    profiles:
-      - one
     ports: !override
       - ${BACKEND_PORT:-3170}:80

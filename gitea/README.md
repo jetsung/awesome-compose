@@ -150,5 +150,5 @@ ssl_certificate_key    ssl/localhost.key;
 
 ## 教程
 - **视频教程：**
-> 1. 哔哩哔哩: https://space.bilibili.com/24643475/channel/seriesdetail?sid=2579674
+> 1. 哔哩哔哩: https://www.bilibili.com/video/BV1te4y1Z7bL
 > 西瓜视频: https://www.ixigua.com/7136483138939093535

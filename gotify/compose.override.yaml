@@ -1,11 +1,12 @@
 services:
   gotify:
-    env_file:
-      - ./.env
     ports: !override
       - ${SERV_PORT:-80}:80
+    volumes:
+      - ./data/gotify:/app/data
+
   igotify:
-    env_file:
-      - ./.env
+    volumes:
+      - ./data/igotify:/app/data
     profiles:
       - igotify

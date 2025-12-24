@@ -22,11 +22,11 @@ Visit [listmonk.app](https://listmonk.app) for more info. Check out the [**live 
 ### Docker
 
 The latest image is available on DockerHub at [`listmonk/listmonk:latest`](https://hub.docker.com/r/listmonk/listmonk/tags?page=1&ordering=last_updated&name=latest).
-Download and use the sample [docker-compose.yaml](https://github.com/knadh/listmonk/blob/master/docker-compose.yaml).
+Download and use the sample [docker-compose.yaml](https://github.com/knadh/listmonk/blob/master/docker-compose.yml).
 
 ```shell
 # Download the compose file to the current directory.
-curl -LO https://github.com/knadh/listmonk/raw/master/docker-compose.yaml
+curl -LO https://github.com/knadh/listmonk/raw/master/docker-compose.yml
 
 # Run the services in the background.
 docker compose up -d

@@ -1,7 +1,20 @@
 services:
   app:
+    hostname: listmonk
+    env_file:
+      - path: ./.env
+        required: false
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
     ports: !override
-      - 9000:9000
+      - ${SERV_PORT:-9000}:9000
+    volumes: !override
+      - ./data/uploads:/listmonk/uploads:rw
+    networks: !reset null
+
   db:
-    ports: !override
-      - 5432:5432
+    env_file:
+      - path: ./.env
+        required: false
+    ports: !reset []
+    networks: !reset null

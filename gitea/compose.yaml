@@ -3,6 +3,7 @@
 services:
   server:
     image: gitea/gitea:latest
+    container_name: gitea
     hostname: gitea
     restart: unless-stopped
     env_file:
@@ -12,25 +13,21 @@ services:
       - 3000:3000
       - 22:22
     volumes:
-      - ./data/gitea:/data
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - db
-
   db:
-    image: postgres:17
-    hostname: gitea
+    image: postgres:18
+    hostname: postgres
     restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
 
   caddy:
     image: caddy:latest
-    hostname: gitea
+    hostname: caddy
     restart: unless-stopped
     ports:
       - 80:80
@@ -44,15 +41,13 @@ services:
 
   nginx:
     image: nginx:alpine
-    hostname: gitea
+    hostname: nginx
     restart: unless-stopped
     ports:
       - 80:80
       - 443:443
     volumes:
-      - .:/var/www:cached
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./ssl:/etc/nginx/ssl
     command: nginx
     depends_on:
       - server

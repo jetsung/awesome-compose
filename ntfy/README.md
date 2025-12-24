@@ -11,13 +11,15 @@
 [3]:https://hub.docker.com/r/binwiederhier/ntfy
 [4]:https://docs.ntfy.sh/
 
+---
+
 ## APP（源码）
 - Android: https://github.com/binwiederhier/ntfy-android
 - iOS: https://github.com/binwiederhier/ntfy-ios
 
 ## [配置](https://docs.ntfy.sh/config/)
 
-- Docker Compose (w/ auth, cache, attachments)
+- [Docker Compose](https://docs.ntfy.sh/config/#__tabbed_2_1) (w/ auth, cache, attachments)
 ```yaml
 services:
   ntfy:
@@ -28,6 +30,7 @@ services:
       NTFY_CACHE_FILE: /var/lib/ntfy/cache.db
       NTFY_AUTH_FILE: /var/lib/ntfy/auth.db
       NTFY_AUTH_DEFAULT_ACCESS: deny-all
+      NTFY_AUTH_USERS: 'phil:$$2a$$10$$YLiO8U21sX1uhZamTLJXHuxgVC0Z/GKISibrKCLohPgtG7yIxSk4C:admin' # Must escape '$' as '$$'
       NTFY_BEHIND_PROXY: true
       NTFY_ATTACHMENT_CACHE_DIR: /var/lib/ntfy/attachments
       NTFY_ENABLE_LOGIN: true
@@ -38,9 +41,8 @@ services:
     command: serve
 ```
 
-- Docker Compose (w/ auth, cache, web push, iOS)
+- [Docker Compose](https://docs.ntfy.sh/config/#__tabbed_2_2) (w/ auth, cache, web push, iOS)
 ```yaml
-version: '3'
 services:
   ntfy:
     image: binwiederhier/ntfy

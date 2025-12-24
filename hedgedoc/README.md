@@ -14,7 +14,8 @@
 ---
 
 ## 部署教程
-1. **使用 Docker Compose 部署**
+
+### 1. 使用 Docker Compose 部署
    - `.env` 配置文件
     ```bash
     # General settings
@@ -40,38 +41,7 @@
     HD_AUTH_LOCAL_ENABLE_REGISTER="true"
     ```
 
-    - `docker-compose.yaml`
-    ```yaml
-    services:
-      backend:
-        #image: ghcr.io/hedgedoc/hedgedoc/backend:2.0.0-alpha.3
-        image: ghcr.io/hedgedoc/hedgedoc/backend:develop
-        volumes:
-        - ./.env:/usr/src/app/backend/.env
-        - ./hedgedoc_uploads:/usr/src/app/backend/uploads
-        ports:
-        - 39020:3000
-
-      frontend:
-        #image: ghcr.io/hedgedoc/hedgedoc/frontend:2.0.0-alpha.3
-        image: ghcr.io/hedgedoc/hedgedoc/frontend:develop
-        environment:
-        - HD_BASE_URL: "${HD_BASE_URL}"
-        - HD_INTERNAL_API_URL: http://backend:3000
-        ports:
-        - 39021:3001
-
-    db:
-        image: postgres:16
-        environment:
-        - POSTGRES_USER: "${HD_DATABASE_USER}"
-        - POSTGRES_PASSWORD: "${HD_DATABASE_PASS}"
-        - POSTGRES_DB: "${HD_DATABASE_NAME}"
-        volumes:
-        - ./hedgedoc_postgres:/var/lib/postgresql/data
-    ```
-
-2. **配置 Nginx**
+### 2. 配置 NGINX
    - `example.com.conf`
    ```bash
     map $http_upgrade $connection_upgrade {

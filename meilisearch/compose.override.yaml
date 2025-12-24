@@ -2,3 +2,5 @@ services:
   meilisearch:
     ports: !override
       - ${SERV_PORT:-7700}:7700
+    volumes:
+      - ./data:/meili_data

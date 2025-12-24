@@ -1,7 +1,0 @@
-services:
-  backend:
-    ports: !override
-      - ${BACKEND_PORT:-3000}:3000
-  frontend:
-    ports: !override
-      - ${FRONTEND_PORT:-3001}:3001

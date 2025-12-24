@@ -1,8 +1,8 @@
 services:
   server:
     ports: !override
-      - ${SERV_PORT:-8080}:80
+      - ${HTTP_PORT:-8080}:80
   ferron:
     ports: !override
-      - 80:80
-      - 443:443
+      - ${HTTP_PORT:-80}:80
+      - ${HTTPS_PORT:-443}:443

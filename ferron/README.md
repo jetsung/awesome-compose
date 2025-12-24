@@ -9,7 +9,7 @@
 [1]:https://ferron.sh/
 [2]:https://github.com/ferronweb/ferron
 [3]:https://hub.docker.com/r/ferronserver/ferron
-[4]:https://ferron.sh/docs
+[4]:https://ferron.sh/docs/installation/docker
 
 ---
 

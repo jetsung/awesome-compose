@@ -3,10 +3,13 @@
 
 services:
   frpc:
-    image: fatedier/frpc:v0.61.1
+    image: fatedier/frpc:v0.65.0
     container_name: frpc
     hostname: frp
     restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
     volumes:
       - ./frpc.toml:/app/frpc.toml
     network_mode: host

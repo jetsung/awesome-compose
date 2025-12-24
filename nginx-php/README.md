@@ -1,16 +1,30 @@
 # NGINX-PHP
 
+基于 Docker Compose 的 Nginx 和 PHP-FPM 开发环境
+
+此项目提供了一个简单的 Nginx + PHP-FPM 环境，用于快速搭建 PHP 开发或运行环境。包含以下组件：
+
+- **Nginx**: 使用 nginx:alpine 镜像作为 Web 服务器，监听 80 端口
+- **PHP-FPM**: 使用 php:fpm-alpine 镜像处理 PHP 请求
+
+## 特性
+
+- 轻量级 Alpine 镜像，资源占用少
+- 自动重启策略，保证服务持续运行
+- 数据卷映射，方便代码开发和管理
+- 支持自定义 Nginx 配置
+
 ## 使用
 
 ```bash
 # 更新
-docker compose -f docker-compose.yaml -f docker-compose.nginx.yml pull
+docker compose -f compose.yaml pull
 
 # 启动
-docker compose -f docker-compose.yaml -f docker-compose.nginx.yml up -d
+docker compose -f compose.yaml up -d
 
 # 关闭
-docker compose -f docker-compose.yaml -f docker-compose.nginx.yml down
+docker compose -f compose.yaml down
 
 # 测试
 curl 127.0.0.1

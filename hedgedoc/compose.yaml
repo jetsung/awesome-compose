@@ -1,28 +1,39 @@
----
 services:
   backend:
-    image: ghcr.io/hedgedoc/hedgedoc/backend:develop
-    hostname: hedgedoc
-    ports:
-      - 3000:3000
+    image: ghcr.io/hedgedoc/hedgedoc/backend:2.0.0-alpha.3
     volumes:
-      - ./backend.env:/usr/src/app/backend/.env
-      - ./data/uploads:/usr/src/app/backend/uploads
+      - $PWD/.env:/usr/src/app/backend/.env
+      - hedgedoc_uploads:/usr/src/app/backend/uploads
 
   frontend:
-    env_file:
-      - path: ./.env
-        required: false
-    image: ghcr.io/hedgedoc/hedgedoc/frontend:develop
-    hostname: hedgedoc
-    ports:
-      - 3001:3001
+    image: ghcr.io/hedgedoc/hedgedoc/frontend:2.0.0-alpha.3
+    environment:
+      HD_BASE_URL: "${HD_BASE_URL}"
+      HD_INTERNAL_API_URL: http://backend:3000
 
   db:
-    env_file:
-      - path: ./.env
-        required: false
     image: postgres:16
-    hostname: hedgedoc
+    environment:
+      POSTGRES_USER: "${HD_DATABASE_USER}"
+      POSTGRES_PASSWORD: "${HD_DATABASE_PASS}"
+      POSTGRES_DB: "${HD_DATABASE_NAME}"
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - hedgedoc_postgres:/var/lib/postgresql/data
+
+  proxy:
+    image: caddy:latest
+    restart: unless-stopped
+    environment:
+      HD_BASE_URL: "${HD_BASE_URL}"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+
+volumes:
+  caddy_data:
+  hedgedoc_uploads:
+  hedgedoc_postgres:

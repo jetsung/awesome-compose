@@ -1,10 +1,10 @@
-# 服务名
+# ETCD
 
 [Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
-> [服务名][1] 是分布式、可靠的键值存储，用于分布式系统中最关键的数据
+> [ETCD][1] 是分布式、可靠的键值存储，用于分布式系统中最关键的数据
 
 [1]:https://etcd.io/
 [2]:https://github.com/etcd-io/etcd

@@ -1,4 +1,6 @@
 services:
   mariadb:
     ports: !override
-      - ${MARIADB_PORT:-3306}:3306
+      - ${SERV_PORT:-3306}:3306
+    volumes:
+      - ./data:/var/lib/mysql
