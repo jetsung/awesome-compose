@@ -1,6 +1,9 @@
 services:
-  postgres:
+  pgadmin4:
     ports: !override
-      - ${POSTGRES_PORT:-5432}:5432
+      - ${SERV_PORT:-80}:80
+
+  postgres:
+    ports: !reset []
     volumes:
       - ./data:/var/lib/postgresql

@@ -1,0 +1,19 @@
+---
+
+volumes:
+  ollama:
+
+services:
+  ollama:
+#     ports: !reset []
+    ports: !override
+      - ${SERV_PORT:-11434}:11434
+    volumes:
+      - ./data:/root/.ollama
+
+  ollama-rocm:
+#     ports: !reset []
+    ports: !override
+      - ${SERV_PORT:-11434}:11434
+    volumes:
+      - ./data:/root/.ollama

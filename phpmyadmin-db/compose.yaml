@@ -1,0 +1,18 @@
+---
+# https://hub.docker.com/r/dpage/pgadmin4/
+
+services:
+  phpmyadmin:
+    extends:
+      file: ../phpmyadmin/compose.yaml
+      service: phpmyadmin
+
+  mysql:
+    extends:
+      file: ../mysql/compose.yaml
+      service: mysql
+
+  mariadb:
+    extends:
+      file: ../mariadb/compose.yaml
+      service: mariadb

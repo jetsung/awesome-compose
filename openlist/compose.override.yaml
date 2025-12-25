@@ -2,3 +2,5 @@ services:
   openlist:
     ports: !override
       - ${SERV_PORT:-5244}:5244
+    volumes:
+      - ./data:/opt/openlist/data

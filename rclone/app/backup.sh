@@ -1,11 +1,11 @@
 #!/bin/sh
 
-set -eu
+set -eux
 
 add_crond() {
     DEVPATH=$(pwd)
 
-    if [ -n "${CRON}" ]; then
+    if [ -n "${CRON:-}" ]; then
         sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
         apk update
 
@@ -26,19 +26,19 @@ copy_files() {
     #cp -r /data/!(*~) /rsync
     # rsync: https://zhuanlan.zhihu.com/p/441161884
     #     --include="*.php" --exclude="*"
-    rsync -a -f ". ./rsync.rules" /data/* /rsync/
+    # Use /data/ to sync directory contents, avoiding shell glob expansion issues with empty dirs
+    rsync -a -f ". ./rsync.rules" /data/ /rsync/
 
     # 需要自行修改
     # aliyun:/rclone 需要修改为你第二步的配置
-    rclone copy -P /rsync aliyun:rclone1
+    rclone copy -P /rsync aliyun:rclone
 
-    notify | tee -a /app/rclone.log
+    notify | tee -a /data/rclone.log
 }
 
 apk_add() {
-    RSYNC_CMD=$(which rsync)
-    
-    if [ -z "$RSYNC_CMD" ]; then
+    # Check for rsync without triggering set -e if missing
+    if ! command -v rsync >/dev/null 2>&1; then
         sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
         apk update
         apk add rsync
@@ -46,20 +46,20 @@ apk_add() {
 }
 
 notify() {
-    CURL_CMD=$(which curl)
-    if [ -z "${CURL_CMD}" ]; then
+    # Check for curl
+    if ! command -v curl >/dev/null 2>&1; then
         apk add curl
     fi
 
-    OPENSSL_CMD=$(which openssl)
-    if [ -z "${OPENSSL_CMD}" ]; then
+    # Check for openssl
+    if ! command -v openssl >/dev/null 2>&1; then
         apk add openssl
     fi
 
     if [ -f "./notify.sh" ] && [ -f "./.env" ]; then
         # shellcheck disable=SC1091
         . ./.env
-        sh ./notify.sh -u "${URL}" -s "${SECRET}" -m "rclone 同步成功"
+        sh ./notify.sh -u "${URL:-}" -s "${SECRET:-}" -m "rclone 同步成功"
     fi
 }
 
@@ -70,7 +70,7 @@ run_loop() {
 main() {
     copy_files
 
-    if [ "${1}" = "cron" ]; then
+    if [ "${1:-}" = "cron" ]; then
         add_crond
         run_loop
     fi

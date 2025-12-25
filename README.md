@@ -19,7 +19,7 @@ make init n=https://hub.docker.com/r/gotify/server p=1
 - 每个服务都有一个单独的 `README.md` 文件
 
 ## 审阅 2025-12
-- open-webui
+- rclone
 
 ### 模板
 - **README.md**
@@ -96,6 +96,7 @@ SERV_PORT=
 |   | [mysql](./mysql/) | 世界最流行的开源关系型数据库管理系统之一 |
 |   | [nginx-php](./nginx-php/) | 集成 Nginx 和 PHP-FPM 的 Web 服务器环境 |
 |   | [ntfy](./ntfy/) | 简单易用的自托管通知服务，用于推送消息到手机或桌面 |
+|   | [ollama](./ollama/) | 轻量级、可扩展的大语言模型运行时，支持本地运行和 GPU 加速 |
 |   | [open-webui](./open-webui/) | 现代化的 Web UI 界面 |
 |   | [opengist](./opengist/) | 自托管的代码片段管理服务 |
 |   | [openlist](./openlist/) | 列表管理工具 |

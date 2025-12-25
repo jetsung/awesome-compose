@@ -1,0 +1,26 @@
+---
+
+# https://hub.docker.com/r/ollama/ollama
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    hostname: ollama
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - 11434:11434
+
+  ollama-rocm:
+    extends:
+      service: ollama
+    image: ollama/ollama:rocm
+    container_name: ollama-rocm
+    hostname: ollama-rocm
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    profiles:
+      - rocm

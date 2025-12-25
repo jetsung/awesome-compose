@@ -7,13 +7,12 @@ services:
     container_name: openlist
     hostname: openlist
     restart: unless-stopped
+    user: '0:0'
     env_file:
       - path: ./.env
         required: false
     ports:
       - 5244:5244
-    volumes:
-      - ./data:/opt/openlist/data
 
   ocr:
     image: openlistteam/ocr_api_server:main

@@ -190,3 +190,27 @@ example.com:80 {
 ```bash
 openssl req -x509 -nodes -days 1 -newkey rsa:2048 -keyout ssl/dummy.key -out ssl/dummy.crt -subj "/CN="
 ```
+
+6. 反向代理配置：`example.com.kdl`
+```kdl
+// HTTP configuration for example.com
+example.com:80 {
+  // Redirect HTTP to HTTPS
+  status 301 location="https://example.com{path_and_query}"
+}
+
+// HTTPS configuration for example.com
+example.com:443 {
+  // Use provided certificate files
+  tls "/etc/ferron/acmessl/example.com.fullchain.cer" "/etc/ferron/acmessl/example.com.key"
+
+  // Reverse proxy to a backend server on port 9120
+  proxy "http://host.docker.internal:8080"
+
+  // Proxy settings
+  proxy_request_header "X-Forwarded-For" "{client_ip}"
+  proxy_request_header "X-Forwarded-Proto" "{scheme}"
+  proxy_request_header "X-Real-IP" "{client_ip}"
+  proxy_request_header_replace "Host" "{header:Host}"
+}
+```

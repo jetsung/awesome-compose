@@ -1,4 +1,6 @@
 services:
-  openssh-server:
+  server:
     ports: !override
       - ${SERV_PORT:-2222}:2222
+    volumes:
+      - ./data:/config

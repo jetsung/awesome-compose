@@ -2,3 +2,5 @@ services:
   qinglong:
     ports: !override
       - ${SERV_PORT:-5700}:5700
+    volumes:
+      - ./data:/ql/data

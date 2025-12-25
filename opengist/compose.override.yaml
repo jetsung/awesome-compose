@@ -3,3 +3,5 @@ services:
     ports: !override
       - ${SERV_PORT:-6157}:6157
       - ${SSH_PORT:-2222}:2222
+    volumes:
+      - ./data:/opengist

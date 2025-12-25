@@ -1,0 +1,5 @@
+services:
+  rclone:
+    volumes:
+      - ./data/config:/config
+      - ./data/data:/data

@@ -10,3 +10,8 @@
 [2]:https://github.com/pgadmin-org/pgadmin4
 [3]:https://hub.docker.com/r/dpage/pgadmin4/
 [4]:https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
+
+---
+
+- 登录后添加服务器
+> **Add New Server** -> **General -> Name** 值`任意` -> **Connection** -> **Host name/address** / **Username** / **Password** 值都是 `postgres`

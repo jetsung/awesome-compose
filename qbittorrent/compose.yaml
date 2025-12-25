@@ -12,9 +12,6 @@ services:
       - path: ./.env
         required: false
     ports:
-      - ${QB_WEBUI_PORT:-8989}:${QB_WEBUI_PORT:-8989}
+      - 8989:8989
       - 6881:6881
-      - ${QB_BT_PORT:-6881}/udp:6881/udp
-    volumes:
-      - /srv/qbittorrent/config:/config
-      - /srv/qbittorrent/downloads:/Downloads
+      - 6881:6881/udp

@@ -74,29 +74,54 @@ create proj git="" image="" huburl="":
     echo "#     volumes:" >> "{{proj}}/compose.override.yaml"
     echo "#       - ./data:/data" >> "{{proj}}/compose.override.yaml"
 
-    # Generate backup.sh
-    echo '#!/usr/bin/env bash' > "{{proj}}/backup.sh"
-    echo "" >> "{{proj}}/backup.sh"
-    echo "###" >> "{{proj}}/backup.sh"
-    echo "#" >> "{{proj}}/backup.sh"
-    echo "# 备份 {{proj}} 数据" >> "{{proj}}/backup.sh"
-    echo "#" >> "{{proj}}/backup.sh"
-    echo "###" >> "{{proj}}/backup.sh"
-    echo "" >> "{{proj}}/backup.sh"
-    echo 'if [[ -n "$${DEBUG:-}" ]]; then' >> "{{proj}}/backup.sh"
-    echo "    set -eux" >> "{{proj}}/backup.sh"
-    echo "else" >> "{{proj}}/backup.sh"
-    echo "    set -euo pipefail" >> "{{proj}}/backup.sh"
-    echo "fi" >> "{{proj}}/backup.sh"
-    echo "" >> "{{proj}}/backup.sh"
-    echo "[[ -f {{proj}}.tar.xz ]] && rm -rf ./{{proj}}.tar.xz" >> "{{proj}}/backup.sh"
-    echo "" >> "{{proj}}/backup.sh"
-    echo "tar -Jcf {{proj}}.tar.xz ./data" >> "{{proj}}/backup.sh"
-    echo "" >> "{{proj}}/backup.sh"
-    echo "#rclone copy ./{{proj}}.tar.xz minio:/backup/databases" >> "{{proj}}/backup.sh"
-    echo "echo \"backup {{proj}} data to minio done.\"" >> "{{proj}}/backup.sh"
-    echo "echo \"Backup of {{proj}} data to MinIO completed successfully.\"" >> "{{proj}}/backup.sh"
-    echo
+    # Check if backup script should be created
+    create_backup="yes"; \
+    if [ -n "$NO_BACKUP" ]; then \
+        create_backup="no"; \
+        echo "通过环境变量禁用备份脚本"; \
+    elif [ -t 0 ]; then \
+        read -p "是否备份脚本 (y/n)?" yn; \
+        case $yn in \
+            [Yy]*) \
+                echo "将创建备份脚本" ;; \
+            *) \
+                create_backup="no"; \
+                echo "无需备份脚本" ;; \
+        esac; \
+    else \
+        echo "非交互式环境，默认创建备份脚本"; \
+    fi; \
+    if [ "$create_backup" = "yes" ]; then \
+        echo; \
+        echo "创建 backup.sh"; \
+        echo '#!/usr/bin/env bash' > "{{proj}}/backup.sh"; \
+        echo "" >> "{{proj}}/backup.sh"; \
+        echo "###" >> "{{proj}}/backup.sh"; \
+        echo "#" >> "{{proj}}/backup.sh"; \
+        echo "# 备份 {{proj}} 数据" >> "{{proj}}/backup.sh"; \
+        echo "#" >> "{{proj}}/backup.sh"; \
+        echo "###" >> "{{proj}}/backup.sh"; \
+        echo "" >> "{{proj}}/backup.sh"; \
+        echo 'if [[ -n "$${DEBUG:-}" ]]; then' >> "{{proj}}/backup.sh"; \
+        echo "    set -eux" >> "{{proj}}/backup.sh"; \
+        echo "else" >> "{{proj}}/backup.sh"; \
+        echo "    set -euo pipefail" >> "{{proj}}/backup.sh"; \
+        echo "fi" >> "{{proj}}/backup.sh"; \
+        echo "" >> "{{proj}}/backup.sh"; \
+        echo "[[ -f {{proj}}.tar.xz ]] && rm -rf ./{{proj}}.tar.xz" >> "{{proj}}/backup.sh"; \
+        echo "" >> "{{proj}}/backup.sh"; \
+        echo "tar -Jcf {{proj}}.tar.xz ./data" >> "{{proj}}/backup.sh"; \
+        echo "" >> "{{proj}}/backup.sh"; \
+        echo "#rclone copy ./{{proj}}.tar.xz minio:/backup/databases" >> "{{proj}}/backup.sh"; \
+        echo "echo \"backup {{proj}} data to minio done.\"" >> "{{proj}}/backup.sh"; \
+        echo "echo \"Backup of {{proj}} data to MinIO completed successfully.\"" >> "{{proj}}/backup.sh"; \
+    else \
+        if [ -f "{{proj}}/backup.sh" ]; then \
+            echo "删除已存在的 backup.sh"; \
+            rm -f "{{proj}}/backup.sh"; \
+        fi; \
+    fi; \
+    echo; \
     echo "项目 {{proj}} 已创建"
 
 # Recipe to initialize project based on name, URL, or image URL

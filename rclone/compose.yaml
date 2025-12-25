@@ -3,16 +3,13 @@
 
 services:
   rclone:
+    image: rclone/rclone:latest
+    container_name: rclone
+    hostname: rclone
+    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
-    image: rclone/rclone:latest
-    container_name: rclone
-    restart: unless-stopped
-    env_file:
-      - ./.env
     volumes:
       - ./app:/app
-      - /srv/rclone:/config
-      - ${DATA}:/data
-    entrypoint: [/bin/sh, /app/backup.sh, cron]
+    entrypoint: ["/bin/sh", "/app/backup.sh", "cron"]

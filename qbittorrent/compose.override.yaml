@@ -1,6 +1,9 @@
 services:
   qbittorrent:
     ports: !override
-      - ${QB_WEBUI_PORT:-8989}:${QB_WEBUI_PORT:-8989}
+      - ${SERV_PORT:-8989}:8989
       - ${QB_BT_PORT:-6881}:6881
-      - ${QB_BT_PORT:-6881}/udp:6881/udp
+      - ${QB_BT_PORT:-6881}:6881/udp
+    volumes:
+      - ./data/config:/config
+      - ./data/downloads:/Downloads

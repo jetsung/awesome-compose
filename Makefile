@@ -41,6 +41,7 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 	@echo
 	@echo "创建项目目录: $(proj)"
 	@mkdir -p "$(proj)"
+	@echo
 
     # 生成 .env 文件
 	@echo "# CUSTOM" > "$(proj)/.env"
@@ -48,21 +49,21 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 	@echo "SERV_PORT=80" >> "$(proj)/.env"
 
     # 生成 README.md
- @echo "# $(proj)" > "$(proj)/README.md"
- @echo "" >> "$(proj)/README.md"
- @echo "[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]" >> "$(proj)/README.md"
- @echo "" >> "$(proj)/README.md"
- @echo "---" >> "$(proj)/README.md"
- @echo "" >> "$(proj)/README.md"
- @echo "> [$(proj)][1]" >> "$(proj)/README.md"
- @echo "" >> "$(proj)/README.md"
- @echo "[1]:" >> "$(proj)/README.md"
- @echo "[2]:$(git)" >> "$(proj)/README.md"
- @echo "[3]:$(huburl)" >> "$(proj)/README.md"
- @echo "[4]:" >> "$(proj)/README.md"
+	@echo "# $(proj)" > "$(proj)/README.md"
+	@echo "" >> "$(proj)/README.md"
+	@echo "[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]" >> "$(proj)/README.md"
+	@echo "" >> "$(proj)/README.md"
+	@echo "---" >> "$(proj)/README.md"
+	@echo "" >> "$(proj)/README.md"
+	@echo "> [$(proj)][1]" >> "$(proj)/README.md"
+	@echo "" >> "$(proj)/README.md"
+	@echo "[1]:" >> "$(proj)/README.md"
+	@echo "[2]:$(git)" >> "$(proj)/README.md"
+	@echo "[3]:$(huburl)" >> "$(proj)/README.md"
+	@echo "[4]:" >> "$(proj)/README.md"
 
     # 生成 compose.yaml
- @echo "---" > "$(proj)/compose.yaml"
+	@echo "---" > "$(proj)/compose.yaml"
 	@echo "" >> "$(proj)/compose.yaml"
 	@echo "# $(huburl)" >> "$(proj)/compose.yaml"
 	@echo "services:" >> "$(proj)/compose.yaml"
@@ -78,7 +79,7 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 	@echo '#       - 80:80' >> "$(proj)/compose.yaml"
 
     # 生成 compose.override.yaml
- @echo "---" > "$(proj)/compose.override.yaml"
+	@echo "---" > "$(proj)/compose.override.yaml"
 	@echo "" >> "$(proj)/compose.override.yaml"
 	@echo "services:" >> "$(proj)/compose.override.yaml"
 	@echo "  $(proj):" >> "$(proj)/compose.override.yaml"
@@ -88,30 +89,55 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 	@echo "#     volumes:" >> "$(proj)/compose.override.yaml"
 	@echo "#       - ./data:/data" >> "$(proj)/compose.override.yaml"
 
-    # 生成 backup.sh
-	@echo '#!/usr/bin/env bash' > "$(proj)/backup.sh"
-	@echo "" >> "$(proj)/backup.sh"
-	@echo "###" >> "$(proj)/backup.sh"
-	@echo "#" >> "$(proj)/backup.sh"
-	@echo "# 备份 $(proj) 数据" >> "$(proj)/backup.sh"
-	@echo "#" >> "$(proj)/backup.sh"
-	@echo "###" >> "$(proj)/backup.sh"
-	@echo "" >> "$(proj)/backup.sh"
-	@echo 'if [[ -n "$${DEBUG:-}" ]]; then' >> "$(proj)/backup.sh"
-	@echo "    set -eux" >> "$(proj)/backup.sh"
-	@echo "else" >> "$(proj)/backup.sh"
-	@echo "    set -euo pipefail" >> "$(proj)/backup.sh"
-	@echo "fi" >> "$(proj)/backup.sh"
-	@echo "" >> "$(proj)/backup.sh"
-	@echo "[[ -f $(proj).tar.xz ]] && rm -rf ./$(proj).tar.xz" >> "$(proj)/backup.sh"
-	@echo "" >> "$(proj)/backup.sh"
-	@echo "tar -Jcf $(proj).tar.xz ./data" >> "$(proj)/backup.sh"
-	@echo "" >> "$(proj)/backup.sh"
-	@echo "#rclone copy ./$(proj).tar.xz minio:/backup/databases" >> "$(proj)/backup.sh"
-	@echo "echo \"backup $(proj) data to minio done.\"" >> "$(proj)/backup.sh"
-	@echo "echo \"Backup of $(proj) data to MinIO completed successfully.\"" >> "$(proj)/backup.sh"
-	@echo
-	@echo "项目 $(proj) 已创建"
+	@create_backup="yes"; \
+	if [ -n "$(NO_BACKUP)" ]; then \
+		create_backup="no"; \
+		echo "通过环境变量禁用备份脚本" ; \
+	elif [ -t 0 ]; then \
+		read -p "是否备份脚本 (y/n)?" yn; \
+		case $$yn in \
+			[Yy]*) \
+				echo "将创建备份脚本" ;; \
+			*) \
+				create_backup="no"; \
+				echo "无需备份脚本" ; \
+				;; \
+		esac; \
+	else \
+		echo "非交互式环境，默认创建备份脚本"; \
+	fi; \
+	if [ "$$create_backup" = "yes" ]; then \
+		echo; \
+		echo "创建 backup.sh"; \
+		echo '#!/usr/bin/env bash' > "$(proj)/backup.sh"; \
+		echo "" >> "$(proj)/backup.sh"; \
+		echo "###" >> "$(proj)/backup.sh"; \
+		echo "#" >> "$(proj)/backup.sh"; \
+		echo "# 备份 $(proj) 数据" >> "$(proj)/backup.sh"; \
+		echo "#" >> "$(proj)/backup.sh"; \
+		echo "###" >> "$(proj)/backup.sh"; \
+		echo "" >> "$(proj)/backup.sh"; \
+		echo 'if [[ -n "$${DEBUG:-}" ]]; then' >> "$(proj)/backup.sh"; \
+		echo "    set -eux" >> "$(proj)/backup.sh"; \
+		echo "else" >> "$(proj)/backup.sh"; \
+		echo "    set -euo pipefail" >> "$(proj)/backup.sh"; \
+		echo "fi" >> "$(proj)/backup.sh"; \
+		echo "" >> "$(proj)/backup.sh"; \
+		echo "[[ -f $(proj).tar.xz ]] && rm -rf ./$(proj).tar.xz" >> "$(proj)/backup.sh"; \
+		echo "" >> "$(proj)/backup.sh"; \
+		echo "tar -Jcf $(proj).tar.xz ./data" >> "$(proj)/backup.sh"; \
+		echo "" >> "$(proj)/backup.sh"; \
+		echo "#rclone copy ./$(proj).tar.xz minio:/backup/databases" >> "$(proj)/backup.sh"; \
+		echo "echo \"backup $(proj) data to minio done.\"" >> "$(proj)/backup.sh"; \
+		echo "echo \"Backup of $(proj) data to MinIO completed successfully.\"" >> "$(proj)/backup.sh"; \
+	else \
+		if [ -f "$(proj)/backup.sh" ]; then \
+			echo "删除已存在的 backup.sh"; \
+			rm -f "$(proj)/backup.sh"; \
+		fi; \
+	fi; \
+	echo; \
+	echo "项目 $(proj) 已创建"
 
 .PHONY: init
 init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1 文件夹名称使用前面部分
@@ -123,7 +149,7 @@ init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1
 	@last_part="YES" ; \
 	if [ -n "$(p)" ]; then \
 		last_part="NO" ; \
-	fi ;\
+	fi ; \
 	name="$(n)" ;\
 	# 文件夹名称 \
 	FOLDER="" ;\
@@ -205,4 +231,8 @@ init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1
 	if [ "$$last_part" = "NO" ]; then \
 		PROJECT="$$USER"; \
 	fi ;\
-	$(MAKE) create proj="$$PROJECT" git="$$GIT_URL" image="$$FULL_IMAGE:$$TAG" huburl="$$IMAGE_URL"
+	$(MAKE) create \
+		proj="$$PROJECT" \
+		git="$$GIT_URL" \
+		image="$$FULL_IMAGE:$$TAG" \
+		huburl="$$IMAGE_URL"

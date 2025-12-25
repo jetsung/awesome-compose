@@ -12,5 +12,3 @@ services:
         required: false
     ports:
       - 5700:5700
-    volumes:
-      - ./data:/ql/data
