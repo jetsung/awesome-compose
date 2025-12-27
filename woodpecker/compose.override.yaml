@@ -1,8 +1,4 @@
 services:
-  woodpecker-server:
-    env_file:
-      - ./.env
+  server:
     ports: !override
       - ${SERV_PORT:-8000}:8000
-  woodpecker-agent:
-    - ./.env

@@ -9,19 +9,15 @@
 [1]:https://rustpad.io/
 [2]:https://github.com/ekzhang/rustpad
 [3]:https://hub.docker.com/r/ekzhang/rustpad
-[4]:https://github.com/ekzhang/rustpad?tab=readme-ov-file#deployment
+[4]:https://github.com/ekzhang/rustpad#deployment
+
+---
 
 https://github.com/forkdo/rustpad [**Forked ekzhang**](https://github.com/ekzhang/rustpad)
 
 ## 使用 SQLite
 
-1. 先设置环境变量 `SQLITE_URI`。
-2. 创建文件夹 `data`，并将该文件夹设置为 `777` 权限。
-
-```bash
-mkdir data
-chmod -R 777 data
-```
+设置环境变量 `SQLITE_URI`。
 
 ## Nginx 配置
 

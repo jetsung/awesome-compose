@@ -5,11 +5,11 @@ services:
   rustpad:
     image: ghcr.io/forkdo/rustpad:latest
     container_name: rustpad
+    hostname: rustpad
     restart: unless-stopped
+    user: 0:0
     env_file:
       - path: ./.env
         required: false
-    volumes:
-      - ./data:/app
     ports:
       - 3030:3030

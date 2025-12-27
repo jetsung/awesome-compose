@@ -13,7 +13,7 @@
 
 ---
 
-- 配置文件 `config/config.json`
+- 配置文件 `config.json`
 ```json
 {
   "backup_jobs": [

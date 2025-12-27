@@ -4,13 +4,12 @@
 services:
   static-web-server:
     image: ghcr.io/static-web-server/static-web-server:latest
-    hostname: static-web-server
+    container_name: static-web-server
+    hostname: server
     restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
-    volumes:
-      - ./data/downloads:/app/downloads
     ports:
       - 80:80
-    command: [--root, /app/downloads, -z]
+    command: ["--root", "/app/downloads", "-z"]

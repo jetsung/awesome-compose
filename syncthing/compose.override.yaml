@@ -5,3 +5,5 @@ services:
       - ${SERV_PORT:-22000}:22000/tcp
       - ${SERV_PORT:-22000}:22000/udp
       - ${DISCOVERY_PORT:-21027}:21027/udp
+    volumes:
+      - ./data:/var/syncthing

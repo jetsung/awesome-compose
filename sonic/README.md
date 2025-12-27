@@ -9,4 +9,8 @@
 [1]:https://github.com/valeriansaliou/sonic
 [2]:https://github.com/valeriansaliou/sonic
 [3]:https://hub.docker.com/r/valeriansaliou/sonic
-[4]:https://github.com/valeriansaliou/sonic?#installation
+[4]:https://github.com/valeriansaliou/sonic#installation
+
+---
+
+- [配置文件 `config.cfg`](https://github.com/valeriansaliou/sonic/blob/master/config.cfg)

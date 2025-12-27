@@ -14,5 +14,5 @@
 
 [1]:https://static-web-server.net/
 [2]:https://github.com/static-web-server/static-web-server/
-[3]:https://github.com/orgs/static-web-server/packages/container/package/static-web-server
+[3]:https://ghcr.io/static-web-server/static-web-server
 [4]:https://static-web-server.net/

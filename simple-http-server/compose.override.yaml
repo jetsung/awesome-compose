@@ -2,3 +2,5 @@ services:
   simple-http-server:
     ports: !override
       - ${SERV_PORT:-8000}:8000
+    volumes:
+      - ./data/html:/var/www/html

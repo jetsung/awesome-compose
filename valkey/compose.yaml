@@ -11,7 +11,5 @@ services:
     env_file:
       - path: ./.env
         required: false
-    volumes:
-      - ./data:/data
     ports:
       - 6379:6379

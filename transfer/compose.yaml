@@ -5,10 +5,10 @@ services:
   transfer:
     image: dutchcoders/transfer.sh:latest
     container_name: transfer
+    hostname: transfer
     restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
     ports:
       - 8080:8080
-    command: [--provider, local, --basedir, /tmp/]

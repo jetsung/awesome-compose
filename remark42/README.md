@@ -44,7 +44,6 @@
    - 推荐使用 Docker 部署。可以通过 `docker-compose` 配置并启动服务[^3^]。
    - 示例：
      ```yaml
-     version: '3'
      services:
        remark42:
          image: umputun/remark42:latest

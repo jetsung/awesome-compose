@@ -1,5 +1,7 @@
 services:
   xunsearch:
     ports: !override
-      - ${SERV_PORT:-8383}:8383
-      - ${SERV_PORT_1:-8384}:8384
+      - ${SERV_PORT_1:-8383}:8383
+      - ${SERV_PORT_2:-8384}:8384
+    volumes:
+      - ./data:/usr/local/xunsearch/data

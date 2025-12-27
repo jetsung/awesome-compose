@@ -1,0 +1,173 @@
+# Shortener Server Configuration # This is the default configuration file # For detailed configuration options, see config/config.example.toml
+# ============================================================================
+# Server Configuration
+# ============================================================================
+[server]
+# Server listen address
+address = ":8080"
+
+# Trusted platform header for getting real client IP (optional)
+trusted-platform = ""
+
+# Public site URL (used for generating short URLs)
+site_url = "https://localhost:8080"
+
+# API key for authentication (REQUIRED)
+# Generate with: openssl rand -base64 32
+# IMPORTANT: Change this in production!
+api_key = "apikey_for_shortener"
+
+# ============================================================================
+# Shortener Configuration
+# ============================================================================
+[shortener]
+# Length of auto-generated short codes (4-16)
+code_length = 6
+
+# Character set for generating short codes
+code_charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+# ============================================================================
+# Admin Account Configuration
+# ============================================================================
+[admin]
+# Admin username (REQUIRED)
+username = "admin"
+
+# Admin password (REQUIRED)
+# IMPORTANT: Change this in production!
+password = "admin888"
+
+# ============================================================================
+# Database Configuration
+# ============================================================================
+[database]
+# Database type: "sqlite", "postgres", or "mysql"
+type = "sqlite"
+
+# Database log level: 1=Silent, 2=Error, 3=Warn, 4=Info
+log_level = 4
+
+# ----------------------------------------------------------------------------
+# SQLite Configuration
+# ----------------------------------------------------------------------------
+[database.sqlite]
+# Database file path
+path = "data/shortener.db"
+
+# ----------------------------------------------------------------------------
+# PostgreSQL Configuration (保留原始，未被覆盖)
+# ----------------------------------------------------------------------------
+[database.postgres]
+host = "localhost"
+port = 5432
+user = "postgres"
+password = "postgres"
+database = "shortener"
+sslmode = "disable"
+timezone = "Asia/Shanghai"
+
+# ----------------------------------------------------------------------------
+# MySQL Configuration (保留原始，未被覆盖)
+# ----------------------------------------------------------------------------
+[database.mysql]
+host = "localhost"
+port = 3306
+user = "root"
+password = "root"
+database = "shortener"
+charset = "utf8mb4"
+parse_time = true
+loc = "Local"
+
+# ============================================================================
+# Cache Configuration
+# ============================================================================
+[cache]
+# Enable caching (recommended for production)
+enabled = true
+
+# Cache type: "redis" or "valkey"
+type = "valkey"
+
+# Cache expiration time in seconds (default: 1 hour)
+expire = 3600
+
+# Cache key prefix
+prefix = "shorten:"
+
+# ----------------------------------------------------------------------------
+# Redis Configuration (保留原始，未被覆盖)
+# ----------------------------------------------------------------------------
+[cache.redis]
+host = "redis"
+port = 6379
+password = ""
+db = 0
+
+# ----------------------------------------------------------------------------
+# Valkey Configuration
+# ----------------------------------------------------------------------------
+[cache.valkey]
+# redis://default:password@host:6379
+host = "valkey"
+port = 6379
+username = ""
+password = ""
+db = 1
+
+# ============================================================================
+# GeoIP Configuration
+# ============================================================================
+[geoip]
+# Enable GeoIP lookup for visitor location tracking
+# NOTE: Requires ip2region database file (see docs for setup instructions)
+enabled = false
+
+# GeoIP provider type (currently only "ip2region" is supported)
+type = "ip2region"
+
+# ----------------------------------------------------------------------------
+# ip2region Configuration
+# ----------------------------------------------------------------------------
+[geoip.ip2region]
+# Path to ip2region.xdb database file
+# Download from: https://github.com/lionsoul2014/ip2region/raw/master/data/ip2region_v4.xdb
+path = "data/ip2region.xdb"
+
+# Search mode: "vector" (fastest), "btree" (balanced), or "binary" (smallest memory)
+mode = "vector"
+
+# IP version: "4" for IPv4, "6" for IPv6
+version = "4"
+
+# ============================================================================
+# Logging Configuration
+# ============================================================================
+[logging]
+# Log level: "error", "warn", "info", "debug", "trace"
+level = "debug"
+
+# Log format: "json", "pretty", or "compact"
+format = "pretty"
+
+# Include timestamp in logs
+with_timestamp = true
+
+# Include module/target name in logs
+with_target = true
+
+# Include thread ID in logs
+with_thread_ids = false
+
+# Include thread name in logs
+with_thread_names = false
+
+# Include source file name in logs
+with_file = false
+
+# Include line number in logs
+with_line_number = false
+
+# Use ANSI colors in logs (disable for log files)
+with_ansi = true

@@ -1,9 +1,6 @@
 ---
 # https://hub.docker.com/r/diygod/rsshub
 
-volumes :
-  redis-data:
-
 services:
   rsshub:
     image: diygod/rsshub:latest
@@ -15,26 +12,50 @@ services:
         required: false
     ports:
       - 1200:1200
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:1200/healthz']
+      interval: 30s
+      timeout: 10s
+      retries: 3
     depends_on:
       - redis
       - browserless
 
-  browserless:
-    # See issue 6680
-    image: browserless/chrome:1.43-chrome-stable
-    hostname: browserless
-    restart: unless-stopped
-    ulimits:
-      core:
-        hard: 0
-        soft: 0
+  real-browser:
+    image: ghcr.io/hyoban/puppeteer-real-browser-hono
+    restart: always
+    ports:
+      - '3001:3000'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  browserless: # marked
+    image: browserless/chrome # marked
+    restart: always # marked
+    ulimits: # marked
+      core: # marked
+        hard: 0 # marked
+        soft: 0 # marked
+    healthcheck: # marked
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000/pressure'] # marked
+      interval: 30s # marked
+      timeout: 10s # marked
+      retries: 3 # marked
 
   redis:
     image: redis:alpine
-    hostname: redis
-    restart: unless-stopped
-    env_file:
-      - path: ./.env
-        required: false
+    restart: always
     volumes:
       - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
+
+volumes:
+    redis-data:

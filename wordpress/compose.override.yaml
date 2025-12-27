@@ -1,4 +1,10 @@
 services:
   wordpress:
     ports: !override
-      - ${SERV_PORT:-8080}:80
+      - ${SERV_PORT:-80}:80
+    volumes:
+      - ./data/wordpress:/var/www/html
+
+  db:
+    volumes:
+      - ./data/mysql:/var/lib/mysql

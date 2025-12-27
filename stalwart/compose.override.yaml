@@ -1,5 +1,5 @@
 services:
-  mail-server:
+  stalwart:
     ports: !override
       - ${HTTP_PORT:-8080}:8080
       - ${HTTPS_PORT:-443}:443
@@ -8,5 +8,20 @@ services:
       - ${SMTPTLS_PORT:-587}:587
       - ${IMAP_PORT:-143}:143
       - ${IMAPS_PORT:-993}:993
+      - ${SIEVE_PORT:-4190}:4190
       - ${POP3_PORT:-110}:110
       - ${POP3S_PORT:-995}:995
+    # volumes:
+    #   - ./data:/opt/stalwart-mail
+    #   - /opt/stalwart-mail/webadmin.zip:/app/webadmin.zip
+
+  # ports:
+  #   volumes:
+  #     - ./data:/opt/stalwart-mail
+  #     - /opt/stalwart-mail/webadmin.zip:/tmp/webadmin.zip
+
+  stalwart-3:
+    extends:
+      service: stalwart
+    volumes:
+      - ./config.toml:/opt/stalwart/etc/config.toml

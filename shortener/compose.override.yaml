@@ -1,7 +1,7 @@
 services:
   backend:
+    volumes:
+      - ./data:/app/data
+  nginx:
     ports: !override
-      - ${BACKEND_PORT:-8081}:8081
-  frontend:
-    ports: !override
-      - ${FRONTEND_PORT:-8080}:8080
+      - ${SERV_PORT:-80}:80

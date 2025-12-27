@@ -2,3 +2,5 @@ services:
   sonic:
     ports: !override
       - ${SERV_PORT:-1491}:1491
+    volumes:
+      - ./data/store/:/var/lib/sonic/store/

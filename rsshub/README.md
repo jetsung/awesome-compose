@@ -10,3 +10,7 @@
 [2]:https://github.com/DIYgod/RSSHub
 [3]:https://hub.docker.com/r/diygod/rsshub
 [4]:https://docs.rsshub.app/guide/
+
+---
+
+- [**Docker Compose**](https://raw.githubusercontent.com/DIYgod/RSSHub/master/docker-compose.yml)

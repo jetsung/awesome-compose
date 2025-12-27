@@ -5,6 +5,7 @@ services:
   sonic:
     image: valeriansaliou/sonic:latest
     container_name: sonic
+    hostname: sonic
     restart: unless-stopped
     env_file:
       - path: ./.env
@@ -13,4 +14,3 @@ services:
       - 1491:1491
     volumes:
       - ./config.cfg:/etc/sonic.cfg
-      - /srv/sonic/store/:/var/lib/sonic/store/

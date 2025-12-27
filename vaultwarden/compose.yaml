@@ -5,11 +5,10 @@ services:
   vaultwarden:
     image: vaultwarden/server:latest
     container_name: vaultwarden
+    hostname: vaultwarden
     restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
     ports:
       - 80:80
-    volumes:
-      - /srv/vaultwarden:/data

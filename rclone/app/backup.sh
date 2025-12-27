@@ -56,10 +56,13 @@ notify() {
         apk add openssl
     fi
 
-    if [ -f "./notify.sh" ] && [ -f "./.env" ]; then
+    if [ -z "${NOTIFY_URL:-}" ] || [ -z "${NOTIFY_SECRET:-}" ]; then
+        return
+    fi
+
+    if [ -f "./notify.sh" ]; then
         # shellcheck disable=SC1091
-        . ./.env
-        sh ./notify.sh -u "${URL:-}" -s "${SECRET:-}" -m "rclone 同步成功"
+        sh ./notify.sh -u "$NOTIFY_URL" -s "$NOTIFY_SECRET" -m "rclone 同步成功"
     fi
 }
 

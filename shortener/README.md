@@ -11,6 +11,8 @@
 [3]: https://hub.docker.com/r/jetsung/shortener-server
 [4]: https://shortener.ooos.top/
 
+---
+
 ## 使用
 1. 配置文件 `config.toml`
 2. 若需要使用缓存，需要配置 `valkey` 缓存
@@ -18,7 +20,7 @@
     2. 修改配置文件 `config.toml` 中的 `cache.enabled` 字段为 `true`。
     3. 修改配置文件 `config.toml` 中的 `cache.type` 字段为 `valkey`。
 3. 若需要 IP 数据，需要配置 `ip2region` 数据库
-    1. 下载 [ip2region.xdb](https://github.com/lionsoul2014/ip2region/blob/master/data/ip2region.xdb) ，保存至 `./data/ip2region.xdb`。
+    1. 下载 [ip2region.xdb](https://github.com/lionsoul2014/ip2region/blob/master/data/ip2region_v4.xdb) ，保存至 `./data/ip2region.xdb`。
     2. 修改配置文件 `config.toml` 中的 `geoip.enabled` 字段为 `true`。
 4. 启动
     ```bash
@@ -41,7 +43,6 @@
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
-        proxy_connect_timeout 99999;
     }
 
     # 对接 API
@@ -59,6 +60,5 @@
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
-        proxy_connect_timeout 99999;
     }
     ```

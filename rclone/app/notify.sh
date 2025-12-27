@@ -16,7 +16,7 @@ get_vars() {
         URL="${2}"
         shift
         ;;
-        
+
         # 密钥
         -s | --secret )
         SECRET="${2}"
@@ -34,11 +34,11 @@ get_vars() {
 }
 
 get_dingtalk_msg() {
-    printf '{"msgtype":"text","text":{"content":"消息通知： %s "},"at":{"isAtAll":false}}' "${1:-}" 
+    printf '{"msgtype":"text","text":{"content":"消息通知： %s "},"at":{"isAtAll":false}}' "${1:-}"
 }
 
 get_feishu_msg() {
-	printf '{"msg_type":"text","content":{"text":"消息通知: %s "},"sign":"%s","timestamp":%d}' "${1:-}" "${2:-}" "${3:-}" 
+	printf '{"msg_type":"text","content":{"text":"消息通知: %s "},"sign":"%s","timestamp":%d}' "${1:-}" "${2:-}" "${3:-}"
 }
 
 send_msg() {
@@ -50,6 +50,9 @@ send_msg() {
         semd_msg=$(get_dingtalk_msg "$MESSAGE")
         URL=$(printf "$URL&timestamp=%s&sign=%s" "$TS" "$SIGN")
     elif echo "$URL" | grep -q open.feishu.cn; then
+        get_sign 1
+        semd_msg=$(get_feishu_msg "$MESSAGE" "$SIGN" "$TS")
+    elif echo "$URL" | grep -q open.larksuite.com; then
         get_sign 1
         semd_msg=$(get_feishu_msg "$MESSAGE" "$SIGN" "$TS")
     else
@@ -82,7 +85,7 @@ get_sign() {
     # printf "${data}"
     # shellcheck disable=SC2059
     SIGN=$(printf "$data" | openssl dgst -sha256 -hmac "$sign_str" -binary | base64)
-    #echo $SIGN    
+    #echo $SIGN
 }
 
 main() {

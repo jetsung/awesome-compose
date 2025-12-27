@@ -1,38 +1,49 @@
 ---
-# https://hub.docker.com/r/stalwartlabs/mail-server
+# https://hub.docker.com/r/stalwartlabs/stalwart
+
+x-stalwart-common: &stalwart-common
+  image: stalwartlabs/stalwart:latest
+  container_name: stalwart
+  hostname: stalwart
+  restart: unless-stopped
+  env_file:
+    - path: ./.env
+      required: false
+  tty: true
+  stdin_open: true
 
 services:
-  mail-server:
-    env_file:
-      - path: ./.env
-        required: false
-    image: stalwartlabs/mail-server:latest
-    container_name: stalwart-mail
-    hostname: stalwart-mail
-    tty: true
-    stdin_open: true
-    volumes:
-      - ./data:/opt/stalwart-mail
-      - /opt/stalwart-mail/webadmin.zip:/app/webadmin.zip
+  stalwart:
+    <<: *stalwart-common
     ports:
-      - 8080:8080
       - 443:443
+      - 8080:8080
       - 25:25
-      - 465:465
       - 587:587
+      - 465:465
       - 143:143
       - 993:993
+      - 4190:4190
       - 110:110
       - 995:995
-
-  mail-server-host:
-    image: stalwartlabs/mail-server:latest
-    container_name: stalwart-mail
-    tty: true
-    stdin_open: true
-    volumes:
-      - ./data:/opt/stalwart-mail
-      - /opt/stalwart-mail/webadmin.zip:/tmp/webadmin.zip
-    network_mode: host
     profiles:
-      - host
+      - server1
+
+  stalwart-2:
+    <<: *stalwart-common
+    network_mode: host
+    ports: !reset []
+    profiles:
+      - server2
+
+  stalwart-3:
+    <<: *stalwart-common
+    ports: !reset []
+    profiles:
+      - server3
+
+  stalwart-4:
+    <<: *stalwart-common
+    ports: !reset []
+    profiles:
+      - server4

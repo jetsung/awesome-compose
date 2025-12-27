@@ -12,6 +12,3 @@ services:
         required: false
     ports:
       - 3000:3000
-    volumes:
-      - ./downloads:/downloads
-      - ./torrents:/torrents

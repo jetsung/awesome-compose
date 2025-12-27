@@ -5,6 +5,7 @@ services:
   xunsearch:
     image: hightman/xunsearch:latest
     container_name: xunsearch
+    hostname: xunsearch
     restart: unless-stopped
     env_file:
       - path: ./.env
@@ -12,5 +13,3 @@ services:
     ports:
       - 8383:8383
       - 8384:8384
-    volumes:
-      - ./data:/usr/local/xunsearch/data

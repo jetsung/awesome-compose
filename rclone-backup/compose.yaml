@@ -1,6 +1,6 @@
 ---
-
 # https://hub.docker.com/r/jetsung/rclone-backup
+
 services:
   rclone-backup:
     image: jetsung/rclone-backup:latest
@@ -10,5 +10,3 @@ services:
     env_file:
       - path: ./.env
         required: false
-#     volumes:
-#     - ./data:/data

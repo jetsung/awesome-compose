@@ -13,17 +13,5 @@
 
 ## 使用
 
-- 永久存储
-  ```bash
-  -v /docker/host/dir:/data
-  ```
-
-- cli 命令行
-  ```bash
-  docker run -it --network some-network --rm valkey valkey-cli  -h some-valkey
-  ```
-
-- 指定配置文件
-  ```bash
-  docker run -v /myvalkey/conf:/usr/local/etc/valkey --name myvalkey valkey valkey-server /usr/local/etc/valkey/valkey.conf
-  ```
+- 参考 [Redis](../redis/README.md)
+- 配置文件位于：`/usr/local/etc/valkey/valkey.conf`

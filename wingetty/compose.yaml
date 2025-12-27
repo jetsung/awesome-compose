@@ -1,5 +1,5 @@
 ---
-# https://github.com/thilojaeggi/wingetty/pkgs/container/wingetty
+# https://ghcr.io/thilojaeggi/wingetty
 services:
   wingetty:
     image: ghcr.io/thilojaeggi/wingetty:latest
@@ -11,6 +11,3 @@ services:
         required: false
     ports:
       - 8080:8080
-    volumes:
-      - ./data/instance:/app/instance
-      - ./data/packages:/app/app/packages

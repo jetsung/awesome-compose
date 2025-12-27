@@ -1,4 +1,0 @@
-services:
-  webdav:
-    ports: !override
-      - ${SERV_PORT:-80}:80
