@@ -64,8 +64,8 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 
     # 生成 compose.yaml
 	@echo "---" > "$(proj)/compose.yaml"
-	@echo "" >> "$(proj)/compose.yaml"
 	@echo "# $(huburl)" >> "$(proj)/compose.yaml"
+	@echo "" >> "$(proj)/compose.yaml"
 	@echo "services:" >> "$(proj)/compose.yaml"
 	@echo "  $(proj):" >> "$(proj)/compose.yaml"
 	@echo "    image: $(image)" >> "$(proj)/compose.yaml"
@@ -130,6 +130,7 @@ create: ## 创建项目：create proj="" git="" image="" huburl=""
 		echo "#rclone copy ./$(proj).tar.xz minio:/backup/databases" >> "$(proj)/backup.sh"; \
 		echo "echo \"backup $(proj) data to minio done.\"" >> "$(proj)/backup.sh"; \
 		echo "echo \"Backup of $(proj) data to MinIO completed successfully.\"" >> "$(proj)/backup.sh"; \
+		@chmod +x "$(proj)/backup.sh"; \
 	else \
 		if [ -f "$(proj)/backup.sh" ]; then \
 			echo "删除已存在的 backup.sh"; \
