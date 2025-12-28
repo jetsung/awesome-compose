@@ -1,0 +1,12 @@
+---
+
+services:
+  blinko:
+#     ports: !reset []
+    ports: !override
+      - ${SERV_PORT:-1111}:1111
+    volumes:
+      - ./data:/app/.blinko
+  postgres:
+    volumes:
+      - ./data/postgres:/var/lib/postgresql
