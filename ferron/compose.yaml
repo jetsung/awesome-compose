@@ -8,23 +8,23 @@ x-ferron-common: &ferron-common
   env_file:
     - path: ./.env
       required: false
+  ports:
+    - 80:80
+    - 443:443
   volumes:
     - ./ferron.kdl:/etc/ferron.kdl
 
 services:
   server:
     <<: *ferron-common
-    ports:
-      - 80:80
     volumes:
       - ./data/html:/var/www/ferron
+    profiles:
+      - serv
 
   # Ferron container
   ferron:
     <<: *ferron-common
-    ports:
-      - 80:80
-      - 443:443
     volumes:
       - ./data/ferron-acme:/var/cache/ferron-acme" # This volume is needed for persistent automatic TLS cache, otherwise the web server will obtain a new certificate on each restart
     profiles:
