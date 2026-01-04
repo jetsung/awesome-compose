@@ -1,17 +1,15 @@
 ---
 # https://hub.docker.com/r/stalwartlabs/stalwart
-
 x-stalwart-common: &stalwart-common
-  image: stalwartlabs/stalwart:latest
   container_name: stalwart
-  hostname: stalwart
-  restart: unless-stopped
   env_file:
     - path: ./.env
       required: false
-  tty: true
+  hostname: stalwart
+  image: stalwartlabs/stalwart:latest
+  restart: unless-stopped
   stdin_open: true
-
+  tty: true
 services:
   stalwart:
     <<: *stalwart-common
@@ -28,20 +26,17 @@ services:
       - 995:995
     profiles:
       - server1
-
   stalwart-2:
     <<: *stalwart-common
     network_mode: host
     ports: !reset []
     profiles:
       - server2
-
   stalwart-3:
     <<: *stalwart-common
     ports: !reset []
     profiles:
       - server3
-
   stalwart-4:
     <<: *stalwart-common
     ports: !reset []

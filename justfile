@@ -110,7 +110,11 @@ create proj git="" image="" huburl="":
         echo "" >> "{{proj}}/backup.sh"; \
         echo "[[ -f {{proj}}.tar.xz ]] && rm -rf ./{{proj}}.tar.xz" >> "{{proj}}/backup.sh"; \
         echo "" >> "{{proj}}/backup.sh"; \
+        echo "[[ -f ./exec_pre.sh ]] && bash ./exec_pre.sh" >> "{{proj}}/backup.sh"; \
+        echo "" >> "{{proj}}/backup.sh"; \
         echo "tar -Jcf {{proj}}.tar.xz ./data" >> "{{proj}}/backup.sh"; \
+        echo "" >> "{{proj}}/backup.sh"; \
+        echo "[[ -f ./exec_post.sh ]] && bash ./exec_post.sh" >> "{{proj}}/backup.sh"; \
         echo "" >> "{{proj}}/backup.sh"; \
         echo "#rclone copy ./{{proj}}.tar.xz minio:/backup/databases" >> "{{proj}}/backup.sh"; \
         echo "echo \"backup {{proj}} data to minio done.\"" >> "{{proj}}/backup.sh"; \

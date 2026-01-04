@@ -1,33 +1,30 @@
 ---
 # https://hub.docker.com/u/woodpeckerci
-
-volumes :
-  woodpecker-data:
-
 services:
   server:
-    image: woodpeckerci/woodpecker-server:latest
     container_name: woodpecker-server
-    hostname: server
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: server
+    image: woodpeckerci/woodpecker-server:latest
     ports:
       - 8000:8000
+    restart: unless-stopped
     volumes:
       - woodpecker-data:/var/lib/woodpecker/
-
   agent:
-    image: woodpeckerci/woodpecker-agent:latest
+    command: agent
     container_name: woodpecker-agent
-    hostname: agent
-    restart: unless-stopped
+    depends_on:
+      - server
     env_file:
       - path: ./.env
         required: false
+    hostname: agent
+    image: woodpeckerci/woodpecker-agent:latest
+    restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: agent
-    depends_on:
-      - server
+volumes:
+  woodpecker-data:

@@ -2,7 +2,6 @@ services:
   swagger-ui:
     ports: !override
       - ${UI_PORT:-8080}:8080
-
   swagger-editor:
     ports: !override
       - ${EDITOR_PORT:-80}:80

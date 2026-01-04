@@ -1,22 +1,20 @@
 ---
 # https://hub.docker.com/_/matomo/
 # https://github.com/matomo-org/docker
-
 services:
   matomo:
-    image: matomo:latest
     container_name: matomo
-    hostname: matomo
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: matomo
+    image: matomo:latest
     ports:
       - 80:80
-
-  db:
-    image: mariadb:latest
     restart: unless-stopped
+  db:
     env_file:
       - path: ./.env
         required: false
+    image: mariadb:latest
+    restart: unless-stopped

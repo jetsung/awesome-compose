@@ -1,36 +1,36 @@
 ---
 # https://github.com/jetsung/shortener
-
 services:
   backend:
-    image: jetsung/shortener-server:latest
     container_name: shortener-server
+    depends_on:
+      - valkey
+    env_file:
+      - path: ./.env
+        required: false
+    healthcheck:
+      disable: true
     hostname: shortener
+    image: jetsung/shortener-server:latest
     restart: unless-stopped
     user: 0:0
     volumes:
       - ./config.toml:/app/config.toml
-    healthcheck:
-      disable: true
-    depends_on:
-      - valkey
   frontend:
-    image: jetsung/shortener-frontend:latest
     container_name: shortener-frontend
     hostname: shortener
+    image: jetsung/shortener-frontend:latest
     restart: unless-stopped
-
   valkey:
-    image: valkey/valkey:latest
     hostname: valkey
+    image: valkey/valkey:latest
     restart: unless-stopped
-
   nginx:
-    image: nginx:alpine
     container_name: shortener-nginx
     hostname: shortener
-    restart: unless-stopped
+    image: nginx:alpine
     ports:
       - 80:80
+    restart: unless-stopped
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf

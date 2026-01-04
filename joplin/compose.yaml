@@ -1,24 +1,22 @@
 ---
 # http://hub.docker.com/r/joplin/server
-
 services:
   joplin:
-    image: joplin/server:latest
     container_name: joplin
-    hostname: joplin
-    restart: unless-stopped
-    env_file:
-      - path: ./.env
-        required: false
     depends_on:
       - postgres
-    ports:
-      - 22300:22300
-
-  postgres:
-    image: postgres:18
-    hostname: joplin
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: joplin
+    image: joplin/server:latest
+    ports:
+      - 22300:22300
+    restart: unless-stopped
+  postgres:
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: joplin
+    image: postgres:18
+    restart: unless-stopped

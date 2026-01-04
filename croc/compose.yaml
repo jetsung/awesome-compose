@@ -1,24 +1,23 @@
 ---
 # https://hub.docker.com/r/schollz/croc
-
+x-croc-common: &croc-common
+  command: ["relay"]
+  env_file:
+    - path: ./.env
+      required: false
+  hostname: croc
+  image: schollz/croc:latest
+  restart: unless-stopped
 services:
   croc:
-    image: schollz/croc:latest
+    <<: *croc-common
     container_name: croc
-    hostname: croc
-    restart: unless-stopped
-    env_file:
-      - path: ./.env
-        required: false
     ports:
       - 9009-9013:9009-9013
-    command: ["relay"]
-
-  croc-custom:
-    extends:
-      service: croc
-    container_name: croc-custom
-    ports: !override
-      - 39009-39013:9009-9013
     profiles:
-      - custom
+      - croc
+  server:
+    <<: *croc-common
+    container_name: croc
+    profiles:
+      - server

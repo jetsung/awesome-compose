@@ -1,0 +1,29 @@
+---
+# https://hub.docker.com/u/fatedier
+services:
+  frpc:
+    container_name: frpc
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: frp
+    image: fatedier/frpc:v0.65.0
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./frpc.toml:/app/frpc.toml
+    profiles:
+      - frpc
+  frps:
+    container_name: frps
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: frp
+    image: fatedier/frps:v0.65.0
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./frps.toml:/app/frps.toml
+    profiles:
+      - frps

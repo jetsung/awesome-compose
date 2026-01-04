@@ -1,17 +1,15 @@
 ---
 # https://github.com/orgs/open-webui/packages/container/package/open-webui
-
 x-webui-common: &webui-common
-  image: ghcr.io/open-webui/open-webui:${DOCKER_TAG:-main}
   container_name: webui
-  privileged: false
-  restart: unless-stopped
   env_file:
     - path: ./.env
       required: false
+  image: ghcr.io/open-webui/open-webui:${DOCKER_TAG:-main}
   ports:
     - 8080:8080
-
+  privileged: false
+  restart: unless-stopped
 services:
   # Ollama 宿主机模式
   webui:
@@ -22,7 +20,6 @@ services:
       - host.docker.internal:host-gateway
     profiles:
       - webui
-
   # Ollama 独立模式
   server:
     <<: *webui-common
@@ -30,12 +27,11 @@ services:
       OLLAMA_BASE_URL: http://example.com
     profiles:
       - server
-
   # Ollama 容器模式
-  container:
+  ollama:
     <<: *webui-common
-    image: ghcr.io/open-webui/open-webui:ollama
     environment:
       OLLAMA_BASE_URL: http://localhost:11434
+    image: ghcr.io/open-webui/open-webui:ollama
     profiles:
-      - container
+      - ollama

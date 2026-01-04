@@ -1,15 +1,14 @@
 ---
 # https://hub.docker.com/r/rclone/rclone
-
 services:
   rclone:
-    image: rclone/rclone:latest
     container_name: rclone
-    hostname: rclone
-    restart: unless-stopped
+    entrypoint: ["/bin/sh", "/app/backup.sh", "cron"]
     env_file:
       - path: ./.env
         required: false
+    hostname: rclone
+    image: rclone/rclone:latest
+    restart: unless-stopped
     volumes:
       - ./app:/app
-    entrypoint: ["/bin/sh", "/app/backup.sh", "cron"]

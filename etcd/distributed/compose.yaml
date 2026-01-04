@@ -1,21 +1,16 @@
 ---
 # https://quay.io/coreos/etcd
-
 x-etcd-common: &etcd-common
   image: quay.io/coreos/etcd:v3.6.7
-  restart: unless-stopped
   networks:
     - etcd-net
+  restart: unless-stopped
   volumes:
     - /etc/localtime:/etc/localtime
-
 services:
   etcd1:
     <<: *etcd-common
     container_name: etcd1
-    ports:
-      - 20000:2379
-      - 20001:2380
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
       - ETCD_NAME=etcd1
@@ -27,13 +22,12 @@ services:
       - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
       - ETCDCTL_API=3
-
+    ports:
+      - 20000:2379
+      - 20001:2380
   etcd2:
     <<: *etcd-common
     container_name: etcd2
-    ports:
-      - 20002:2379
-      - 20003:2380
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
       - ETCD_NAME=etcd2
@@ -45,13 +39,12 @@ services:
       - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
       - ETCDCTL_API=3
-
+    ports:
+      - 20002:2379
+      - 20003:2380
   etcd3:
     <<: *etcd-common
     container_name: etcd3
-    ports:
-      - 20004:2379
-      - 20005:2380
     environment:
       - ALLOW_NONE_AUTHENTICATION=yes
       - ETCD_NAME=etcd3
@@ -63,7 +56,9 @@ services:
       - ETCD_INITIAL_CLUSTER=etcd1=http://etcd1:2380,etcd2=http://etcd2:2380,etcd3=http://etcd3:2380
       - ETCD_INITIAL_CLUSTER_STATE=new
       - ETCDCTL_API=3
-
+    ports:
+      - 20004:2379
+      - 20005:2380
 networks:
   etcd-net:
     driver: bridge

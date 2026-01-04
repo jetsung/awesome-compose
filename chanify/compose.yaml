@@ -1,16 +1,15 @@
 ---
 # https://hub.docker.com/r/wizjin/chanify
-
 services:
   chanify:
-    image: wizjin/chanify:latest
     container_name: chanify
-    hostname: chanify
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: chanify
+    image: wizjin/chanify:latest
     ports:
       - 80:80
+    restart: unless-stopped
     volumes:
       - ./chanify.yaml:/root/.chanify.yml

@@ -2,12 +2,12 @@
 # https://ghcr.io/thilojaeggi/wingetty
 services:
   wingetty:
-    image: ghcr.io/thilojaeggi/wingetty:latest
     container_name: wingetty
-    hostname: wingetty
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: wingetty
+    image: ghcr.io/thilojaeggi/wingetty:latest
     ports:
       - 8080:8080
+    restart: unless-stopped

@@ -4,10 +4,9 @@ services:
       - ${SERV_PORT:-4000}:4000
     volumes:
       - ./data/asciinema:/var/opt/asciinema
+  server:
+    extends:
+      service: asciinema
   postgres:
     volumes:
       - ./data/postgres:/var/lib/postgresql
-
-  asciinema-local:
-    extends:
-      service: asciinema

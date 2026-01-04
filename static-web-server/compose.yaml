@@ -1,15 +1,14 @@
 ---
 # https://github.com/orgs/static-web-server/packages/container/package/static-web-server
-
 services:
   static-web-server:
-    image: ghcr.io/static-web-server/static-web-server:latest
+    command: ["--root", "/app/downloads", "-z"]
     container_name: static-web-server
-    hostname: server
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: server
+    image: ghcr.io/static-web-server/static-web-server:latest
     ports:
       - 80:80
-    command: ["--root", "/app/downloads", "-z"]
+    restart: unless-stopped

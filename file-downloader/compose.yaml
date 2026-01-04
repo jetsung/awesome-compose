@@ -1,10 +1,10 @@
 ---
 services:
   file-downloader:
-    image: ghcr.io/idev-sig/file-downloader:dev
     container_name: file-downloader
-    hostname: file-downloader
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: file-downloader
+    image: ghcr.io/idev-sig/file-downloader:dev
+    restart: unless-stopped

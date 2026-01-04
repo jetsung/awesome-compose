@@ -1,20 +1,19 @@
 ---
 # https://github.com/minio/minio/tree/master/docs/orchestration/docker-compose
-
 services:
   minio:
-    image: quay.io/minio/minio:${MINIO_IMAGE_VERSION:-RELEASE.2025-02-18T16-25-55Z}
+    command: server --console-address ":9001" /data
     container_name: minio
-    hostname: minio
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
-    ports:
-      - 9000-9001:9000-9001
-    command: server --console-address ":9001" /data
     healthcheck:
       test: [CMD, curl, -f, 'http://localhost:9000/minio/health/live']
       interval: 30s
       timeout: 20s
       retries: 3
+    hostname: minio
+    image: quay.io/minio/minio:${MINIO_IMAGE_VERSION:-RELEASE.2025-02-18T16-25-55Z}
+    ports:
+      - 9000-9001:9000-9001
+    restart: unless-stopped

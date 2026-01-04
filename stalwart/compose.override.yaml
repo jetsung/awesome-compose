@@ -11,17 +11,15 @@ services:
       - ${SIEVE_PORT:-4190}:4190
       - ${POP3_PORT:-110}:110
       - ${POP3S_PORT:-995}:995
-    # volumes:
-    #   - ./data:/opt/stalwart-mail
-    #   - /opt/stalwart-mail/webadmin.zip:/app/webadmin.zip
-
-  # ports:
-  #   volumes:
-  #     - ./data:/opt/stalwart-mail
-  #     - /opt/stalwart-mail/webadmin.zip:/tmp/webadmin.zip
-
   stalwart-3:
     extends:
       service: stalwart
     volumes:
+    # volumes:
+    #   - ./data:/opt/stalwart-mail
+    #   - /opt/stalwart-mail/webadmin.zip:/app/webadmin.zip
+  # ports:
+  #   volumes:
+  #     - ./data:/opt/stalwart-mail
+  #     - /opt/stalwart-mail/webadmin.zip:/tmp/webadmin.zip
       - ./config.toml:/opt/stalwart/etc/config.toml

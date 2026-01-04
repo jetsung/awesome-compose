@@ -1,30 +1,28 @@
 ---
 # https://hub.docker.com/r/gotify/server
-
 services:
   gotify:
-    image: gotify/server:latest
     container_name: gotify
-    hostname: gotify
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: gotify
+    image: gotify/server:latest
     ports:
       - 80:80
+    restart: unless-stopped
     security_opt:
       - no-new-privileges:true
-
   igotify:
-    image: ghcr.io/androidseb25/igotify-notification-assist:latest
     container_name: igotify
-    hostname: igotify
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
-    security_opt:
-      - no-new-privileges:true
-    pull_policy: always
+    hostname: igotify
+    image: ghcr.io/androidseb25/igotify-notification-assist:latest
     profiles:
       - igotify
+    pull_policy: always
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true

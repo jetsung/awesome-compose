@@ -2,12 +2,12 @@
 # https://hub.docker.com/r/sissbruecker/linkding
 services:
   linkding:
-    image: sissbruecker/linkding:latest
     container_name: linkding
-    hostname: linkding
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: linkding
+    image: sissbruecker/linkding:latest
     ports:
       - 9090:9090
+    restart: unless-stopped

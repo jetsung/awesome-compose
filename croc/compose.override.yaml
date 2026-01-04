@@ -2,3 +2,6 @@ services:
   croc:
     ports: !override
       - 9009-9013:9009-9013
+  server:
+    ports: !override
+      - 39009-39013:9009-9013

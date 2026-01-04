@@ -4,4 +4,4 @@ services:
       - ${SERV_PORT:-22300}:22300
   postgres:
     volumes:
-      - ./data/postgres:/var/lib/postgresql/data
+      - ./data/postgres:/var/lib/postgresql

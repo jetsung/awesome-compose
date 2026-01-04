@@ -1,15 +1,14 @@
 ---
 # https://hub.docker.com/_/adminer
 # https://github.com/TimWolla/docker-adminer
-
 services:
   adminer:
-    image: adminer:latest
     container_name: adminer
-    hostname: adminer
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: adminer
+    image: adminer:latest
     ports:
       - 8080:8080
+    restart: unless-stopped

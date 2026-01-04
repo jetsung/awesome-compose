@@ -1,21 +1,20 @@
 ---
 # https://hub.docker.com/r/binwiederhier/ntfy
-
 services:
   ntfy:
-    image: binwiederhier/ntfy:latest
+    command: ["serve"]
     container_name: ntfy
-    restart: unless-stopped
-    hostname: ntfy
     env_file:
       - path: ./.env
         required: false
-    # user: UID:GID # optional: replace with your own user/group or uid/gid
-    ports:
-      - 80:80
-    command: ["serve"]
     healthcheck: # optional: remember to adapt the host:port to your environment
-      test: ['CMD-SHELL', 'wget -q --tries=1 http://localhost:80/v1/health -O - | grep -Eo "\"healthy\"\\s*:\\s*true" || exit 1']
+      test: ["CMD-SHELL", "wget -q --tries=1 http://localhost:80/v1/health -O - | grep -Eo \"healthy\"\\s*:\\s*true || exit 1"]
       timeout: 10s
       retries: 3
       start_period: 40s
+    hostname: ntfy
+    image: binwiederhier/ntfy:latest
+    ports:
+      - 80:80
+    restart: unless-stopped
+    # user: UID:GID # optional: replace with your own user/group or uid/gid

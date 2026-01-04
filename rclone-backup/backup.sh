@@ -14,7 +14,11 @@ fi
 
 [[ -f rclone-backup.tar.xz ]] && rm -rf ./rclone-backup.tar.xz
 
+[[ -f ./exec_pre.sh ]] && bash ./exec_pre.sh
+
 tar -Jcf rclone-backup.tar.xz ./data
+
+[[ -f ./exec_post.sh ]] && bash ./exec_post.sh
 
 #rclone copy ./rclone-backup.tar.xz minio:/backup/databases
 echo "backup rclone-backup data to minio done."

@@ -154,7 +154,7 @@ load_env_config() {
     [[ ! -f "$env_file" ]] && return 0
 
     # # 或 echo ""
-    env_project_name=$(grep '# project_name=' "$env_file" | cut -d= -f2 | xargs 2>/dev/null || true) 
+    env_project_name=$(grep '# project_name=' "$env_file" | cut -d= -f2 | xargs 2>/dev/null || true)
     env_targetdir=$(grep '# targetdir=' "$env_file" | cut -d= -f2 | xargs 2>/dev/null || true)
     env_backdir=$(grep '# backdir=' "$env_file" | cut -d= -f2 | xargs 2>/dev/null || true)
 }
@@ -285,7 +285,7 @@ main() {
     fi
 
     # 清理本地旧备份（忽略错误，仅记录警告）
-    if rm -f "${project_name}"*.tar.xz; then 
+    if rm -f "${project_name}"*.tar.xz; then
         log "已清理本地旧备份"
     else
         log "警告：清理本地旧备份时部分失败"
@@ -306,12 +306,14 @@ main() {
     fi
 
     # shellcheck disable=SC2086
+    [[ -f ./exec_pre.sh ]] && bash ./exec_pre.sh
     if tar -Jcf "$current_tar" $tar_source; then
         log "已创建压缩包：$current_tar"
     else
         log "错误：创建压缩包失败：$current_tar"
         exit 1
     fi
+    [[ -f ./exec_post.sh ]] && bash ./exec_post.sh
 
     # 检查 rclone 是否可用
     if ! command -v rclone >/dev/null; then

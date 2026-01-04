@@ -1,21 +1,19 @@
 ---
 # https://hub.docker.com/r/openlistteam/openlist
-
 services:
   openlist:
-    image: openlistteam/openlist:latest
     container_name: openlist
-    hostname: openlist
-    restart: unless-stopped
-    user: '0:0'
     env_file:
       - path: ./.env
         required: false
+    hostname: openlist
+    image: openlistteam/openlist:latest
     ports:
       - 5244:5244
-
+    restart: unless-stopped
+    user: '0:0'
   ocr:
-    image: openlistteam/ocr_api_server:main
     container_name: ocr
     hostname: ocr
+    image: openlistteam/ocr_api_server:main
     restart: unless-stopped

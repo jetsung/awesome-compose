@@ -14,7 +14,11 @@ fi
 
 [[ -f hoppscotch.tar.xz ]] && rm -rf ./hoppscotch.tar.xz
 
-# tar -Jcf hoppscotch.tar.xz ./data
+[[ -f ./exec_pre.sh ]] && bash ./exec_pre.sh
+
+tar -Jcf hoppscotch.tar.xz ./data
+
+[[ -f ./exec_post.sh ]] && bash ./exec_post.sh
 
 # #rclone copy ./hoppscotch.tar.xz minio:/backup/databases
 # echo "backup hoppscotch data to minio done."

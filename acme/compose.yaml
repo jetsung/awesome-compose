@@ -1,13 +1,12 @@
 ---
 # https://hub.docker.com/r/neilpang/acme.sh
-
 services:
   acme:
-    image: neilpang/acme.sh:latest
+    command: ["daemon"]
     container_name: acme.sh
-    hostname: acme
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
-    command: ["daemon"]
+    hostname: acme
+    image: neilpang/acme.sh:latest
+    restart: unless-stopped

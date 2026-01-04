@@ -2,4 +2,6 @@
 .vscode/
 .marscode/
 
+**/compose.extend.yaml
+**/extend.env
 **/data/

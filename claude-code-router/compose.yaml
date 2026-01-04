@@ -1,15 +1,13 @@
 ---
-
 # https://hub.docker.com/r/jetsung/claude-code-router
-
 services:
   claude-code-router:
-    image: jetsung/claude-code-router:latest
     container_name: claude-code-router
-    hostname: claude-code-router
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: claude-code-router
+    image: jetsung/claude-code-router:latest
     ports:
       - 3456:3456
+    restart: unless-stopped

@@ -1,14 +1,13 @@
 ---
 # https://hub.docker.com/r/finab/bark-server
-
 services:
   bark:
-    image: finab/bark-server:latest
     container_name: bark
-    hostname: bark
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: bark
+    image: finab/bark-server:latest
     ports:
       - 8080:8080
+    restart: unless-stopped

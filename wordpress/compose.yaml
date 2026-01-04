@@ -1,32 +1,29 @@
 ---
 # https://hub.docker.com/_/wordpress
-
 x-db: &db
   MYSQL_DATABASE: ${WORDPRESS_DB_NAME:-wordpress}
   MYSQL_USER: ${WORDPRESS_DB_USER:-exampleuser}
   MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD:-examplepass}
   MYSQL_RANDOM_ROOT_PASSWORD: 1
-
 services:
   wordpress:
-    image: wordpress:latest
     container_name: wordpress
-    hostname: wordpress
-    restart: unless-stopped
+    depends_on:
+      - db
     env_file:
       - path: ./.env
         required: false
+    hostname: wordpress
+    image: wordpress:latest
     ports:
       - 80:80
-    depends_on:
-      - db
-
-  db:
-    image: mysql:9
-    hostname: mysql
     restart: unless-stopped
+  db:
     env_file:
       - path: ./.env
         required: false
     environment:
       <<: *db
+    hostname: mysql
+    image: mysql:9
+    restart: unless-stopped

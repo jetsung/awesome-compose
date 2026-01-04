@@ -1,35 +1,30 @@
 ---
 # https://hub.docker.com/r/blinkospace/blinko
-
 services:
   blinko:
-    image: blinkospace/blinko:latest
     container_name: blinko
-    hostname: blinko
-    restart: unless-stopped
-    env_file:
-      - path: ./.env
-        required: false
-    ports:
-      - 1111:1111
     depends_on:
       postgres:
         condition: service_healthy
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "3"
+    env_file:
+      - path: ./.env
+        required: false
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:1111/"]
       interval: 30s
       timeout: 10s
       retries: 5
       start_period: 30s
-
-  postgres:
-    image: postgres:18
-    hostname: postgres
+    hostname: blinko
+    image: blinkospace/blinko:latest
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - 1111:1111
     restart: unless-stopped
+  postgres:
     env_file:
       - path: ./.env
         required: false
@@ -38,3 +33,6 @@ services:
       interval: 2s
       timeout: 5s
       retries: 10
+    hostname: postgres
+    image: postgres:18
+    restart: unless-stopped

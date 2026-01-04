@@ -1,6 +1,8 @@
 services:
   rclone-backup:
     volumes:
+      # 拉取数据目标目录
+      #- ./data/rclone-backup:/data/synced
       # 配置文件 (可选，如果不挂载会使用默认配置)
       - ./config.json:/app/config/config.json:ro
       # rclone 配置文件 (首次运行后会生成)
@@ -9,5 +11,3 @@ services:
       - ./data/logs:/var/log/backup
       # 备份源目录 (根据需要修改)
       - ./data/acme:/data/backup/acme:ro
-      # 拉取数据目标目录
-      #- ./data/rclone-backup:/data/synced

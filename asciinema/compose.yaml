@@ -1,26 +1,31 @@
 ---
 # https://ghcr.io/asciinema/asciinema-server
-
 x-asciinema-common: &asciinema-common
-  image: ghcr.io/asciinema/asciinema-server:latest
-  hostname: asciinema
-  restart: unless-stopped
   env_file:
     - path: ./.env
       required: false
+  hostname: asciinema
+  image: ghcr.io/asciinema/asciinema-server:latest
   ports:
     - 4000:4000
-
+  restart: unless-stopped
 services:
   asciinema:
     <<: *asciinema-common
     depends_on:
       postgres:
         condition: service_healthy
+    profiles:
+      - asciinema
+  server:
+    <<: *asciinema-common
+    environment:
+      - DATABASE_URL=postgresql://username:password@host.docker.internal/dbname
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    profiles:
+      - server
   postgres:
-    image: postgres:18
-    hostname: postgres
-    restart: unless-stopped
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     healthcheck:
@@ -28,13 +33,8 @@ services:
       interval: 2s
       timeout: 5s
       retries: 10
-
-  asciinema-local:
-    <<: *asciinema-common
-    environment:
-      - DATABASE_URL=postgresql://username:password@host.docker.internal/dbname
-    extra_hosts:
-      - host.docker.internal:host-gateway
+    hostname: postgres
+    image: postgres:18
+    restart: unless-stopped
     profiles:
-      - local
-    depends_on: !remove
+      - server

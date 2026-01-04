@@ -4,7 +4,6 @@ services:
       - ${SERV_PORT:-80}:80
     volumes:
       - ./data/gotify:/app/data
-
   igotify:
     volumes:
       - ./data/igotify:/app/data

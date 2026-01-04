@@ -1,14 +1,13 @@
 ---
 # https://hub.docker.com/r/dutchcoders/transfer.sh
-
 services:
   transfer:
-    image: dutchcoders/transfer.sh:latest
     container_name: transfer
-    hostname: transfer
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: transfer
+    image: dutchcoders/transfer.sh:latest
     ports:
       - 8080:8080
+    restart: unless-stopped

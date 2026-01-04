@@ -1,31 +1,27 @@
 ---
 # https://hub.docker.com/r/ferronserver/ferron
-
 x-ferron-common: &ferron-common
-  image: ferronserver/ferron:2-alpine
-  user: 0:0
-  restart: unless-stopped
   env_file:
     - path: ./.env
       required: false
+  image: ferronserver/ferron:2-alpine
   ports:
     - 80:80
     - 443:443
+  restart: unless-stopped
+  user: 0:0
   volumes:
     - ./ferron.kdl:/etc/ferron.kdl
-
 services:
-  server:
-    <<: *ferron-common
-    volumes:
-      - ./data/html:/var/www/ferron
-    profiles:
-      - serv
-
-  # Ferron container
   ferron:
     <<: *ferron-common
+    profiles:
+      - ferron
+    volumes:
+      - ./data/html:/var/www/ferron
+  server:
+    <<: *ferron-common
+    profiles:
+      - server
     volumes:
       - ./data/ferron-acme:/var/cache/ferron-acme" # This volume is needed for persistent automatic TLS cache, otherwise the web server will obtain a new certificate on each restart
-    profiles:
-      - acme

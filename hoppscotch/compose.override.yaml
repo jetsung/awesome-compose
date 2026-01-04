@@ -2,12 +2,10 @@ services:
   postgres:
     volumes:
       - ./data:/var/lib/postgresql
-
   aio:
     ports: !override
       - ${AIO_PORT:-80}:80
       - ${APP_PORT:-3200}:3200
-
   admin:
     ports: !override
       - ${ADMIN_PORT:-3100}:80

@@ -1,24 +1,23 @@
 ---
-
+# https://hub.docker.com/_/php
 services:
   nginx:
-    image: nginx:alpine
     container_name: nginx
-    hostname: nginx
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: nginx
+    image: nginx:alpine
+    ports:
+      - 80:80
+    restart: unless-stopped
     volumes:
       - ./data/www:/var/www/html:rw
       - ./conf.d:/etc/nginx/conf.d:rw
-    ports:
-      - 80:80
-
   php-fpm:
-    image: php:fpm-alpine
     container_name: php-fpm
-    restart: unless-stopped
     hostname: php-fpm
+    image: php:fpm-alpine
+    restart: unless-stopped
     volumes:
       - ./data/www:/var/www/html:rw

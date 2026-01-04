@@ -1,72 +1,69 @@
 ---
-
 # https://hub.docker.com/r/hoppscotch/hoppscotch
 services:
   postgres:
-    image: postgres:18
-    hostname: postgres
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: postgres
+    image: postgres:18
     profiles:
       - init
       - aio
       - one
-
-  aio:
-    image: hoppscotch/hoppscotch:latest
-    hostname: hoppscotch
     restart: unless-stopped
+  aio:
     env_file:
       - path: ./.env
         required: false
       - path: ./aio.env
         required: false
+    hostname: hoppscotch
+    image: hoppscotch/hoppscotch:latest
     ports:
       - 80:80
       - 3200:3200
     profiles:
       - aio
-
+    restart: unless-stopped
   admin:
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./one.env
+        required: false
+    hostname: hoppscotch
     image: hoppscotch/hoppscotch-admin:latest
-    hostname: hoppscotch
-    restart: unless-stopped
-    env_file:
-      - path: ./.env
-        required: false
-      - path: ./one.env
-        required: false
     ports:
       - 80:80
     profiles:
       - one
+    restart: unless-stopped
   frontend:
-    image: hoppscotch/hoppscotch-frontend:latest
-    hostname: hoppscotch
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
       - path: ./one.env
         required: false
+    hostname: hoppscotch
+    image: hoppscotch/hoppscotch-frontend:latest
     ports:
       - 80:80
     profiles:
       - one
-  backend:
-    image: hoppscotch/hoppscotch-backend:latest
-    hostname: hoppscotch
     restart: unless-stopped
-    env_file:
-      - path: ./.env
-        required: false
-      - path: ./one.env
-        required: false
-    ports:
-      - 80:80
+  backend:
     depends_on:
       - postgres
+    env_file:
+      - path: ./.env
+        required: false
+      - path: ./one.env
+        required: false
+    hostname: hoppscotch
+    image: hoppscotch/hoppscotch-backend:latest
+    ports:
+      - 80:80
     profiles:
       - one
+    restart: unless-stopped

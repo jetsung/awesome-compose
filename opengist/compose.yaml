@@ -1,15 +1,14 @@
 ---
 # https://github.com/users/thomiceli/packages/container/package/opengist
-
 services:
   opengist:
-    image: ghcr.io/thomiceli/opengist:latest
     container_name: opengist
-    restart: unless-stopped
-    hostname: opengist
     env_file:
       - path: ./.env
         required: false
+    hostname: opengist
+    image: ghcr.io/thomiceli/opengist:latest
     ports:
       - 6157:6157
       - 2222:2222
+    restart: unless-stopped

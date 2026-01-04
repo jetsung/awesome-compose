@@ -1,14 +1,13 @@
 ---
 # https://hub.docker.com/r/ekzhang/bore
-
 services:
   bore:
-    image: ekzhang/bore:latest
+    command: ["server"]
     container_name: bore
-    hostname: bore
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
-    command: ["server"]
+    hostname: bore
+    image: ekzhang/bore:latest
     network_mode: host
+    restart: unless-stopped

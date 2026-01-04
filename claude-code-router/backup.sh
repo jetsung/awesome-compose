@@ -14,7 +14,11 @@ fi
 
 [[ -f claude-code-router.tar.xz ]] && rm -rf ./claude-code-router.tar.xz
 
-tar -Jcf claude-code-router.tar.xz ./config
+[[ -f ./exec_pre.sh ]] && bash ./exec_pre.sh
+
+tar -Jcf claude-code-router.tar.xz ./data/config.json
+
+[[ -f ./exec_post.sh ]] && bash ./exec_post.sh
 
 #rclone copy ./claude-code-router.tar.xz minio:/backup/databases
 echo "backup claude-code-router data to minio done."

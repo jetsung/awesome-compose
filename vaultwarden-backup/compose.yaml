@@ -1,21 +1,3 @@
----
-# https://hub.docker.com/r/ttionya/vaultwarden-backup
-
-x-backup-common: &backup-common
-  image: ttionya/vaultwarden-backup:latest
-  restart: unless-stopped
-  env_file:
-    - path: ./.env
-      required: false
-  volumes:
-    - ./data:/bitwarden/data/
-    - ./data:/config/
-
-services       :
-  backup1:
-    <<: *backup-common
-    container_name: vaultwarden-backup
-
 ## 多重备份
 #  backup2:
 #    <<: *backup-common
@@ -38,3 +20,19 @@ services       :
 #   MAIL_WHEN_FAILURE: 'TRUE'
 #   TIMEZONE: 'UTC'
 #
+---
+# https://hub.docker.com/r/ttionya/vaultwarden-backup
+x-backup-common: &backup-common
+  env_file:
+    - path: ./.env
+      required: false
+  image: ttionya/vaultwarden-backup:latest
+  restart: unless-stopped
+  volumes:
+    - ./data:/bitwarden/data/
+    - ./data:/config/
+
+services:
+  backup1:
+    <<: *backup-common
+    container_name: vaultwarden-backup

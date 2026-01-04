@@ -1,14 +1,13 @@
 ---
 # https://hub.docker.com/r/neosmemo/memos
-
 services:
   memos:
-    image: neosmemo/memos:stable
     container_name: memos
-    hostname: memos
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: memos
+    image: neosmemo/memos:stable
     ports:
       - 5230:5230
+    restart: unless-stopped

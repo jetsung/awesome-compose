@@ -4,7 +4,6 @@ services:
       - ${SERV_PORT:-80}:80
     volumes:
       - ./data/wordpress:/var/www/html
-
   db:
     volumes:
       - ./data/mysql:/var/lib/mysql

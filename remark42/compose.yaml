@@ -1,19 +1,18 @@
 ---
 # https://hub.docker.com/r/umputun/remark42
-
 services:
   remark:
-    image: umputun/remark42:latest
     container_name: remark42
-    hostname: remark42
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
-    ports:
-      - 8080:8080
+    hostname: remark42
+    image: umputun/remark42:latest
     logging:
       driver: json-file
       options:
         max-size: 10m
         max-file: '5'
+    ports:
+      - 8080:8080
+    restart: unless-stopped

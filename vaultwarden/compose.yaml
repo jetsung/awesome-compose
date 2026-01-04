@@ -1,14 +1,13 @@
 ---
 # https://hub.docker.com/r/vaultwarden/server
-
 services:
   vaultwarden:
-    image: vaultwarden/server:latest
     container_name: vaultwarden
-    hostname: vaultwarden
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: vaultwarden
+    image: vaultwarden/server:latest
     ports:
       - 80:80
+    restart: unless-stopped

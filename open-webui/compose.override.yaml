@@ -4,14 +4,12 @@ services:
       - ${SERV_PORT:-8080}:8080
     volumes:
       - ./data/backend:/app/backend/data
-
   server:
     ports: !override
       - ${SERV_PORT:-8080}:8080
     volumes:
       - ./data/backend:/app/backend/data
-
-  container:
+  ollama:
     ports: !override
       - ${SERV_PORT:-8080}:8080
     volumes:

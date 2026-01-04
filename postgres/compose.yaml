@@ -1,14 +1,13 @@
 ---
 # https://hub.docker.com/_/postgres
-
 services:
   postgres:
-    image: postgres:latest
     container_name: postgres
-    hostname: postgres
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: postgres
+    image: postgres:latest
     ports:
       - 5432:5432
+    restart: unless-stopped

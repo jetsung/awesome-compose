@@ -1,14 +1,13 @@
 ---
 # https://hub.docker.com/r/linuxserver/openssh-server
-
 services:
   server:
-    image: linuxserver/openssh-server:latest
     container_name: openssh-server
-    hostname: openssh-server
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: openssh-server
+    image: linuxserver/openssh-server:latest
     ports:
       - 2222:2222
+    restart: unless-stopped

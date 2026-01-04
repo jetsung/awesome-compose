@@ -1,16 +1,15 @@
 ---
 # https://hub.docker.com/r/valeriansaliou/sonic
-
 services:
   sonic:
-    image: valeriansaliou/sonic:latest
     container_name: sonic
-    hostname: sonic
-    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
+    hostname: sonic
+    image: valeriansaliou/sonic:latest
     ports:
       - 1491:1491
+    restart: unless-stopped
     volumes:
       - ./config.cfg:/etc/sonic.cfg
