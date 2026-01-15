@@ -77,6 +77,7 @@ SERV_PORT=
 | 在用 | [filetas](./filetas/) | 文件管理和分享服务 |
 |   | [frp](./frp/) | 专注内网穿透的高性能反向代理应用 |
 |   | [gitea](./gitea/) | 轻量级的 DevOps 平台软件，提供 Git 托管、代码审查、团队协作等功能 |
+| 在用 | [gitlab](./gitlab/) | 完整的企业级 DevOps 平台，提供代码托管、CI/CD、项目管理等完整开发流程 |
 | 在用 | [gitlab-runner](./gitlab-runner/) | GitLab CI/CD 的执行器，用于运行 CI/CD 任务 |
 | 在用 | [gotify](./gotify/) | 简单的发送和接收消息的服务器，用于实时消息推送 |
 | | [hedgedoc](./hedgedoc/) | 开源的协作文档编辑器，支持 Markdown 编辑 |
