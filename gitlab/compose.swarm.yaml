@@ -20,7 +20,6 @@ services:
       - gitlab_root_password
 
   gitlab-runner:
-    container_name: gitlab-runner
     hostname: gitlab-runner
     image: gitlab/gitlab-runner:alpine
     deploy:

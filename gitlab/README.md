@@ -31,7 +31,7 @@ docker compose -p gitlab config
 docker compose -p gitlab down
 ```
 
-## [通过使用 Docker Swarm 模式安装 GitLab](https://docs.gitlab.com/install/docker/installation/#install-gitlab-by-using-docker-swarm-mode)
+## [使用 Docker Swarm 模式安装 GitLab](https://docs.gitlab.com/install/docker/installation/#install-gitlab-by-using-docker-swarm-mode)
 
 1. 初始化
 ```bash
@@ -94,6 +94,9 @@ docker service inspect gitlab_gitlab --pretty
 # 查看容器日志（即使 replicas=0，也可能有启动日志）：
 docker service logs gitlab_gitlab
 
+# 强制更新服务以重新加载 config
+docker service update --force gitlab_gitlab
+
 # 检查节点资源和状态（单节点 Swarm 也适用）：
 docker node ls          # 确认节点 Ready
 docker node inspect self --pretty   # 查看你的节点资源（CPU/Memory）
@@ -127,8 +130,7 @@ docker exec -it $(docker ps | grep gitlab-ce:latest | cut -d' ' -f1) grep 'Passw
 
 - 更新配置
 ```bash
-# 强制更新服务以重新加载 config
-docker service update --force gitlab_gitlab
+
 ```
 
 - 查看配置
@@ -160,3 +162,28 @@ docker exec -it $(docker ps | grep gitlab-ce:latest | cut -d' ' -f1) gitlab-rail
 nginx['enable'] = false
 nginx['listen_port'] = 80
 ```
+
+- 使用 GitLab Runner
+**Docker Compose 方式伸缩**
+```bash
+# 伸缩为 1 个
+docker compose up -d --scale gitlab-runner=1
+
+# 注册此 Runner
+
+# 再伸缩为 4 个
+docker compose up -d --scale gitlab-runner=4
+```
+
+- 更新 `gitlab.rb` 后重载
+```bash
+docker compose up -d --force-recreate gitlab
+# 或
+docker compose restart gitlab
+
+# 再执行
+docker compose exec gitlab gitlab-ctl reconfigure
+```
+
+- 创建的 `README.md` 文件使用的是内部的 `http://gitlab` 而非 `external_url` 设置的 URL
+修改 yaml 中的 `hostname` 为 `external_url` 的域名（不含协议）
