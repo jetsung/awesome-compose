@@ -140,17 +140,23 @@ docker exec -it $(docker ps | grep gitlab-ce:latest | cut -d' ' -f1) cat /etc/gi
 docker exec -it $(docker ps | grep gitlab-ce:latest | cut -d' ' -f1) cat /omnibus_config.rb
 ```
 
-- 不需要审批
+- [禁止注册审批](https://docs.gitlab.com/administration/settings/sign_up_restrictions/)
 ```bash
 Your account is pending approval from your GitLab administrator and hence blocked. Please contact your GitLab administrator if you think this is an error.
 ```
-配置 `gitlab.rb`：
-```ruby
-# 禁用注册审批
-gitlab_rails['gitlab_account_approval_required'] = false
+结合 [Rails console](https://docs.gitlab.com/administration/operations/rails_console/?tab=Docker)，在[终端执行](https://docs.gitlab.com/administration/settings/sign_up_restrictions/)
+```bash
+docker exec -it $(docker ps | grep gitlab-ce:latest | cut -d' ' -f1) gitlab-rails console
+
+# 开启注册
+::Gitlab::CurrentSettings.update!(signup_enabled: true)
+
+# 禁止注册审批
+::Gitlab::CurrentSettings.update!(require_admin_approval_after_user_signup: false)
 ```
 
 - 内部 [Nginx](https://docs.gitlab.com/omnibus/settings/nginx/) 配置
 ```ruby
 nginx['enable'] = false
+nginx['listen_port'] = 80
 ```

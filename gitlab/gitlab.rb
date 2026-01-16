@@ -19,10 +19,6 @@ gitlab_rails['initial_root_password'] = File.read('/run/secrets/gitlab_root_pass
 # gitlab_rails['gitlab_email_from'] = 'xxxx@xx.com'
 # gitlab_rails['smtp_domain'] = "exmail.qq.com"
 
-
-# 禁用注册审批
-# gitlab_rails['gitlab_account_approval_required'] = false
-
 # https://docs.gitlab.com/omnibus/settings/nginx/
 # nginx['listen_port'] = 80
 # nginx['listen_https'] = false   # 因为外部 Nginx 已处理 HTTPS

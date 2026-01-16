@@ -18,14 +18,23 @@ services:
         target: /omnibus_config.rb
     secrets:
       - gitlab_root_password
+
   gitlab-runner:
+    container_name: gitlab-runner
+    hostname: gitlab-runner
     image: gitlab/gitlab-runner:alpine
     deploy:
       mode: replicated
       replicas: 4
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data/runner:/etc/gitlab-runner
+
 configs:
   gitlab:
     file: ./gitlab.rb
+
 secrets:
   gitlab_root_password:
     file: ./root_password.txt

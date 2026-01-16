@@ -20,14 +20,15 @@ services:
         target: /omnibus_config.rb
     secrets:
       - gitlab_root_password
+
   gitlab-runner:
-    image: gitlab/gitlab-runner:alpine
-    deploy:
-      mode: replicated
-      replicas: 4
+    volumes:
+      - ./data/runner:/etc/gitlab-runner
+
 configs:
   gitlab:
     file: ./gitlab.rb
+
 secrets:
   gitlab_root_password:
     file: ./root_password.txt

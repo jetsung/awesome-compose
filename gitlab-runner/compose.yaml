@@ -1,6 +1,6 @@
-# - /run/user/1001/docker.sock:/var/run/docker.sock
 ---
 # https://docs.gitlab.com/runner/install/docker.html
+# - /run/user/1001/docker.sock:/var/run/docker.sock
 services:
   gitlab-runner:
     container_name: gitlab-runner
