@@ -1,9 +1,0 @@
-localhost {
-  #tls mygit@outlook.com
-  reverse_proxy server:3000
-}
-        
-#drone.mydomain.com {
-#    tls mygit@outlook.com
-#    reverse_proxy drone-server:80
-#}

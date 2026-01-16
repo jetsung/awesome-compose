@@ -6,7 +6,7 @@ load_vars() {
 }
 
 download_files() {
-    local FILES="README.md compose.yaml compose.override.yaml Caddyfile nginx.conf run.sh .env"
+    local FILES="README.md compose.yaml compose.override.yaml run.sh .env"
     for FILE in ${FILES}; do
         if [ ! -f "${FILE}" ]; then
             echo "Fetching file '${FILE}'"

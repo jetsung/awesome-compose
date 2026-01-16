@@ -9,12 +9,12 @@
 [1]:https://gitea.com/
 [2]:https://github.com/go-gitea/gitea
 [3]:https://hub.docker.com/r/gitea/gitea
-[4]:https://docs.gitea.com/zh-cn/
+[4]:https://docs.gitea.com/zh-cn/installation/install-with-docker
 
 
 ---
 
-本教程以 `PostgreSQL` + `Caddy` / `Nginx` 方式进行安装。
+本教程以 `PostgreSQL` 方式进行安装。
 
 ## 先决条件
 1. 确保当前服务器的 ssh 连接端口非 22 端口。以便可以通过 ssh 方式拉取和提交代码。
@@ -35,58 +35,6 @@ chmod +x run.sh
 
 # 手动安装
 ./run.sh init xxx.com
-```
-
-### Caddy
-**`PostgreSQL` + `Caddy` 方式**
-> 由于 Caddy 会自动获取 ssl 证书，故不需配置证书。
-
-**1、相关文件**
-```bash
-# Caddy 配置文件
-Caddyfile
-```
-
-本地测试时，可通过以下方式访问：
-```bash
-# Caddyfile
-localhost { # 此行修改为，http://localhost，否则会自动跳转到 https
-  #tls mygit@outlook.com # 此处注释掉，否则会自动获取 ssl 证书
-  reverse_proxy server:3000 # 若修改了端口，则此处修改为对应端口
-}
-```
-
-**2、执行命令**
-```bash
-## [使用 nginx 方式，则跳过下一步骤] ##
-# 独立域名执行以下命令行（需修改下述域名）
-./run.sh domain.com
-```
-
-### Nginx
-**`PostgreSQL` + `Nginx` 方式**
-
-**1、相关文件**
-```bash
-# nginx 配置文件
-nginx.conf
-```
-
-**2、配置 ssl 证书**
-1. 创建 ssl 文件夹，并将 ssl 证书保存至该文件夹。
-2. 修改 `nginx.conf` 配置信息（域名和证书文件名）。
-```
-...
-server_name localhost;
-...
-ssl_certificate    ssl/localhost.fullchain.cer;
-ssl_certificate_key    ssl/localhost.key;
-...
-```
-**3、执行命令**
-```bash
-# 独立域名执行以下命令行（需修改下述域名）
-./run.sh domain.com nginx
 ```
 
 ### 更多参数说明
@@ -111,6 +59,35 @@ ssl_certificate_key    ssl/localhost.key;
 ```
 
 ## CI/CD 自动构建平台
+
+### [Gitea Runner](https://docs.gitea.com/zh-cn/usage/actions/act-runner#%E4%BD%BF%E7%94%A8-docker-compose-%E8%BF%90%E8%A1%8C-runner)
+
+#### 初始化配置文件
+```bash
+docker run --entrypoint="" --rm -it gitea/act_runner:latest act_runner generate-config > config.yaml
+```
+
+#### 获取注册令牌
+```bash
+gitea --config /etc/gitea/app.ini actions generate-runner-token
+```
+或全局注册令牌
+```bash
+openssl rand -hex 24 > /some-dir/runner-token
+export GITEA_RUNNER_REGISTRATION_TOKEN_FILE=/some-dir/runner-token
+./gitea --config ...
+```
+
+### 注册 Runner
+```bash
+./act_runner register
+# 或
+./act_runner --config config.yaml register
+```
+非交互式
+```bash
+./act_runner register --no-interactive --instance <instance_url> --token <registration_token> --name <runner_name> --labels <runner_labels>
+```
 
 ### Drone 平台
 首先，将此域名绑定到此服务器 IP。
