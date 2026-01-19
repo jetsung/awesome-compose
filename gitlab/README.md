@@ -163,18 +163,6 @@ nginx['enable'] = false
 nginx['listen_port'] = 80
 ```
 
-- 使用 GitLab Runner
-**Docker Compose 方式伸缩**
-```bash
-# 伸缩为 1 个
-docker compose up -d --scale gitlab-runner=1
-
-# 注册此 Runner
-
-# 再伸缩为 4 个
-docker compose up -d --scale gitlab-runner=4
-```
-
 - 更新 `gitlab.rb` 后重载
 ```bash
 docker compose up -d --force-recreate gitlab

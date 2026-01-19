@@ -19,8 +19,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
 
   runner:
-    depends_on:
-      - gitea
+    container_name: gitea-runner
     env_file:
       - path: ./.env
         required: false
@@ -28,8 +27,8 @@ services:
     image: gitea/act_runner:nightly
     restart: unless-stopped
     volumes:
-      - ./config.yaml:/config.yaml
       - /var/run/docker.sock:/var/run/docker.sock
+      - ./config.yaml:/config.yaml
 
   db:
     env_file:

@@ -20,42 +20,38 @@
 1. 确保当前服务器的 ssh 连接端口非 22 端口。以便可以通过 ssh 方式拉取和提交代码。
 2. 将此域名绑定到此服务器 IP，以便通过域名拉取和提交代码。
 
-## 一键安装方式
+## 使用方法
+1. 创建数据库
 ```bash
-# 【快速安装】
-# 或者直接使用 Caddy 直接创建服务，再通过浏览器访问域名即可。不需要再进行其它操作。
-# 此方式将禁止 3000 端口对外。取消则将 compose.yaml 中去掉 '#- 3000' 的注释即可。
-wget -qO - https://git.jetsung.com/jetsung/awesome-compose/-/raw/main/gitea/run.sh | bash -s init xxx.com
-
-# 默认配置，执行之后，需通过浏览器访问 IP:3000，设置 Gitea 相关信息，以便生成 app.ini 配置文件。
-# 或者配置好 caddy / nginx 的 ssl 服务后，通过需要直接访问，再配置即可。
-wget https://git.jetsung.com/jetsung/awesome-compose/-/raw/main/gitea/run.sh
-chmod +x run.sh
-./run.sh
-
-# 手动安装
-./run.sh init xxx.com
+CREATE DATABASE gitea;
 ```
 
-### 更多参数说明
-> 仅封装了相关命令行
-
+## 环境变量
 ```bash
-## 停止所有服务（caddy）
-# docker compose --profile caddy down
-./run.sh cstop
+GITEA__database__DB_TYPE=postgres
+GITEA__database__HOST=db:5432
+GITEA__database__NAME=gitea
+GITEA__database__USER=gitea
+GITEA__database__PASSWD=gitea
 
-## 启动所有服务（caddy）
-# docker compose --profile caddy up -d
-./run.sh cstart
+GITEA__mailer__ENABLED=true
+GITEA__mailer__FROM=
+GITEA__mailer__PROTOCOL=smtp
+GITEA__mailer__HOST=
+GITEA__mailer__IS_TLS_ENABLED=true
+GITEA__mailer__USER=
+GITEA__mailer__PASSWD=
+```
 
-## 停止所有服务（nginx）
-# docker compose --profile nginx down
-./run.sh nstop
+## [配置](https://docs.gitea.com/zh-cn/administration/config-cheat-sheet) `app.ini`
+1. 关闭注册功能
+```bash
+[service]
+# 禁止用户注册
+DISABLE_REGISTRATION = true
 
-## 启动所有服务（nginx）
-# docker compose --profile nginx up -d
-./run.sh nstart
+# 显示注册按钮
+SHOW_REGISTRATION_BUTTON = false
 ```
 
 ## CI/CD 自动构建平台
@@ -64,7 +60,7 @@ chmod +x run.sh
 
 #### 初始化配置文件
 ```bash
-docker run --entrypoint="" --rm -it gitea/act_runner:latest act_runner generate-config > config.yaml
+docker run --entrypoint="" --rm -it gitea/act_runner:nightly act_runner generate-config > config.yaml
 ```
 
 #### 获取注册令牌
@@ -76,6 +72,25 @@ gitea --config /etc/gitea/app.ini actions generate-runner-token
 openssl rand -hex 24 > /some-dir/runner-token
 export GITEA_RUNNER_REGISTRATION_TOKEN_FILE=/some-dir/runner-token
 ./gitea --config ...
+
+# Docker 中使用时
+## 1. 生成密钥文件
+openssl rand -hex 24 > runner-token
+
+## 2. 更新 .env 文件中 GITEA_RUNNER_REGISTRATION_TOKEN_FILE 的环境变量
+## 若 GITEA_RUNNER_REGISTRATION_TOKEN 与 GITEA_RUNNER_REGISTRATION_TOKEN_FILE 同时设置时，优先使用 GITEA_RUNNER_REGISTRATION_TOKEN
+GITEA_RUNNER_REGISTRATION_TOKEN_FILE=/runner-token
+
+## 3. 映射至容器中
+  gitea:
+    ...
+    volumes:
+      - ./runner-token:/runner-token
+
+  runner:
+    ...
+    volumes:
+      - ./runner-token:/runner-token
 ```
 
 ### 注册 Runner
@@ -87,6 +102,21 @@ export GITEA_RUNNER_REGISTRATION_TOKEN_FILE=/some-dir/runner-token
 非交互式
 ```bash
 ./act_runner register --no-interactive --instance <instance_url> --token <registration_token> --name <runner_name> --labels <runner_labels>
+```
+
+**Runner 镜像**
+- https://github.com/catthehacker/docker_images
+```bash
+ghcr.io/catthehacker/ubuntu:act-22.04
+ghcr.io/catthehacker/ubuntu:act-24.04
+ghcr.io/catthehacker/ubuntu:act-latest
+```
+- 更新 `config.yaml`，使用对应的镜像
+```yaml
+  labels:
+    - "ubuntu-latest:docker://ghcr.io/catthehacker/ubuntu:act-latest"
+    - "ubuntu-24.04:docker://ghcr.io/catthehacker/ubuntu:act-24.04"
+    - "ubuntu-22.04:docker://ghcr.io/catthehacker/ubuntu:act-22.04"
 ```
 
 ### Drone 平台

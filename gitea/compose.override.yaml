@@ -10,8 +10,7 @@ services:
   runner:
     volumes:
       - ./data/runner:/data
-      - ./data/postgres:/var/lib/postgresql
-
+      # - ./runner-token:/runner-token
   db:
     volumes:
       - ./data/postgres:/var/lib/postgresql
