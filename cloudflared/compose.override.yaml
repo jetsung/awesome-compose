@@ -1,0 +1,5 @@
+---
+services:
+  cloudflared:
+    volumes:
+      - ./tunnel_token.txt:/tunnel_token.txt

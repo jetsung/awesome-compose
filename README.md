@@ -67,6 +67,7 @@ SERV_PORT=
 | | [blinko](./blinko/) | 下一代开源 AI 驱动的卡片笔记，旨在帮助你快速捕捉和整理灵感，确保创意永不枯竭 |
 | | [chanify](./chanify/) | 安全的消息推送服务，支持多平台通知推送 |
 | 在用 | [claude-code-router](./claude-code-router/) | 代码路由工具 |
+| | [cloudflared](./cloudflared/) | cloudflared 是 Cloudflare 隧道客户端。将 Cloudflare 网络的流量代理到你的起源节点。 |
 | 在用 | [croc](./croc/) | 跨平台文件传输工具，可在两台计算机之间安全地传输文件 |
 | | [drone](./drone/) | 基于容器技术的持续集成和持续部署(CI/CD)平台 |
 | 在用 | [dufs](./dufs/) | 基于 HTTP 的文件服务器，支持文件上传、下载和目录浏览 |
@@ -75,8 +76,8 @@ SERV_PORT=
 | 在用 | [ferron](./ferron/) | 基于 Zola 的静态网站生成器 |
 | 在用 | [file-downloader](./file-downloader/) | 文件下载工具 |
 | 在用 | [filetas](./filetas/) | 文件管理和分享服务 |
-|   | [frp](./frp/) | 专注内网穿透的高性能反向代理应用 |
-|   | [gitea](./gitea/) | 轻量级的 DevOps 平台软件，提供 Git 托管、代码审查、团队协作等功能 |
+| | [frp](./frp/) | 专注内网穿透的高性能反向代理应用 |
+| 在用 | [gitea](./gitea/) | 轻量级的 DevOps 平台软件，提供 Git 托管、代码审查、团队协作等功能 |
 | 在用 | [gitlab](./gitlab/) | 完整的企业级 DevOps 平台，提供代码托管、CI/CD、项目管理等完整开发流程 |
 | 在用 | [gitlab-runner](./gitlab-runner/) | GitLab CI/CD 的执行器，用于运行 CI/CD 任务 |
 | 在用 | [gotify](./gotify/) | 简单的发送和接收消息的服务器，用于实时消息推送 |
@@ -88,15 +89,15 @@ SERV_PORT=
 | | [listmonk](./listmonk/) | 高性能、可自托管的邮件通讯和营销自动化工具 |
 | | [mamoto](./mamoto/) | 提供网站分析服务的开源平台 |
 | | [mariadb](./mariadb/) | 社区开发的 MySQL 关系型数据库管理系统分支 |
-| | [meilisearch](./meilisearch/) | 快速、易于使用的搜索引擎 |
+| 在用 | [meilisearch](./meilisearch/) | 快速、易于使用的搜索引擎 |
 | 在用 | [memos](./memos/) | 隐私优先、自托管的知识库 |
 | 在用 | [mindoc](./mindoc/) | 基于 Go 的简约文档管理系统 |
 | 在用 | [minio](./minio/) | 高性能的对象存储服务，兼容 Amazon S3 API |
 | | [mysql](./mysql/) | 世界最流行的开源关系型数据库管理系统之一 |
 | | [nginx-php](./nginx-php/) | 集成 Nginx 和 PHP-FPM 的 Web 服务器环境 |
 | | [ntfy](./ntfy/) | 简单易用的自托管通知服务，用于推送消息到手机或桌面 |
-| | [ollama](./ollama/) | 轻量级、可扩展的大语言模型运行时，支持本地运行和 GPU 加速 |
-| | [open-webui](./open-webui/) | 现代化的 Web UI 界面 |
+| 在用 | [ollama](./ollama/) | 轻量级、可扩展的大语言模型运行时，支持本地运行和 GPU 加速 |
+| 在用 | [open-webui](./open-webui/) | 现代化的 Web UI 界面 |
 | 在用 | [opengist](./opengist/) | 自托管的代码片段管理服务 |
 | 在用 | [openlist](./openlist/) | 网盘列表管理工具 |
 | 在用 | [openssh-server](./openssh-server/) | SSH 服务器，用于远程安全连接 |
@@ -104,7 +105,7 @@ SERV_PORT=
 | | [pgadmin-db](./pgadmin-db/) | 为 pgAdmin 提供数据库支持的服务 |
 | | [phpmyadmin](./phpmyadmin/) | 以 Web 为基础的 MySQL 数据库管理工具 |
 | | [phpmyadmin-db](./phpmyadmin-db/) | 为 phpMyAdmin 提供数据库支持的服务 |
-| | [postgres](./postgres/) | 强大的开源对象关系数据库系统 |
+| 在用 | [postgres](./postgres/) | 强大的开源对象关系数据库系统 |
 | 在用 | [qbittorrent](./qbittorrent/) | 跨平台的 BitTorrent 客户端 |
 | | [qinglong](./qinglong/) | 定时任务管理平台 |
 | | [rclone](./rclone/) | 命令行程序，用于管理云存储上的文件 |

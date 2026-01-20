@@ -10,3 +10,9 @@
 [2]:https://github.com/thomiceli/opengist
 [3]:https://github.com/users/thomiceli/packages/container/package/opengist
 [4]:https://opengist.io/docs
+
+---
+
+## 配置
+
+- 修改为 `meilisearch` 索引后，需要在后台更新索引：`通用` -> `动作` -> `索引所有 Gists`
