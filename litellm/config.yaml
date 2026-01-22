@@ -1,0 +1,2 @@
+litellm_settings:
+  drop_params: true          # 全局生效，所有模型自动丢弃不支持的参数

@@ -93,6 +93,12 @@ model_list:
       api_key: "sk-1234"
 ```
 
+设置忽略不可用的参数
+```yaml
+litellm_settings:
+  drop_params: true          # 全局生效，所有模型自动丢弃不支持的参数
+```
+
 **分解复杂的模型路径：**
 
 ```
