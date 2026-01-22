@@ -86,6 +86,7 @@ SERV_PORT=
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
 | 在用 | [komodo](./komodo/) | 现代化的代码编辑器 |
 | 在用 | [linkding](./linkding/) | 简单、快速的自托管书签服务 |
+| | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
 | | [listmonk](./listmonk/) | 高性能、可自托管的邮件通讯和营销自动化工具 |
 | | [mamoto](./mamoto/) | 提供网站分析服务的开源平台 |
 | | [mariadb](./mariadb/) | 社区开发的 MySQL 关系型数据库管理系统分支 |

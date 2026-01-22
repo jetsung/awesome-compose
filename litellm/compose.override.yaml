@@ -1,0 +1,21 @@
+---
+services:
+  litellm:
+    ports: !override
+      - ${SERV_PORT:-4000}:4000
+#     volumes:
+#       - ./data:/data
+
+  db:
+    ports: !reset []
+    # ports: !override
+    #   - ${DB_PORT:-5432}:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data # Persists Postgres data across container restarts
+
+  prometheus:
+    ports: !reset []
+    # ports:
+    #   - "${SERV_PORT_2:-9090}:9090"
+    volumes:
+      - ./data/prometheus:/prometheus

@@ -12,7 +12,7 @@ This skill assists in creating git commit messages that adhere to the Convention
 
 When you are asked to create a commit message or commit changes, follow these steps:
 
-1.  **Analyze the changes**: Examine the staged changes (`git diff --staged`) or the provided context.
+1.  **Analyze and stage changes**: Identify the changes that need to be committed. If they are not yet staged, stage them using `git add <files>` or `git add .`.
 2.  **Determine the type**: Use one of the following types:
     *   `feat`: A new feature
     *   `fix`: A bug fix
@@ -31,21 +31,22 @@ When you are asked to create a commit message or commit changes, follow these st
     *   Must be concise and descriptive.
     *   Do not end with a period.
 5.  **Format**: Combine them as `<type>(<scope>): <description>`.
+6.  **Execute the commit**: Run the command `git commit -m "<type>(<scope>): <description>"` to commit the changes.
 
 ## Examples
 
 **Example 1:**
 *   Input: Added a new configuration file for Adminer.
-*   Output: `feat(adminer): 添加 compose 配置文件`
+*   Command: `git commit -m "feat(adminer): 添加 compose 配置文件"`
 
 **Example 2:**
 *   Input: Fixed a date formatting bug in utils.
-*   Output: `fix(utils): 修复日期格式化错误`
+*   Command: `git commit -m "fix(utils): 修复日期格式化错误"`
 
 **Example 3:**
 *   Input: Updated the README file.
-*   Output: `docs(README): 更新项目说明`
+*   Command: `git commit -m "docs(README): 更新项目说明"`
 
 **Example 4:**
 *   Input: Upgraded dependency packages.
-*   Output: `chore(deps): 升级依赖包`
+*   Command: `git commit -m "chore(deps): 升级依赖包"`
