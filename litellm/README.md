@@ -29,10 +29,27 @@
 ### 环境变量
 - [管理平台登录](https://docs.litellm.ai/docs/proxy/ui)
 ```bash
-# 账号和密码
+# 设置登录账号和密码
+# https://docs.litellm.ai/docs/proxy/ui#4-change-default-username--password
 UI_USERNAME=ishaan-litellm   # username to sign in on UI
 UI_PASSWORD=langchain        # password to sign in on UI
+
+# 设置入口网址
+# https://docs.litellm.ai/docs/proxy/cli_sso#steps
+LITELLM_PROXY_URL=https://litellm-api.up.railway.app
+
+# 设置通知邮箱
+# https://docs.litellm.ai/docs/proxy/email#1-configure-email-integration
+SMTP_HOST="smtp.resend.com"
+SMTP_TLS="True"
+SMTP_PORT="587"
+SMTP_USERNAME="resend"
+SMTP_SENDER_EMAIL="notifications@alerts.litellm.ai"
+SMTP_PASSWORD="xxxxx"
 ```
+
+> 全部设置（文件）：[`config.yaml`](https://docs.litellm.ai/docs/proxy/config_settings)
+> 全部设置（环境变量）：[`.env`](https://docs.litellm.ai/docs/proxy/config_settings#environment-variables---reference)
 
 ### 添加模型
 注意：使用代理配合数据库时，你也可以**直接通过 UI 添加模型** （UI 可在 `/ui` 路由访问）。
@@ -42,7 +59,7 @@ model_list:
   - model_name: gpt-4o
     litellm_params:
       model: azure/my_azure_deployment
-      api_base: os.environ/AZURE_API_BASE
+      api_base: "os.environ/AZURE_API_BASE"
       api_key: "os.environ/AZURE_API_KEY"
       api_version: "2025-01-01-preview" # [OPTIONAL] litellm uses the latest azure api_version by default
 ```
@@ -96,15 +113,44 @@ model: azure/my_azure_deployment
 model_list:
   - model_name: my-custom-model
     litellm_params:
-      model: openai/nvidia/llama-3.2-nv-embedqa-1b-v2
+      model: custom_openai/nvidia/llama-3.2-nv-embedqa-1b-v2
+      api_base: http://my-service.svc.cluster.local:8000/v1
+      api_key: "sk-1234"
+
+# 或者(推荐)
+model_list:
+  - model_name: my-custom-model # 调用的模型名称
+    litellm_params:
+      model: nvidia/llama-3.2-nv-embedqa-1b-v2 # 代理源的模型名称
+      custom_llm_provider: custom_openai # 固定值，openai 兼容模式
       api_base: http://my-service.svc.cluster.local:8000/v1
       api_key: "sk-1234"
 ```
+上述两种方式效果是一样的，区别在于：
+```yaml
+model: custom_openai/nvidia/llama-3.2-nv-embedqa-1b-v2
 
-设置忽略不可用的参数
+# 拆分成
+model: nvidia/llama-3.2-nv-embedqa-1b-v2
+custom_llm_provider: custom_openai
+```
+
+设置[忽略不可用的参数](https://docs.litellm.ai/docs/completion/drop_params#openai-proxy-usage)
 ```yaml
 litellm_settings:
   drop_params: true          # 全局生效，所有模型自动丢弃不支持的参数
+# 环境变量
+# LITELLM_DROP_PARAMS=True
+```
+
+请求 [`/metrics` 出错](https://docs.litellm.ai/docs/proxy/prometheus)
+```bash
+"GET /metrics HTTP/1.1" 404 Not Found
+```
+```yaml
+litellm_settings:
+  callbacks:
+    - prometheus
 ```
 
 **分解复杂的模型路径：**
@@ -209,4 +255,91 @@ ERROR: permission denied to create
 ```
 ```bash
 GRANT ALL PRIVILEGES ON DATABASE litellm TO your_username;
+```
+
+## 脚本
+### **查看所有模型**
+```bash
+curl -X 'GET' 'http://0.0.0.0:4000/models' -H 'accept: application/json' -H "x-litellm-api-key: $LITELLM_API_KEY" | jq -r '.data[].id'
+```
+
+### **添加模型**
+```bash
+curl -X 'POST' \
+  'http://0.0.0.0:4000/model/new' \
+  -H 'accept: application/json' \
+  -H "x-litellm-api-key: $LITELLM_API_KEY" \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "model_name": "'$BASE/$MODEL'",
+    "litellm_params": {
+      "api_key": "'$ADD_API_KEY'",
+      "api_base": "'$ADD_API_URL'",
+      "model": "'$MODEL'",
+      "custom_llm_provider": "custom_openai"
+    }
+  }'
+```
+从文本中批量添加模型（需要预设参数）
+```bash
+while IFS= read -r MODEL; do echo "$MODEL"; curl -X 'PO
+ST' \
+ 'http://0.0.0.0:4000/model/new' \
+ -H 'accept: application/json' \
+ -H "x-litellm-api-key: $LITELLM_API_KEY" \
+ -H 'Content-Type: application/json' \
+ -d '{
+	   "model_name": "'$BASE/$MODEL'",
+	   "litellm_params": {      
+	     "api_key": "'$ADD_API_KEY'",
+	     "api_base": "'$ADD_API_URL'",
+	     "model": "'$MODEL'",                       
+	     "custom_llm_provider": "custom_openai"  
+	   }
+   }'; done < add.txt
+```
+
+### 测试模型
+```bash
+# 简单 GET-like 测试（实际是 POST）
+curl -X POST http://0.0.0.0:4000/v1/chat/completions \
+  -H "Authorization: Bearer $LITELLM_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "'$MODEL'",
+    "messages": [
+      {
+        "role": "system",
+        "content": "你是一个超级简洁的助手。"
+      },
+      {
+        "role": "user",
+        "content": "随机给我一首古诗。"
+      }
+    ],
+    "temperature": 0.3,
+    "max_tokens": 50
+  }'| jq -r
+```
+批量测试模型
+```bash
+while IFS= read -r MODEL; do echo "$MODEL"; # 简单 GET-like 测试（实际是 POST）                                                1 ↵
+curl -X POST http://0.0.0.0:4000/v1/chat/completions \
+ -H "Authorization: Bearer $LITELLM_API_KEY" \
+ -H "Content-Type: application/json" \
+ -d '{
+   "model": "'$MODEL'",
+   "messages": [
+     {
+       "role": "system",
+       "content": "你是一个古诗历史学家。"
+     },
+     {
+       "role": "user",
+       "content": "随机给我一首古诗。"
+     }
+   ],
+   "temperature": 0.3,
+   "max_tokens": 50
+ }'| jq -r  ; done < test.txt
 ```
