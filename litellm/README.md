@@ -26,6 +26,14 @@
 
 ## 使用教程
 
+### 环境变量
+- [管理平台登录](https://docs.litellm.ai/docs/proxy/ui)
+```bash
+# 账号和密码
+UI_USERNAME=ishaan-litellm   # username to sign in on UI
+UI_PASSWORD=langchain        # password to sign in on UI
+```
+
 ### 添加模型
 注意：使用代理配合数据库时，你也可以**直接通过 UI 添加模型** （UI 可在 `/ui` 路由访问）。
 文件名为 `config.yaml`，相关参数查看[模型配置](https://docs.litellm.ai/docs/proxy/docker_quick_start#understanding-model-configuration)
