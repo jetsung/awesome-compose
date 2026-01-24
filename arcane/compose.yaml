@@ -1,0 +1,13 @@
+---
+# https://github.com/getarcaneapp/arcane/pkgs/container/arcane
+services:
+  arcane:
+    container_name: arcane
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: arcane
+    image: ghcr.io/getarcaneapp/arcane:latest
+    ports:
+      - 3552:3552
+    restart: unless-stopped

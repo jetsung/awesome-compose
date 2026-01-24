@@ -59,6 +59,7 @@ SERV_PORT=
 | 状态 | 项目名称 | 描述 |
 | --- | --- | --- |
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
+| 在用 | [arcane](./arcane/) | 一个美观直观的界面，用于管理你的 Docker 容器、镜像、网络和卷。 不需要终端。 |
 | | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过Web界面管理数据库，如MySQL、SQLite等 |
 | | [aliyundrive](./aliyundrive/) | 阿里云盘 WebDAV 服务，将阿里云盘挂载为标准 WebDAV 文件系统 |
 | 在用 | [asciinema](./asciinema/) | 用于录制和分享终端会话的工具，将终端操作录制成可播放的动画 |
@@ -82,11 +83,11 @@ SERV_PORT=
 | 在用 | [gitlab-runner](./gitlab-runner/) | GitLab CI/CD 的执行器，用于运行 CI/CD 任务 |
 | 在用 | [gotify](./gotify/) | 简单的发送和接收消息的服务器，用于实时消息推送 |
 | | [hedgedoc](./hedgedoc/) | 开源的协作文档编辑器，支持 Markdown 编辑 |
-| | [hoppscotch](./hoppscotch/) | 轻量级的 API 开发生态系统，用于测试和调试 API |
+| 在用 | [hoppscotch](./hoppscotch/) | 轻量级的 API 开发生态系统，用于测试和调试 API |
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
 | 在用 | [komodo](./komodo/) | 现代化的代码编辑器 |
 | 在用 | [linkding](./linkding/) | 简单、快速的自托管书签服务 |
-| | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
+| 在用 | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
 | | [listmonk](./listmonk/) | 高性能、可自托管的邮件通讯和营销自动化工具 |
 | | [mamoto](./mamoto/) | 提供网站分析服务的开源平台 |
 | | [mariadb](./mariadb/) | 社区开发的 MySQL 关系型数据库管理系统分支 |
@@ -94,7 +95,7 @@ SERV_PORT=
 | 在用 | [memos](./memos/) | 隐私优先、自托管的知识库 |
 | 在用 | [mindoc](./mindoc/) | 基于 Go 的简约文档管理系统 |
 | 在用 | [minio](./minio/) | 高性能的对象存储服务，兼容 Amazon S3 API |
-| | [mysql](./mysql/) | 世界最流行的开源关系型数据库管理系统之一 |
+| 在用 | [mysql](./mysql/) | 世界最流行的开源关系型数据库管理系统之一 |
 | | [nginx-php](./nginx-php/) | 集成 Nginx 和 PHP-FPM 的 Web 服务器环境 |
 | | [ntfy](./ntfy/) | 简单易用的自托管通知服务，用于推送消息到手机或桌面 |
 | 在用 | [ollama](./ollama/) | 轻量级、可扩展的大语言模型运行时，支持本地运行和 GPU 加速 |
@@ -124,7 +125,7 @@ SERV_PORT=
 | 在用 | [swagger](./swagger/) | 用于设计、构建和文档化 RESTful API 的工具 |
 | | [syncthing](./syncthing/) | 连续的文件同步程序，用于在不同设备间同步文件 |
 | | [transfer](./transfer/) | 文件传输服务 |
-| | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
+| 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
 | 在用 | [vaultwarden](./vaultwarden/) | Bitwarden 密码管理器的非官方服务器实现 |
 | 在用 | [vaultwarden-backup](./vaultwarden-backup/) | 为 Vaultwarden 提供备份功能的服务 |
 | | [wingetty](./wingetty/) | Windows 终端工具 |
