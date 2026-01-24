@@ -167,6 +167,179 @@ model: openai/nvidia/llama-3.2-nv-embedqa-1b-v2
 
 关键点：`/` 之后的所有内容都会原样传递给提供商的 API。
 
+
+### 本地开发（无需 postgres 和 prometheus）
+
+1. 含三文件：compose.yaml, .env, config.yaml
+2. config.yaml 文件已添加了 iflow 的支持。需要设置环境变量 IFLOW_API_BASE 和 IFLOW_API_KEY
+
+```yaml
+# compose.yaml
+---
+# https:///ghcr.io/berriai/litellm:main-stable
+services:
+  litellm:
+    container_name: litellm
+    env_file:
+      - path: ./.env
+        required: false
+    environment:
+      IFLOW_API_BASE: "https://apis.iflow.cn/v1"
+      IFLOW_API_KEY: "$IFLOW_API_KEY"
+    hostname: litellm
+    healthcheck:  # Defines the health check configuration for the container
+      test:
+        - CMD-SHELL
+        - python3 -c "import urllib.request; urllib.request.urlopen('http://localhost:4000/health/liveliness')"  # Command to execute for health check
+      interval: 30s  # Perform health check every 30 seconds
+      timeout: 10s   # Health check command times out after 10 seconds
+      retries: 3     # Retry up to 3 times if health check fails
+      start_period: 40s  # Wait 40 seconds after container start before beginning health checks
+    image: docker.litellm.ai/berriai/litellm:main-latest
+    ports:
+      - 4000:4000
+    #extra_hosts:
+    #  - "host.docker.internal:host-gateway"
+    #network_mode: host
+    restart: unless-stopped
+    #########################################
+    ## Uncomment these lines to start proxy with a config.yaml file ##
+    volumes:
+     - ./config.yaml:/app/config.yaml
+    command:
+     - "--config=/app/config.yaml"
+    ##############################################
+```
+
+```dotenv
+# .env 文件
+# CUSTOM
+TZ=Asia/Shanghai
+
+# 必须 sk- 开头
+LITELLM_MASTER_KEY="sk-1234"
+DISABLE_ADMIN_UI="True"
+
+# 忽略不支持的参数
+LITELLM_DROP_PARAMS=True
+```
+
+```yaml
+# config.yaml
+model_list:
+  - model_name: ollama/translategemma:12b
+    litellm_params:
+      model: ollama/translategemma:12b
+#      custom_llm_provider: custom_openai
+#      api_key: null
+      api_base: "http://192.168.1.117:11434"
+
+  - model_name: iflow/qwen3-coder-plus
+    litellm_params:
+      model: qwen3-coder-plus
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/glm-4.6
+    litellm_params:
+      model: glm-4.6
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/iflow-rome-30ba3b
+    litellm_params:
+      model: iflow-rome-30ba3b
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/qwen3-max
+    litellm_params:
+      model: qwen3-max
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/qwen3-vl-plus
+    litellm_params:
+      model: qwen3-vl-plus
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/qwen3-max-preview
+    litellm_params:
+      model: qwen3-max-preview
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/kimi-k2-0905
+    litellm_params:
+      model: kimi-k2-0905
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/kimi-k2
+    litellm_params:
+      model: kimi-k2
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/deepseek-v3.2
+    litellm_params:
+      model: deepseek-v3.2
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/deepseek-r1
+    litellm_params:
+      model: deepseek-r1
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/deepseek-v3
+    litellm_params:
+      model: deepseek-v3
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/qwen3-32b
+    litellm_params:
+      model: qwen3-32b
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/qwen3-235b-a22b-thinking-2507
+    litellm_params:
+      model: qwen3-235b-a22b-thinking-2507
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/qwen3-235b-a22b-instruct
+    litellm_params:
+      model: qwen3-235b-a22b-instruct
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+
+  - model_name: iflow/qwen3-235b
+    litellm_params:
+      model: qwen3-235b
+      custom_llm_provider: custom_openai
+      api_base: "os.environ/IFLOW_API_BASE"
+      api_key: "os.environ/IFLOW_API_KEY"
+```
+
 ### 触发 `/chat/completion`
 LiteLLM 代理 100%兼容 OpenAI。通过 `/chat/completions` 途径测试你的 Azure 模型。
 ```bash
@@ -228,6 +401,11 @@ general_settings:
      - 在环境变量中设置 `DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<dbname>`。
 
 ## 常见问题
+- 本地部署（不部署 `postgres`、`prometheus`）
+  1. 移除 `compose.yaml` 中的 `db` 和 `prometheus` 服务。
+  2. 将 `.env` 文件中的 `DATABASE_URL` 注释。禁用数据库功能。
+  3. 将 `.env` 文件中的 `DISABLE_ADMIN_UI=True` 启用。禁用 UI 功能。
+
 - SSL 证书错误
 ```bash
 ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate in certificate chain (_ssl.c:1006)
@@ -260,7 +438,10 @@ GRANT ALL PRIVILEGES ON DATABASE litellm TO your_username;
 ## 脚本
 ### **查看所有模型**
 ```bash
-curl -X 'GET' 'http://0.0.0.0:4000/models' -H 'accept: application/json' -H "x-litellm-api-key: $LITELLM_API_KEY" | jq -r '.data[].id'
+curl -X 'GET' 'http://0.0.0.0:4000/models' \
+  -H 'accept: application/json' \
+  -H "x-litellm-api-key: $LITELLM_API_KEY" \
+  | jq -r '.data[].id'
 ```
 
 ### **添加模型**
