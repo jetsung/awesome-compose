@@ -151,9 +151,9 @@ jq '.templates=[] | .name="Jetsung Arcane Templates" | .description="Jetsung Doc
 
 ## 提交与格式化
 
-- 预提交工具 `prek`
-  https://github.com/j178/prek
-  https://prek.j178.dev/
+- 预提交工具 `prek`  
+  https://github.com/j178/prek  
+  https://prek.j178.dev/  
 
   ```bash
   uv tool install prek
@@ -168,7 +168,7 @@ jq '.templates=[] | .name="Jetsung Arcane Templates" | .description="Jetsung Doc
   prek run <HOOK_ID>
   ```
 
-- 格式化 `yml` 文件
+- 格式化 `yml` 文件  
   https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
 
 ## 仓库镜像
