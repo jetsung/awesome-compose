@@ -28,6 +28,12 @@ CREATE DATABASE gitea;
 
 ## 环境变量
 ```bash
+# 若主域名使用了 CDN，则必须设置此域名
+GITEA__server__SSH_DOMAIN=ssh.example.com
+
+# 去掉 repo.actions，则默认不启用 Actions
+GITEA__repository__DEFAULT_REPO_UNITS=repo.code,repo.releases,repo.issues,repo.pulls,repo.wiki,repo.projects,repo.packages,repo.actions
+
 GITEA__database__DB_TYPE=postgres
 GITEA__database__HOST=db:5432
 GITEA__database__NAME=gitea
@@ -46,12 +52,23 @@ GITEA__mailer__PASSWD=
 ## [配置](https://docs.gitea.com/zh-cn/administration/config-cheat-sheet) `app.ini`
 1. 关闭注册功能
 ```bash
+[server]
+# 自定义 SSH 域名
+SSH_DOMAIN = ssh.example.com
+
 [service]
 # 禁止用户注册
 DISABLE_REGISTRATION = true
 
 # 显示注册按钮
 SHOW_REGISTRATION_BUTTON = false
+
+# 默认禁用新仓库的 Actions
+# https://docs.gitea.com/zh-cn/next/usage/actions/faq#%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%9C%A8%E6%88%91%E7%9A%84%E5%AE%9E%E4%BE%8B%E4%B8%AD%E9%BB%98%E8%AE%A4%E7%A6%81%E7%94%A8%E6%96%B0%E4%BB%93%E5%BA%93%E7%9A%84actions
+[repository]
+# 去掉 repo.actions 将不会为新仓库自动启用actions
+# https://docs.gitea.com/zh-cn/administration/config-cheat-sheet?_highlight=default_repo_units#%E4%BB%93%E5%BA%93-repository
+DEFAULT_REPO_UNITS = ...,repo.actions
 ```
 
 ## CI/CD 自动构建平台
