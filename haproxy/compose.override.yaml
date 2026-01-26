@@ -1,0 +1,9 @@
+---
+services:
+  haproxy:
+    ports: !override
+      - ${HTTP_PORT:-80}:80
+      - ${HTTPS_PORT:-80}:443
+    volumes:
+      - ./config:/usr/local/etc/haproxy:ro
+      - ./certs:/etc/haproxy/certs:ro

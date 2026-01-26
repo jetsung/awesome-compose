@@ -1,0 +1,14 @@
+---
+# https://hub.docker.com/_/haproxy
+services:
+  haproxy:
+    container_name: haproxy
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: haproxy
+    image: haproxy:alpine
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped

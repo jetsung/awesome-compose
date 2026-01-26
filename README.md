@@ -82,6 +82,7 @@ SERV_PORT=
 | 在用 | [gitlab](./gitlab/) | 完整的企业级 DevOps 平台，提供代码托管、CI/CD、项目管理等完整开发流程 |
 | 在用 | [gitlab-runner](./gitlab-runner/) | GitLab CI/CD 的执行器，用于运行 CI/CD 任务 |
 | 在用 | [gotify](./gotify/) | 简单的发送和接收消息的服务器，用于实时消息推送 |
+| 在用 | [haproxy](./haproxy/) | 一款免费、非常快速且可靠的反向代理，为基于 TCP 和 HTTP 的应用提供高可用性、负载均衡和代理服务 |
 | | [hedgedoc](./hedgedoc/) | 开源的协作文档编辑器，支持 Markdown 编辑 |
 | 在用 | [hoppscotch](./hoppscotch/) | 轻量级的 API 开发生态系统，用于测试和调试 API |
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
