@@ -53,7 +53,7 @@ generate_env_file() {
     # https
     if [[ -n "$https" ]]; then
         sed -i "s@http://@https://@g" "${profile}.env"
-    fi    
+    fi
 
     echo "${profile}.env file generated successfully."
 }

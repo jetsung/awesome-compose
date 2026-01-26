@@ -136,23 +136,21 @@ SERV_PORT=
 
 ## 提交与格式化
 
-- 预提交工具 `pre-commit`
-  https://github.com/pre-commit/pre-commit
-  https://pre-commit.com/
+- 预提交工具 `prek`
+  https://github.com/j178/prek
+  https://prek.j178.dev/
 
-  ```python
-  pip install pre-commit
-  # or uv
-  uv tool install pre-commit
+  ```bash
+  uv tool install prek
 
   # ever commit
-  pre-commit install
+  prek install
 
   # format all files
-  pre-commit run --all-files
+  prek run --all-files
 
   # format hook id
-  pre-commit run <HOOK_ID>
+  prek run <HOOK_ID>
   ```
 
 - 格式化 `yml` 文件
