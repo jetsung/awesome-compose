@@ -134,6 +134,21 @@ SERV_PORT=
 | 在用 | [wordpress](./wordpress/) | 功能强大的开源内容管理系统 |
 | | [xunsearch](./xunsearch/) | 免费开源的中文全文检索解决方案 |
 
+## Arcane 容器管理工具
+
+### 模板
+- [schema.json](https://github.com/getarcaneapp/templates/blob/main/schema.json)
+```bash
+curl -LO https://raw.githubusercontent.com/getarcaneapp/templates/refs/heads/main/schema.json
+```
+
+- [registry.json](https://github.com/getarcaneapp/templates/blob/main/registry.json)
+```bash
+# 初始化
+curl -LO https://raw.githubusercontent.com/getarcaneapp/templates/refs/heads/main/registry.json &&
+jq '.templates=[] | .name="Jetsung Arcane Templates" | .description="Jetsung Docker Compose Templates for Arcane" | .author="jetsung" | .url="https://github.com/jetsung/awesome-compose" | .version="1.0.0"' registry.json > tmp.json && mv tmp.json registry.json
+```
+
 ## 提交与格式化
 
 - 预提交工具 `prek`

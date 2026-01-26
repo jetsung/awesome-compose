@@ -239,3 +239,104 @@ init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1
 		git="$$GIT_URL" \
 		image="$$FULL_IMAGE:$$TAG" \
 		huburl="$$IMAGE_URL"
+
+.PHONY: arcane-init
+arcane-init: ## 初始化 Arcane 模板 (schema.json, registry.json)
+	@curl -LO https://raw.githubusercontent.com/getarcaneapp/templates/refs/heads/main/schema.json
+	@curl -LO https://raw.githubusercontent.com/getarcaneapp/templates/refs/heads/main/registry.json && \
+	jq '.templates=[] | .name="Jetsung Arcane Templates" | .description="Jetsung Docker Compose Templates for Arcane" | .author="jetsung" | .url="https://github.com/jetsung/awesome-compose" | .version="1.0.0"' registry.json > tmp.json && mv tmp.json registry.json
+
+.PHONY: update-registry
+update-registry: ## 更新 registry.json 模板列表：prefix="URL 前缀" v="版本号"
+	@URL_PREFIX="$(prefix)"; \
+	[ -z "$$URL_PREFIX" ] && URL_PREFIX="https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main"; \
+	VERSION="$(v)"; \
+	[ -z "$$VERSION" ] && VERSION="1.0.0"; \
+	echo "Updating registry.json with prefix: $$URL_PREFIX, version: $$VERSION"; \
+	echo "[]" > registry_templates.json; \
+	find . -name "compose.yaml" -not -path "*/.*" | sort > paths.tmp.txt; \
+	while read -r compose_path; do \
+		dir=$$(dirname "$$compose_path" | sed 's|^\./||'); \
+		folder_name=$$(basename "$$dir"); \
+		if [ "$$folder_name" = "distributed" ]; then continue; fi; \
+		if [ "$$folder_name" = "single" ]; then \
+			parent_dir=$$(dirname "$$dir"); \
+			id=$$(basename "$$parent_dir"); \
+			readme_path="$$parent_dir/README.md"; \
+		else \
+			id=$$(echo "$$dir" | tr '/' '-'); \
+			readme_path="$$dir/README.md"; \
+		fi; \
+		if [ ! -f "$$readme_path" ]; then \
+			echo "提示：项目 $$dir 不添加，因为缺少 $$readme_path"; \
+			continue; \
+		fi; \
+		name=$$(head -n 1 "$$readme_path" | sed 's/^# //'); \
+		description=$$(grep "^> " "$$readme_path" | head -n 1 | sed 's/^> //' | sed 's/\[[^]]*\]\[[^]]*\] //g' | sed 's/^[[:space:]]*//' | sed 's/^是//'); \
+		[ -z "$$description" ] && description="$$name"; \
+		compose_url="$$URL_PREFIX/$$dir/compose.yaml"; \
+		documentation_url="$$URL_PREFIX/$$readme_path"; \
+		env_url=""; \
+		[ -f "$$dir/.env" ] && env_url="$$URL_PREFIX/$$dir/.env"; \
+		jq --arg id "$$id" \
+		   --arg name "$$name" \
+		   --arg desc "$$description" \
+		   --arg ver "$$VERSION" \
+		   --arg compose "$$compose_url" \
+		   --arg doc "$$documentation_url" \
+		   --arg env "$$env_url" \
+		   '. += [({id: $$id, name: $$name, description: $$desc, version: $$ver, author: "jetsung", compose_url: $$compose} + (if $$env != "" then {env_url: $$env} else {} end) + {documentation_url: $$doc, tags: [$$id]})]' \
+		   registry_templates.json > registry_templates.json.new && mv registry_templates.json.new registry_templates.json; \
+	done < paths.tmp.txt; \
+	jq --slurpfile t registry_templates.json '.templates = $$t[0]' registry.json > registry.json.new && mv registry.json.new registry.json; \
+	rm registry_templates.json paths.tmp.txt; \
+	echo "registry.json updated successfully."
+
+.PHONY: update-template
+update-template: ## 更新单个模板：id=文件夹名称 prefix="URL 前缀" v="版本号"
+	@if [ -z "$(id)" ]; then echo "错误：必须指定 id=<folder>"; exit 1; fi; \
+	input_dir=$$(echo "$(id)" | sed 's|/$$||'); \
+	work_dir="$$input_dir"; \
+	if [ -d "$$input_dir/single" ] && [ -f "$$input_dir/single/compose.yaml" ]; then \
+		work_dir="$$input_dir/single"; \
+	fi; \
+	if [ ! -f "$$work_dir/compose.yaml" ]; then \
+		echo "错误：项目 $$work_dir 缺少 compose.yaml"; \
+		exit 1; \
+	fi; \
+	folder_name=$$(basename "$$work_dir"); \
+	if [ "$$folder_name" = "single" ]; then \
+		parent_dir=$$(dirname "$$work_dir"); \
+		real_id=$$(basename "$$parent_dir"); \
+		readme_path="$$parent_dir/README.md"; \
+	else \
+		real_id=$$(echo "$$work_dir" | tr '/' '-'); \
+		readme_path="$$work_dir/README.md"; \
+	fi; \
+	if [ ! -f "$$readme_path" ]; then \
+		echo "提示：项目 $$work_dir 不添加，因为缺少 $$readme_path"; \
+		exit 1; \
+	fi; \
+	URL_PREFIX="$(prefix)"; \
+	[ -z "$$URL_PREFIX" ] && URL_PREFIX="https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main"; \
+	VERSION="$(v)"; \
+	[ -z "$$VERSION" ] && VERSION="1.0.0"; \
+	name=$$(head -n 1 "$$readme_path" | sed 's/^# //'); \
+	description=$$(grep "^> " "$$readme_path" | head -n 1 | sed 's/^> //' | sed 's/\[[^]]*\]\[[^]]*\] //g' | sed 's/^[[:space:]]*//' | sed 's/^是//'); \
+	[ -z "$$description" ] && description="$$name"; \
+	compose_url="$$URL_PREFIX/$$work_dir/compose.yaml"; \
+	documentation_url="$$URL_PREFIX/$$readme_path"; \
+	env_url=""; \
+	[ -f "$$work_dir/.env" ] && env_url="$$URL_PREFIX/$$work_dir/.env"; \
+	template=$$(jq -n --arg id "$$real_id" \
+		   --arg name "$$name" \
+		   --arg desc "$$description" \
+		   --arg ver "$$VERSION" \
+		   --arg compose "$$compose_url" \
+		   --arg doc "$$documentation_url" \
+		   --arg env "$$env_url" \
+		   '{id: $$id, name: $$name, description: $$desc, version: $$ver, author: "jetsung", compose_url: $$compose} + (if $$env != "" then {env_url: $$env} else {} end) + {documentation_url: $$doc, tags: [$$id]}'); \
+	jq --arg id "$$real_id" --argjson t "$$template" \
+	   '(.templates | map(.id) | index($$id)) as $$idx | if $$idx then .templates[$$idx] = $$t else .templates += [$$t] end | .templates |= sort_by(.id)' \
+	   registry.json > registry.json.new && mv registry.json.new registry.json; \
+	echo "Template $$real_id updated (version $$VERSION) in registry.json."

@@ -1,0 +1,985 @@
+{
+  "$schema": "https://registry.getarcane.app/schema.json",
+  "name": "Jetsung Arcane Templates",
+  "description": "Jetsung Docker Compose Templates for Arcane",
+  "author": "jetsung",
+  "url": "https://github.com/jetsung/awesome-compose",
+  "version": "1.0.0",
+  "templates": [
+    {
+      "id": "acme",
+      "name": "acme.sh",
+      "description": "一个纯用 Shell（Unix shell）语言编写的 ACME 协议客户端。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/acme/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/acme/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/acme/README.md",
+      "tags": [
+        "acme"
+      ]
+    },
+    {
+      "id": "adminer",
+      "name": "adminer",
+      "description": "一个开源的数据库管理工具，它允许用户通过Web界面来管理数据库，比如MySQL、SQLite等。它界面简洁，功能强大，支持多种数据库操作，如创建数据库、表，执行SQL语句等。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/adminer/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/adminer/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/adminer/README.md",
+      "tags": [
+        "adminer"
+      ]
+    },
+    {
+      "id": "aliyundrive",
+      "name": "aliyundrive",
+      "description": "一个阿里云盘 WebDAV 服务，主要使用场景为配合支持 WebDAV 协议的客户端 App 如 Infuse、nPlayer 等实现在电视上直接观看云盘视频内容， 支持客户端 App 直接从阿里云盘获取文件播放而不经过运行本应用的服务器中转, 支持上传文件，但受限于 WebDAV 协议不支持文件秒传。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aliyundrive/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aliyundrive/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aliyundrive/README.md",
+      "tags": [
+        "aliyundrive"
+      ]
+    },
+    {
+      "id": "arcane",
+      "name": "Arcane",
+      "description": "一个美观直观的界面，用于管理你的 Docker 容器、镜像、网络和卷。 不需要终端。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/arcane/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/arcane/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/arcane/README.md",
+      "tags": [
+        "arcane"
+      ]
+    },
+    {
+      "id": "asciinema",
+      "name": "asciinema server",
+      "description": "一个免费的开源解决方案，用于录制终端会话并在 Web 上共享它们。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/asciinema/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/asciinema/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/asciinema/README.md",
+      "tags": [
+        "asciinema"
+      ]
+    },
+    {
+      "id": "bark",
+      "name": "bark-server",
+      "description": "一款注重隐私、安全可控的自定义通知推送工具。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/bark/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/bark/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/bark/README.md",
+      "tags": [
+        "bark"
+      ]
+    },
+    {
+      "id": "blinko",
+      "name": "Blinko",
+      "description": "下一代开源 AI 驱动的卡片笔记，旨在帮助你快速捕捉和整理灵感，确保创意永不枯竭。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/blinko/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/blinko/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/blinko/README.md",
+      "tags": [
+        "blinko"
+      ]
+    },
+    {
+      "id": "bore",
+      "name": "bore",
+      "description": "一个现代、简单的 TCP 隧道，它将本地端口暴露给远程服务器，绕过标准 NAT 连接防火墙。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/bore/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/bore/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/bore/README.md",
+      "tags": [
+        "bore"
+      ]
+    },
+    {
+      "id": "chanify",
+      "name": "chanify-server",
+      "description": "一个安全简单的通知工具。对于开发人员、系统管理员和每个人都可以使用 API 推送通知。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/chanify/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/chanify/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/chanify/README.md",
+      "tags": [
+        "chanify"
+      ]
+    },
+    {
+      "id": "claude-code-router",
+      "name": "claude-code-router",
+      "description": "一个将 OpenAPI 兼容模式请求转换为 Claude Code 模式的服务。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/claude-code-router/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/claude-code-router/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/claude-code-router/README.md",
+      "tags": [
+        "claude-code-router"
+      ]
+    },
+    {
+      "id": "cloudflared",
+      "name": "cloudflared",
+      "description": " Cloudflare 隧道客户端。将 Cloudflare 网络的流量代理到你的起源节点。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/cloudflared/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/cloudflared/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/cloudflared/README.md",
+      "tags": [
+        "cloudflared"
+      ]
+    },
+    {
+      "id": "croc",
+      "name": "croc",
+      "description": "一种工具，允许任意两台计算机简单安全地传输文件和文件夹。AFAIK，croc 是唯一可以执行以下**所有功能**的 CLI 文件传输工具：",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/croc/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/croc/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/croc/README.md",
+      "tags": [
+        "croc"
+      ]
+    },
+    {
+      "id": "drone",
+      "name": "drone",
+      "description": "一个自助式持续集成平台，适用于繁忙的开发团队。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/drone/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/drone/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/drone/README.md",
+      "tags": [
+        "drone"
+      ]
+    },
+    {
+      "id": "dufs",
+      "name": "dufs",
+      "description": "一个独特的多功能文件服务器，支持静态文件服务、文件上传、搜索、访问控制、 WebDAV 等功能。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/dufs/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/dufs/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/dufs/README.md",
+      "tags": [
+        "dufs"
+      ]
+    },
+    {
+      "id": "emqx",
+      "name": "EMQX",
+      "description": "一款「无限连接，任意集成，随处运行」的大规模分布式物联网接入平台，同时作为一个高性能、可扩展的 MQTT 消息服务器，它可以为物联网（IoT）应用提供可靠的实时消息传输和设备连接解决方案。EMQX 累计拥有来自 50 多个国家的 20,000 多家企业用户，连接全球超过 1 亿台物联网设备，服务企业数字化、实时化、智能化转型。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/emqx/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/emqx/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/emqx/README.md",
+      "tags": [
+        "emqx"
+      ]
+    },
+    {
+      "id": "etcd",
+      "name": "ETCD",
+      "description": "分布式、可靠的键值存储，用于分布式系统中最关键的数据",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/etcd/single/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/etcd/single/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/etcd/README.md",
+      "tags": [
+        "etcd"
+      ]
+    },
+    {
+      "id": "ferron",
+      "name": "ferron",
+      "description": "针对速度、安全性和效率进行了优化的 Web 服务器。它用 Rust 编写，提供内存安全性和性能，使其成为现代网站的理想选择。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ferron/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ferron/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ferron/README.md",
+      "tags": [
+        "ferron"
+      ]
+    },
+    {
+      "id": "file-downloader",
+      "name": "file-downloader",
+      "description": "一个集 M3U8 视频下载、合并与上传为 MP4 为一体的视频下载工具。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/file-downloader/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/file-downloader/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/file-downloader/README.md",
+      "tags": [
+        "file-downloader"
+      ]
+    },
+    {
+      "id": "filetas",
+      "name": "filetas",
+      "description": "一个文件传输加速服务。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/README.md",
+      "tags": [
+        "filetas"
+      ]
+    },
+    {
+      "id": "frp",
+      "name": "frp",
+      "description": "一款高性能的反向代理应用，专注于内网穿透。它支持多种协议，包括 TCP、UDP、HTTP、HTTPS 等，并且具备 P2P 通信功能。使用 frp，您可以安全、便捷地将内网服务暴露到公网，通过拥有公网 IP 的节点进行中转。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/frp/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/frp/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/frp/README.md",
+      "tags": [
+        "frp"
+      ]
+    },
+    {
+      "id": "gitea",
+      "name": "Gitea",
+      "description": "一个轻量级的 DevOps 平台软件。从开发计划到产品成型的整个软件生命周期，他都能够高效而轻松的帮助团队和开发者。包括 Git 托管、代码审查、团队协作、软件包注册和 CI/CD。它与 GitHub、Bitbucket 和 GitLab 等比较类似。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitea/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitea/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitea/README.md",
+      "tags": [
+        "gitea"
+      ]
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab",
+      "description": "一个开源的端到端软件开发平台，内置版本控制、问题跟踪、代码审查、CI/CD 等功能。你可以在自己的服务器、容器或云服务商上自托管 GitLab。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitlab/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitlab/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitlab/README.md",
+      "tags": [
+        "gitlab"
+      ]
+    },
+    {
+      "id": "gitlab-runner",
+      "name": "GitLab Runner",
+      "description": " GitLab CI/CD（持续集成 / 持续部署）系统的核心组件之一，它负责执行 CI/CD 流水线中的作业。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitlab-runner/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitlab-runner/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gitlab-runner/README.md",
+      "tags": [
+        "gitlab-runner"
+      ]
+    },
+    {
+      "id": "gotify",
+      "name": "gotify",
+      "description": "一个简单的发送和接收消息的服务器用于（通过 WebSocket 实时）发送和接收消息。为此目的，当时开源项目并不多，而且大多数现有项目已无人维护。另外，该服务器还需满足可自行托管这一要求。我们知道市面上有许多免费和商业化的推送服务。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gotify/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gotify/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/gotify/README.md",
+      "tags": [
+        "gotify"
+      ]
+    },
+    {
+      "id": "haproxy",
+      "name": "HAProxy",
+      "description": "一款免费、非常快速且可靠的反向代理，为基于 TCP 和 HTTP 的应用提供高可用性 、 负载均衡和代理服务。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/haproxy/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/haproxy/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/haproxy/README.md",
+      "tags": [
+        "haproxy"
+      ]
+    },
+    {
+      "id": "hedgedoc",
+      "name": "hedgedoc",
+      "description": "一款实时协作的 Markdown 笔记",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/hedgedoc/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/hedgedoc/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/hedgedoc/README.md",
+      "tags": [
+        "hedgedoc"
+      ]
+    },
+    {
+      "id": "hoppscotch",
+      "name": "hoppscotch",
+      "description": "一个轻量级的基于 Web 的 API 开发套件。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/hoppscotch/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/hoppscotch/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/hoppscotch/README.md",
+      "tags": [
+        "hoppscotch"
+      ]
+    },
+    {
+      "id": "joplin",
+      "name": "Joplin",
+      "description": "一款注重隐私的笔记应用，它具备同步功能，能够支持Windows、macOS、Linux、Android和iOS等多个操作系统平台。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/joplin/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/joplin/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/joplin/README.md",
+      "tags": [
+        "joplin"
+      ]
+    },
+    {
+      "id": "komodo",
+      "name": "komodo-core",
+      "description": "一款网页应用，用于提供管理服务器、构建、部署和自动化流程的结构。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/komodo/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/komodo/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/komodo/README.md",
+      "tags": [
+        "komodo"
+      ]
+    },
+    {
+      "id": "linkding",
+      "name": "linkding",
+      "description": "一款可自行搭建的书签管理器 。它设计简约、运行快速，使用 Docker 即可轻松完成设置 。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/linkding/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/linkding/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/linkding/README.md",
+      "tags": [
+        "linkding"
+      ]
+    },
+    {
+      "id": "listmonk",
+      "name": "listmonk",
+      "description": "一个自托管的、高性能的单向邮件列表和新闻通讯管理器。它作为独立的二进制文件提供，唯一的依赖项是 Postgres 数据库。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/listmonk/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/listmonk/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/listmonk/README.md",
+      "tags": [
+        "listmonk"
+      ]
+    },
+    {
+      "id": "litellm",
+      "name": "LiteLLM",
+      "description": "一个非常实用的开源 Python 库（也是目前最流行的 LLM 网关/代理工具之一）。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/litellm/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/litellm/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/litellm/README.md",
+      "tags": [
+        "litellm"
+      ]
+    },
+    {
+      "id": "mamoto",
+      "name": "Matomo",
+      "description": "领先的开源分析平台",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mamoto/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mamoto/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mamoto/README.md",
+      "tags": [
+        "mamoto"
+      ]
+    },
+    {
+      "id": "mariadb",
+      "name": "MariaDB",
+      "description": "一种开源数据库管理系统，它是 MySQL 的一个分支。它由 MySQL 的创始人之一 Monty Widenius 发起，旨在保持与 MySQL 的兼容性，同时提供更多的功能和性能优化。MariaDB 以其高性能、可扩展性和社区支持而受到广泛欢迎，适用于各种规模的企业和项目。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mariadb/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mariadb/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mariadb/README.md",
+      "tags": [
+        "mariadb"
+      ]
+    },
+    {
+      "id": "meilisearch",
+      "name": "Meilisearch",
+      "description": "一个快如闪电的搜索引擎，可轻松融入您的应用程序、网站和工作流程",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/meilisearch/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/meilisearch/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/meilisearch/README.md",
+      "tags": [
+        "meilisearch"
+      ]
+    },
+    {
+      "id": "memos",
+      "name": "Memos",
+      "description": "一个现代、开源、自托管的知识管理和笔记平台，专为注重隐私的用户和组织而设计。Memos 提供了一个轻量级但功能强大的解决方案，用于捕获、组织和共享想法，具有全面的 Markdown 支持和跨平台可访问性。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/memos/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/memos/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/memos/README.md",
+      "tags": [
+        "memos"
+      ]
+    },
+    {
+      "id": "mindoc",
+      "name": "MinDoc",
+      "description": "一款针对IT团队开发的简单好用的文档管理系统",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mindoc/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mindoc/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mindoc/README.md",
+      "tags": [
+        "mindoc"
+      ]
+    },
+    {
+      "id": "minio",
+      "name": "MinIO",
+      "description": "一个高性能的分布式对象存储服务器，通常用于存储大量非结构化数据，如图片、视频、日志文件等。它兼容 Amazon S3 云存储服务接口，可以方便地与各种应用程序集成，支持高可用性、数据冗余和自动扩展等功能，适用于需要大规模数据存储和访问的场景。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/minio/single/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/minio/single/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/minio/README.md",
+      "tags": [
+        "minio"
+      ]
+    },
+    {
+      "id": "mysql",
+      "name": "MySQL",
+      "description": "世界上最流行的开源数据库，MySQL 集群是一个实时的开源事务数据库。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mysql/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mysql/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/mysql/README.md",
+      "tags": [
+        "mysql"
+      ]
+    },
+    {
+      "id": "nginx-php",
+      "name": "NGINX-PHP",
+      "description": "NGINX-PHP",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/nginx-php/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/nginx-php/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/nginx-php/README.md",
+      "tags": [
+        "nginx-php"
+      ]
+    },
+    {
+      "id": "ntfy",
+      "name": "ntfy",
+      "description": "一个简单的基于 HTTP 的发布-订阅 通知服务。使用 ntfy，您可以通过任何计算机的**脚本将通知发送到您的手机或桌面 ， 无需注册或支付任何费用**。如果您想运行自己的服务实例，可以轻松实现，因为 ntfy 是开源的。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ntfy/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ntfy/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ntfy/README.md",
+      "tags": [
+        "ntfy"
+      ]
+    },
+    {
+      "id": "ollama",
+      "name": "ollama",
+      "description": "一个开源项目，旨在让在本地（例如你的 Mac、Linux 或 Windows 电脑）轻松运行、管理和使用大型语言模型（LLMs）变得简单高效。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ollama/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ollama/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/ollama/README.md",
+      "tags": [
+        "ollama"
+      ]
+    },
+    {
+      "id": "open-webui",
+      "name": "open-webui",
+      "description": "一个可扩展 、功能丰富且用户友好的自托管 AI 平台，旨在完全离线运行。 它支持各种 LLM 运行器，如 Ollama 和 OpenAI 兼容的 API，并内置了 RAG 推理引擎 ，使其成为强大的 AI 部署解决方案 。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/README.md",
+      "tags": [
+        "open-webui"
+      ]
+    },
+    {
+      "id": "opengist",
+      "name": "opengist",
+      "description": "一个由 Git 提供支持的自托管粘贴。所有代码片段都存储在 Git 存储库中，可以使用标准 Git 命令或 Web 界面读取和/或修改。它类似于 [GitHub Gist](https://gist.github.com/)，但开源并且可以自托管。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/opengist/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/opengist/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/opengist/README.md",
+      "tags": [
+        "opengist"
+      ]
+    },
+    {
+      "id": "openlist",
+      "name": "OpenList",
+      "description": "一个支持多种存储，支持网页浏览和 WebDAV 的文件列表程序，由 gin 和 Solidjs 驱动。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/openlist/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/openlist/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/openlist/README.md",
+      "tags": [
+        "openlist"
+      ]
+    },
+    {
+      "id": "openssh-server",
+      "name": "openssh-server",
+      "description": "一个沙箱环境，允许 SSH 访问，但不向整个服务器提供密钥。通过私钥授予 ssh 访问通常意味着对服务器给予完全访问权限。该容器创建了一个有限且沙箱化的环境，其他人可以 ssh 访问。用户只能访问该容器中映射的文件夹和运行的进程。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/openssh-server/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/openssh-server/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/openssh-server/README.md",
+      "tags": [
+        "openssh-server"
+      ]
+    },
+    {
+      "id": "pgadmin",
+      "name": "pgadmin",
+      "description": "一种流行的开源对象关系型数据库管理系统（PostgreSQL）的管理工具。它为用户提供了一个图形界面，方便用户进行数据库的创建、配置、监控和维护等操作。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin/README.md",
+      "tags": [
+        "pgadmin"
+      ]
+    },
+    {
+      "id": "pgadmin-db",
+      "name": "集成 postgres 和 pgadmin",
+      "description": "**Add New Server** -> **General -> Name** 值`任意` -> **Connection** -> **Host name/address** / **Username** / **Password** 值都是 `postgres`",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin-db/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin-db/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin-db/README.md",
+      "tags": [
+        "pgadmin-db"
+      ]
+    },
+    {
+      "id": "phpmyadmin",
+      "name": "phpmyadmin",
+      "description": "一个基于PHP的开源数据库管理工具，它允许用户通过Web界面来管理MySQL数据库。用户可以使用它来执行SQL查询、创建和管理数据库、表、用户权限等操作。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin/README.md",
+      "tags": [
+        "phpmyadmin"
+      ]
+    },
+    {
+      "id": "phpmyadmin-db",
+      "name": "MySQL(`MariaDB`) + phpMyAdmin",
+      "description": "MySQL(`MariaDB`) + phpMyAdmin",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin-db/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin-db/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin-db/README.md",
+      "tags": [
+        "phpmyadmin-db"
+      ]
+    },
+    {
+      "id": "postgres",
+      "name": "PostgreSQL",
+      "description": "一个高度可扩展的开源对象关系数据库系统。它以其先进的功能、强大的性能和可靠性而闻名。\"PostgreSQL\" 支持 SQL 标准的大部分内容，包括大部分 SQL:2011 特性，以及一些 SQL:2016 的特性。它还提供了许多其他数据库系统所没有的额外功能，比如部分索引、窗口函数、表继承等。此外，\"PostgreSQL\" 还支持多种编程语言和平台，使其成为开发人员和数据库管理员的热门选择。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/postgres/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/postgres/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/postgres/README.md",
+      "tags": [
+        "postgres"
+      ]
+    },
+    {
+      "id": "qbittorrent",
+      "name": "qBittorrent",
+      "description": "一个开源的、基于Qt框架的轻量级BitTorrent客户端软件。它具有强大的功能，如支持多线程下载、下载速度限制、任务优先级设置等，同时界面简洁友好，易于使用。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/qbittorrent/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/qbittorrent/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/qbittorrent/README.md",
+      "tags": [
+        "qbittorrent"
+      ]
+    },
+    {
+      "id": "qinglong",
+      "name": "qinglong",
+      "description": "支持 Python3、JavaScript、Shell、Typescript 的定时任务管理平台",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/qinglong/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/qinglong/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/qinglong/README.md",
+      "tags": [
+        "qinglong"
+      ]
+    },
+    {
+      "id": "rclone",
+      "name": "rclone",
+      "description": "一种广泛使用的开源文件同步工具。它可以在本地计算机之间、本地计算机与远程服务器之间，或者通过网络在不同设备之间高效地同步文件和目录。以下是关于“rsync”的一些特点和用途：",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/README.md",
+      "tags": [
+        "rclone"
+      ]
+    },
+    {
+      "id": "rclone-backup",
+      "name": "rclone-backup",
+      "description": "基于 rclone 的 Docker 定时备份解决方案，支持多目标备份和灵活的配置管理。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/README.md",
+      "tags": [
+        "rclone-backup"
+      ]
+    },
+    {
+      "id": "redis",
+      "name": "redis",
+      "description": "一个开源的高性能键值存储数据库，它将数据存储在内存中以实现快速读写操作，同时支持将数据持久化到磁盘，以防止数据丢失。它支持多种数据结构，如字符串（Strings）、列表（Lists）、集合（Sets）、有序集合（Sorted Sets）、哈希表（Hashes）、流（Streams）、HyperLogLogs 以及位图（Bitmaps）等，广泛应用于缓存、消息队列、排行榜等多种场景。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/redis/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/redis/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/redis/README.md",
+      "tags": [
+        "redis"
+      ]
+    },
+    {
+      "id": "remark42",
+      "name": "Remark42",
+      "description": "一个轻量级、注重隐私的评论系统，旨在为博客、文章或其他需要评论功能的网站提供简单而强大的解决方案。以下是关于 Remark42 的一些关键信息：",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/remark42/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/remark42/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/remark42/README.md",
+      "tags": [
+        "remark42"
+      ]
+    },
+    {
+      "id": "rsshub",
+      "name": "RSSHub",
+      "description": "一个开源的轻量级、易扩展的RSS生成器。它能够将各种非标准的RSS源（如网站、应用等）转换为标准的RSS格式，方便用户通过RSS阅读器获取更新内容。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rsshub/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rsshub/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rsshub/README.md",
+      "tags": [
+        "rsshub"
+      ]
+    },
+    {
+      "id": "rustpad",
+      "name": "Rustpad",
+      "description": "一个开源的协作文本编辑器，它基于操作变换算法（operational transformation algorithm）来实现协作功能。你可以将这个编辑器的链接分享给其他人，他们可以在自己的浏览器中进行编辑，并且能够实时看到你所做的更改。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rustpad/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rustpad/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rustpad/README.md",
+      "tags": [
+        "rustpad"
+      ]
+    },
+    {
+      "id": "shortener",
+      "name": "Shortener",
+      "description": "一个使用 Rust 编写的高性能 URL 短链接服务。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/shortener/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/shortener/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/shortener/README.md",
+      "tags": [
+        "shortener"
+      ]
+    },
+    {
+      "id": "simple-http-server",
+      "name": "Simple HTTP Server",
+      "description": "使用 Rust 编写的简单 HTTP 服务器",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/simple-http-server/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/simple-http-server/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/simple-http-server/README.md",
+      "tags": [
+        "simple-http-server"
+      ]
+    },
+    {
+      "id": "simple-torrent",
+      "name": "Cloud Torrent",
+      "description": "一款用 Go 语言编写的自托管远程种子客户端。用户可以通过远程方式启动种子，这些种子会被下载为服务器本地磁盘上的一组文件，之后这些文件可以通过 HTTP 协议进行检索或流式传输。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/simple-torrent/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/simple-torrent/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/simple-torrent/README.md",
+      "tags": [
+        "simple-torrent"
+      ]
+    },
+    {
+      "id": "sonic",
+      "name": "Sonic",
+      "description": "一个快速、轻量级且无模式的搜索引擎后端。它可以摄取搜索文本和标识符元组，然后可以在微秒级时间内对这些数据进行查询。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/sonic/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/sonic/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/sonic/README.md",
+      "tags": [
+        "sonic"
+      ]
+    },
+    {
+      "id": "stalwart",
+      "name": "stalwart",
+      "description": "一款开源邮件与协作服务器，支持 JMAP、IMAP4、POP3、SMTP、CalDAV、CardDAV 和 WebDAV 以及丰富的现代功能。它用 Rust 编写，设计为安全、快速、稳健且可扩展。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/stalwart/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/stalwart/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/stalwart/README.md",
+      "tags": [
+        "stalwart"
+      ]
+    },
+    {
+      "id": "static-web-server",
+      "name": "Static Web Server",
+      "description": "[Static Web Server][1]（或 SWS 缩写）是一种小型且快速的生产就绪型 Web 服务器，适用于提供静态 Web 文件或资产。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/static-web-server/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/static-web-server/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/static-web-server/README.md",
+      "tags": [
+        "static-web-server"
+      ]
+    },
+    {
+      "id": "swagger",
+      "name": "Swagger",
+      "description": "一个流行的开源框架，用于生成、描述、调用和发现 RESTful Web 服务。它能够自动生成 API 文档，方便开发者快速了解和使用 API。同时，Swagger 还支持 API 测试等功能，有助于提高开发效率和 API 质量。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/swagger/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/swagger/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/swagger/README.md",
+      "tags": [
+        "swagger"
+      ]
+    },
+    {
+      "id": "syncthing",
+      "name": "Syncthing",
+      "description": "一个持续的文件同步程序。它可以在两台或更多台计算机之间同步文件。我们致力于实现以下目标。这些目标按重要性顺序列出，最重要的目标排在前面。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/syncthing/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/syncthing/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/syncthing/README.md",
+      "tags": [
+        "syncthing"
+      ]
+    },
+    {
+      "id": "transfer",
+      "name": "transfer.sh",
+      "description": "从命令行共享简单快速的文件。此代码包含服务器，其中包含创建自己实例所需的一切。当前支持S3（Amazon S3），GDRIVE（Google Drive），Storj（Storj）提供商和本地文件系统（本地）。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/transfer/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/transfer/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/transfer/README.md",
+      "tags": [
+        "transfer"
+      ]
+    },
+    {
+      "id": "valkey",
+      "name": "Valkey",
+      "description": "一种高性能数据结构服务器，主要为键/值工作负载提供服务。它支持各种原生结构和可扩展的插件系统，用于添加新的数据结构和访问模式。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/valkey/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/valkey/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/valkey/README.md",
+      "tags": [
+        "valkey"
+      ]
+    },
+    {
+      "id": "vaultwarden",
+      "name": "Vaultwarden",
+      "description": "用 Rust 编写的非官方 Bitwarden 兼容服务器",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/README.md",
+      "tags": [
+        "vaultwarden"
+      ]
+    },
+    {
+      "id": "vaultwarden-backup",
+      "name": "vaultwarden-backup",
+      "description": "一个使用 rclone 备份 Vaultwarden 的开源项目",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/README.md",
+      "tags": [
+        "vaultwarden-backup"
+      ]
+    },
+    {
+      "id": "wingetty",
+      "name": "wingetty",
+      "description": "一个自托管的 `winget` 包源。它是可移植的，可以在 Linux、Windows、Docker、本地和任何云中运行。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/wingetty/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/wingetty/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/wingetty/README.md",
+      "tags": [
+        "wingetty"
+      ]
+    },
+    {
+      "id": "woodpecker",
+      "name": "Woodpecker CI",
+      "description": "“Woodpecker Continuous Integration”（持续集成）的缩写。持续集成是一种软件开发实践，它要求开发人员将代码经常性地集成到一个共享的主分支中，每次集成都通过自动化构建（包括编译、测试等）来验证，从而尽早发现集成错误。而“Woodpecker”是这个持续集成工具的名称，它是一个简单但功能强大的CI/CD（持续集成/持续交付）引擎，具有很好的可扩展性。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/woodpecker/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/woodpecker/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/woodpecker/README.md",
+      "tags": [
+        "woodpecker"
+      ]
+    },
+    {
+      "id": "wordpress",
+      "name": "WordPress",
+      "description": "一个基于 PHP 和 MySQL 的开源内容管理系统，用于创建网站和博客。它具有高度的灵活性和可扩展性，通过插件和主题可以实现各种功能和外观定制。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/wordpress/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/wordpress/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/wordpress/README.md",
+      "tags": [
+        "wordpress"
+      ]
+    },
+    {
+      "id": "xunsearch",
+      "name": "Xunsearch",
+      "description": "一套免费开源的专业中文全文检索解决方案，简单易用而且 功能强大、性能卓越能轻松处理海量数据的全文检索。它包含后端索引、搜索服务程序和前端 脚本语言编写的开发包(称之为 SDK) 。前端和后端甚至可以分离部署在不同服务器中。一般 开发者只要在安装和设置完成后，通过提供的 SDK 包进行较为容易的二次开发即可打造出自己 的全文搜索引擎，适用于 MySQL 数据库全文检索、web站内/论坛搜索、行业门户/垂直搜索、 文档/文献检索等各种领域。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/xunsearch/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/xunsearch/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/xunsearch/README.md",
+      "tags": [
+        "xunsearch"
+      ]
+    }
+  ]
+}
