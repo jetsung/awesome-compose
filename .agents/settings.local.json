@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git reset:*)",
+      "Skill(git-commit)",
+      "Bash(chmod:*)",
+      "Bash(/root/workspaces/jetsung/awesome-compose/.agent/skills/add-service-to-readme/add-service-to-readme cloudflared)",
+      "Bash(/root/workspaces/jetsung/awesome-compose/.agent/skills/add-service-to-readme/add-service-to-readme:*)",
+      "Bash(python3 -c:*)",
+      "Skill(add-service-to-readme)"
+    ]
+  }
+}
