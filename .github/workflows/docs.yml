@@ -1,0 +1,105 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/docs.yml'
+      - '**/README.md'
+      - '**/compose.yaml'
+      - '**/compose.override.yaml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    env:
+      TZ: Asia/Shanghai
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Build with VitePress
+        run: npm run docs:build
+      - name: Copy CNAME
+        run: cp CNAME .vitepress/dist/
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: docs-site
+          path: .vitepress/dist/
+          retention-days: 1
+
+  deploy-github-pages:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # - uses: actions/configure-pages@v5
+      - name: Download build artifacts
+        uses: actions/download-artifact@v7
+        with:
+          name: docs-site
+          path: ./public
+      - name: Deploy to Branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+      # - uses: actions/upload-pages-artifact@v4
+      #   with:
+      #     path: docsite/public
+      # - uses: actions/deploy-pages@v4
+      #   id: deployment
+
+  # deploy-ssh-server:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Download build artifacts
+  #       uses: actions/download-artifact@v7
+  #       with:
+  #         name: docs-site
+  #         path: ./public
+  #     - name: Compress to tar.xz
+  #       run: |
+  #         tar -cJf docs-site.tar.xz public/
+  #     - name: Set up SSH
+  #       uses: LuisEnMarroquin/setup-ssh-action@v3.0.0
+  #       with:
+  #         ORIGIN: ${{ secrets.SSH_HOSTNAME }}
+  #         SSHKEY: ${{ secrets.SSH_KEY }}
+  #         NAME: webserver
+  #         PORT: ${{ secrets.SSH_PORT }}
+  #         USER: ${{ secrets.SSH_USERNAME }}
+  #     - run: echo "" >> ~/.ssh/access  # fix
+  #     - name: Deploy the website
+  #       env:
+  #         WEBROOT: /data/wwwroot/docker-compose-docs
+  #       run: |
+  #         ssh webserver "rm -rf $WEBROOT && mkdir -p $WEBROOT"
+  #         scp docs-site.tar.xz webserver:${WEBROOT}/
+  #         ssh webserver "cd $WEBROOT && tar -xJf docs-site.tar.xz --strip-components=1 && rm -f docs-site.tar.xz"

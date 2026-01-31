@@ -5,3 +5,10 @@
 **/compose.extend.yaml
 **/extend.env
 **/data/
+
+# Node.js
+node_modules/
+
+# VitePress
+.vitepress/dist
+.vitepress/cache

@@ -31,7 +31,7 @@
 curl -fsSL https://fx4.cn/acme | bash
 
 # 或
-git clone https://framagit.org/jetsung/awesome-compose
+git clone https://git.asfd.cn/jetsung/awesome-compose
 cp -r awesome-compose/acme .
 # cd acme
 ```

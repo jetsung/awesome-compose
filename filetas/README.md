@@ -28,7 +28,3 @@ docker run -p 8000:8000 -d ghcr.io/idev-sig/filetas:latest
 ```ini
 TITLE=文件加速下载 # 网站标题
 ```
-
-## 仓库镜像
-
-[MyCode](https://git.jetsung.com/idev/filetas) ● [Framagit](https://framagit.org/idev/filetas) ● [GitCode](https://gitcode.com/idev/filetas) ● [GitHub](https://github.com/idev-sig/filetas)
