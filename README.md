@@ -136,6 +136,8 @@ SERV_PORT=
 
 ## Arcane 容器管理工具
 
+- [**Arcane Registry**](https://compose.asfd.cn/registry.json)
+
 ### 模板
 - [schema.json](https://github.com/getarcaneapp/templates/blob/main/schema.json)
 ```bash

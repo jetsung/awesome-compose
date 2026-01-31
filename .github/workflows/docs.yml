@@ -43,7 +43,7 @@ jobs:
       - name: Build with VitePress
         run: npm run docs:build
       - name: Copy CNAME
-        run: cp CNAME .vitepress/dist/
+        run: cp {CNAME,registry.json,schema.json} .vitepress/dist/
       - name: Upload build artifacts
         uses: actions/upload-artifact@v6
         with:
