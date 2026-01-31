@@ -8,10 +8,10 @@
 
 > [filetas][1] 是一个文件传输加速服务。
 
-[1]:https://github.com/idev-sig/filetas
-[2]:https://github.com/idev-sig/filetas
+[1]:https://github.com/idevsig/filetas
+[2]:https://github.com/idevsig/filetas
 [3]:https://hub.docker.com/r/idevsig/filetas
-[4]:https://github.com/idev-sig/filetas
+[4]:https://github.com/idevsig/filetas
 
 ## 使用
 
@@ -20,7 +20,7 @@
 docker run -p 8000:8000 -d idevsig/filetas:latest
 
 # ghcr.io
-docker run -p 8000:8000 -d ghcr.io/idev-sig/filetas:latest
+docker run -p 8000:8000 -d ghcr.io/idevsig/filetas:latest
 ```
 
 ## 配置

@@ -6,5 +6,5 @@ services:
       - path: ./.env
         required: false
     hostname: file-downloader
-    image: ghcr.io/idev-sig/file-downloader:dev
+    image: ghcr.io/idevsig/file-downloader:dev
     restart: unless-stopped

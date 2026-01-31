@@ -10,7 +10,7 @@
 
 [1]: https://git.jetsung.com/idev/file-downloader
 [2]: https://git.jetsung.com/idev/file-downloader
-[3]: https://ghcr.io/idev-sig/file-downloader
+[3]: https://ghcr.io/idevsig/file-downloader
 [4]: https://git.jetsung.com/idev/file-downloader/-/tree/main/docker
 
 ---
@@ -18,7 +18,7 @@
 ```bash
 services:
   file-downloader:
-    image: idev-sig/file-downloader:latest
+    image: idevsig/file-downloader:latest
     container_name: file-downloader
     restart: unless-stopped
     environment:

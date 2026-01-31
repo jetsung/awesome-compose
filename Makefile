@@ -3,7 +3,7 @@
 # Usage: make init n=<name|url|image_url> [p=1]
 
 MAKEFLAGS += --no-print-directory
-# NAMES = test idevsig/filetas idevsig/filetas:python ghcr.io/idev-sig/filetas:latest https://github.com/idev-sig/filetas/pkgs/container/filetas https://hub.docker.com/r/idevsig/filetas
+# NAMES = test idevsig/filetas idevsig/filetas:python ghcr.io/idevsig/filetas:latest https://github.com/idevsig/filetas/pkgs/container/filetas https://hub.docker.com/r/idevsig/filetas
 
 .PHONY: help
 help: ## 显示帮助信息
