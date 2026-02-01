@@ -1,0 +1,51 @@
+---
+# https://hub.docker.com/r/headscale/headscale
+services:
+  headscale:
+    command:
+      - serve
+    container_name: headscale
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: headscale
+    healthcheck:
+        test: ["CMD", "headscale", "health"]
+    labels:
+      # This label is absolutely necessary to help Headplane find Headscale.
+      me.tale.headplane.target: headscale
+    image: headscale/headscale:latest
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    read_only: true
+    restart: unless-stopped
+    tmpfs:
+      - /var/run/headscale
+    volumes:
+      - ./config/headscale.yaml:/etc/headscale/config.yaml
+      - ./data/headscale:/var/lib/headscale
+
+  headplane:
+    container_name: headplane
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: headplane
+    healthcheck:
+      test: ["CMD", "/bin/hp_healthcheck"]
+      interval: 30s
+      timeout: 5s
+      start_period: 5s
+      retries: 3
+    image: ghcr.io/tale/headplane:latest
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/headscale.yaml:/etc/headscale/config.yaml
+      - ./config/headplane.yaml:/etc/headplane/config.yaml
+      - ./data/headplane:/var/lib/headplane
+    profiles:
+      - plane

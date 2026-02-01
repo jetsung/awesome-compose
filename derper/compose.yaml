@@ -1,0 +1,15 @@
+---
+# https://github.com/kaaanata/derper-docker/pkgs/container/derper
+services:
+  derper:
+    container_name: derper
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: derper
+    image: ghcr.io/kaaanata/derper:latest
+    ports:
+      - 80:80
+      - 443:8443
+      - 3478:3478/udp
+    restart: unless-stopped

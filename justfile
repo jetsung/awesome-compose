@@ -29,43 +29,48 @@ create proj git="" image="" huburl="":
     echo "创建项目目录: {{proj}}"
     mkdir -p "{{proj}}"
 
+    # 生成 .env 文件
     echo "# CUSTOM" > "{{proj}}/.env"
     echo "TZ=Asia/Shanghai" >> "{{proj}}/.env"
     echo "SERV_PORT=80" >> "{{proj}}/.env"
 
-    echo "# {{proj}}" > "{{proj}}/README.md"
+    # 生成 README.md (首字母大写)
+    PROJ_UPPER=$(echo "{{proj}}" | awk '{print toupper(substr($0,1,1))substr($0,2)}')
+    echo "# $PROJ_UPPER" > "{{proj}}/README.md"
     echo "" >> "{{proj}}/README.md"
     echo "[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]" >> "{{proj}}/README.md"
     echo "" >> "{{proj}}/README.md"
     echo "---" >> "{{proj}}/README.md"
     echo "" >> "{{proj}}/README.md"
-    echo "> [{{proj}}][1]" >> "{{proj}}/README.md"
+    echo "> [$PROJ_UPPER][1]" >> "{{proj}}/README.md"
     echo "" >> "{{proj}}/README.md"
     echo "[1]:" >> "{{proj}}/README.md"
     echo "[2]:{{git}}" >> "{{proj}}/README.md"
     echo "[3]:{{huburl}}" >> "{{proj}}/README.md"
     echo "[4]:" >> "{{proj}}/README.md"
 
+    # 生成 compose.yaml
     echo "---" > "{{proj}}/compose.yaml"
     echo "# {{huburl}}" >> "{{proj}}/compose.yaml"
     echo "services:" >> "{{proj}}/compose.yaml"
     echo "  {{proj}}:" >> "{{proj}}/compose.yaml"
-    echo "    image: {{image}}" >> "{{proj}}/compose.yaml"
     echo "    container_name: {{proj}}" >> "{{proj}}/compose.yaml"
-    echo "    hostname: {{proj}}" >> "{{proj}}/compose.yaml"
-    echo "    restart: unless-stopped" >> "{{proj}}/compose.yaml"
     echo "    env_file:" >> "{{proj}}/compose.yaml"
     echo "      - path: ./.env" >> "{{proj}}/compose.yaml"
     echo "        required: false" >> "{{proj}}/compose.yaml"
+    echo "    hostname: {{proj}}" >> "{{proj}}/compose.yaml"
+    echo "    image: {{image}}" >> "{{proj}}/compose.yaml"
     echo "#     ports:" >> "{{proj}}/compose.yaml"
     echo "#       - 80:80" >> "{{proj}}/compose.yaml"
+    echo "    restart: unless-stopped" >> "{{proj}}/compose.yaml"
 
+    # 生成 compose.override.yaml
     echo "---" > "{{proj}}/compose.override.yaml"
     echo "services:" >> "{{proj}}/compose.override.yaml"
-    echo "  {{proj}}:
+    echo "  {{proj}}:" >> "{{proj}}/compose.override.yaml"
     echo "#     ports: !reset []" >> "{{proj}}/compose.override.yaml"
     echo "#     ports: !override" >> "{{proj}}/compose.override.yaml"
-    echo "#       - $\\\${SERV_PORT:-80}:80" >> "{{proj}}/compose.override.yaml"
+    echo '#       - ${SERV_PORT:-80}:80' >> "{{proj}}/compose.override.yaml"
     echo "#     volumes:" >> "{{proj}}/compose.override.yaml"
     echo "#       - ./data:/data" >> "{{proj}}/compose.override.yaml"
 
@@ -96,7 +101,7 @@ create proj git="" image="" huburl="":
         echo "#" >> "{{proj}}/backup.sh"
         echo "###" >> "{{proj}}/backup.sh"
         echo "" >> "{{proj}}/backup.sh"
-        echo 'if [[ -n "$$DEBUG:-}" ]]; then' >> "{{proj}}/backup.sh"
+        echo 'if [[ -n "${DEBUG:-}" ]]; then' >> "{{proj}}/backup.sh"
         echo "    set -eux" >> "{{proj}}/backup.sh"
         echo "else" >> "{{proj}}/backup.sh"
         echo "    set -euo pipefail" >> "{{proj}}/backup.sh"
@@ -113,6 +118,7 @@ create proj git="" image="" huburl="":
         echo "#rclone copy ./{{proj}}.tar.xz minio:/backup/databases" >> "{{proj}}/backup.sh"
         echo "echo \"backup {{proj}} data to minio done.\"" >> "{{proj}}/backup.sh"
         echo "echo \"Backup of {{proj}} data to MinIO completed successfully.\"" >> "{{proj}}/backup.sh"
+        chmod +x "{{proj}}/backup.sh"
     else
         if [ -f "{{proj}}/backup.sh" ]; then
             echo "删除已存在的 backup.sh";
@@ -199,9 +205,9 @@ init n p="":
     just create proj="$PROJECT" git="$GIT_URL" image="$FULL_IMAGE:$TAG" huburl="$IMAGE_URL"
 
 # 初始化 Arcane 模板 (schema.json, registry.json)
-arcan-init:
+arcane-init:
     curl -LO https://raw.githubusercontent.com/getarcaneapp/templates/refs/heads/main/schema.json
-    curl -LO https://raw.githubusercontent.com/getarcaneapp/templates/refs/heads/main/registry.json
+    curl -LO https://raw.githubusercontent.com/getarcaneapp/templates/refs/heads/main/registry.json && \
     jq '.templates=[] | .name="Jetsung Arcane Templates" | .description="Jetsung Docker Compose Templates for Arcane" | .author="jetsung" | .url="https://github.com/jetsung/awesome-compose" | .version="1.0.0"' registry.json > tmp.json && mv tmp.json registry.json
 
 # 更新 registry.json 模板列表
@@ -229,7 +235,7 @@ update-registry prefix="https://raw.githubusercontent.com/jetsung/awesome-compos
             continue
         fi
         name=$(head -n 1 "$readme_path" | sed 's/^# //')
-        description=$(grep "> " "$readme_path" | head -n 1 | sed 's/^> //' | sed 's/\[[^]]*\]\[[^]]*\] //g' | sed 's/^[[:space:]]*//' | sed 's/^是//')
+        description=$(grep "^> " "$readme_path" | head -n 1 | sed 's/^> //' | sed 's/\[[^]]*\]\[[^]]*\] //g' | sed 's/^[[:space:]]*//' | sed 's/^是//')
         if [ -z "$description" ]; then description="$name"; fi
         compose_url="$URL_PREFIX/$dir/compose.yaml"
         documentation_url="$URL_PREFIX/$readme_path"
@@ -277,7 +283,7 @@ update-template id prefix="https://raw.githubusercontent.com/jetsung/awesome-com
     URL_PREFIX="{{prefix}}"
     VERSION="{{v}}"
     name=$(head -n 1 "$readme_path" | sed 's/^# //')
-    description=$(grep "> " "$readme_path" | head -n 1 | sed 's/^> //' | sed 's/\[[^]]*\]\[[^]]*\] //g' | sed 's/^[[:space:]]*//' | sed 's/^是//')
+    description=$(grep "^> " "$readme_path" | head -n 1 | sed 's/^> //' | sed 's/\[[^]]*\]\[[^]]*\] //g' | sed 's/^[[:space:]]*//' | sed 's/^是//')
     if [ -z "$description" ]; then description="$name"; fi
     compose_url="$URL_PREFIX/$work_dir/compose.yaml"
     documentation_url="$URL_PREFIX/$readme_path"

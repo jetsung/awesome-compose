@@ -70,6 +70,7 @@ SERV_PORT=
 | 在用 | [claude-code-router](./claude-code-router/) | 代码路由工具 |
 | | [cloudflared](./cloudflared/) | cloudflared 是 Cloudflare 隧道客户端。将 Cloudflare 网络的流量代理到你的起源节点。 |
 | 在用 | [croc](./croc/) | 跨平台文件传输工具，可在两台计算机之间安全地传输文件 |
+| 在用 | [derper](./derper/) | Derper （指定数据包加密中继）服务器负责管理设备连接和网络地址转换（NAT）穿越。 |
 | | [drone](./drone/) | 基于容器技术的持续集成和持续部署(CI/CD)平台 |
 | 在用 | [dufs](./dufs/) | 基于 HTTP 的文件服务器，支持文件上传、下载和目录浏览 |
 | 在用 | [emqx](./emqx/) | 大规模分布式物联网接入平台，高性能、可扩展的 MQTT 消息服务器 |
@@ -83,6 +84,7 @@ SERV_PORT=
 | 在用 | [gitlab-runner](./gitlab-runner/) | GitLab CI/CD 的执行器，用于运行 CI/CD 任务 |
 | 在用 | [gotify](./gotify/) | 简单的发送和接收消息的服务器，用于实时消息推送 |
 | 在用 | [haproxy](./haproxy/) | 一款免费、非常快速且可靠的反向代理，为基于 TCP 和 HTTP 的应用提供高可用性、负载均衡和代理服务 |
+| 在用 | [headscale](./headscale/) | Headscale 是 Tailscale 控制服务器的开源自托管实现。 |
 | | [hedgedoc](./hedgedoc/) | 开源的协作文档编辑器，支持 Markdown 编辑 |
 | 在用 | [hoppscotch](./hoppscotch/) | 轻量级的 API 开发生态系统，用于测试和调试 API |
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
@@ -125,6 +127,7 @@ SERV_PORT=
 | 在用 | [static-web-server](./static-web-server/) | 高性能的静态 Web 服务器 |
 | 在用 | [swagger](./swagger/) | 用于设计、构建和文档化 RESTful API 的工具 |
 | | [syncthing](./syncthing/) | 连续的文件同步程序，用于在不同设备间同步文件 |
+| 在用 | [tailscale](./tailscale/) | Tailscale 是一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载。 |
 | | [transfer](./transfer/) | 文件传输服务 |
 | 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
 | 在用 | [vaultwarden](./vaultwarden/) | Bitwarden 密码管理器的非官方服务器实现 |

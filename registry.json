@@ -4,7 +4,7 @@
   "description": "Jetsung Docker Compose Templates for Arcane",
   "author": "jetsung",
   "url": "https://github.com/jetsung/awesome-compose",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "templates": [
     {
       "id": "acme",
@@ -160,6 +160,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/croc/README.md",
       "tags": [
         "croc"
+      ]
+    },
+    {
+      "id": "derper",
+      "name": "Derper",
+      "description": "（指定数据包加密中继）服务器负责管理设备连接和网络地址转换（NAT）穿越。它们主要有两个作用：",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/derper/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/derper/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/derper/README.md",
+      "tags": [
+        "derper"
       ]
     },
     {
@@ -329,6 +342,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/haproxy/README.md",
       "tags": [
         "haproxy"
+      ]
+    },
+    {
+      "id": "headscale",
+      "name": "Headscale",
+      "description": " Tailscale 控制服务器的开源自托管实现。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/headscale/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/headscale/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/headscale/README.md",
+      "tags": [
+        "headscale"
       ]
     },
     {
@@ -875,6 +901,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/syncthing/README.md",
       "tags": [
         "syncthing"
+      ]
+    },
+    {
+      "id": "tailscale",
+      "name": "Tailscale",
+      "description": "一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/tailscale/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/tailscale/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/tailscale/README.md",
+      "tags": [
+        "tailscale"
       ]
     },
     {

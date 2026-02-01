@@ -1,0 +1,17 @@
+---
+# https://hub.docker.com/r/tailscale/tailscale
+services:
+  tailscale:
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    container_name: tailscale
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: tailscale
+    image: tailscale/tailscale:latest
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - /dev/net/tun:/dev/net/tun
