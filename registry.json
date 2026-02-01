@@ -644,19 +644,6 @@
       ]
     },
     {
-      "id": "pgadmin-db",
-      "name": "集成 postgres 和 pgadmin",
-      "description": "**Add New Server** -> **General -> Name** 值`任意` -> **Connection** -> **Host name/address** / **Username** / **Password** 值都是 `postgres`",
-      "version": "1.0.0",
-      "author": "jetsung",
-      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin-db/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin-db/.env",
-      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin-db/README.md",
-      "tags": [
-        "pgadmin-db"
-      ]
-    },
-    {
       "id": "phpmyadmin",
       "name": "phpmyadmin",
       "description": "一个基于PHP的开源数据库管理工具，它允许用户通过Web界面来管理MySQL数据库。用户可以使用它来执行SQL查询、创建和管理数据库、表、用户权限等操作。",
@@ -667,19 +654,6 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin/README.md",
       "tags": [
         "phpmyadmin"
-      ]
-    },
-    {
-      "id": "phpmyadmin-db",
-      "name": "MySQL(`MariaDB`) + phpMyAdmin",
-      "description": "MySQL(`MariaDB`) + phpMyAdmin",
-      "version": "1.0.0",
-      "author": "jetsung",
-      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin-db/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin-db/.env",
-      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin-db/README.md",
-      "tags": [
-        "phpmyadmin-db"
       ]
     },
     {

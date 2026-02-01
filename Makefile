@@ -259,6 +259,10 @@ update-registry: ## 更新 registry.json 模板列表：prefix="URL 前缀" v="�
 		dir=$$(dirname "$$compose_path" | sed 's|^\./||'); \
 		folder_name=$$(basename "$$dir"); \
 		if [ "$$folder_name" = "distributed" ]; then continue; fi; \
+		if grep -q "file: .*\.\./" "$$compose_path"; then \
+			echo "提示：项目 $$dir 不添加，因为引用了上级目录"; \
+			continue; \
+		fi; \
 		if [ "$$folder_name" = "single" ]; then \
 			parent_dir=$$(dirname "$$dir"); \
 			id=$$(basename "$$parent_dir"); \
