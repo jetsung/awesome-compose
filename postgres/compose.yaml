@@ -6,6 +6,11 @@ services:
     env_file:
       - path: ./.env
         required: false
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     hostname: postgres
     image: postgres:latest
     ports:

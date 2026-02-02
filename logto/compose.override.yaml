@@ -1,0 +1,10 @@
+---
+services:
+  logto:
+    ports: !override
+      - ${PORT:-3001}:3001
+      - ${ADMIN_PORT:-3002}:3002
+
+  postgres:
+    volumes:
+      - ./data/postgres:/var/lib/postgresql

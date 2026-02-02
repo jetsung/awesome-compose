@@ -9,7 +9,7 @@
 [1]:https://asciinema.org/
 [2]:https://github.com/asciinema/asciinema-server
 [3]:https://ghcr.io/asciinema/asciinema-server
-[4]:https://docs.asciinema.org/manual/server/
+[4]:https://docs.asciinema.org/manual/server/self-hosting/
 
 ---
 

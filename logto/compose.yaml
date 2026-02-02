@@ -1,0 +1,33 @@
+---
+# https://hub.docker.com/r/svhd/logto
+services:
+  logto:
+    container_name: logto
+    depends_on:
+      postgres:
+        condition: service_healthy
+    entrypoint:
+      - sh
+      - -c
+      - npm run cli db seed -- --swe && npm start
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: logto
+    image: svhd/logto:${TAG-latest}
+    ports:
+      - 3001:3001
+      - 3002:3002
+    restart: unless-stopped
+
+  postgres:
+    env_file:
+      - path: ./.env
+        required: false
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    image: postgres:18-alpine
+    restart: unless-stopped

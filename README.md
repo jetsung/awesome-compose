@@ -92,6 +92,7 @@ SERV_PORT=
 | 在用 | [linkding](./linkding/) | 简单、快速的自托管书签服务 |
 | 在用 | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
 | | [listmonk](./listmonk/) | 高性能、可自托管的邮件通讯和营销自动化工具 |
+| | [logto](./logto/) | 现代开源的 SaaS 和 AI 应用认证基础设施 |
 | | [mamoto](./mamoto/) | 提供网站分析服务的开源平台 |
 | | [mariadb](./mariadb/) | 社区开发的 MySQL 关系型数据库管理系统分支 |
 | 在用 | [meilisearch](./meilisearch/) | 快速、易于使用的搜索引擎 |

@@ -21,3 +21,9 @@ openssl rand -base64 48
 ```bash
 ADMIN_TOKEN
 ```
+
+- 支持 [WebAuthn](https://github.com/dani-garcia/vaultwarden/wiki/Enabling-U2F-%28and-FIDO2-WebAuthn%29-authentication)
+> 若使用了子目录，也需要完整的路径
+```bash
+DOMAIN=
+```

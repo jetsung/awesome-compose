@@ -28,10 +28,13 @@ sed -i 's#^listen_addr:.*#listen_addr: 0.0.0.0:8080#g' config/headscale.yaml
 sed -i 's#^metrics_listen_addr:.*#metrics_listen_addr: 0.0.0.0:9090#g' config/headscale.yaml
 
 # 绑定的域名
-sed -i 's#^server_url:.*#server_url: https://MYHEADSCALE.EXAMPLE.COM:443#g' config/headscale.yaml
+sed -i 's#^server_url:.*#server_url: https://MYHEADSCALE.EXAMPLE.COM#g' config/headscale.yaml
 
 # 在 Tailscale 的配置中添加服务器地址（建议启用 https）
 # TS_EXTRA_ARGS=--login-server=https://MYHEADSCALE.EXAMPLE.COM
+
+# 修改基础域名。以便使用主机时可以通过 hostname.base_domain 方式访问
+sed -i 's#^  base_domain:.*#  base_domain: domain.xx#g' config/headscale.yaml
 ```
 
 3. 查看可用性
@@ -74,7 +77,7 @@ docker exec -it headscale headscale apikeys list
 
 # 删除 API key
 docker exec -it headscale headscale apikeys delete --prefix zld_wI1
-ridwmYP.mcvuhdPhFX9_IrHsN2pbQSl93Wk8DB9t
+
 # 查看帮助（所有命令）
 docker exec -it headscale headscale --help
 ```
@@ -169,4 +172,39 @@ HEADPLANE_HEADSCALE__URL=http://headscale:8080
 ```bash
 # 创建密钥
 headscale apikeys create --expiration 90d
+```
+
+### [OIDC 第三方社交登录](https://headplane.net/features/sso)（推荐）
+> 1. 推荐修改 Headplane 平台的 `.env`
+> 2. 不支持 GitHub、Gitea（client_id 问题）
+> 3. 支持 Google
+> 4. token_endpoint_auth_method 的值：`client_secret_post, client_secret_basic, client_secret_jwt`
+> 5. 回调网址：`https://<URL>/admin/oidc/callbac`
+
+| 平台 | ISSUER | ENDPOINT_AUTH_METHOD |
+| GitLab | - | `client_secret_post` |
+
+
+```bash
+# OIDC
+# 如果使用 OIDC，可以禁用 API Key 登录
+HEADPLANE_OIDC__DISABLE_API_KEY_LOGIN=true
+
+HEADPLANE_OIDC__HEADSCALE_API_KEY=<generated-api-key>
+HEADPLANE_OIDC__ISSUER=https://your-idp.com
+HEADPLANE_OIDC__CLIENT_ID=your-client-id
+HEADPLANE_OIDC__CLIENT_SECRET=your-client-secret
+HEADPLANE_OIDC__TOKEN_ENDPOINT_AUTH_METHOD=client_secret_basic
+HEADPLANE_OIDC__SCOPE=openid email profile
+```
+
+- `config/headplane.yaml`
+```yaml
+oidc:
+  headscale_api_key: "<generated-api-key>"
+  issuer: "https://your-idp.com"
+  client_id: "your-client-id"
+  client_secret: "your-client-secret"
+  token_endpoint_auth_method: "client_secret_basic"
+  scope: "openid email profile"
 ```
