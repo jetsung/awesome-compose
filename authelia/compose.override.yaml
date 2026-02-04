@@ -1,0 +1,7 @@
+---
+services:
+  authelia:
+    ports: !override
+      - ${SERV_PORT:-9091}:9091
+    volumes:
+      - ./config/derp.yaml:/etc/headscale/derp.yaml

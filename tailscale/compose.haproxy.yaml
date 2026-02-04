@@ -1,0 +1,12 @@
+# https://hub.docker.com/_/haproxy
+services:
+  haproxy:
+    depends_on:
+      - tailscale
+    # user: 0:0 # 容器中调试安装依赖使用
+    container_name: haproxy
+    image: haproxy:alpine
+    restart: unless-stopped
+    volumes:
+      - ./config:/usr/local/etc/haproxy:ro
+    network_mode: service:tailscale

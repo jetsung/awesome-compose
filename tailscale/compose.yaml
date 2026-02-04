@@ -5,13 +5,14 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+      - SYS_MODULE
     container_name: tailscale
     env_file:
       - path: ./.env
         required: false
     hostname: tailscale
     image: tailscale/tailscale:latest
-    network_mode: host
+    # network_mode: host # 不推荐使用
     restart: unless-stopped
     volumes:
       - /dev/net/tun:/dev/net/tun

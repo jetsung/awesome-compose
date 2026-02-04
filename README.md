@@ -63,6 +63,7 @@ SERV_PORT=
 | | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过Web界面管理数据库，如MySQL、SQLite等 |
 | | [aliyundrive](./aliyundrive/) | 阿里云盘 WebDAV 服务，将阿里云盘挂载为标准 WebDAV 文件系统 |
 | 在用 | [asciinema](./asciinema/) | 用于录制和分享终端会话的工具，将终端操作录制成可播放的动画 |
+| 在用 | [authelia](./authelia/) | 一款双因素认证（2FA）与单点登录（SSO）认证服务器，专注于保障应用程序和用户的安全。 |
 | | [bark](./bark/) | 注重隐私、安全可控的自定义通知推送工具 |
 | 在用 | [bore](./bore/) | 简单易用的内网穿透工具，用于将本地服务暴露到公网 |
 | | [blinko](./blinko/) | 下一代开源 AI 驱动的卡片笔记，旨在帮助你快速捕捉和整理灵感，确保创意永不枯竭 |
@@ -84,7 +85,7 @@ SERV_PORT=
 | 在用 | [gitlab-runner](./gitlab-runner/) | GitLab CI/CD 的执行器，用于运行 CI/CD 任务 |
 | 在用 | [gotify](./gotify/) | 简单的发送和接收消息的服务器，用于实时消息推送 |
 | 在用 | [haproxy](./haproxy/) | 一款免费、非常快速且可靠的反向代理，为基于 TCP 和 HTTP 的应用提供高可用性、负载均衡和代理服务 |
-| 在用 | [headscale](./headscale/) | Headscale 是 Tailscale 控制服务器的开源自托管实现。 |
+| 在用 | [headscale](./headscale/) | Tailscale 控制服务器的开源自托管实现。 |
 | | [hedgedoc](./hedgedoc/) | 开源的协作文档编辑器，支持 Markdown 编辑 |
 | 在用 | [hoppscotch](./hoppscotch/) | 轻量级的 API 开发生态系统，用于测试和调试 API |
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
@@ -128,7 +129,7 @@ SERV_PORT=
 | 在用 | [static-web-server](./static-web-server/) | 高性能的静态 Web 服务器 |
 | 在用 | [swagger](./swagger/) | 用于设计、构建和文档化 RESTful API 的工具 |
 | | [syncthing](./syncthing/) | 连续的文件同步程序，用于在不同设备间同步文件 |
-| 在用 | [tailscale](./tailscale/) | Tailscale 是一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载。 |
+| 在用 | [tailscale](./tailscale/) | 一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载。 |
 | | [transfer](./transfer/) | 文件传输服务 |
 | 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
 | 在用 | [vaultwarden](./vaultwarden/) | Bitwarden 密码管理器的非官方服务器实现 |

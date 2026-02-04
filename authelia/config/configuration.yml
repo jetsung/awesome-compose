@@ -1,0 +1,123 @@
+---
+###############################################################
+#                   Authelia configuration                    #
+###############################################################
+
+server:
+  address: 'tcp://:9091'
+  # endpoints:
+  #   authz:
+        # HAProxy
+  #     forward-auth:
+  #       implementation: 'ForwardAuth'
+        # nginx
+      # auth-request:
+      #   implementation: 'AuthRequest'
+
+# log:
+#   # AUTHELIA_LOG_LEVEL
+#   level: 'debug'
+
+totp:
+  issuer: 'auth.example'
+
+# identity_validation:
+#   reset_password:
+      # JWT_SECRET
+#     jwt_secret: 'a_very_important_secret'
+
+# duo_api:
+#  hostname: api-123456789.example.com
+#  integration_key: ABCDEF
+#  # This secret can also be set using the env variables AUTHELIA_DUO_API_SECRET_KEY_FILE
+#  secret_key: 1234567890abcdefghifjkl
+
+authentication_backend:
+  file:
+    path: '/config/users_database.yml'
+
+access_control:
+  default_policy: 'deny'
+  rules:
+    - domain: 'gist.asfd.cn' # *.asfd.cn
+      policy: 'two_factor' # one_factor two_factor
+
+session:
+  # This secret can also be set using the env variables AUTHELIA_SESSION_SECRET_FILE
+  # SESSION_SECRET
+  # secret: 'insecure_session_secret'
+
+  cookies:
+    - name: 'authelia_session'
+      domain: 'auth.example.com'  # Should match whatever your root protected domain is
+      authelia_url: 'https://auth.example.com'  # The URL users use to access Authelia
+      expiration: '1 hour'
+      inactivity: '5 minutes'
+      # default_redirection_url: 'https://public.example.com'
+
+  # redis:
+  #   host: 'redis'
+  #   port: 6379
+    # This secret can also be set using the env variables AUTHELIA_SESSION_REDIS_PASSWORD_FILE
+    # password: authelia
+
+regulation:
+  max_retries: 3
+  find_time: '2 minutes'
+  ban_time: '5 minutes'
+
+# https://www.authelia.com/configuration/storage/
+storage:
+  # AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE
+  # encryption_key: 'you_must_generate_a_random_string_of_more_than_twenty_chars_and_configure_this'
+  local:
+    path: '/database/db.sqlite3'
+
+  # https://www.authelia.com/configuration/storage/postgres/
+  # postgres:
+  #   address: 'tcp://127.0.0.1:5432'
+  #   servers: []
+  #   database: 'authelia'
+  #   schema: 'public'
+  #   username: 'authelia'
+  #   password: 'mypassword'
+  #   timeout: '5s'
+  #   tls:
+
+# https://www.authelia.com/configuration/notifications/
+notifier:
+  filesystem:
+    filename: '/config/notification.txt'
+
+  # # https://www.authelia.com/configuration/notifications/smtp/
+  # smtp:
+  #   username: 'no-reply@example.com'
+  #   # This secret can also be set using the env variables AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE
+  #   # password: 'password'
+  #   address: 'submission://smtp.example.com:587' # smtp://127.0.0.1:25, submission://smtp.gmail.com:587, submissions://[fd00:1111:2222:3333::1]:465
+  #   sender: 'Authelia <no-reply@example.com>'
+  #   # identifier: # string localhost not required
+  #   # subject: '[Authelia] {title}'
+  #   # startup_check_address: # string test@authelia.com not required
+  #   # disable_require_tls: false # boolean false not required
+  #   # disable_starttls: false # # 保持 false，让它用 STARTTLS
+  #   # disable_html_emails: false # boolean false not required
+
+# https://www.authelia.com/configuration/identity-providers/openid-connect/provider/
+identity_providers:
+  oidc:
+    # AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE
+    # hmac_secret: 'this_is_a_secret_abc123abc123abc'
+    jwks:
+      - key: {{ secret "/certs/oidc_jwks/private.pem" | mindent 10 "|" | msquote }}
+      # - key: | # required
+      #     -----BEGIN PRIVATE KEY-----
+      #     -----END PRIVATE KEY-----
+
+    clients:
+      - client_id: 'authelia-client' # 必填，客户端 ID
+        client_name: '' # 非必填，显示名称。不填则与 client_id 一样
+        client_secret: 'authelia-client-secret' # 必填，客户端密钥
+        redirect_uris: # 回调地址列表
+          - 'https://target.com/oauth/openid-connect/callback'
+        token_endpoint_auth_method: client_secret_post

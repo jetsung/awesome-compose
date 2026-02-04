@@ -4,7 +4,7 @@
   "description": "Jetsung Docker Compose Templates for Arcane",
   "author": "jetsung",
   "url": "https://github.com/jetsung/awesome-compose",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "templates": [
     {
       "id": "acme",
@@ -69,6 +69,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/asciinema/README.md",
       "tags": [
         "asciinema"
+      ]
+    },
+    {
+      "id": "authelia",
+      "name": "Authelia",
+      "description": "一款双因素认证（2FA）与单点登录（SSO）认证服务器，专注于保障应用程序和用户的安全。它可被视为反向代理的扩展，提供特定的认证功能。其具备的部分功能如下：",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/authelia/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/authelia/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/authelia/README.md",
+      "tags": [
+        "authelia"
       ]
     },
     {
@@ -446,6 +459,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/litellm/README.md",
       "tags": [
         "litellm"
+      ]
+    },
+    {
+      "id": "logto",
+      "name": "Logto",
+      "description": "现代开源的 SaaS 和 AI 应用认证基础设施。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/logto/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/logto/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/logto/README.md",
+      "tags": [
+        "logto"
       ]
     },
     {

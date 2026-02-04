@@ -1,0 +1,20 @@
+---
+# https://hub.docker.com/r/authelia/authelia
+services:
+  authelia:
+    container_name: authelia
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: authelia
+    healthcheck:
+      disable: false
+    image: authelia/authelia:latest
+    ports:
+      - 9091:9091
+    restart: unless-stopped
+    volumes:
+      - ./config:/config
+      - ./data/secrets:/secrets
+      - ./data/database:/database
+      - ./data/certs:/certs

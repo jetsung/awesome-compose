@@ -1,0 +1,50 @@
+# 密钥配置
+
+- https://www.authelia.com/configuration/methods/secrets/#environment-variables
+
+```bash
+# authentication_backend.ldap.password
+AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE=
+# authentication_backend.ldap.tls.certificate_chain
+AUTHELIA_AUTHENTICATION_BACKEND_LDAP_TLS_CERTIFICATE_CHAIN_FILE=
+# authentication_backend.ldap.tls.private_key
+AUTHELIA_AUTHENTICATION_BACKEND_LDAP_TLS_PRIVATE_KEY_FILE=
+# duo_api.integration_key
+AUTHELIA_DUO_API_INTEGRATION_KEY_FILE=
+# duo_api.secret_key
+AUTHELIA_DUO_API_SECRET_KEY_FILE=
+# identity_providers.oidc.hmac_secret
+AUTHELIA_IDENTITY_PROVIDERS_OIDC_HMAC_SECRET_FILE=
+# identity_validation.reset_password.jwt_secret
+AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE=
+# notifier.smtp.password
+AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE=
+# notifier.smtp.tls.certificate_chain
+AUTHELIA_NOTIFIER_SMTP_TLS_CERTIFICATE_CHAIN_FILE=
+# notifier.smtp.tls.private_key
+AUTHELIA_NOTIFIER_SMTP_TLS_PRIVATE_KEY_FILE=
+# session.redis.high_availability.sentinel_password
+AUTHELIA_SESSION_REDIS_HIGH_AVAILABILITY_SENTINEL_PASSWORD_FILE=
+# session.redis.password
+AUTHELIA_SESSION_REDIS_PASSWORD_FILE=
+# session.redis.tls.certificate_chain
+AUTHELIA_SESSION_REDIS_TLS_CERTIFICATE_CHAIN_FILE=
+# session.redis.tls.private_key
+AUTHELIA_SESSION_REDIS_TLS_PRIVATE_KEY_FILE=
+# session.secret
+AUTHELIA_SESSION_SECRET_FILE=
+# storage.encryption_key
+AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE=
+# storage.mysql.password
+AUTHELIA_STORAGE_MYSQL_PASSWORD_FILE=
+# storage.mysql.tls.certificate_chain
+AUTHELIA_STORAGE_MYSQL_TLS_CERTIFICATE_CHAIN_FILE=
+# storage.mysql.tls.private_key
+AUTHELIA_STORAGE_MYSQL_TLS_PRIVATE_KEY_FILE=
+# storage.postgres.password
+AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE=
+# storage.postgres.tls.certificate_chain
+AUTHELIA_STORAGE_POSTGRES_TLS_CERTIFICATE_CHAIN_FILE=
+# storage.postgres.tls.private_key
+AUTHELIA_STORAGE_POSTGRES_TLS_PRIVATE_KEY_FILE=
+```

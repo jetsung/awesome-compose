@@ -16,3 +16,17 @@
 ## 配置
 
 - 修改为 `meilisearch` 索引后，需要在后台更新索引：`通用` -> `动作` -> `索引所有 Gists`
+
+### OIDC
+- [回调地址](https://opengist.io/docs/configuration/oauth-providers.html)
+```bash
+http://opengist.url/oauth/openid-connect/callback
+```
+- 环境变量
+```bash
+OG_OIDC_PROVIDER_NAME=<provider-name>
+OG_OIDC_CLIENT_KEY=<key>
+OG_OIDC_SECRET=<secret>
+# Discovery endpoint of the OpenID provider. Generally something like http://auth.example.com/.well-known/openid-configuration
+OG_OIDC_DISCOVERY_URL=http://auth.example.com/.well-known/openid-configuration
+```
