@@ -31,9 +31,6 @@ docker exec -it tailscale tailscale set --hostname=XXX
 - 设置参数 [`TS_EXTRA_ARGS`](https://tailscale.com/kb/1282/docker#ts_extra_args) 值（[自定义服务器](https://tailscale.com/kb/1080/cli)）
 ```bash
 TS_EXTRA_ARGS=--login-server=https://myheadscale.example.com --accept-routes
-
-# 使用 Derper
-TS_EXTRA_ARGS=--derpmap=https://derp.yourdomain.com/derp
 ```
 
 ## [CLI 参数](https://tailscale.com/kb/1080/cli)
@@ -42,51 +39,6 @@ TS_EXTRA_ARGS=--derpmap=https://derp.yourdomain.com/derp
 - 本站翻译文档：[CLI.md](CLI.md)
 
 ## 配置
-### [自定义 DERP 服务器](https://headscale.net/0.27.1/ref/derp/)
-- demo: https://github.com/juanfont/headscale/blob/main/derp-example.yaml
-
-配置文件 `derp.yaml`
-<details>
-<summary>点击查看</summary>
-
-```yaml
-regions:
-  900:
-    regionid: 900
-    regioncode: custom-east
-    regionname: My region (east)
-    nodes:
-      - name: 900a
-        regionid: 900
-        hostname: derp900a.example.com
-        ipv4: 198.51.100.1
-        ipv6: 2001:db8::1
-        canport80: true
-  901:
-    regionid: 901
-    regioncode: custom-west
-    regionname: My Region (west)
-    nodes:
-      - name: 901a
-        regionid: 901
-        hostname: derp901a.example.com
-        ipv4: 198.51.100.2
-        ipv6: 2001:db8::2
-        canport80: true
-```
-</details>
-
-文件 `headscale.yaml` 修改为
-```diff
-derp:
-  server:
-    enabled: false
--  urls:
--    - https://controlplane.tailscale.com/derpmap/default
-+ urls: []
-  paths:
-    - /etc/headscale/derp.yaml
-```
 
 ### 跨服务器配置联网
 **需求：** A1,B1,C1(tailscale) 与 A2,B2,C2(tailscale) 之间联网
@@ -266,27 +218,6 @@ curl host1
 
 # 指定域名
 curl host1 -H "Host: api.example.com"
-```
-
-或者设置 [Headscale 服务的 DNS](https://headscale.net/stable/ref/dns/) 动态 DNS
-```yaml
-dns:
-  extra_records_path: /config/extra-records.json
-```
-动态加载域名记录
-```json
-[
-  {
-    "name": "grafana.myvpn.example.com",
-    "type": "A",
-    "value": "100.64.0.3"
-  },
-  {
-    "name": "prometheus.myvpn.example.com",
-    "type": "A",
-    "value": "100.64.0.3"
-  }
-]
 ```
 
 ## 常见问题

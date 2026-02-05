@@ -1,0 +1,76 @@
+- https://github.com/juanfont/headscale/blob/ca75e096e6833c0a01d14381a1b9cacf12e7272f/integration/hsic/hsic.go
+
+```bash
+# Headscale服务的调试分析功能是否启用，1表示启用
+HEADSCALE_DEBUG_PROFILING_ENABLED=1
+# Headscale服务调试分析文件的存储路径
+HEADSCALE_DEBUG_PROFILING_PATH=/tmp/profile
+# Headscale服务调试时转储MapResponse的存储路径
+HEADSCALE_DEBUG_DUMP_MAPRESPONSE_PATH=/tmp/mapresponses
+# Headscale服务是否启用死锁调试，1表示启用
+HEADSCALE_DEBUG_DEADLOCK=1
+# Headscale服务死锁调试的超时时间
+HEADSCALE_DEBUG_DEADLOCK_TIMEOUT=5s
+# Headscale服务是否启用高基数指标调试，1表示启用
+HEADSCALE_DEBUG_HIGH_CARDINALITY_METRICS=1
+# Headscale服务是否转储配置信息，1表示启用
+HEADSCALE_DEBUG_DUMP_CONFIG=1
+# Headscale使用的数据库类型，若使用Postgres则为postgres
+HEADSCALE_DATABASE_TYPE=
+# Headscale连接Postgres数据库的主机地址
+HEADSCALE_DATABASE_POSTGRES_HOST=
+# Headscale连接Postgres数据库的用户名
+HEADSCALE_DATABASE_POSTGRES_USER=headscale
+# Headscale连接Postgres数据库的密码
+HEADSCALE_DATABASE_POSTGRES_PASS=headscale
+# Headscale连接Postgres数据库的名称
+HEADSCALE_DATABASE_POSTGRES_NAME=headscale
+# Headscale使用SQLite数据库时的路径（使用Postgres时会删除该配置）
+HEADSCALE_DATABASE_SQLITE_PATH=
+# Headscale服务的TLS证书路径
+HEADSCALE_TLS_CERT_PATH=
+# Headscale服务的TLS密钥路径
+HEADSCALE_TLS_KEY_PATH=
+# Headscale服务的URL地址
+HEADSCALE_SERVER_URL=
+# Headscale服务的监听地址
+HEADSCALE_LISTEN_ADDR=
+# Headscale使用的策略文件路径
+HEADSCALE_POLICY_PATH=
+# Headscale的策略模式，如File、DB等
+HEADSCALE_POLICY_MODE=
+# Headscale的IP地址分配策略
+HEADSCALE_PREFIXES_ALLOCATION=
+# Headscale的DERP服务器URL列表，若使用自定义DERP配置或仅使用嵌入式DERP，该值为空
+HEADSCALE_DERP_URLS=
+# Headscale的嵌入式DERP服务器是否启用，true表示启用
+HEADSCALE_DERP_SERVER_ENABLED=
+# Headscale的嵌入式DERP服务器区域ID
+HEADSCALE_DERP_SERVER_REGION_ID=999
+# Headscale的嵌入式DERP服务器区域代码
+HEADSCALE_DERP_SERVER_REGION_CODE=headscale
+# Headscale的嵌入式DERP服务器区域名称
+HEADSCALE_DERP_SERVER_REGION_NAME=Headscale Embedded DERP
+# Headscale的嵌入式DERP服务器STUN监听地址
+HEADSCALE_DERP_SERVER_STUN_LISTEN_ADDR=0.0.0.0:3478
+# Headscale的嵌入式DERP服务器私钥路径
+HEADSCALE_DERP_SERVER_PRIVATE_KEY_PATH=/tmp/derp.key
+# 是否启用DERP调试日志，true表示启用
+DERP_DEBUG_LOGS=
+# 是否启用DERP探测器调试日志，true表示启用
+DERP_PROBER_DEBUG_LOGS=
+# Headscale的DERP配置文件路径
+HEADSCALE_DERP_PATHS=/etc/headscale/derp.yaml
+# Headscale调整设置中的批量更改延迟时间
+HEADSCALE_TUNING_BATCH_CHANGE_DELAY=
+# Headscale调整设置中的节点映射会话缓冲通道大小
+HEADSCALE_TUNING_NODE_MAPSESSION_BUFFERED_CHAN_SIZE=
+# 容器使用的时区
+TZ=
+# 是否使用IP地址而不是主机名用于DERP服务器，1表示启用
+HEADSCALE_DEBUG_DERP_USE_IP=
+# 预构建的Headscale镜像名称，格式为repository:tag
+HEADSCALE_INTEGRATION_HEADSCALE_IMAGE=
+# 预构建的Postgres镜像名称，格式为repository:tag
+HEADSCALE_INTEGRATION_POSTGRES_IMAGE=
+```

@@ -23,7 +23,7 @@ services:
     tmpfs:
       - /var/run/headscale
     volumes:
-      - ./config/headscale.yaml:/etc/headscale/config.yaml
+      - ./config/headscale:/etc/headscale
       - ./data/headscale:/var/lib/headscale
 
 # https://ghcr.io/tale/headplane
@@ -39,8 +39,8 @@ services:
     restart: unless-stopped
     volumes:
       # - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./config/headscale.yaml:/etc/headscale/config.yaml
-      - ./config/headplane.yaml:/etc/headplane/config.yaml
+      - ./config/headscale/config:/etc/headscale
+      - ./config/headplane/config:/etc/headplane
       - ./data/headplane:/var/lib/headplane
     profiles:
       - plane

@@ -15,94 +15,41 @@
 
 ## 配置
 
-1. 下载 `config.yaml` 配置文件
+下载 `config.yaml` 配置文件
 ```bash
-curl -o config/headscale.yaml https://raw.githubusercontent.com/juanfont/headscale/v0.27.1/config-example.yaml
+curl -o config/headscale/config.yaml https://raw.githubusercontent.com/juanfont/headscale/v0.27.1/config-example.yaml
 ```
 
-2. 更新配置
+## 环境变量设置
+
+**注意：** 经测，有些环境变量不生效。建议使用 `config/headscale/config.yaml`。
 ```bash
-# 主服务
-sed -i 's#^listen_addr:.*#listen_addr: 0.0.0.0:8080#g' config/headscale.yaml
+# Headscale服务的URL地址
+# 域名，含端口，如 https://headscale.net:443
+HEADSCALE_SERVER_URL=http://0.0.0.0:8080
+# Headscale服务的监听地址
+HEADSCALE_LISTEN_ADDR=0.0.0.0:8080
+# Headscale的DERP配置文件路径
+HEADSCALE_DERP_PATHS=/etc/headscale/derp.yaml
 
-# metrics 服务
-sed -i 's#^metrics_listen_addr:.*#metrics_listen_addr: 0.0.0.0:9090#g' config/headscale.yaml
-
-# 绑定的域名
-sed -i 's#^server_url:.*#server_url: https://MYHEADSCALE.EXAMPLE.COM#g' config/headscale.yaml
-
-# 在 Tailscale 的配置中添加服务器地址（建议启用 https）
-# TS_EXTRA_ARGS=--login-server=https://MYHEADSCALE.EXAMPLE.COM
-
-# 修改基础域名。以便使用主机时可以通过 hostname.base_domain 方式访问
-sed -i 's#^  base_domain:.*#  base_domain: domain.xx#g' config/headscale.yaml
-```
-
-建议使用[环境变量设置](https://github.com/juanfont/headscale/blob/main/integration/hsic/config.go#L24)
-```bash
 # 日志级别，可选：debug / info / warn / error / trace
 HEADSCALE_LOG_LEVEL=trace
-
-# 自定义策略文件路径（ACL 配置），留空表示默认
-HEADSCALE_POLICY_PATH=
-
-# 数据库类型，可选：sqlite / postgres / mysql
-HEADSCALE_DATABASE_TYPE=sqlite
-
-# SQLite 数据库文件路径（仅 sqlite 时有效）
-HEADSCALE_DATABASE_SQLITE_PATH=/tmp/integration_test_db.sqlite3
-
-# 数据库调试开关，0=关闭，1=开启
-HEADSCALE_DATABASE_DEBUG=0
-
-# GORM 慢查询阈值（秒），超过该值会记录慢查询
-HEADSCALE_DATABASE_GORM_SLOW_THRESHOLD=1
-
-# 临时节点（Ephemeral Node）闲置超时时间，超过该时间节点将被移除
-HEADSCALE_EPHEMERAL_NODE_INACTIVITY_TIMEOUT=30m
-
-# 分配给 Headscale / Tailscale 节点的 IPv4 网段（通常是 100.64.0.0/10）
-HEADSCALE_PREFIXES_V4=100.64.0.0/10
-
-# 分配给 Headscale / Tailscale 节点的 IPv6 网段
-HEADSCALE_PREFIXES_V6=fd7a:115c:a1e0::/48
-
 # MagicDNS 的基础域名（所有节点 hostname 将解析到此域名下）
 HEADSCALE_DNS_BASE_DOMAIN=headscale.net
-
 # 是否启用 MagicDNS（自动解析节点 hostname）
 HEADSCALE_DNS_MAGIC_DNS=true
-
 # 是否覆盖本地 DNS，false 表示本地 DNS 请求仍会正常解析
-HEADSCALE_DNS_OVERRIDE_LOCAL_DNS=false
-
-# 全局 DNS 服务器列表（空格分隔）
-HEADSCALE_DNS_NAMESERVERS_GLOBAL=127.0.0.11 1.1.1.1
-
-# Headscale 私钥路径（节点身份签名用）
-HEADSCALE_PRIVATE_KEY_PATH=/tmp/private.key
-
-# Noise 私钥路径（WireGuard 握手加密用）
-HEADSCALE_NOISE_PRIVATE_KEY_PATH=/tmp/noise_private.key
-
+# HEADSCALE_DNS_OVERRIDE_LOCAL_DNS=false
 # Prometheus 兼容的 metrics 监听地址
 HEADSCALE_METRICS_LISTEN_ADDR=0.0.0.0:9090
 
 # DERP 服务器 URL，用于跨 NAT / 公网节点中继
-HEADSCALE_DERP_URLS=https://controlplane.tailscale.com/derpmap/default
-
-# 是否允许自动更新 DERP 地图
-HEADSCALE_DERP_AUTO_UPDATE_ENABLED=false
-
-# DERP 自动更新频率（仅在自动更新开启时有效）
-HEADSCALE_DERP_UPDATE_FREQUENCY=1m
-
-# Debug 端口，用于调试和诊断
-HEADSCALE_DEBUG_PORT=40000
-
-# 分配节点 IP 的方式，可选：sequential（顺序）、random（随机）
-HEADSCALE_PREFIXES_ALLOCATION=sequential
+# HEADSCALE_DERP_URLS=https://controlplane.tailscale.com/derpmap/default
 ```
+
+### [环境变量 config](https://github.com/juanfont/headscale/blob/main/integration/hsic/config.go#L24)
+
+查看 [ENV_CONFIG.md](ENV_CONFIG.md)
 
 **额外提示**：
 > 1. `HEADSCALE_DNS_BASE_DOMAIN` + `HEADSCALE_DNS_MAGIC_DNS=true` 可以让节点在 VPN 内用 `<hostname>.headscale.net` 互相访问
@@ -110,9 +57,88 @@ HEADSCALE_PREFIXES_ALLOCATION=sequential
 > 3. `HEADSCALE_EPHEMERAL_NODE_INACTIVITY_TIMEOUT` 适合短期临时节点，如 CI/CD 测试容器
 > 4. `HEADSCALE_NOISE_PRIVATE_KEY_PATH` 与 `HEADSCALE_PRIVATE_KEY_PATH` 建议挂载 volume 保持持久，否则容器重启节点会换身份
 
-3. 查看可用性
+### [环境变量 hsic](https://github.com/juanfont/headscale/blob/main/integration/hsic/hsic.go)
+
+查看 [ENV_HSIC.md](ENV_HSIC.md)
+
+## 其它设置
+
+### 自定义 [DERP 服务器](https://headscale.net/0.27.1/ref/derp/)
+- demo: https://github.com/juanfont/headscale/blob/main/derp-example.yaml
+
+配置文件 `derp.yaml`
+<details>
+<summary>点击查看</summary>
+
+```yaml
+regions:
+  900:
+    regionid: 900
+    regioncode: custom-east
+    regionname: My region (east)
+    nodes:
+      - name: 900a
+        regionid: 900
+        hostname: derp900a.example.com
+        ipv4: 198.51.100.1
+        ipv6: 2001:db8::1
+        canport80: true
+  901:
+    regionid: 901
+    regioncode: custom-west
+    regionname: My Region (west)
+    nodes:
+      - name: 901a
+        regionid: 901
+        hostname: derp901a.example.com
+        ipv4: 198.51.100.2
+        ipv6: 2001:db8::2
+        canport80: true
+```
+</details>
+
+文件 `headscale.yaml` 修改为
+```diff
+derp:
+  server:
+    enabled: false
+-  urls:
+-    - https://controlplane.tailscale.com/derpmap/default
++ urls: []
+  paths:
+    - /etc/headscale/derp.yaml
+```
+
+查看 DERP 服务器列表
 ```bash
-curl http://127.0.0.1:8080/health
+docker exec tailscale tailscale netcheck
+```
+
+### 设置 [Headscale 服务的 DNS](https://headscale.net/stable/ref/dns/) 动态 DNS
+
+- `./data/headscale/config.yaml`
+```diff
+dns:
+-  extra_records: []
++  # extra_records: []
+-  # extra_records_path: /var/lib/headscale/extra-records.json
++  extra_records_path: /var/lib/headscale/extra-records.json
+```
+
+- 动态加载域名记录文件 `./data/headscale/extra-records.json`
+```json
+[
+  {
+    "name": "grafana.myvpn.example.com",
+    "type": "A",
+    "value": "100.64.0.3"
+  },
+  {
+    "name": "prometheus.myvpn.example.com",
+    "type": "A",
+    "value": "100.64.0.3"
+  }
+]
 ```
 
 ## 操作
@@ -194,7 +220,7 @@ docker exec -it tailscale tailscale ping 100.64.0.2
 ```bash
 # headscale ####################
 ## 启动后，创建 API KEY
-docker exec -it headscale headscale apikeys
+docker exec -it headscale headscale apikeys create
 
 ## 保存至环境变量后，重新启动
 HEADPLANE_OIDC__HEADSCALE_API_KEY=
@@ -207,8 +233,11 @@ docker exec -it headscale headscale users list
 
 ## 创建 AuthKey
 docker exec -it headscale headscale preauthkeys create \
-  --user 2 \
+  --user 1 \
   --reusable
+
+## 用户重命名
+docker exec -it headscale headscale users rename -i 1 -r jetsung
 
 # tailscale ####################
 ## AuthKey 保存至 tailscale 环境变量
@@ -240,7 +269,7 @@ TS_EXTRA_ARGS=--login-server=https://headscale.server --accept-routes
 ## 配置
 1. 下载 `config.yaml` 配置文件
 ```bash
-curl -o config/headplane.yaml https://raw.githubusercontent.com/tale/headplane/refs/heads/main/config.example.yaml
+curl -o config/headplane/config.yaml https://raw.githubusercontent.com/tale/headplane/refs/heads/main/config.example.yaml
 ```
 
 2. 更新配置
@@ -304,7 +333,7 @@ HEADPLANE_OIDC__TOKEN_ENDPOINT_AUTH_METHOD=client_secret_basic
 HEADPLANE_OIDC__SCOPE=openid email profile
 ```
 
-- `config/headplane.yaml`
+- `config/headplane/config.yaml`
 ```yaml
 oidc:
   headscale_api_key: "<generated-api-key>"
