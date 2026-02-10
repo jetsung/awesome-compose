@@ -1,0 +1,15 @@
+---
+# https://hub.docker.com/r/openresty/openresty
+services:
+  openresty:
+    depends_on:
+      - tailscale
+    container_name: openresty
+    env_file:
+      - path: ./.env
+        required: false
+    image: openresty/openresty:alpine
+    restart: unless-stopped
+    volumes:
+      - ./config/nginx.d:/etc/nginx/conf.d:rw
+    network_mode: service:tailscale

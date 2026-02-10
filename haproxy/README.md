@@ -25,7 +25,6 @@
 global
     log stdout format raw local0 info
     maxconn 4096
-    master-worker                       # 建议开启，支持平滑重启
 
 defaults
     log     global

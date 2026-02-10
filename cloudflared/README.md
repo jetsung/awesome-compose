@@ -26,3 +26,23 @@ TUNNEL_TOKEN=
 # 密钥文件
 # TUNNEL_TOKEN_FILE=
 ```
+
+## 构建（使用 `alpine` 作为底座）
+```dockerfile
+FROM cloudflare/cloudflared:latest AS builder
+
+FROM alpine:latest
+
+LABEL org.opencontainers.image.source="https://github.com/cloudflare/cloudflared"
+
+COPY --from=builder /usr/local/bin/cloudflared /usr/local/bin/cloudflared
+
+ENTRYPOINT ["cloudflared", "--no-autoupdate"]
+
+CMD ["version"]
+```
+
+基于 cloudflare/cloudflared:latest 构建对应的 alpine 为基础的镜像。
+```bash
+docker build -t cloudflared .
+```

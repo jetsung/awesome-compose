@@ -59,7 +59,8 @@ networks:
     external: true  
 ```
 
-3. 使用 HAProxy 作为反代
+3. 反向代理
+**使用 HAProxy**
 ```yaml
 ---
 # https://hub.docker.com/_/haproxy
@@ -86,7 +87,6 @@ services:
 global
     log stdout format raw local0 info          # 日志输出到 stdout
     maxconn 4096                               # 最大并发连接数
-    master-worker                              # 支持平滑 reload
 
 ###########################################
 # 默认设置
@@ -178,7 +178,45 @@ backend api_backend
 # acl host_api hdr(host) -i api.example.com
 # use_backend api_backend if host_api
 ```
+</details>
 
+**使用 OpenResty 等 Nginx 衍生版**
+```yaml
+---
+# https://hub.docker.com/r/openresty/openresty
+services:
+  openresty:
+    depends_on:
+      - tailscale
+    container_name: openresty
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: openresty
+    image: openresty/openresty:alpine
+    restart: unless-stopped
+    volumes:
+      - ./config/nginx.d:/etc/nginx/conf.d:rw
+```
+配置文件夹 `config/nginx.d/api.example.com.conf`
+
+<details>
+<summary>点击查看</summary>
+
+```bash
+server {
+    listen 80;
+    server_name api.example.com;
+
+    location / {
+        proxy_pass http://host.docker.internal:9120;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
 </details>
 
 4. 反代之后，其它服务器可以访问其它服务器的 IP + 端口识别入口网站，或者其它服务器的 IP + Host（域名）识别。
@@ -218,6 +256,11 @@ curl host1
 
 # 指定域名
 curl host1 -H "Host: api.example.com"
+
+# 使用 hostname + base_domain 方式
+# hostname 为 tailscale 的 TS_HOSTNAME （--hostname）
+# base_domain 为 headscale 配置的 HEADSCALE_DNS_BASE_DOMAIN （dns.base_domain）
+curl host1.example.com -H "Host: api.example.com"
 ```
 
 ## 常见问题
