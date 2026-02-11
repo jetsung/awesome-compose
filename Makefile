@@ -292,7 +292,7 @@ update-registry: ## 更新 registry.json 模板列表：prefix="URL 前缀" v="�
 		   '. += [({id: $$id, name: $$name, description: $$desc, version: $$ver, author: "jetsung", compose_url: $$compose} + (if $$env != "" then {env_url: $$env} else {} end) + {documentation_url: $$doc, tags: [$$id]})]' \
 		   registry_templates.json > registry_templates.json.new && mv registry_templates.json.new registry_templates.json; \
 	done < paths.tmp.txt; \
-	jq --slurpfile t registry_templates.json '.templates = $$t[0]' registry.json > registry.json.new && mv registry.json.new registry.json; \
+	jq --slurpfile t registry_templates.json '.templates = ($$t[0] | sort_by(.id))' registry.json > registry.json.new && mv registry.json.new registry.json; \
 	rm registry_templates.json paths.tmp.txt; \
 	echo "registry.json updated successfully."
 
@@ -341,6 +341,6 @@ update-template: ## 更新单个模板：id=文件夹名称 prefix="URL 前缀" 
 		   --arg env "$$env_url" \
 		   '{id: $$id, name: $$name, description: $$desc, version: $$ver, author: "jetsung", compose_url: $$compose} + (if $$env != "" then {env_url: $$env} else {} end) + {documentation_url: $$doc, tags: [$$id]}'); \
 	jq --arg id "$$real_id" --argjson t "$$template" \
-	   '(.templates | map(.id) | index($$id)) as $$idx | if $$idx then .templates[$$idx] = $$t else .templates += [$$t] end | .templates |= sort_by(.id)' \
+	   '(.templates | map(.id) | index($$id)) as $$idx | if $$idx != null then .templates[$$idx] = $$t else .templates += [$$t] end | .templates |= sort_by(.id)' \
 	   registry.json > registry.json.new && mv registry.json.new registry.json; \
 	echo "Template $$real_id updated (version $$VERSION) in registry.json."

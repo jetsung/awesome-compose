@@ -91,7 +91,7 @@ SERV_PORT=
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
 | 在用 | [komodo](./komodo/) | 现代化的代码编辑器 |
 | 在用 | [linkding](./linkding/) | 简单、快速的自托管书签服务 |
-| 在用 | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
+| | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
 | | [listmonk](./listmonk/) | 高性能、可自托管的邮件通讯和营销自动化工具 |
 | | [logto](./logto/) | 现代开源的 SaaS 和 AI 应用认证基础设施 |
 | | [mamoto](./mamoto/) | 提供网站分析服务的开源平台 |
@@ -101,6 +101,7 @@ SERV_PORT=
 | 在用 | [mindoc](./mindoc/) | 基于 Go 的简约文档管理系统 |
 | 在用 | [minio](./minio/) | 高性能的对象存储服务，兼容 Amazon S3 API |
 | 在用 | [mysql](./mysql/) | 世界最流行的开源关系型数据库管理系统之一 |
+| 在用 | [new-api](./new-api/) | 新一代 AI 基座平台，为您的 AI 应用提供统一的基础设施。承载所有 AI 应用，管理您的数字资产，连接未来的统一接口平台。 |
 | | [nginx-php](./nginx-php/) | 集成 Nginx 和 PHP-FPM 的 Web 服务器环境 |
 | | [ntfy](./ntfy/) | 简单易用的自托管通知服务，用于推送消息到手机或桌面 |
 | 在用 | [ollama](./ollama/) | 轻量级、可扩展的大语言模型运行时，支持本地运行和 GPU 加速 |

@@ -566,6 +566,19 @@
       ]
     },
     {
+      "id": "new-api",
+      "name": "New-API",
+      "description": "新一代 AI 基座平台，为您的 AI 应用提供统一的基础设施。承载所有 AI 应用，管理您的数字资产，连接未来的统一接口平台。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/new-api/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/new-api/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/new-api/README.md",
+      "tags": [
+        "new-api"
+      ]
+    },
+    {
       "id": "nginx-php",
       "name": "NGINX-PHP",
       "description": "NGINX-PHP",
@@ -605,6 +618,19 @@
       ]
     },
     {
+      "id": "open-webui",
+      "name": "open-webui",
+      "description": "一个可扩展 、功能丰富且用户友好的自托管 AI 平台，旨在完全离线运行。 它支持各种 LLM 运行器，如 Ollama 和 OpenAI 兼容的 API，并内置了 RAG 推理引擎 ，使其成为强大的 AI 部署解决方案 。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/README.md",
+      "tags": [
+        "open-webui"
+      ]
+    },
+    {
       "id": "opengist",
       "name": "opengist",
       "description": "一个由 Git 提供支持的自托管粘贴。所有代码片段都存储在 Git 存储库中，可以使用标准 Git 命令或 Web 界面读取和/或修改。它类似于 [GitHub Gist](https://gist.github.com/)，但开源并且可以自托管。",
@@ -641,19 +667,6 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/openssh-server/README.md",
       "tags": [
         "openssh-server"
-      ]
-    },
-    {
-      "id": "open-webui",
-      "name": "open-webui",
-      "description": "一个可扩展 、功能丰富且用户友好的自托管 AI 平台，旨在完全离线运行。 它支持各种 LLM 运行器，如 Ollama 和 OpenAI 兼容的 API，并内置了 RAG 推理引擎 ，使其成为强大的 AI 部署解决方案 。",
-      "version": "1.0.0",
-      "author": "jetsung",
-      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/.env",
-      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/README.md",
-      "tags": [
-        "open-webui"
       ]
     },
     {
@@ -722,19 +735,6 @@
       ]
     },
     {
-      "id": "rclone-backup",
-      "name": "rclone-backup",
-      "description": "基于 rclone 的 Docker 定时备份解决方案，支持多目标备份和灵活的配置管理。",
-      "version": "1.0.0",
-      "author": "jetsung",
-      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/.env",
-      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/README.md",
-      "tags": [
-        "rclone-backup"
-      ]
-    },
-    {
       "id": "rclone",
       "name": "rclone",
       "description": "一种广泛使用的开源文件同步工具。它可以在本地计算机之间、本地计算机与远程服务器之间，或者通过网络在不同设备之间高效地同步文件和目录。以下是关于“rsync”的一些特点和用途：",
@@ -745,6 +745,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/README.md",
       "tags": [
         "rclone"
+      ]
+    },
+    {
+      "id": "rclone-backup",
+      "name": "rclone-backup",
+      "description": "基于 rclone 的 Docker 定时备份解决方案，支持多目标备份和灵活的配置管理。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/README.md",
+      "tags": [
+        "rclone-backup"
       ]
     },
     {
@@ -943,19 +956,6 @@
       ]
     },
     {
-      "id": "vaultwarden-backup",
-      "name": "vaultwarden-backup",
-      "description": "一个使用 rclone 备份 Vaultwarden 的开源项目",
-      "version": "1.0.0",
-      "author": "jetsung",
-      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/.env",
-      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/README.md",
-      "tags": [
-        "vaultwarden-backup"
-      ]
-    },
-    {
       "id": "vaultwarden",
       "name": "Vaultwarden",
       "description": "用 Rust 编写的非官方 Bitwarden 兼容服务器",
@@ -966,6 +966,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/README.md",
       "tags": [
         "vaultwarden"
+      ]
+    },
+    {
+      "id": "vaultwarden-backup",
+      "name": "vaultwarden-backup",
+      "description": "一个使用 rclone 备份 Vaultwarden 的开源项目",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/README.md",
+      "tags": [
+        "vaultwarden-backup"
       ]
     },
     {
