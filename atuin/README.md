@@ -15,6 +15,11 @@
 
 **官方不推荐直接使用 `latest` / `main`**
 
+## 初始化
+```bash
+chown 1000:1000 ./data
+```
+
 ## 客户端配置
 配置文件：`~/.config/atuin/config.toml`
 ```toml

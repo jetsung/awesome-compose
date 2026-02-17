@@ -2,6 +2,8 @@
 # https://github.com/atuinsh/atuin/pkgs/container/atuin
 services:
   atuin:
+    command:
+      - start  
     container_name: atuin
     env_file:
       - path: ./.env

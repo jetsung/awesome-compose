@@ -182,4 +182,4 @@ jq '.templates=[] | .name="Jetsung Arcane Templates" | .description="Jetsung Doc
 
 ## 仓库镜像
 
-[MyCode](https://git.jetsung.com/jetsung/awesome-compose) ● [Framagit](https://framagit.org/jetsung/awesome-compose) ● [GitCode](https://gitcode.com/jetsung/awesome-compose) ● [GitHub](https://github.com/jetsung/awesome-compose)
+[MyCode](https://git.jetsung.com/jetsung/awesome-compose) ● [GitCode](https://gitcode.com/jetsung/awesome-compose) ● [GitHub](https://github.com/jetsung/awesome-compose)
