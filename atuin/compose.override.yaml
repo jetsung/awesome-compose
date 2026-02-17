@@ -1,0 +1,7 @@
+---
+services:
+  atuin:
+    ports: !override
+      - ${SERV_PORT:-8888}:8888
+    volumes:
+      - ./data:/config

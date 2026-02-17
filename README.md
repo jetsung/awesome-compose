@@ -63,6 +63,7 @@ SERV_PORT=
 | | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过Web界面管理数据库，如MySQL、SQLite等 |
 | | [aliyundrive](./aliyundrive/) | 阿里云盘 WebDAV 服务，将阿里云盘挂载为标准 WebDAV 文件系统 |
 | 在用 | [asciinema](./asciinema/) | 用于录制和分享终端会话的工具，将终端操作录制成可播放的动画 |
+| 在用 | [atuin](./atuin/) | 使用 SQLite 数据库取代 Shell 历史，并通过 Atuin 服务器提供机器间完全加密的历史记录同步功能。 |
 | 在用 | [authelia](./authelia/) | 一款双因素认证（2FA）与单点登录（SSO）认证服务器，专注于保障应用程序和用户的安全。 |
 | | [bark](./bark/) | 注重隐私、安全可控的自定义通知推送工具 |
 | 在用 | [bore](./bore/) | 简单易用的内网穿透工具，用于将本地服务暴露到公网 |

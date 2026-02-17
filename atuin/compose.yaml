@@ -1,0 +1,13 @@
+---
+# https://github.com/atuinsh/atuin/pkgs/container/atuin
+services:
+  atuin:
+    container_name: atuin
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: atuin
+    image: ghcr.io/atuinsh/atuin:latest
+    ports:
+      - 8888:8888
+    restart: unless-stopped
