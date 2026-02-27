@@ -4,7 +4,7 @@
 
 ---
 
-> [Forgejo][1]
+> [Forgejo][1] 是一个轻量级、自托管的软件锻造平台（software forge），主要用于代码托管和团队协作开发。它本质上是 Gitea 的一个硬分叉（hard fork），由非营利组织 Codeberg e.V. 支持，强调完全自由软件、社区治理、隐私保护以及长期可持续性。
 
 [1]:https://codeberg.org/forgejo/forgejo
 [2]:https://codeberg.org/forgejo/forgejo

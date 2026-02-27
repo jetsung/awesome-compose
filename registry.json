@@ -72,6 +72,19 @@
       ]
     },
     {
+      "id": "atuin",
+      "name": "Atuin",
+      "description": "使用 SQLite 数据库取代了你现有的 Shell 历史，并为你的命令记录了额外的内容。此外，它还通过 Atuin 服务器，在机器之间提供可选的、完全加密的历史记录同步功能。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/atuin/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/atuin/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/atuin/README.md",
+      "tags": [
+        "atuin"
+      ]
+    },
+    {
       "id": "authelia",
       "name": "Authelia",
       "description": "一款双因素认证（2FA）与单点登录（SSO）认证服务器，专注于保障应用程序和用户的安全。它可被视为反向代理的扩展，提供特定的认证功能。其具备的部分功能如下：",
@@ -277,6 +290,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/README.md",
       "tags": [
         "filetas"
+      ]
+    },
+    {
+      "id": "forgejo",
+      "name": "Forgejo",
+      "description": "一个轻量级、自托管的软件锻造平台（software forge），主要用于代码托管和团队协作开发。它本质上是 Gitea 的一个硬分叉（hard fork），由非营利组织 Codeberg e.V. 支持，强调完全自由软件、社区治理、隐私保护以及长期可持续性。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/forgejo/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/forgejo/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/forgejo/README.md",
+      "tags": [
+        "forgejo"
       ]
     },
     {
