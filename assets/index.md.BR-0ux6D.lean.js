@@ -1,0 +1,1 @@
+import{_ as a,o as s,c as i,aj as e}from"./chunks/framework.DpVzuYkC.js";const c=JSON.parse('{"title":"awesome-compose","description":"","frontmatter":{},"headers":[],"relativePath":"index.md","filePath":"README.md"}'),d={name:"index.md"};function r(n,t,h,l,p,k){return s(),i("div",null,[...t[0]||(t[0]=[e("",28)])])}const g=a(d,[["render",r]]);export{c as __pageData,g as default};
