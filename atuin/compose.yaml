@@ -3,7 +3,7 @@
 services:
   atuin:
     command:
-      - start  
+      - start
     container_name: atuin
     env_file:
       - path: ./.env

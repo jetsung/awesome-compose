@@ -198,7 +198,6 @@ init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1
 		IMAGE_PATH="$$NAME" ;\
 		FULL_IMAGE="$$NAME" ;\
 		# 提取 ghcr 信息 \
-		IMAGE_URL="$$HUB_REGISTRY$$IMAGE_PATH"; \
 		if echo "$$NAME" | grep -q "^ghcr.io/.*"; then \
 			REGISTRY="ghcr.io"; \
 			# 提取 user 和 image-name \
@@ -215,6 +214,12 @@ init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1
 				USER=`echo "$$NAME" | awk -F'/' '{print $$(NF-1)}'`; \
 				IMAGE_NAME=`echo "$$NAME" | awk -F'/' '{print $$NF}'`; \
 				IMAGE_PATH="$$USER/$$IMAGE_NAME"; \
+			fi ;\
+			# 提取 IMAGE_URL \
+			if echo "$$NAME" | cut -d'/' -f1 | grep -q "\."; then \
+				IMAGE_URL="https://$$NAME"; \
+			else \
+				IMAGE_URL="$$HUB_REGISTRY$$IMAGE_PATH"; \
 			fi ;\
 		fi ;\
 	fi ;\
@@ -249,6 +254,9 @@ arcane-init: ## 初始化 Arcane 模板 (schema.json, registry.json)
 .PHONY: update-registry
 update-registry: ## 更新 registry.json 模板列表：prefix="URL 前缀" v="版本号"
 	@URL_PREFIX="$(prefix)"; \
+	if [ -n "$$URL_PREFIX" ] && ! echo "$$URL_PREFIX" | grep -q "^http"; then \
+		URL_PREFIX="https://$$URL_PREFIX"; \
+	fi; \
 	[ -z "$$URL_PREFIX" ] && URL_PREFIX="https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main"; \
 	VERSION="$(v)"; \
 	[ -z "$$VERSION" ] && VERSION="1.0.0"; \
@@ -322,6 +330,9 @@ update-template: ## 更新单个模板：id=文件夹名称 prefix="URL 前缀" 
 		exit 1; \
 	fi; \
 	URL_PREFIX="$(prefix)"; \
+	if [ -n "$$URL_PREFIX" ] && ! echo "$$URL_PREFIX" | grep -q "^http"; then \
+		URL_PREFIX="https://$$URL_PREFIX"; \
+	fi; \
 	[ -z "$$URL_PREFIX" ] && URL_PREFIX="https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main"; \
 	VERSION="$(v)"; \
 	[ -z "$$VERSION" ] && VERSION="1.0.0"; \
