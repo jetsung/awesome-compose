@@ -46,6 +46,19 @@
       ]
     },
     {
+      "id": "antigravity-manager",
+      "name": "Antigravity-manager",
+      "description": "一个专为开发者和 AI 爱好者设计的全功能桌面应用。它将多账号管理、协议转换和智能请求调度完美结合，为您提供一个稳定、极速且成本低廉的 本地 AI 中转站。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/antigravity-manager/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/antigravity-manager/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/antigravity-manager/README.md",
+      "tags": [
+        "antigravity-manager"
+      ]
+    },
+    {
       "id": "arcane",
       "name": "Arcane",
       "description": "一个美观直观的界面，用于管理你的 Docker 容器、镜像、网络和卷。 不需要终端。",
@@ -425,7 +438,7 @@
     {
       "id": "jellyfin",
       "name": "Jellyfin",
-      "description": "一款自由软件媒体系统，让您能够掌控媒体的管理与流传输。它是专有软件 Emby 和 Plex 的替代品，可通过多个应用程序，从专用服务器向终端用户设备提供媒体内容。Jellyfin 源自 Emby 的 3.5.2 版本，并移植到了 .NET 平台，以实现全面的跨平台支持。 ",
+      "description": "一款自由软件媒体系统，让您能够掌控媒体的管理与流传输。它是专有软件 Emby 和 Plex 的替代品，可通过多个应用程序，从专用服务器向终端用户设备提供媒体内容。Jellyfin 源自 Emby 的 3.5.2 版本，并移植到了 .NET 平台，以实现全面的跨平台支持。",
       "version": "1.0.0",
       "author": "jetsung",
       "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/jellyfin/compose.yaml",
