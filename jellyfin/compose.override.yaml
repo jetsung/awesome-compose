@@ -1,0 +1,11 @@
+---
+services:
+  jellyfin:
+    ports: !override
+      - ${SERV_PORT:-8096}:8096/tcp
+      - ${DISCOVERY_PORT:-7359}:7359/udp
+    volumes:
+      - ./config:/config
+      - ./data/cache:/cache
+      - ./data/media:/media
+      # - ./data/fonts:/usr/local/share/fonts/custom # 字体

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://registry.getarcane.app/schema.json",
+  "$schema": "schema.json",
   "name": "Jetsung Arcane Templates",
   "description": "Jetsung Docker Compose Templates for Arcane",
   "author": "jetsung",
@@ -420,6 +420,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/hoppscotch/README.md",
       "tags": [
         "hoppscotch"
+      ]
+    },
+    {
+      "id": "jellyfin",
+      "name": "Jellyfin",
+      "description": "一款自由软件媒体系统，让您能够掌控媒体的管理与流传输。它是专有软件 Emby 和 Plex 的替代品，可通过多个应用程序，从专用服务器向终端用户设备提供媒体内容。Jellyfin 源自 Emby 的 3.5.2 版本，并移植到了 .NET 平台，以实现全面的跨平台支持。 ",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/jellyfin/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/jellyfin/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/jellyfin/README.md",
+      "tags": [
+        "jellyfin"
       ]
     },
     {
