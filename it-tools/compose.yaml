@@ -1,0 +1,13 @@
+---
+# https://hub.docker.com/r/corentinth/it-tools
+services:
+  it-tools:
+    container_name: it-tools
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: it-tools
+    image: corentinth/it-tools:latest
+    ports:
+      - 80:80
+    restart: unless-stopped

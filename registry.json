@@ -436,6 +436,19 @@
       ]
     },
     {
+      "id": "it-tools",
+      "name": "It-tools",
+      "description": "为开发者准备的一系列实用在线工具。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/it-tools/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/it-tools/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/it-tools/README.md",
+      "tags": [
+        "it-tools"
+      ]
+    },
+    {
       "id": "jellyfin",
       "name": "Jellyfin",
       "description": "一款自由软件媒体系统，让您能够掌控媒体的管理与流传输。它是专有软件 Emby 和 Plex 的替代品，可通过多个应用程序，从专用服务器向终端用户设备提供媒体内容。Jellyfin 源自 Emby 的 3.5.2 版本，并移植到了 .NET 平台，以实现全面的跨平台支持。",
@@ -992,6 +1005,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/transfer/README.md",
       "tags": [
         "transfer"
+      ]
+    },
+    {
+      "id": "tuwunel",
+      "name": "Tuwunel",
+      "description": "一个功能强大的 Matrix 自建服务器。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/tuwunel/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/tuwunel/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/tuwunel/README.md",
+      "tags": [
+        "tuwunel"
       ]
     },
     {

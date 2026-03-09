@@ -1,0 +1,13 @@
+---
+# https://hub.docker.com/r/jevolk/tuwunel
+services:
+  tuwunel:
+    container_name: tuwunel
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: tuwunel
+    image: jevolk/tuwunel:latest
+    ports:
+      - 6167:6167
+    restart: unless-stopped

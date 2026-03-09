@@ -13,7 +13,7 @@
 
 ---
 
-更多配置参考 [**Gitea**](../gitea/README.md)，Forgejo 是 Gitea 的一个分支，二者在使用上非常相似。
+更多配置参考 [**Gitea**](../gitea/)，Forgejo 是 Gitea 的一个分支，二者在使用上非常相似。
 
 ## Runner
 
