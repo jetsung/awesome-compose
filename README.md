@@ -89,6 +89,7 @@ SERV_PORT=
 | 在用 | [headscale](./headscale/) | Tailscale 控制服务器的开源自托管实现。 |
 | | [hedgedoc](./hedgedoc/) | 开源的协作文档编辑器，支持 Markdown 编辑 |
 | 在用 | [hoppscotch](./hoppscotch/) | 轻量级的 API 开发生态系统，用于测试和调试 API |
+| 在用 | [it-tools](./it-tools/) | It-tools 是为开发者准备的一系列实用在线工具 |
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
 | 在用 | [komodo](./komodo/) | 现代化的代码编辑器 |
 | 在用 | [linkding](./linkding/) | 简单、快速的自托管书签服务 |
@@ -132,6 +133,7 @@ SERV_PORT=
 | 在用 | [swagger](./swagger/) | 用于设计、构建和文档化 RESTful API 的工具 |
 | | [syncthing](./syncthing/) | 连续的文件同步程序，用于在不同设备间同步文件 |
 | 在用 | [tailscale](./tailscale/) | 一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载。 |
+| 在用 | [tuwunel](./tuwunel/) | Tuwunel 是一个功能强大的 Matrix 自建服务器 |
 | | [transfer](./transfer/) | 文件传输服务 |
 | 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
 | 在用 | [vaultwarden](./vaultwarden/) | Bitwarden 密码管理器的非官方服务器实现 |
