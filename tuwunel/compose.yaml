@@ -9,5 +9,5 @@ services:
     hostname: tuwunel
     image: jevolk/tuwunel:latest
     ports:
-      - 6167:6167
+      - 8008:8008
     restart: unless-stopped

@@ -2,6 +2,6 @@
 services:
   tuwunel:
     ports: !override
-      - ${SERV_PORT:-6167}:6167
+      - ${SERV_PORT:-8008}:8008
     volumes:
       - ./data:/var/lib/tuwunel

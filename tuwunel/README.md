@@ -15,6 +15,7 @@
 
 - [docker-compose.yml](https://github.com/matrix-construct/tuwunel/blob/main/docs/deploying/docker-compose.yml)
 
+
 | 环境变量                                                                 | 默认值                              | 描述                                                                 |
 |--------------------------------------------------------------------------|-------------------------------------|----------------------------------------------------------------------|
 | TUWUNEL_SERVER_NAME                                                      | (必须手动设置，无默认)              | 服务器名称（域名），例如 `matrix.example.com`。**必须修改**，设置后不可更改（除非重置数据库）。用于用户ID、房间ID后缀。 |
@@ -27,4 +28,9 @@
 | TUWUNEL_YES_I_AM_VERY_VERY_SURE_I_WANT_AN_OPEN_REGISTRATION_SERVER_PRONE_TO_ABUSE | false                               | **极度危险**：设为 true 允许完全开放、无令牌注册，极易被机器人/垃圾账号滥用，仅在明确了解风险时使用。 |
 | TUWUNEL_ALLOW_FEDERATION                                                | true                                | 是否允许联邦（与其他 Matrix 服务器互通）。关闭后成为纯私有服务器。    |
 | TUWUNEL_TRUSTED_SERVERS                                                  | ["matrix.org"]                      | 信任的密钥服务器列表，用于验证其他服务器的签名。通常保留 matrix.org。 |
+| TUWUNEL_WELL_KNOWN__SERVER                                               | your.domain.name:443                | 根域委托配置，指定服务器地址（用于客户端发现）。                        |
+| TUWUNEL_WELL_KNOWN__CLIENT                                               | https://your.domain.name            | 根域委托配置，指定客户端 URL。                                       |
 | TUWUNEL_LOG                                                              | info                                | 日志级别（可选项：trace / debug / info / warn / error）。可附加过滤器，如 `warn,state_res=warn`。 |
+
+- [配置文件 `/etc/tuwunel/tuwunel.toml`](https://matrix-construct.github.io/tuwunel/deploying/root-domain-delegation.html?highlight=TUWUNEL_WELL_KNOWN__#configuration)
+> 示例：<https://matrix-construct.github.io/tuwunel/configuration/examples.html>
