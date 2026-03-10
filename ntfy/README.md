@@ -137,9 +137,11 @@ services:
 | `NTFY_LISTEN_HTTP` | HTTP 监听地址 | `:80` |
 | `NTFY_CACHE_FILE` | 缓存文件的路径 | - |
 | `NTFY_CACHE_DURATION` | 消息缓存时间 | `12h` |
-| `NTFY_AUTH_FILE` | 认证文件的路径 | - |
+| `NTFY_AUTH_FILE` | 认证数据库文件路径 | - |
 | `NTFY_AUTH_DEFAULT_ACCESS` | 默认访问权限 | `read-write` |
 | `NTFY_AUTH_USERS` | 用户列表 (格式: `user:hash:role`) | - |
+| `NTFY_AUTH_ACCESS` | 访问控制列表 (格式: `user:topic:permission`) | - |
+| `NTFY_AUTH_TOKENS` | 访问令牌列表 (格式: `user:token[:label]`) | - |
 | `NTFY_BEHIND_PROXY` | 是否在代理后面运行 | `false` |
 | `NTFY_PROXY_FORWARDED_HEADER` | 代理转发的请求头 | `X-Forwarded-For` |
 | `NTFY_ATTACHMENT_CACHE_DIR` | 附件缓存目录的路径 | - |
@@ -230,11 +232,14 @@ curl -d "hi there" -H "X-Call: +1234567890" ntfy.sh/mytopic
 - `twilio-verify-service`: Twilio Verify 服务 SID (用于号码验证)
 
 ### 反向代理设置
+```bash
 # /etc/nginx/sites-*/ntfy
 #
 # This config requires the use of the -L flag in curl to redirect to HTTPS, and it keeps nginx output buffering
 # enabled. While recommended, I have had issues with that in the past.
+```
 
+```nginx
 server {
   listen 80;
   server_name ntfy.sh;
@@ -257,7 +262,9 @@ server {
     client_max_body_size 0; # Stream request body to backend
   }
 }
+```
 
+```nginx
 server {
   listen 443 ssl http2;
   server_name ntfy.sh;
@@ -290,6 +297,169 @@ server {
   }
 }
 ```
+
+### 用户管理
+
+ntfy 支持基于用户名/密码的认证和基于访问令牌（Access Token）的认证。
+
+#### 认证相关配置
+
+| 环境变量 | 说明 | 默认值 |
+|---------|------|-------|
+| `NTFY_AUTH_FILE` | 认证数据库文件路径 | - |
+| `NTFY_AUTH_DEFAULT_ACCESS` | 默认访问权限 | `read-write` |
+| `NTFY_AUTH_USERS` | 用户列表 (格式: `user:hash:role`) | - |
+| `NTFY_AUTH_ACCESS` | 访问控制列表 (格式: `user:topic:permission`) | - |
+| `NTFY_AUTH_TOKENS` | 访问令牌列表 (格式: `user:token[:label]`) | - |
+
+#### 用户和角色
+
+ntfy 有两种角色：
+- `user` (默认): 普通用户，需要通过 ACL 配置主题访问权限
+- `admin`: 管理员，有所有主题的读写权限
+
+**CLI 命令：**
+
+```bash
+# 添加用户
+ntfy user add phil                 # 添加普通用户
+ntfy user add --role=admin phil    # 添加管理员用户
+
+# 删除用户
+ntfy user del phil
+
+# 修改密码
+ntfy user change-pass phil
+
+# 修改角色
+ntfy user change-role phil admin
+
+# 生成密码哈希（用于配置文件）
+ntfy user hash
+```
+
+**配置文件方式：**
+
+```yaml
+auth-file: "/var/lib/ntfy/user.db"
+auth-users:
+  - "phil:$2a$10$YLiO8U21sX1uhZamTLJXHuxgVC0Z/GKISibrKCLohPgtG7yIxSk4C:admin"
+  - "ben:$2a$10$NKbrNb7HPMjtQXWJ0f1pouw03LDLT/WzlO9VAv44x84bRCkh19h6m:user"
+```
+
+密码哈希可以使用 `ntfy user hash` 命令生成。
+
+#### 访问控制列表 (ACL)
+
+ACL 管理非管理员用户和匿名用户对主题的访问权限。
+
+**权限类型：**
+- `read-write` / `rw`: 读和写
+- `read-only` / `ro`: 只读
+- `write-only` / `wo`: 只写
+- `deny` / `none`: 拒绝
+
+**CLI 命令：**
+
+```bash
+# 查看 ACL
+ntfy access                        # 查看所有访问控制
+ntfy access phil                   # 查看用户 phil 的访问权限
+
+# 设置访问权限
+ntfy access phil mytopic rw        # 允许用户 phil 读写 mytopic
+ntfy access everyone mytopic rw    # 允许匿名用户读写 mytopic
+ntfy access everyone "up*" write   # 允许匿名用户写权限到 up* 主题
+
+# 重置权限
+ntfy access --reset                # 重置所有 ACL
+ntfy access --reset phil          # 重置用户 phil 的所有权限
+ntfy access --reset phil mytopic   # 重置用户 phil 对 mytopic 的权限
+```
+
+**配置文件方式：**
+
+```yaml
+auth-access:
+  - "phil:mytopic:rw"
+  - "ben:alerts-*:rw"
+  - "ben:system-logs:ro"
+  - "*:announcements:ro"           # 匿名用户只读访问
+```
+
+主题支持通配符 `*`，例如 `alerts-*` 匹配所有以 `alerts-` 开头的主题。
+
+#### 访问令牌
+
+访问令牌可以代替用户名/密码进行认证，适合在脚本中使用。
+
+**CLI 命令：**
+
+```bash
+# 查看令牌
+ntfy token list                    # 查看所有用户的令牌
+ntfy token list phil               # 查看用户 phil 的令牌
+
+# 添加令牌
+ntfy token add phil                # 创建永久令牌
+ntfy token add --expires=30d phil  # 创建 30 天过期的令牌
+
+# 删除令牌
+ntfy token remove phil tk_xxx...
+
+# 生成随机令牌
+ntfy token generate
+```
+
+**配置文件方式：**
+
+```yaml
+auth-tokens:
+  - "phil:tk_3gd7d2yftt4b8ixyfe9mnmro88o76"
+  - "backup-service:tk_f099we8uzj7xi5qshzajwp6jffvkz:Backup script"
+```
+
+令牌必须以 `tk_` 开头，共 32 个字符。
+
+**使用令牌：**
+
+```bash
+# 发布消息
+curl -H "Authorization: Bearer tk_xxx" -d "message" https://ntfy.sh/mytopic
+
+# 订阅消息
+ntfy subscribe -t tk_xxx https://ntfy.sh/mytopic
+```
+
+#### 私有实例配置示例
+
+```yaml
+services:
+  ntfy:
+    image: binwiederhier/ntfy
+    restart: unless-stopped
+    environment:
+      NTFY_AUTH_FILE: /var/lib/ntfy/auth.db
+      NTFY_AUTH_DEFAULT_ACCESS: deny-all      # 默认拒绝所有访问
+      NTFY_AUTH_USERS: 'phil:$2a$10$YLiO8U21sX1uhZamTLJXHuxgVC0Z/GKISibrKCLohPgtG7yIxSk4C:admin'
+      NTFY_AUTH_ACCESS: 'backup-script:backups:rw'
+      NTFY_AUTH_TOKENS: 'phil:tk_3gd7d2yftt4b8ixyfe9mnmro88o76:My personal token'
+    volumes:
+      - ./data:/var/lib/ntfy
+    ports:
+      - 80:80
+    command: serve
+```
+
+这个配置：
+- 默认拒绝所有匿名访问 (`deny-all`)
+- 管理员 `phil` 可以访问所有主题
+- 普通用户 `backup-script` 只能访问 `backups` 主题
+- 支持通过 Basic Auth 或 Access Token 进行认证
+
+#### UnifiedPush 配置
+
+详见 [unifiedpush.md](./unifiedpush.md)
 
 [设置密码](https://docs.ntfy.sh/config/#users-and-roles)
 ```bash
