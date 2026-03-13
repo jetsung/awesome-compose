@@ -18,6 +18,23 @@
 
 ---
 
+## Well Known Discovery Endpoints（[服务发现端点](https://www.authelia.com/integration/openid-connect/introduction/#well-known-discovery-endpoints)）
+- **OpenID Connect Discovery 1.0：** `.well-known/openid-configuration`
+- **OAuth 2.0 Authorization Server Metadata：** `.well-known/oauth-authorization-server`
+
+### OIDC 端点配置列表 (OIDC Discovery Endpoints)
+
+| Endpoint (终点) | Path (路径) | Discovery Attribute (发现属性) |
+| --- | --- | --- |
+| **JSON Web Key Set** (JSON Web 密钥集) | `https://auth.example.com/jwks.json` | `jwks_uri` |
+| **Authorization** (授权) | `https://auth.example.com/api/oidc/authorization` | `authorization_endpoint` |
+| **Device Authorization** (设备授权) | `https://auth.example.com/api/oidc/device-authorization` | `device_authorization_endpoint` |
+| **Pushed Authorization Requests** (推送授权请求) | `https://auth.example.com/api/oidc/pushed-authorization-request` | `pushed_authorization_request_endpoint` |
+| **Token** (令牌) | `https://auth.example.com/api/oidc/token` | `token_endpoint` |
+| **UserInfo** (用户信息) | `https://auth.example.com/api/oidc/userinfo` | `userinfo_endpoint` |
+| **Introspection** (内省) | `https://auth.example.com/api/oidc/introspection` | `introspection_endpoint` |
+| **Revocation** (撤销) | `https://auth.example.com/api/oidc/revocation` | `revocation_endpoint` |
+
 ## 配置文件
 
 ### [密码、密钥生成器](https://www.authelia.com/reference/guides/generating-secure-values/)
