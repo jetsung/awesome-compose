@@ -9,7 +9,7 @@
 [1]:https://ntfy.sh/
 [2]:https://github.com/binwiederhier/ntfy
 [3]:https://hub.docker.com/r/binwiederhier/ntfy
-[4]:https://docs.ntfy.sh/
+[4]:https://docs.ntfy.sh/install/#docker
 
 ---
 

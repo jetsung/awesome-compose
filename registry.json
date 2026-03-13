@@ -111,6 +111,19 @@
       ]
     },
     {
+      "id": "autopush",
+      "name": "Autopush",
+      "description": " Mozilla 推送服务的 Rust 实现。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/autopush/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/autopush/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/autopush/README.md",
+      "tags": [
+        "autopush"
+      ]
+    },
+    {
       "id": "bark",
       "name": "bark-server",
       "description": "一款注重隐私、安全可控的自定义通知推送工具。",

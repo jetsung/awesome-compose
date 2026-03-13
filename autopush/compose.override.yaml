@@ -1,0 +1,9 @@
+---
+services:
+  autoendpoint:
+    ports: !override
+      - ${AUTOEND__PORT:-8000}:8000
+
+  autoconnect:
+    ports: !override
+      - ${AUTOCONNECT__PORT:-8080}:8080

@@ -1,0 +1,24 @@
+---
+# https://github.com/orgs/forkdo/packages?repo_name=autopush-rs
+services:
+  autoendpoint:
+    container_name: autoendpoint
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: autoendpoint
+    image: ghcr.io/forkdo/autoendpoint:latest
+    ports:
+      - 8000:8000
+    restart: unless-stopped
+
+  autoconnect:
+    container_name: autoconnect
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: autoconnect
+    image: ghcr.io/forkdo/autoconnect:latest
+    ports:
+      - 8080:8080
+    restart: unless-stopped

@@ -60,7 +60,8 @@ SERV_PORT=
 | --- | --- | --- |
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
 | 在用 | [arcane](./arcane/) | 一个美观直观的界面，用于管理你的 Docker 容器、镜像、网络和卷。 不需要终端。 |
-| | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过Web界面管理数据库，如MySQL、SQLite等 |
+| | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过 Web 界面管理数据库，如 MySQL、SQLite 等 |
+| 在用 | [autopush](./autopush/) | Autopush 是 Mozilla 推送服务的 Rust 实现。 |
 | | [aliyundrive](./aliyundrive/) | 阿里云盘 WebDAV 服务，将阿里云盘挂载为标准 WebDAV 文件系统 |
 | 在用 | [asciinema](./asciinema/) | 用于录制和分享终端会话的工具，将终端操作录制成可播放的动画 |
 | 在用 | [atuin](./atuin/) | 使用 SQLite 数据库取代 Shell 历史，并通过 Atuin 服务器提供机器间完全加密的历史记录同步功能。 |
