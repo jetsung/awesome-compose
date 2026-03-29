@@ -108,7 +108,7 @@ SERV_PORT=
 | | [nginx-php](./nginx-php/) | 集成 Nginx 和 PHP-FPM 的 Web 服务器环境 |
 | 在线 | [ntfy](./ntfy/) | 简单易用的自托管通知服务，用于推送消息到手机或桌面 |
 | 在用 | [ollama](./ollama/) | 轻量级、可扩展的大语言模型运行时，支持本地运行和 GPU 加速 |
-| 在用 | [open-webui](./open-webui/) | 现代化的 Web UI 界面 |
+| | [open-webui](./open-webui/) | 现代化的 Web UI 界面 |
 | 在用 | [opengist](./opengist/) | 自托管的代码片段管理服务 |
 | 在用 | [openlist](./openlist/) | 网盘列表管理工具 |
 | 在用 | [openssh-server](./openssh-server/) | SSH 服务器，用于远程安全连接 |
