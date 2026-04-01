@@ -30,3 +30,12 @@ OG_OIDC_SECRET=<secret>
 # Discovery endpoint of the OpenID provider. Generally something like http://auth.example.com/.well-known/openid-configuration
 OG_OIDC_DISCOVERY_URL=http://auth.example.com/.well-known/openid-configuration
 ```
+
+---
+
+## 注意事项
+
+- 如果遇到权限问题，需要执行以下命令：
+```bash
+chmod -R 755 /opengist
+```

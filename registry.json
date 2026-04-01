@@ -22,7 +22,7 @@
     {
       "id": "adminer",
       "name": "adminer",
-      "description": "一个开源的数据库管理工具，它允许用户通过Web界面来管理数据库，比如MySQL、SQLite等。它界面简洁，功能强大，支持多种数据库操作，如创建数据库、表，执行SQL语句等。",
+      "description": "一个开源的数据库管理工具，它允许用户通过 Web 界面来管理数据库，比如 MySQL、SQLite 等。它界面简洁，功能强大，支持多种数据库操作，如创建数据库、表，执行 SQL 语句等。",
       "version": "1.0.0",
       "author": "jetsung",
       "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/adminer/compose.yaml",
@@ -696,19 +696,6 @@
       ]
     },
     {
-      "id": "open-webui",
-      "name": "open-webui",
-      "description": "一个可扩展 、功能丰富且用户友好的自托管 AI 平台，旨在完全离线运行。 它支持各种 LLM 运行器，如 Ollama 和 OpenAI 兼容的 API，并内置了 RAG 推理引擎 ，使其成为强大的 AI 部署解决方案 。",
-      "version": "1.0.0",
-      "author": "jetsung",
-      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/.env",
-      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/README.md",
-      "tags": [
-        "open-webui"
-      ]
-    },
-    {
       "id": "opengist",
       "name": "opengist",
       "description": "一个由 Git 提供支持的自托管粘贴。所有代码片段都存储在 Git 存储库中，可以使用标准 Git 命令或 Web 界面读取和/或修改。它类似于 [GitHub Gist](https://gist.github.com/)，但开源并且可以自托管。",
@@ -748,6 +735,19 @@
       ]
     },
     {
+      "id": "open-webui",
+      "name": "open-webui",
+      "description": "一个可扩展 、功能丰富且用户友好的自托管 AI 平台，旨在完全离线运行。 它支持各种 LLM 运行器，如 Ollama 和 OpenAI 兼容的 API，并内置了 RAG 推理引擎 ，使其成为强大的 AI 部署解决方案 。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/open-webui/README.md",
+      "tags": [
+        "open-webui"
+      ]
+    },
+    {
       "id": "pgadmin",
       "name": "pgadmin",
       "description": "一种流行的开源对象关系型数据库管理系统（PostgreSQL）的管理工具。它为用户提供了一个图形界面，方便用户进行数据库的创建、配置、监控和维护等操作。",
@@ -761,6 +761,18 @@
       ]
     },
     {
+      "id": "pgadmin-db",
+      "name": "集成 postgres 和 pgadmin",
+      "description": "**Add New Server** -> **General -> Name** 值`任意` -> **Connection** -> **Host name/address** / **Username** / **Password** 值都是 `postgres`",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin-db/compose.yaml",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/pgadmin-db/README.md",
+      "tags": [
+        "pgadmin-db"
+      ]
+    },
+    {
       "id": "phpmyadmin",
       "name": "phpmyadmin",
       "description": "一个基于PHP的开源数据库管理工具，它允许用户通过Web界面来管理MySQL数据库。用户可以使用它来执行SQL查询、创建和管理数据库、表、用户权限等操作。",
@@ -771,6 +783,18 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin/README.md",
       "tags": [
         "phpmyadmin"
+      ]
+    },
+    {
+      "id": "phpmyadmin-db",
+      "name": "MySQL(`MariaDB`) + phpMyAdmin",
+      "description": "MySQL(`MariaDB`) + phpMyAdmin",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin-db/compose.yaml",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/phpmyadmin-db/README.md",
+      "tags": [
+        "phpmyadmin-db"
       ]
     },
     {
@@ -813,19 +837,6 @@
       ]
     },
     {
-      "id": "rclone",
-      "name": "rclone",
-      "description": "一种广泛使用的开源文件同步工具。它可以在本地计算机之间、本地计算机与远程服务器之间，或者通过网络在不同设备之间高效地同步文件和目录。以下是关于“rsync”的一些特点和用途：",
-      "version": "1.0.0",
-      "author": "jetsung",
-      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/.env",
-      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/README.md",
-      "tags": [
-        "rclone"
-      ]
-    },
-    {
       "id": "rclone-backup",
       "name": "rclone-backup",
       "description": "基于 rclone 的 Docker 定时备份解决方案，支持多目标备份和灵活的配置管理。",
@@ -836,6 +847,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone-backup/README.md",
       "tags": [
         "rclone-backup"
+      ]
+    },
+    {
+      "id": "rclone",
+      "name": "rclone",
+      "description": "一种广泛使用的开源文件同步工具。它可以在本地计算机之间、本地计算机与远程服务器之间，或者通过网络在不同设备之间高效地同步文件和目录。以下是关于“rsync”的一些特点和用途：",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/rclone/README.md",
+      "tags": [
+        "rclone"
       ]
     },
     {
@@ -1047,19 +1071,6 @@
       ]
     },
     {
-      "id": "vaultwarden",
-      "name": "Vaultwarden",
-      "description": "用 Rust 编写的非官方 Bitwarden 兼容服务器",
-      "version": "1.0.0",
-      "author": "jetsung",
-      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/compose.yaml",
-      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/.env",
-      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/README.md",
-      "tags": [
-        "vaultwarden"
-      ]
-    },
-    {
       "id": "vaultwarden-backup",
       "name": "vaultwarden-backup",
       "description": "一个使用 rclone 备份 Vaultwarden 的开源项目",
@@ -1070,6 +1081,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden-backup/README.md",
       "tags": [
         "vaultwarden-backup"
+      ]
+    },
+    {
+      "id": "vaultwarden",
+      "name": "Vaultwarden",
+      "description": "用 Rust 编写的非官方 Bitwarden 兼容服务器",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vaultwarden/README.md",
+      "tags": [
+        "vaultwarden"
       ]
     },
     {
