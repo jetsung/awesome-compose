@@ -47,7 +47,7 @@
 | **SMTP_PASS** | 否 | - | SMTP 密码。 |
 | **AUTHOR_EMAIL** | 否 | - | 站长邮箱，匹配该邮箱的评论不触发通知。 |
 | **OAUTH_URL** | 否 | https://oauth.lithub.cc | OAuth 中转服务地址，可[自建][5]。 |
-...
+
 [5]:https://github.com/walinejs/auth
 
 ### 配置示例
