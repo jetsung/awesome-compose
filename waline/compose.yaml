@@ -1,0 +1,17 @@
+---
+# https://github.com/JQiue/waline-mini
+services:
+  waline:
+    container_name: waline-mini
+    env_file:
+      - path: ./.env
+        required: false
+    image: jqiue/waline-mini:latest
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
+    ports:
+      - 8360:8360
+    restart: unless-stopped

@@ -1084,6 +1084,19 @@
       ]
     },
     {
+      "id": "waline",
+      "name": "Waline",
+      "description": "原 Waline 评论系统的 Rust 语言高性能实现版本。它旨在为资源受限的服务器提供一个轻量级、高效率的替代方案，在保持与原版功能同步的同时，极大地降低了系统资源消耗。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/waline/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/waline/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/waline/README.md",
+      "tags": [
+        "waline"
+      ]
+    },
+    {
       "id": "wingetty",
       "name": "wingetty",
       "description": "一个自托管的 `winget` 包源。它是可移植的，可以在 Linux、Windows、Docker、本地和任何云中运行。",

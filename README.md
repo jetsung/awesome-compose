@@ -139,6 +139,7 @@ SERV_PORT=
 | 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
 | 在用 | [vaultwarden](./vaultwarden/) | Bitwarden 密码管理器的非官方服务器实现 |
 | 在用 | [vaultwarden-backup](./vaultwarden-backup/) | 为 Vaultwarden 提供备份功能的服务 |
+| 在用 | [waline](./waline/) | Waline-mini 是原 Waline 评论系统的 Rust 语言高性能实现版本。它旨在为资源受限的服务器提供一个轻量级、高效率的替代方案，在保持与原版功能同步的同时，极大地降低了系统资源消耗。 |
 | | [wingetty](./wingetty/) | Windows 终端工具 |
 | | [woodpecker](./woodpecker/) | 简单、强大、轻量级的 CI/CD 引擎 |
 | 在用 | [wordpress](./wordpress/) | 功能强大的开源内容管理系统 |

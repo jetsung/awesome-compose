@@ -1,0 +1,6 @@
+services:
+  waline:
+    ports: !override
+      - ${SERV_PORT:-8360}:8360
+    volumes:
+      - ./data:/app/db

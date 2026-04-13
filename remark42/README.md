@@ -6,8 +6,6 @@
 
 > [Remark42][1] 是一个轻量级、注重隐私的评论系统，旨在为博客、文章或其他需要评论功能的网站提供简单而强大的解决方案。以下是关于 Remark42 的一些关键信息：
 
----
-
 ## **功能特点**
 1. **隐私保护**
    - 不跟踪用户行为，不涉及第三方分析服务。
@@ -36,6 +34,11 @@
 6. **多站点支持**
    - 单个实例可以支持多个站点[^4^]。
    - 支持自动 SSL 集成[^4^]。
+
+[1]:https://remark42.com/
+[2]:https://github.com/umputun/remark42
+[3]:https://hub.docker.com/r/umputun/remark42
+[4]:https://remark42.com/docs/getting-started/installation/
 
 ---
 
@@ -71,25 +74,6 @@
 3. **其他部署方式**
    - 支持通过 Zeabur Template 部署[^2^]。
    - 支持手动编译源代码[^3^]。
-
-## **优势**
-- **隐私友好**：注重用户隐私，不收集多余信息[^4^]。
-- **轻量级**：无外部数据库，单文件存储[^4^]。
-- **高度可定制**：支持多种登录方式、评论功能和通知方式[^4^]。
-- **易于部署**：支持 Docker、二进制文件等多种部署方式[^3^]。
-
----
-
-## **适用场景**
-- 适合需要隐私保护的个人博客或小型网站。
-- 适合不想依赖第三方评论服务（如 Disqus）的开发者[^4^]。
-
-[1]:https://remark42.com/
-[2]:https://github.com/umputun/remark42
-[3]:https://hub.docker.com/r/umputun/remark42
-[4]:https://remark42.com/docs/getting-started/installation/
-
----
 
 ```yaml
 environment:
