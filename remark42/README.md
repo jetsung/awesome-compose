@@ -123,7 +123,7 @@
 | notify.slack.token             | NOTIFY_SLACK_TOKEN             |                         | Slack令牌                                              |
 | notify.slack.chan              | NOTIFY_SLACK_CHAN              | `general`               | 管理员通知的Slack频道                    |
 | notify.webhook.url             | NOTIFY_WEBHOOK_URL             |                         | 管理员通知的Webhook通知URL         |
-| notify.webhook.template        | NOTIFY_WEBHOOK_TEMPLATE        | `{"text": {{.Text \| escapeJSONString}}}`  | Webhook有效负载模板                 |
+| notify.webhook.template        | NOTIFY_WEBHOOK_TEMPLATE        | <pre>{"text": {{.Text | escapeJSONString}}}</pre>  | Webhook有效负载模板                 |
 | notify.webhook.headers         | NOTIFY_WEBHOOK_HEADERS         |                         | 格式为Header1:Value1,Header2:Value2,... 的HTTP头部  |
 | notify.webhook.timeout         | NOTIFY_WEBHOOK_TIMEOUT         | `5s`                    | Webhook连接超时时间                               |
 | notify.email.from_address      | NOTIFY_EMAIL_FROM              |                         | 发件人邮箱地址（例如 `john.doe@example.com` 或 `"John Doe"<john.doe@example.com>`） |
