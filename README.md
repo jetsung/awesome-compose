@@ -59,9 +59,9 @@ SERV_PORT=
 | 状态 | 项目名称 | 描述 |
 | --- | --- | --- |
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
-| 在用 | [arcane](./arcane/) | 一个美观直观的界面，用于管理你的 Docker 容器、镜像、网络和卷。 不需要终端。 |
+| 在用 | [arcane](./arcane/) | 用于管理你的 Docker 容器、镜像、网络和卷的管理平台 |
 | | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过 Web 界面管理数据库，如 MySQL、SQLite 等 |
-| 在用 | [autopush](./autopush/) | Autopush 是 Mozilla 推送服务的 Rust 实现。 |
+| | [autopush](./autopush/) | Autopush 是 Mozilla 推送服务的 Rust 实现。 |
 | | [aliyundrive](./aliyundrive/) | 阿里云盘 WebDAV 服务，将阿里云盘挂载为标准 WebDAV 文件系统 |
 | 在用 | [asciinema](./asciinema/) | 用于录制和分享终端会话的工具，将终端操作录制成可播放的动画 |
 | 在用 | [atuin](./atuin/) | 使用 SQLite 数据库取代 Shell 历史，并通过 Atuin 服务器提供机器间完全加密的历史记录同步功能。 |
@@ -80,19 +80,19 @@ SERV_PORT=
 | | [etcd](./etcd/) | 高可用的分布式键值存储系统，常用于配置共享和服务发现 |
 | 在用 | [ferron](./ferron/) | 基于 Zola 的静态网站生成器 |
 | 在用 | [file-downloader](./file-downloader/) | 文件下载工具 |
-| 在用 | [filetas](./filetas/) | 文件管理和分享服务 |
+| 在用 | [filetas](./filetas/) | 文件传输加速服务 |
 | | [frp](./frp/) | 专注内网穿透的高性能反向代理应用 |
 | 在用 | [gitea](./gitea/) | 轻量级的 DevOps 平台软件，提供 Git 托管、代码审查、团队协作等功能 |
 | 在用 | [gitlab](./gitlab/) | 完整的企业级 DevOps 平台，提供代码托管、CI/CD、项目管理等完整开发流程 |
 | 在用 | [gitlab-runner](./gitlab-runner/) | GitLab CI/CD 的执行器，用于运行 CI/CD 任务 |
 | | [gotify](./gotify/) | 简单的发送和接收消息的服务器，用于实时消息推送 |
-| 在用 | [haproxy](./haproxy/) | 一款免费、非常快速且可靠的反向代理，为基于 TCP 和 HTTP 的应用提供高可用性、负载均衡和代理服务 |
+| | [haproxy](./haproxy/) | 一款免费、非常快速且可靠的反向代理，为基于 TCP 和 HTTP 的应用提供高可用性、负载均衡和代理服务 |
 | 在用 | [headscale](./headscale/) | Tailscale 控制服务器的开源自托管实现。 |
 | | [hedgedoc](./hedgedoc/) | 开源的协作文档编辑器，支持 Markdown 编辑 |
 | 在用 | [hoppscotch](./hoppscotch/) | 轻量级的 API 开发生态系统，用于测试和调试 API |
 | 在用 | [it-tools](./it-tools/) | It-tools 是为开发者准备的一系列实用在线工具 |
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
-| 在用 | [komodo](./komodo/) | 现代化的代码编辑器 |
+| 在用 | [komodo](./komodo/) | 提供管理服务器、构建、部署和自动化流程的结构 |
 | 在用 | [linkding](./linkding/) | 简单、快速的自托管书签服务 |
 | | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
 | | [listmonk](./listmonk/) | 高性能、可自托管的邮件通讯和营销自动化工具 |
@@ -133,14 +133,14 @@ SERV_PORT=
 | 在用 | [static-web-server](./static-web-server/) | 高性能的静态 Web 服务器 |
 | 在用 | [swagger](./swagger/) | 用于设计、构建和文档化 RESTful API 的工具 |
 | | [syncthing](./syncthing/) | 连续的文件同步程序，用于在不同设备间同步文件 |
-| 在用 | [tailscale](./tailscale/) | 一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载。 |
-| 在用 | [tuwunel](./tuwunel/) | Tuwunel 是一个功能强大的 Matrix 自建服务器 |
+| 在用 | [tailscale](./tailscale/) | 一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载 |
+| 在用 | [tuwunel](./tuwunel/) | 功能强大的 Matrix 自建服务器 |
 | | [transfer](./transfer/) | 文件传输服务 |
 | 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
 | 在用 | [vaultwarden](./vaultwarden/) | Bitwarden 密码管理器的非官方服务器实现 |
 | 在用 | [vaultwarden-backup](./vaultwarden-backup/) | 为 Vaultwarden 提供备份功能的服务 |
-| 在用 | [waline](./waline/) | Waline-mini 是原 Waline 评论系统的 Rust 语言高性能实现版本。它旨在为资源受限的服务器提供一个轻量级、高效率的替代方案，在保持与原版功能同步的同时，极大地降低了系统资源消耗。 |
-| | [wingetty](./wingetty/) | Windows 终端工具 |
+| 在用 | [waline](./waline/) | 原 Waline 评论系统的 Rust 语言高性能实现版本。它旨在为资源受限的服务器提供一个轻量级、高效率的替代方案，在保持与原版功能同步的同时，极大地降低了系统资源消耗 |
+| | [wingetty](./wingetty/) | 自托管的 winget 包源 |
 | | [woodpecker](./woodpecker/) | 简单、强大、轻量级的 CI/CD 引擎 |
 | 在用 | [wordpress](./wordpress/) | 功能强大的开源内容管理系统 |
 | | [xunsearch](./xunsearch/) | 免费开源的中文全文检索解决方案 |
