@@ -865,7 +865,7 @@
     {
       "id": "remark42",
       "name": "Remark42",
-      "description": "一个轻量级、注重隐私的评论系统，旨在为博客、文章或其他需要评论功能的网站提供简单而强大的解决方案。以下是关于 Remark42 的一些关键信息：",
+      "description": "一款可自行托管的、轻量级且简洁（却功能完备）的评论引擎，不会窥探用户信息。它可以嵌入到博客、文章或读者发表评论的任何其他地方。",
       "version": "1.0.0",
       "author": "jetsung",
       "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/remark42/compose.yaml",

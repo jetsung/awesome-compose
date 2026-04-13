@@ -4,36 +4,30 @@
 
 ---
 
-> [Remark42][1] 是一个轻量级、注重隐私的评论系统，旨在为博客、文章或其他需要评论功能的网站提供简单而强大的解决方案。以下是关于 Remark42 的一些关键信息：
+> [Remark42][1] 是一款可自行托管的、轻量级且简洁（却功能完备）的评论引擎，不会窥探用户信息。它可以嵌入到博客、文章或读者发表评论的任何其他地方。
 
-## **功能特点**
-1. **隐私保护**
-   - 不跟踪用户行为，不涉及第三方分析服务。
-   - 用户信息（如用户ID、用户名和头像链接）仅存储必要的部分，并且经过哈希处理。
-   - 支持用户请求导出其数据，并提供“删除”功能以清除所有相关活动信息[^4^]。
-
-2. **多样的登录方式**
-   - 支持通过 Google、Twitter、Facebook、GitHub、Apple 等社交媒体平台登录[^4^]。
-   - 支持通过邮箱登录，以及可选的匿名访问[^4^]。
-
-3. **评论功能**
-   - 多级嵌套评论，支持树形和线性展示[^4^]。
-   - 支持 Markdown 格式化，并提供友好的工具栏[^4^]。
-   - 支持投票、置顶和评论排序[^4^]。
-   - 支持图片上传，支持拖拽功能[^4^]。
-
-4. **通知与集成**
-   - 支持通过 RSS、Telegram、Slack、邮件等方式接收新评论通知[^4^]。
-   - 支持将评论导出为 JSON 格式，并自动备份[^4^]。
-
-5. **部署与性能**
-   - 提供 Docker 容器化部署，支持单命令启动[^4^]。
-   - 支持直接部署到 Linux、Windows 和 macOS[^4^]。
-   - 无外部数据库，所有数据存储在一个文件中[^4^]。
-
-6. **多站点支持**
-   - 单个实例可以支持多个站点[^4^]。
-   - 支持自动 SSL 集成[^4^]。
+* 支持通过谷歌、脸书、微软、GitHub、苹果、雅虎、Patreon、Discord和Telegram进行社交登录
+* 支持通过电子邮件登录
+* 可选匿名访问
+* 支持多级嵌套评论，有树形和纯文本两种展示方式
+* 支持从Disqus和WordPress导入评论
+* 支持Markdown格式，配备友好的格式化工具栏
+* 版主可以删除评论并封禁用户
+* 具备投票、置顶和验证系统
+* 评论可排序
+* 支持拖放上传图片
+* 可提取近期评论、进行交叉发布
+* 支持为所有评论及每篇文章生成RSS订阅
+* 支持向管理员发送Telegram、Slack、Webhook和电子邮件通知（有新评论时获得通知）
+* 支持向用户发送电子邮件和Telegram通知（有人回复您的评论时获得通知）
+* 可将数据导出为JSON格式，并自动备份
+* 无需外部数据库，所有内容都嵌入到单个数据文件中
+* 完全容器化，可通过一条命令完成部署
+* 自包含的可执行文件可直接部署到Linux、Windows和macOS系统上
+* 界面简洁、轻量且可定制，有白色和深色主题
+* 单个实例支持多站点模式
+* 支持自动SSL集成（直接集成以及通过[nginx-le](https://github.com/nginx-le/nginx-le)）
+* [注重隐私](https://remark42.com/#privacy)
 
 [1]:https://remark42.com/
 [2]:https://github.com/umputun/remark42
@@ -41,58 +35,6 @@
 [4]:https://remark42.com/docs/getting-started/installation/
 
 ---
-
-## **部署方式**
-1. **Docker 部署**
-   - 推荐使用 Docker 部署。可以通过 `docker-compose` 配置并启动服务[^3^]。
-   - 示例：
-     ```yaml
-     services:
-       remark42:
-         image: umputun/remark42:latest
-         ports:
-           - "8080:8080"
-         environment:
-           REMARK_URL: http://localhost:8080
-           SITE: your_site_id
-           SECRET: your_secret_key
-         volumes:
-           - ./data:/srv/var
-     ```
-   - 启动命令：
-     ```bash
-     docker-compose pull && docker-compose up -d
-     ```
-
-2. **二进制文件部署**
-   - 下载对应操作系统的二进制文件并解压[^3^]。
-   - 示例启动命令：
-     ```bash
-     ./remark42.linux-amd64 server --secret=your_secret_key --url=http://localhost:8080 --site=your_site_id
-     ```
-
-3. **其他部署方式**
-   - 支持通过 Zeabur Template 部署[^2^]。
-   - 支持手动编译源代码[^3^]。
-
-```yaml
-environment:
-    - REMARK_URL
-    - SECRET
-    - DEBUG=true
-    - AUTH_GOOGLE_CID
-    - AUTH_GOOGLE_CSEC
-    - AUTH_GITHUB_CID
-    - AUTH_GITHUB_CSEC
-    - AUTH_FACEBOOK_CID
-    - AUTH_FACEBOOK_CSEC
-    - AUTH_DISQUS_CID
-    - AUTH_DISQUS_CSEC
-    # Enable it only for the initial comment import or for manual backups.
-    # Do not leave the server running with the ADMIN_PASSWD set if you don't have an intention
-    # to keep creating backups manually!
-    # - ADMIN_PASSWD=<your secret password>
-```
 
 ## 环境变量
 - https://remark42.com/docs/configuration/parameters/
