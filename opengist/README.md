@@ -15,7 +15,45 @@
 
 ## 配置
 
-- 修改为 `meilisearch` 索引后，需要在后台更新索引：`通用` -> `动作` -> `索引所有 Gists`
+### 使用 [`MEILISEARCH`](https://www.meilisearch.com/) 作为索引
+1. 修改配置
+```diff
+- OG_INDEX=bleve
++ OG_INDEX=meilisearch
+- OG_MEILI_HOST=none
++ OG_MEILI_HOST=http://meilisearch:7700
+- OG_MEILI_API_KEY=none
++ OG_MEILI_API_KEY=master-key
+```
+
+2. 在后台更新索引：`管理` -> `通用` -> `动作` -> `索引所有 Gists`
+
+3. 更新字段，否则会报 500 错误
+```bash
+curl -X PATCH 'http://meilisearch:7700/indexes/opengist/settings' \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer YOUR_MASTER_KEY' \
+  -d '{
+    "filterableAttributes": [
+      "UserID",
+      "Visibility",
+      "Language",
+      "Languages",
+      "IsPublic",
+      "Title",
+      "GistID",
+      "Owner",
+      "FileName",
+      "FileExtension",
+      "Topic"
+    ],
+    "sortableAttributes": [
+      "CreatedAt",
+      "UpdatedAt",
+      "Size"
+    ]
+  }'
+```
 
 ### OIDC
 - [回调地址](https://opengist.io/docs/configuration/oauth-providers.html)

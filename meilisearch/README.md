@@ -150,7 +150,7 @@ alias meili="curl -H 'Authorization: Bearer 你的master-key' -H 'Content-Type: 
 
 # ------------------------------
 # 1. 创建索引（相当于创建“表”）
-meili -X PUT 'http://localhost:7700/indexes/movies'
+meili -X POST 'http://localhost:7700/indexes' -d '{"uid": "movies"}'
 
 # 2. 查看所有索引
 meili 'http://localhost:7700/indexes'
