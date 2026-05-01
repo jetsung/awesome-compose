@@ -1,0 +1,13 @@
+---
+# https://hub.docker.com/r/caronc/apprise
+services:
+  apprise:
+    container_name: apprise
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: apprise
+    image: caronc/apprise:latest
+    ports:
+      - "8000:8000"
+    restart: unless-stopped

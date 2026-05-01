@@ -58,6 +58,7 @@ SERV_PORT=
 
 | 状态 | 项目名称 | 描述 |
 | --- | --- | --- |
+| 在用 | [apprise](./apprise/) | 集合通知服务推送的平台 |
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
 | 在用 | [arcane](./arcane/) | 用于管理你的 Docker 容器、镜像、网络和卷的管理平台 |
 | | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过 Web 界面管理数据库，如 MySQL、SQLite 等 |

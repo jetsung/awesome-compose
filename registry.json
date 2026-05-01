@@ -46,6 +46,19 @@
       ]
     },
     {
+      "id": "apprise",
+      "name": "Apprise",
+      "description": "一款集合通知服务推送的平台。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/apprise/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/apprise/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/apprise/README.md",
+      "tags": [
+        "apprise"
+      ]
+    },
+    {
       "id": "arcane",
       "name": "Arcane",
       "description": "一个美观直观的界面，用于管理你的 Docker 容器、镜像、网络和卷。 不需要终端。",
