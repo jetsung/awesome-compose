@@ -48,7 +48,7 @@
     {
       "id": "apprise",
       "name": "Apprise",
-      "description": "一款集合通知服务推送的平台。",
+      "description": "一款开源的通知服务集合平台，通过统一的 URL 语法，支持向全球 100+ 种主流推送服务（如 Discord, Slack, Telegram, Email, Ntfy 等）发送消息。",
       "version": "1.0.0",
       "author": "jetsung",
       "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/apprise/compose.yaml",
