@@ -124,6 +124,19 @@
       ]
     },
     {
+      "id": "baidupcs",
+      "name": "Baidupcs",
+      "description": "基于 Rust + Vue 3 的高性能百度网盘客户端",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/baidupcs/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/baidupcs/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/baidupcs/README.md",
+      "tags": [
+        "baidupcs"
+      ]
+    },
+    {
       "id": "bark",
       "name": "bark-server",
       "description": "一款注重隐私、安全可控的自定义通知推送工具。",

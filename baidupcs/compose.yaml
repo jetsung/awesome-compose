@@ -1,0 +1,13 @@
+---
+# https://hub.docker.com/r/komorebicarry/baidupcs-rust
+services:
+  baidupcs:
+    container_name: baidupcs
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: baidupcs
+    image: komorebicarry/baidupcs-rust:latest
+    ports:
+      - "18888:18888"
+    restart: unless-stopped

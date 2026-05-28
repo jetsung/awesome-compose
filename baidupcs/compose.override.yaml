@@ -1,0 +1,16 @@
+---
+services:
+  baidupcs:
+    ports: !override
+      - ${SERV_PORT:-18888}:18888
+    volumes:
+      # 配置文件挂载
+      - ./data/config:/app/config
+      # 下载目录挂载
+      - ./data/downloads:/app/downloads
+      # 会话数据挂载
+      - ./data/data:/app/data
+      # 日志目录挂载
+      - ./data/logs:/app/logs
+      # WAL 目录挂载
+      - ./data/wal:/app/wal
