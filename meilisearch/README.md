@@ -143,6 +143,12 @@ MEILI_EXPERIMENTAL_S3_COMPRESSION=
 </dev/urandom tr -dc 'A-Za-z0-9' | fold -w 16 | head -n 16
 ```
 
+## 版本升级
+使用无转储升级功能更新数据库版本：
+```bash
+docker compose run --rm meilisearch meilisearch --experimental-dumpless-upgrade
+```
+
 ## 基本教程
 ```bash
 # 设置别名（方便复制）
