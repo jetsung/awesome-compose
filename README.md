@@ -61,6 +61,7 @@ SERV_PORT=
 | 在用 | [apprise](./apprise/) | 集合通知服务推送的平台 |
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
 | 在用 | [arcane](./arcane/) | 用于管理你的 Docker 容器、镜像、网络和卷的管理平台 |
+| 在用 | [aria2](./aria2/) | 行业标准的免费开源多协议下载工具，支持 HTTP、FTP 和 BitTorrent 协议的并行传输 |
 | | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过 Web 界面管理数据库，如 MySQL、SQLite 等 |
 | | [autopush](./autopush/) | Autopush 是 Mozilla 推送服务的 Rust 实现。 |
 | | [aliyundrive](./aliyundrive/) | 阿里云盘 WebDAV 服务，将阿里云盘挂载为标准 WebDAV 文件系统 |

@@ -3,7 +3,7 @@
 services:
   acme:
     command: ["daemon"]
-    container_name: acme.sh
+    container_name: acme
     env_file:
       - path: ./.env
         required: false

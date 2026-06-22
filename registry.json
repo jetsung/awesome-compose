@@ -72,6 +72,19 @@
       ]
     },
     {
+      "id": "aria2",
+      "name": "Aria2",
+      "description": "行业标准的免费开源多协议下载工具。它利用先进的多连接架构，通过HTTP、FTP和BitTorrent协议实现多达16个并行传输，充分利用你的带宽，而且完全离线且安全。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aria2/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aria2/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aria2/README.md",
+      "tags": [
+        "aria2"
+      ]
+    },
+    {
       "id": "asciinema",
       "name": "asciinema server",
       "description": "一个免费的开源解决方案，用于录制终端会话并在 Web 上共享它们。",

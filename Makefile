@@ -205,7 +205,7 @@ init: ## 初始化项目：n=文件夹名称、镜像名称、镜像地址，p=1
 			IMAGE_NAME=`echo "$$NAME" | sed 's|^ghcr.io/||' | cut -d'/' -f2`; \
 			IMAGE_PATH="$$USER/$$IMAGE_NAME"; \
 			FULL_IMAGE="$$REGISTRY/$$IMAGE_PATH"; \
-			IMAGE_URL="https://github.com/$$USER/$$IMAGE_NAME/pkgs/container/$$IMAGE_NAME"; \
+			IMAGE_URL="https://$$NAME"; \
 			GIT_URL="https://github.com/$$USER/$$IMAGE_NAME"; \
 		else \
 			# 提取 user 和 image-name \

@@ -1,0 +1,6 @@
+---
+services:
+  aria2:
+#     ports: !reset []
+    ports: !override
+      - ${SERV_PORT:-6800}:6800
