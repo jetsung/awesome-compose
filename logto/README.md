@@ -41,3 +41,21 @@ ADMIN_ENDPOINT='protocol://localhost:3002'
 ```
 
 [**更多配置**](https://docs.logto.io/zh-CN/concepts/core-service/configuration)
+
+---
+
+## 升级注意事项
+
+版本升级后可能会报错 `Found undeployed database alterations`，需要先部署数据库变更：
+
+```bash
+logto db alteration deploy
+```
+
+或
+
+```bash
+npm run alteration deploy
+```
+
+参考文档：[Database Alteration](https://docs.logto.io/logto-oss/using-cli/database-alteration)
