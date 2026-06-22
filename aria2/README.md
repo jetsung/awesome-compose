@@ -107,3 +107,91 @@ services:
 ```bash
 docker compose up -d
 ```
+
+## HTTPS / SSL 配置
+
+aria2 默认的 6800 端口使用的是 **HTTP 协议**（基于 HTTP/WebSocket 的 RPC 服务），而不是 HTTPS。
+
+如果你的 WebUI 部署在 HTTPS 网站上（如线上的 AriaNg 托管页面），浏览器会因混合内容（Mixed Content）安全策略阻止其连接本地的 HTTP 端口。
+
+### 方案一：开启 aria2 原生 HTTPS 支持
+
+在 `aria2.conf` 中添加 SSL 证书配置（需要提前准备好 SSL 证书 `server.crt` 和私钥 `server.key`）：
+
+```ini
+rpc-secure=true
+rpc-certificate=/path/to/server.crt
+rpc-private-key=/path/to/server.key
+```
+
+开启后，端口依然是 6800，但协议变为 **HTTPS**（RPC 路径变为 `https://...` 或 `wss://...`）。
+
+### 方案二：使用 Nginx 反向代理（推荐）
+
+aria2 本身保持 HTTP 协议（6800 端口），Nginx 在前端提供 HTTPS 加密。这种方式证书申请与续签更方便，且可同时托管 AriaNg 前端和 aria2 后端。
+
+#### Nginx 配置示例（标准 443 端口）
+
+```nginx
+server {
+    listen 443 ssl;
+    server_name yourdomain.com;
+
+    ssl_certificate /path/to/fullchain.pem;
+    ssl_certificate_key /path/to/privkey.pem;
+
+    location /jsonrpc {
+        proxy_pass http://127.0.0.1:6800/jsonrpc;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # WebSocket 支持
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_connect_timeout 60s;
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+        proxy_buffering off;
+    }
+}
+```
+
+#### Nginx 配置示例（自定义端口）
+
+如果希望对外暴露 6800 端口但仍通过 Nginx 加密，需要将 aria2 改为其他端口（如 6801），Nginx 监听 6800：
+
+```nginx
+server {
+    listen 6800 ssl;
+    server_name yourdomain.com;
+
+    ssl_certificate /path/to/fullchain.pem;
+    ssl_certificate_key /path/to/privkey.pem;
+
+    location /jsonrpc {
+        proxy_pass http://127.0.0.1:6801/jsonrpc;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    }
+}
+```
+
+## WebUI 连接参数
+
+通过 Nginx 反代后，在 AriaNg 或其他 WebUI 中的连接参数需做相应修改：
+
+| 配置项 | 直接连接 6800 | 通过 Nginx 反代 |
+| --- | --- | --- |
+| **协议** | HTTP / WS | **HTTPS / WSS** |
+| **主机** | `127.0.0.1` 或服务器 IP | `yourdomain.com` |
+| **端口** | `6800` | `443`（或 Nginx 监听的端口） |
+| **RPC 路径** | `/jsonrpc` | `/jsonrpc` |
+
+> 使用 Nginx 反代方案时，aria2.conf 中的 `rpc-secure=true` **不需要**开启，安全加密的工作全部由 Nginx 完成。
