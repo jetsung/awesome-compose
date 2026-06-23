@@ -20,14 +20,14 @@
 | `APP_PORT` | `3200` | 桌面客户端 |
 | `ADMIN_PORT` | `3100` | 管理端 |
 | `BACKEND_PORT` | `3170` | 后端 |
-| `AIO_PORT` | `8080` | All-In-One 一体化 |
+| `HOPPSCOTCH_PORT` | `8080` | All-In-One 一体化 |
 
 ## 部署教程
 
 初始化配置信息
 ```bash
-# 一体（若非80或443，则需含完整的路径）
-./setup.sh aio hostname:8080
+# 一体式（若非80或443，则需含完整的路径）
+./setup.sh hoppscotch hostname:8080
 
 # 单体（不含端口）
 ./setup.sh one hostname
@@ -39,14 +39,14 @@
 ### 初始化
 1. 启动 `PostgreSQL`：
 ```bash
-# aio
+# hoppscotch
 docker compose --profile init up -d
 ```
 
 2. 初始化数据库
 ```bash
 # 一体
-docker compose run --rm --entrypoint pnpm aio dlx prisma migrate deploy
+docker compose run --rm --entrypoint pnpm hoppscotch dlx prisma migrate deploy
 
 # 单体
 docker compose run --rm --entrypoint pnpm backend dlx prisma migrate deploy
@@ -54,8 +54,8 @@ docker compose run --rm --entrypoint pnpm backend dlx prisma migrate deploy
 
 3. 启动 `Hoppscotch`：
 ```bash
-# 一体
-docker compose --profile aio up -d
+# 一体式
+docker compose --profile hoppscotch up -d
 
 # 单体
 docker compose --profile one up -d
@@ -63,7 +63,7 @@ docker compose --profile one up -d
 
 4. 访问 `Hoppscotch` 管理端：
 ```bash
-# 一体
+# 一体式
 http://hostname:8080 # Web
 http://hostname:8080/admin # Admin
 http://hostname:8080/backend # API

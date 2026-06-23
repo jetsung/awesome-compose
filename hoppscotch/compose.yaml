@@ -9,10 +9,9 @@ services:
     image: postgres:18
     profiles:
       - init
-      - aio
-      - one
+      - hoppscotch
     restart: unless-stopped
-  aio:
+  hoppscotch:
     env_file:
       - path: ./.env
         required: false
@@ -24,7 +23,7 @@ services:
       - 80:80
       - 3200:3200
     profiles:
-      - aio
+      - hoppscotch
     restart: unless-stopped
   admin:
     env_file:

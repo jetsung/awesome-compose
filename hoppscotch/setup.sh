@@ -21,7 +21,7 @@ generate_env_file() {
     cp ".env" "${profile}.env"
     echo "copy .env file for profile: ${profile}.env"
 
-    if [[ "$profile" == "aio" ]]; then
+    if [[ "$profile" == "hoppscotch" ]]; then
         # remove lines for FRONTEND_PORT ADMIN_PORT BACKEND_PORT APP_PORT
         sed -i '/^FRONTEND_PORT/d' "${profile}.env"
         sed -i '/^ADMIN_PORT/d' "${profile}.env"
@@ -37,8 +37,8 @@ generate_env_file() {
             sed -i "s@localhost:3170@${hostname}/backend@g" "${profile}.env"
         fi
     elif [[ "$profile" == "one" ]]; then
-        # remove AIO_PORT
-        sed -i '/^AIO_PORT/d' "${profile}.env"
+        # remove HOPPSCOTCH_PORT
+        sed -i '/^HOPPSCOTCH_PORT/d' "${profile}.env"
 
 
         if [[ -n "$hostname" ]]; then
@@ -61,7 +61,7 @@ generate_env_file() {
 main() {
     # Main script
     if [ -z "${1:-}" ]; then
-    echo "Usage: $0 [aio|one]"
+    echo "Usage: $0 [hoppscotch|one]"
     exit 1
     fi
 
