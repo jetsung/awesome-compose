@@ -55,25 +55,29 @@ server {
     ignore_invalid_headers off;
     # Allow any size file to be uploaded.
     # Set to a value such as 1000m; to restrict file size to a specific value
+    # 增加这一行，设置为需要的大小，例如 10G
     client_max_body_size 0;
-    # To disable buffering
-    proxy_buffering off;
-    proxy_request_buffering off;
 
     location / {
-        proxy_pass http://console;
-        proxy_connect_timeout 300;
+        proxy_pass http://minio_oss;
 
-        proxy_set_header Host $http_host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_http_version 1.1;
+
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-NginX-Proxy true;
+        proxy_set_header Host $http_host;
 
-        # Default is HTTP/1, keepalive is only enabled in HTTP/1.1
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
+        # 对于大文件上传，还需要调整超时时间
+        proxy_read_timeout 300s;
+        proxy_send_timeout 300s;
+        proxy_connect_timeout 300s;
+
+        # 禁用缓冲，直接流式传输
+        proxy_request_buffering off;
+        proxy_buffering off;
 
         chunked_transfer_encoding off;
         real_ip_header X-Real-IP;
