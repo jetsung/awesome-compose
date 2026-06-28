@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as a,aj as o}from"./chunks/framework.DpVzuYkC.js";const i=JSON.parse('{"title":"frp","description":"","frontmatter":{},"headers":[],"relativePath":"frp/index.md","filePath":"frp/README.md"}'),f={name:"frp/index.md"};function p(n,r,c,s,_,l){return t(),a("div",null,[...r[0]||(r[0]=[o("",4)])])}const d=e(f,[["render",p]]);export{i as __pageData,d as default};
