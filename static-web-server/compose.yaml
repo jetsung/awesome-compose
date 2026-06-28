@@ -2,7 +2,6 @@
 # https://github.com/orgs/static-web-server/packages/container/package/static-web-server
 services:
   static-web-server:
-    command: ["--root", "/app/downloads", "-z"]
     container_name: static-web-server
     env_file:
       - path: ./.env

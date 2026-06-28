@@ -10,18 +10,18 @@ x-ferron-common: &ferron-common
     - 443:443
   restart: unless-stopped
   user: 0:0
-  volumes:
-    - ./ferron.kdl:/etc/ferron.kdl
 services:
   ferron:
     <<: *ferron-common
     profiles:
       - ferron
     volumes:
+      - ./ferron.kdl:/etc/ferron.kdl
       - ./data/html:/var/www/ferron
   server:
     <<: *ferron-common
     profiles:
       - server
     volumes:
-      - ./data/ferron-acme:/var/cache/ferron-acme" # This volume is needed for persistent automatic TLS cache, otherwise the web server will obtain a new certificate on each restart
+      - ./ferron.kdl:/etc/ferron.kdl
+      - ./data/ferron-acme:/var/cache/ferron-acme # This volume is needed for persistent automatic TLS cache, otherwise the web server will obtain a new certificate on each restart

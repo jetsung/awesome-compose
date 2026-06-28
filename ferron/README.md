@@ -13,6 +13,97 @@
 
 ---
 
+## 使用说明
+
+### 静态文件服务
+
+配置 Ferron 作为静态文件服务器很简单，只需在 `root` 指令中指定包含静态文件的目录即可：
+
+```kdl
+// 示例配置，将 example.com 替换为你的域名
+example.com {
+    root "/var/www/html" // 将 "/var/www/html" 替换为包含静态文件的目录
+}
+```
+
+### HTTP 压缩
+
+HTTP 压缩默认为静态文件启用。如需禁用：
+
+```kdl
+example.com {
+    root "/var/www/html"
+    compressed #false
+}
+```
+
+### 目录列表
+
+目录列表默认禁用。如需启用：
+
+```kdl
+example.com {
+    root "/var/www/html"
+    directory_listing
+}
+```
+
+### 单页应用（SPA）支持
+
+Ferron 通过添加 URL 重写规则来支持单页应用：
+
+```kdl
+example.com {
+    root "/var/www/html"
+    rewrite "^/.*" "/" directory=#false file=#false last=#true
+}
+```
+
+### 内存缓存
+
+Ferron 支持内存缓存以加速网站访问。启用方法：
+
+```kdl
+example.com {
+    root "/var/www/html"
+    cache
+    file_cache_control "max-age=3600"
+}
+```
+
+### 预压缩静态文件
+
+Ferron 支持提供预压缩的静态文件。启用方法：
+
+```kdl
+example.com {
+    root "/var/www/html"
+    precompressed
+}
+```
+
+预压缩文件的扩展名规则：
+- `.gz` - gzip 压缩
+- `.deflate` - Deflate 压缩
+- `.br` - Brotli 压缩
+- `.zst` - Zstandard 压缩
+
+使用 Ferron 自带的 `ferron-precompress` 工具创建预压缩文件：
+
+```bash
+ferron-precompress /var/www/html
+```
+
+### 故障排除
+
+- 如果文件返回 `404 Not Found`，请验证 `root` 路径是否正确且 Ferron 用户有读取权限
+- 如果 SPA 路由返回 `404 Not Found`，请添加上述 SPA 重写规则
+- 如果预压缩资源未被提供，请检查匹配文件是否存在（如 `app.js.br` 或 `app.js.gz`）
+- 如果使用 `cache` 时响应看起来过期，请减少缓存时间（`file_cache_control`）或暂时禁用缓存
+- 如果网站同时提供静态文件和 API 流量，请使用 `location` 块进行路由分割
+
+---
+
 ## 配置
 
 ### 官方原始的 `ferron.kdl`
