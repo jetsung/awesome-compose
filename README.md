@@ -4,8 +4,6 @@
 
 [**Compose 规范**](https://github.com/compose-spec/compose-spec) ● [**Docker Compose 语法**](https://docs.docker.com/reference/compose-file/)
 
-[**Play With Docker**](https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/compose.yaml)
-
 ## 创建项目
 ```bash
 # 创建项目，-p 则使用前面的部分，即 gotify 作为文件夹
@@ -62,7 +60,7 @@ SERV_PORT=
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
 | 在用 | [arcane](./arcane/) | 用于管理你的 Docker 容器、镜像、网络和卷的管理平台 |
 | 在用 | [aria2](./aria2/) | 行业标准的免费开源多协议下载工具，支持 HTTP、FTP 和 BitTorrent 协议的并行传输 |
-| | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过 Web 界面管理数据库，如 MySQL、SQLite 等 |
+| 在用 | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过 Web 界面管理数据库，如 MySQL、SQLite 等 |
 | | [autopush](./autopush/) | Autopush 是 Mozilla 推送服务的 Rust 实现。 |
 | | [aliyundrive](./aliyundrive/) | 阿里云盘 WebDAV 服务，将阿里云盘挂载为标准 WebDAV 文件系统 |
 | 在用 | [asciinema](./asciinema/) | 用于录制和分享终端会话的工具，将终端操作录制成可播放的动画 |
@@ -99,7 +97,7 @@ SERV_PORT=
 | 在用 | [linkding](./linkding/) | 简单、快速的自托管书签服务 |
 | | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
 | | [listmonk](./listmonk/) | 高性能、可自托管的邮件通讯和营销自动化工具 |
-| | [logto](./logto/) | 现代开源的 SaaS 和 AI 应用认证基础设施 |
+| 在用 | [logto](./logto/) | 现代开源的 SaaS 和 AI 应用认证基础设施 |
 | | [mamoto](./mamoto/) | 提供网站分析服务的开源平台 |
 | | [mariadb](./mariadb/) | 社区开发的 MySQL 关系型数据库管理系统分支 |
 | 在用 | [meilisearch](./meilisearch/) | 快速、易于使用的搜索引擎 |
@@ -115,7 +113,7 @@ SERV_PORT=
 | 在用 | [opengist](./opengist/) | 自托管的代码片段管理服务 |
 | 在用 | [openlist](./openlist/) | 网盘列表管理工具 |
 | 在用 | [openssh-server](./openssh-server/) | SSH 服务器，用于远程安全连接 |
-| | [pgadmin](./pgadmin/) | PostgreSQL 数据库的开源管理和开发平台 |
+| 在用 | [pgadmin](./pgadmin/) | PostgreSQL 数据库的开源管理和开发平台 |
 | | [pgadmin-db](./pgadmin-db/) | 为 pgAdmin 提供数据库支持的服务 |
 | | [phpmyadmin](./phpmyadmin/) | 以 Web 为基础的 MySQL 数据库管理工具 |
 | | [phpmyadmin-db](./phpmyadmin-db/) | 为 phpMyAdmin 提供数据库支持的服务 |
@@ -187,6 +185,7 @@ jq '.templates=[] | .name="Jetsung Arcane Templates" | .description="Jetsung Doc
 - 格式化 `yml` 文件  
   https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
 
+
 ## 仓库镜像
 
-[MyCode](https://git.jetsung.com/jetsung/awesome-compose) ● [GitCode](https://gitcode.com/jetsung/awesome-compose) ● [GitHub](https://github.com/jetsung/awesome-compose)
+[MyCode](https://git.jetsung.com/jetsung/awesome-compose) ● [AtomGit](https://atomgit.com/jetsung/awesome-compose) ● [GitHub](https://github.com/jetsung/awesome-compose)
