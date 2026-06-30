@@ -18,18 +18,18 @@
 > 必需：将环境变量 `DERP_DOMAIN` 设置为你的域名
 
 ```bash
-docker run -e DERP_DOMAIN=derper.your-domain.com -p 80:80 -p 443:443 -p 3478:3478/udp ghcr.io/kaaanata/derper
+docker run -e DERP_DOMAIN=derper.example.com -p 80:80 -p 443:443 -p 3478:3478/udp ghcr.io/kaaanata/derper
 ```
 
 | 环境变量                    | 是否必需 | 描述                                                                 | 默认值     |
 | -------------------        | -------- | ----------------------------------------------------------------------| ----------------- |
-| DERP_DOMAIN            | 是     | Derper 服务器主机名                                                      | your-hostname.com |
+| DERP_DOMAIN            | 是     | Derper 服务器主机名                                                      | derper.example.com |
 | DERP_CERT_DIR          | 否     | 存储 Let's Encrypt 证书的目录（如果地址端口是 :443）                | /app/certs        |
 | DERP_CERT_MODE         | 否     | 获取证书的模式。可能的选项：manual（手动）, letsencrypt（Let's Encrypt 自动获取）| letsencrypt       |
 | DERP_ADDR              | 否     | 监听服务器地址。中转端口                                                    | :443              |
 | DERP_STUN              | 否     | 同时运行一个 STUN 服务器                                                      | true              |
 | DERP_STUN_PORT         | 否     | 用于提供 STUN 服务的 UDP 端口。**STUN 打洞端口**                            | 3478              |
-| DERP_HTTP_PORT         | 否     | 用于提供 HTTP 服务的端口。设置为 -1 可禁用                       | 80                |
+| DERP_HTTP_PORT         | 否     | 用于提供 HTTP 服务的端口。设置为 -1 可禁用                       | -1                |
 | DERP_VERIFY_CLIENTS    | 否     | 通过本地运行的 Tailscale 实例验证连接到该 DERP 服务器的客户端。**验证客户端身份，防止白嫖**  | false             |
 | DERP_VERIFY_CLIENT_URL | 否     | 如果非空，这是一个准入控制器 URL，用于允许客户端连接 | ""                |
 
