@@ -13,7 +13,107 @@
 
 ---
 
-- 配置文件 `config.json`
+## 使用教程
+
+### 常用 cron 表达式
+
+- `0 2 * * *` - 每天凌晨2点
+- `0 3 * * 0` - 每周日凌晨3点
+- `0 1 1 * *` - 每月1号凌晨1点
+- `*/30 * * * *` - 每30分钟
+
+### 查看日志
+
+```bash
+# 测试日志功能（首次使用建议运行）
+docker exec rclone-backup /app/scripts/test-logging.sh
+
+# 查看备份日志
+docker exec rclone-backup tail -f /var/log/backup/backup.log
+
+# 查看同步日志
+docker exec rclone-backup tail -f /var/log/backup/sync.log
+
+# 查看 cron 日志
+docker exec rclone-backup tail -f /var/log/backup/cron.log
+
+# 查看容器日志
+docker logs -f rclone-backup
+
+# 查看所有日志文件
+docker exec rclone-backup ls -la /var/log/backup/
+```
+
+### 手动执行任务
+
+```bash
+# 执行特定的备份任务
+docker exec rclone-backup /app/scripts/backup-job.sh "documents_backup"
+
+# 执行特定的同步任务
+docker exec rclone-backup /app/scripts/sync-job.sh "documents_sync"
+
+# 创建自定义 Hook
+docker exec rclone-backup /app/scripts/create-hook.sh pre-backup compress-photos
+
+# 测试 Hook 功能
+docker exec rclone-backup /app/scripts/test-hooks.sh
+```
+
+### 管理 rclone 配置
+
+```bash
+# 查看已配置的远程
+docker exec rclone-backup rclone listremotes
+
+# 测试连接
+docker exec rclone-backup rclone lsd gdrive:
+
+# 重新配置
+docker exec rclone-backup rclone config
+```
+
+## 配置参数说明
+
+### 备份任务 (backup_jobs)
+- `name`: 备份任务名称
+- `enabled`: 是否启用此任务
+- `source_path`: 源目录路径
+- `backup_mode`: 备份模式
+  - `copy`: 只复制新文件和更新的文件 (推荐，默认)
+  - `sync`: 完全同步，会删除目标中不存在于源的文件
+- `targets`: 备份目标列表
+  - `remote`: rclone 配置的远程名称
+  - `path`: 远程路径
+  - `enabled`: 是否启用此目标
+- `schedule`: cron 表达式 (分 时 日 月 周)
+- `options`: rclone 命令选项 (推荐使用 `--update`，只复制更新的文件)
+- `hooks`: Hook 脚本配置（可选）
+  - `pre_backup`: 备份前执行的脚本
+  - `post_backup`: 备份后执行的脚本
+  - Hook 配置参数：
+    - `enabled`: 是否启用此 Hook
+    - `script`: Hook 脚本路径
+    - `timeout`: 脚本执行超时时间（秒）
+    - `fail_on_error`: 脚本失败时是否终止备份任务
+    - `description`: Hook 描述（可选）
+
+### 同步任务 (sync_jobs)
+- `name`: 同步任务名称
+- `enabled`: 是否启用此任务
+- `destination_path`: 本地目标目录路径
+- `sources`: 同步源列表
+  - `remote`: rclone 配置的远程名称
+  - `path`: 远程路径
+  - `enabled`: 是否启用此源
+- `schedule`: cron 表达式 (分 时 日 月 周)
+- `sync_mode`: 同步模式
+  - `copy`: 只复制新文件和更新的文件 (推荐)
+  - `sync`: 完全同步，会删除目标中不存在于源的文件
+- `options`: rclone 命令选项 (推荐使用 `--update`，只复制更新的文件)
+
+## 配置文件 `config.json`
+
 ```json
 {
   "backup_jobs": [
