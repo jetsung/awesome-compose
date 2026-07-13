@@ -902,6 +902,19 @@
       ]
     },
     {
+      "id": "relaydrop",
+      "name": "Relaydrop",
+      "description": "一个文件中继工具，核心特性是 **支持通过 WebSocket over TLS（`wss://`）中转**，让发送方与接收方可以经过任意 TLS 终结的反向代理或隧道访问中继，而中继本身不持有证书、不占用 443。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/relaydrop/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/relaydrop/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/relaydrop/README.md",
+      "tags": [
+        "relaydrop"
+      ]
+    },
+    {
       "id": "remark42",
       "name": "Remark42",
       "description": "一款可自行托管的、轻量级且简洁（却功能完备）的评论引擎，不会窥探用户信息。它可以嵌入到博客、文章或读者发表评论的任何其他地方。",
