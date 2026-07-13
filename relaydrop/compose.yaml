@@ -1,0 +1,13 @@
+---
+# https://hub.docker.com/r/jetsung/relaydrop
+services:
+  relaydrop:
+    container_name: relaydrop
+    env_file:
+      - path: ./.env
+        required: false
+    hostname: relaydrop
+    image: jetsung/relaydrop:latest
+    ports:
+      - 9090:9090
+    restart: unless-stopped

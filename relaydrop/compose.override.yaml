@@ -1,0 +1,5 @@
+---
+services:
+  relaydrop:
+    ports: !override
+      - ${SERV_PORT:-9090}:9090

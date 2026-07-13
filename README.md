@@ -122,6 +122,7 @@ SERV_PORT=
 | | [qinglong](./qinglong/) | 定时任务管理平台 |
 | | [rclone](./rclone/) | 命令行程序，用于管理云存储上的文件 |
 | 在用 | [rclone-backup](./rclone-backup/) | 基于 rclone 的备份解决方案 |
+| 在用 | [relaydrop](./relaydrop/) | 文件中继工具，支持通过 WebSocket over TLS（wss://）中转，让发送方与接收方经任意 TLS 终结的反向代理或隧道访问中继 |
 | | [redis](./redis/) | 开源的内存数据结构存储，用作数据库、缓存和消息中间件 |
 | | [remark42](./remark42/) | 自托管的评论引擎，用于博客和其他出版物 |
 | | [rsshub](./rsshub/) | 轻量级、易于扩展的 RSS 生成器 |
