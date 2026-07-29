@@ -1,6 +1,6 @@
 # Woodpecker Server 环境变量参考
 
-> 本文档基于 [Woodpecker 官方文档 - Server 配置](https://woodpecker-ci.org/docs/administration/server) 整理，涵盖了 Woodpecker Server 端的所有环境变量配置项。
+> 本文档基于 [Woodpecker 官方文档 - Server 配置](https://woodpecker-ci.org/docs/administration/configuration/server) 整理，涵盖了 Woodpecker Server 端的所有环境变量配置项。
 
 ---
 
@@ -375,7 +375,7 @@
 
 ### WOODPECKER_STATUS_CONTEXT_FORMAT
 
-- **默认值**: `{{ .context }}/{{ .event }}/{{ .workflow }}{{if not (eq .axis_id 0)}}/{{.axis_id}}{{end}}`
+- **默认值**: <code v-pre>{{ .context }}/{{ .event }}/{{ .workflow }}{{if not (eq .axis_id 0)}}/{{.axis_id}}{{end}}</code>
 - **说明**: 推送到 Forge 的状态消息模板，使用 Go templates。支持的变量：
   - `context`: Woodpecker 上下文
   - `event`: 触发流水线的事件

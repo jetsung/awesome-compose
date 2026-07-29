@@ -337,4 +337,4 @@ server {
 
 > 必须配置 `X-Forwarded` 头信息以正确传递客户端协议和地址。
 
-有关 Apache、Caddy、Traefik 等更多反向代理配置，请参阅 [server-env.md](./server-env.md#反向代理) 或 [官方文档](https://woodpecker-ci.org/docs/administration/server#reverse-proxy)。
+有关 Apache、Caddy、Traefik 等更多反向代理配置，请参阅 [server-env.md](./server-env.md#反向代理) 或 [官方文档](https://woodpecker-ci.org/docs/administration/configuration/server#nginx)。
