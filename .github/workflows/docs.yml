@@ -43,8 +43,8 @@ jobs:
         run: npm ci
       - name: Build with VitePress
         run: npm run docs:build
-      - name: Copy CNAME
-        run: cp {CNAME,registry.json,schema.json} .vitepress/dist/
+      - name: Copy Files
+        run: cp {registry.json,schema.json} .vitepress/dist/
       - name: Upload build artifacts
         uses: actions/upload-artifact@v6
         with:
@@ -78,6 +78,7 @@ jobs:
       #   id: deployment
 
   deploy-ssh-server:
+    if: ${{ vars.DEPLOY_SSH_ENABLED == 'true' }}
     needs: build
     runs-on: ubuntu-latest
     steps:
