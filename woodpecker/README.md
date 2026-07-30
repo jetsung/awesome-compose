@@ -309,6 +309,26 @@ WOODPECKER_ATOMGIT_SECRET=YOUR_ATOMGIT_CLIENT_SECRET
 
 ---
 
+## 通用配置
+
+以下环境变量为 Server 与 Agent 的共同配置，**必须设置**：
+
+```ini
+WOODPECKER_AGENT_SECRET=your_agent_secret
+WOODPECKER_GRPC_SECRET=your_grpc_secret
+```
+
+- `WOODPECKER_GRPC_SECRET` — Server 与 Agent 之间 gRPC 通信的密钥，**为必填项**。该值在 Server 和 Agent 两端**必须保持一致**，且在重启后保持稳定不变。
+- `WOODPECKER_AGENT_SECRET` — Agent 注册密钥，也建议同时设置。
+
+可使用以下命令生成随机的 64 字符十六进制密钥：
+
+```bash
+openssl rand -hex 32
+```
+
+---
+
 ## 反向代理配置
 
 Woodpecker Server 运行在 `:8000`（Web UI / API）和 `:9000`（gRPC）端口。在生产环境中，建议使用反向代理进行 TLS 终止和域名绑定。
