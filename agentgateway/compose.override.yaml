@@ -1,5 +1,9 @@
 ---
 services:
   agentgateway:
+    user: 0:0
+    ports: !override
+      - "${MCP_PORT:-3000}:3000"
+      - "${LLM_PORT:-4000}:4000"
     volumes:
       - ./data:/config
