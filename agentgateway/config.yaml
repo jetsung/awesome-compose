@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://agentgateway.dev/schema/config
+config:
+  database:
+    url: sqlite:///config/data.db
+gateways:
+  default:
+    port: 4000
+ui:
+  gateways: default
+  policies:
+    oidc:
+      issuer: https://auth.your-domain.com
+      clientId: <YOUR_OIDC_CLIENT_ID>
+      clientSecret: <YOUR_OIDC_CLIENT_SECRET>
+      redirectURI: https://your-domain.com/oauth/callback
+    apiKey:
+      keys:
+      - key: <YOUR_UI_API_KEY_1>
+      - key: <YOUR_UI_API_KEY_2>
+llm:
+  gateways: default
+  policies:
+    apiKey:
+      keys:
+      - key: <YOUR_LLM_API_KEY>
+        metadata:
+          name: ApiKey
+      mode: strict
+  models:
+  - name: agnes/agnes-2.5-flash
+    provider:
+      reference: Agnes
+    params:
+      model: agnes-2.5-flash
+  providers:
+  - name: Agnes
+    provider:
+      custom:
+        formats:
+        - type: completions
+    params:
+      apiKey: <YOUR_PROVIDER_API_KEY>
+      baseUrl: https://api.your-provider.com
+  virtualModels: []
+frontendPolicies:
+  http:
+    maxBufferSize: 33554432
