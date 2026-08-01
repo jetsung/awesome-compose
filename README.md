@@ -58,6 +58,7 @@ SERV_PORT=
 | --- | --- | --- |
 | 在用 | [apprise](./apprise/) | 集合通知服务推送的平台 |
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
+| | [agentgateway](./agentgateway/) | 一款基于原生人工智能协议（MCP 与 A2A）构建的开源代理，可为跨任何框架和环境的代理与大语言模型（LLM）之间、代理与工具之间以及代理与代理之间的通信，提供即插即用的安全性、可观测性和治理功能。 |
 | 在用 | [arcane](./arcane/) | 用于管理你的 Docker 容器、镜像、网络和卷的管理平台 |
 | 在用 | [aria2](./aria2/) | 行业标准的免费开源多协议下载工具，支持 HTTP、FTP 和 BitTorrent 协议的并行传输 |
 | 在用 | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过 Web 界面管理数据库，如 MySQL、SQLite 等 |
