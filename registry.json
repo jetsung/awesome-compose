@@ -33,6 +33,19 @@
       ]
     },
     {
+      "id": "agentgateway",
+      "name": "Agentgateway",
+      "description": "一款基于原生人工智能协议（[MCP](https://modelcontextprotocol.io/introduction) 与 [A2A](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)）构建的开源代理，可为跨任何框架和环境的代理与大语言模型（LLM）之间、代理与工具之间以及代理与代理之间的通信，提供即插即用的安全性、可观测性和治理功能。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/agentgateway/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/agentgateway/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/agentgateway/README.md",
+      "tags": [
+        "agentgateway"
+      ]
+    },
+    {
       "id": "aliyundrive",
       "name": "aliyundrive",
       "description": "一个阿里云盘 WebDAV 服务，主要使用场景为配合支持 WebDAV 协议的客户端 App 如 Infuse、nPlayer 等实现在电视上直接观看云盘视频内容， 支持客户端 App 直接从阿里云盘获取文件播放而不经过运行本应用的服务器中转, 支持上传文件，但受限于 WebDAV 协议不支持文件秒传。",
