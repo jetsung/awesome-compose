@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: dufs
     image: sigoden/dufs:latest
     ports:
       - 5000:5000

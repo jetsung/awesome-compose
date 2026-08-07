@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: baidupcs
     image: komorebicarry/baidupcs-rust:latest
     ports:
       - "18888:18888"

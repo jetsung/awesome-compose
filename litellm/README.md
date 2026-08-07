@@ -186,7 +186,6 @@ services:
     environment:
       IFLOW_API_BASE: "https://apis.iflow.cn/v1"
       IFLOW_API_KEY: "$IFLOW_API_KEY"
-    hostname: litellm
     healthcheck:  # Defines the health check configuration for the container
       test:
         - CMD-SHELL

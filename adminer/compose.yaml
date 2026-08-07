@@ -7,7 +7,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: adminer
     image: adminer:latest
     ports:
       - 8080:8080

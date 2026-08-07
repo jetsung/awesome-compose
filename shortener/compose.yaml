@@ -10,7 +10,6 @@ services:
         required: false
     healthcheck:
       disable: true
-    hostname: shortener
     image: jetsung/shortener-server:latest
     restart: unless-stopped
     user: 0:0
@@ -18,16 +17,13 @@ services:
       - ./config.toml:/app/config.toml
   frontend:
     container_name: shortener-frontend
-    hostname: shortener
     image: jetsung/shortener-frontend:latest
     restart: unless-stopped
   valkey:
-    hostname: valkey
     image: valkey/valkey:latest
     restart: unless-stopped
   nginx:
     container_name: shortener-nginx
-    hostname: shortener
     image: nginx:alpine
     ports:
       - 80:80

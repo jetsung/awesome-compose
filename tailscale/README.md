@@ -192,7 +192,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: openresty
     image: openresty/openresty:alpine
     restart: unless-stopped
     volumes:

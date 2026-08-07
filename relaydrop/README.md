@@ -32,7 +32,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: relaydrop
     image: ghcr.io/jetsung/relaydrop:latest
     ports:
       - 9090:9090

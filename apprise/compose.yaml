@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: apprise
     image: caronc/apprise:latest
     ports:
       - "8000:8000"

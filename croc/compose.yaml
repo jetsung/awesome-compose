@@ -5,7 +5,6 @@ x-croc-common: &croc-common
   env_file:
     - path: ./.env
       required: false
-  hostname: croc
   image: schollz/croc:latest
   restart: unless-stopped
 services:

@@ -13,7 +13,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: wordpress
     image: wordpress:latest
     ports:
       - 80:80
@@ -24,6 +23,5 @@ services:
         required: false
     environment:
       <<: *db
-    hostname: mysql
     image: mysql:9
     restart: unless-stopped

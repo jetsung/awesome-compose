@@ -31,7 +31,6 @@ services:
       # Otherwise, the user can be setup on the web app after the first visit to http://localhost:9000
       LISTMONK_ADMIN_USER: ${LISTMONK_ADMIN_USER:-}
       LISTMONK_ADMIN_PASSWORD: ${LISTMONK_ADMIN_PASSWORD:-}
-    hostname: listmonk.example.com # Recommend using FQDN for hostname
     image: listmonk/listmonk:latest
     networks:
       - listmonk

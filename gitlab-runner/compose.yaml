@@ -7,7 +7,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: gitlab-runner
     image: gitlab/gitlab-runner:latest
     restart: unless-stopped
     volumes:

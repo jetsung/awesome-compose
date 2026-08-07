@@ -145,7 +145,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: agentgateway
     image: ghcr.io/agentgateway/agentgateway:latest
     ports:
       - "3000:3000"

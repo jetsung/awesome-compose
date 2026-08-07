@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: drone
     image: drone/drone:2
     ports:
       - 80:80
@@ -19,7 +18,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: drone
     image: drone/drone-runner-docker:1
     restart: unless-stopped
     volumes:

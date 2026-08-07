@@ -58,7 +58,6 @@ create proj git="" image="" huburl="":
     echo "    env_file:" >> "{{proj}}/compose.yaml"
     echo "      - path: ./.env" >> "{{proj}}/compose.yaml"
     echo "        required: false" >> "{{proj}}/compose.yaml"
-    echo "    hostname: {{proj}}" >> "{{proj}}/compose.yaml"
     echo "    image: {{image}}" >> "{{proj}}/compose.yaml"
     echo "#     ports:" >> "{{proj}}/compose.yaml"
     echo "#       - 80:80" >> "{{proj}}/compose.yaml"

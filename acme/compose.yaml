@@ -7,6 +7,5 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: acme
     image: neilpang/acme.sh:latest
     restart: unless-stopped

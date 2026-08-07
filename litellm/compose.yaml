@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: litellm
     healthcheck:  # Defines the health check configuration for the container
       test:
         - CMD-SHELL

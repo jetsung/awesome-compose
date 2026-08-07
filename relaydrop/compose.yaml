@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: relaydrop
     image: jetsung/relaydrop:latest
     ports:
       - 9090:9090

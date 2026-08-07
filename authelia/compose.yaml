@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: authelia
     healthcheck:
       disable: false
     image: authelia/authelia:latest

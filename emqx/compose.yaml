@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: emqx
     image: emqx/emqx:latest
     ports:
       - 1883:1883

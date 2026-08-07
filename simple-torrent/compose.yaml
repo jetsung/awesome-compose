@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: cloud-torrent
     image: jpillora/cloud-torrent:latest
     ports:
       - 3000:3000

@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: 'gitlab.example.com'
     image: gitlab/gitlab-ce:latest
     ports:
       - '80:80'
@@ -17,7 +16,6 @@ services:
 
   gitlab-runner:
     container_name: gitlab-runner
-    hostname: gitlab-runner
     image: gitlab/gitlab-runner:alpine
     restart: unless-stopped
     volumes:

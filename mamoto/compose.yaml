@@ -7,7 +7,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: matomo
     image: matomo:latest
     ports:
       - 80:80

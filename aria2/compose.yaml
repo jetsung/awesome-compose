@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: aria2
     image: ghcr.io/jetsung/aria2:latest
     ports:
       - 6800:6800

@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: transfer
     image: dutchcoders/transfer.sh:latest
     ports:
       - 8080:8080

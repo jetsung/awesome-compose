@@ -5,7 +5,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: postgres
     image: postgres:18
     profiles:
       - init
@@ -17,7 +16,6 @@ services:
         required: false
       - path: ./aio.env
         required: false
-    hostname: hoppscotch
     image: hoppscotch/hoppscotch:latest
     ports:
       - 80:80
@@ -31,7 +29,6 @@ services:
         required: false
       - path: ./one.env
         required: false
-    hostname: hoppscotch
     image: hoppscotch/hoppscotch-admin:latest
     ports:
       - 80:80
@@ -44,7 +41,6 @@ services:
         required: false
       - path: ./one.env
         required: false
-    hostname: hoppscotch
     image: hoppscotch/hoppscotch-frontend:latest
     ports:
       - 80:80
@@ -59,7 +55,6 @@ services:
         required: false
       - path: ./one.env
         required: false
-    hostname: hoppscotch
     image: hoppscotch/hoppscotch-backend:latest
     ports:
       - 80:80

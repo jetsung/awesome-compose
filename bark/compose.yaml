@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: bark
     image: finab/bark-server:latest
     ports:
       - 8080:8080

@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: server
     image: woodpeckerci/woodpecker-server:v3
     ports:
       - 8000:8000
@@ -22,7 +21,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: agent
     image: woodpeckerci/woodpecker-agent:v3
     restart: unless-stopped
     volumes:

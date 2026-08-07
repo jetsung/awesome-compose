@@ -7,7 +7,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: qbittorrent
     image: johngong/qbittorrent:latest
     ports:
       - 8989:8989

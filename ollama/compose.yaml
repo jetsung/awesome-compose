@@ -5,7 +5,6 @@ x-ollama-common: &ollama-common
   env_file:
     - path: ./.env
       required: false
-  hostname: ollama
   restart: unless-stopped
 services:
   ollama:

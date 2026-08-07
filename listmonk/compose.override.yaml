@@ -1,6 +1,5 @@
 services:
   app:
-    hostname: listmonk
     env_file:
       - path: ./.env
         required: false

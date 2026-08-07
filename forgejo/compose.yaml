@@ -8,7 +8,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: forgejo
     image: codeberg.org/forgejo/forgejo:14
     ports:
       - 3000:3000
@@ -23,7 +22,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: forgejo-runner
     image: code.forgejo.org/forgejo/runner:12
     restart: unless-stopped
     volumes:
@@ -35,6 +33,5 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: postgres
     image: postgres:18
     restart: unless-stopped

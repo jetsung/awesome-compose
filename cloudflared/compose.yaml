@@ -7,6 +7,5 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: cloudflared
     image: cloudflare/cloudflared:latest
     restart: unless-stopped

@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: openssh-server
     image: linuxserver/openssh-server:latest
     ports:
       - 2222:2222

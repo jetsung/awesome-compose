@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: syncthing
     image: syncthing/syncthing:latest
     ports:
       - 8384:8384       # Web UI

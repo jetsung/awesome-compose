@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: derper
     image: ghcr.io/kaaanata/derper:latest
     ports:
       - 80:80

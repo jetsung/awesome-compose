@@ -8,7 +8,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: headscale
     healthcheck:
         test: ["CMD", "headscale", "health"]
     labels:
@@ -32,7 +31,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: headplane
     image: ghcr.io/tale/headplane:latest
     ports:
       - "3000:3000"

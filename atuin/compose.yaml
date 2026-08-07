@@ -8,7 +8,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: atuin
     image: ghcr.io/atuinsh/atuin:latest
     ports:
       - 8888:8888

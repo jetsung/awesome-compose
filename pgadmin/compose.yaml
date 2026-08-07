@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: pgadmin
     image: dpage/pgadmin4:latest
     ports:
       - 80:80

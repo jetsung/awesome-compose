@@ -6,6 +6,5 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: rclone-backup
     image: jetsung/rclone-backup:latest
     restart: unless-stopped

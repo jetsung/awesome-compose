@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: tuwunel
     image: jevolk/tuwunel:latest
     ports:
       - 8008:8008

@@ -8,7 +8,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: joplin
     image: joplin/server:latest
     ports:
       - 22300:22300
@@ -17,6 +16,5 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: joplin
     image: postgres:18
     restart: unless-stopped

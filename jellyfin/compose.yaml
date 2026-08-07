@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: jellyfin
     image: jellyfin/jellyfin:latest
     ports:
       - 8096:8096/tcp

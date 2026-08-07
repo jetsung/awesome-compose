@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: memos
     image: neosmemo/memos:stable
     ports:
       - 5230:5230

@@ -8,7 +8,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: gitea
     image: gitea/gitea:latest
     ports:
       - 3000:3000
@@ -23,7 +22,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: gitea-runner
     image: gitea/act_runner:nightly
     restart: unless-stopped
     volumes:
@@ -35,6 +33,5 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: postgres
     image: postgres:18
     restart: unless-stopped

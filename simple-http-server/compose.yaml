@@ -7,7 +7,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: simple-http-server
     image: ghcr.io/forkdo/simple-http-server:latest
     ports:
       - 8000:8000

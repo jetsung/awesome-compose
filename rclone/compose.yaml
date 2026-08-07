@@ -7,7 +7,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: rclone
     image: rclone/rclone:latest
     restart: unless-stopped
     volumes:

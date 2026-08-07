@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: remark42
     image: umputun/remark42:latest
     logging:
       driver: json-file

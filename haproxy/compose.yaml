@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: haproxy
     image: haproxy:alpine
     ports:
       - 80:80

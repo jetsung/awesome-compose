@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: opengist
     image: ghcr.io/thomiceli/opengist:latest
     ports:
       - 6157:6157

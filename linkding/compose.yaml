@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: linkding
     image: sissbruecker/linkding:latest
     ports:
       - 9090:9090

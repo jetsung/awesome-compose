@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: aliyundrive
     image: messense/aliyundrive-webdav:latest
     ports:
       - 8080:8080

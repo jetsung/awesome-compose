@@ -13,7 +13,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: logto
     image: svhd/logto:${TAG-latest}
     ports:
       - 3001:3001

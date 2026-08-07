@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: gotify
     image: gotify/server:latest
     ports:
       - 80:80
@@ -18,7 +17,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: igotify
     image: ghcr.io/androidseb25/igotify-notification-assist:latest
     profiles:
       - igotify

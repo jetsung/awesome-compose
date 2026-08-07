@@ -5,7 +5,6 @@ x-stalwart-common: &stalwart-common
   env_file:
     - path: ./.env
       required: false
-  hostname: stalwart
   image: stalwartlabs/stalwart:latest
   restart: unless-stopped
   stdin_open: true

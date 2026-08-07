@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: rustpad
     image: ghcr.io/forkdo/rustpad:latest
     ports:
       - 3030:3030

@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: nginx
     image: nginx:alpine
     ports:
       - 80:80
@@ -16,7 +15,6 @@ services:
       - ./conf.d:/etc/nginx/conf.d:rw
   php-fpm:
     container_name: php-fpm
-    hostname: php-fpm
     image: php:fpm-alpine
     restart: unless-stopped
     volumes:

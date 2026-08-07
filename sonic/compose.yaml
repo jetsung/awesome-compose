@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: sonic
     image: valeriansaliou/sonic:latest
     ports:
       - 1491:1491

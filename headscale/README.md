@@ -79,7 +79,6 @@ regions:
     nodes:
       - name: 900a
         regionid: 900
-        hostname: derp900a.example.com
         ipv4: 198.51.100.1
         ipv6: 2001:db8::1
         canport80: true
@@ -90,7 +89,6 @@ regions:
     nodes:
       - name: 901a
         regionid: 901
-        hostname: derp901a.example.com
         ipv4: 198.51.100.2
         ipv6: 2001:db8::2
         canport80: true

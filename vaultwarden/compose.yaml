@@ -6,7 +6,6 @@ services:
     env_file:
       - path: ./.env
         required: false
-    hostname: vaultwarden
     image: vaultwarden/server:latest
     ports:
       - 80:80

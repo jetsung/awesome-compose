@@ -4,7 +4,6 @@ x-asciinema-common: &asciinema-common
   env_file:
     - path: ./.env
       required: false
-  hostname: asciinema
   image: ghcr.io/asciinema/asciinema-server:latest
   ports:
     - 4000:4000
@@ -33,7 +32,6 @@ services:
       interval: 2s
       timeout: 5s
       retries: 10
-    hostname: postgres
     image: postgres:18
     restart: unless-stopped
     profiles:
