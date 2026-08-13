@@ -86,6 +86,8 @@
   ```
 
 ## [**`.env`**](.env) 配置参数说明
+
+> 完整配置参数说明（含中文翻译）请参考 **[`configuration.md`](configuration.md)** 或 [官方文档](https://docs.asciinema.org/manual/server/self-hosting/configuration/)。
   ```sh
   # 是否关闭注册，默认 false
   SIGN_UP_DISABLED=false
@@ -132,7 +134,13 @@
 
 - [配置邮箱信息](https://docs.asciinema.org/manual/server/self-hosting/configuration/#email)
 - 配置 NGINX 反代
+  > **注意**：反代默认会限制请求体大小（通常为 1MB），上传录制文件时可能遇到 `Error: The recording exceeds the server-configured size limit` 错误。
+  > 请务必添加 `client_max_body_size` 指令，建议设为 `50m` 或更高。
+
   ```nginx
+    # 上传文件大小限制，建议设为 50m 或更高，防止上传被截断
+    client_max_body_size 50m;
+
     location / {
         proxy_pass http://127.0.0.1:4000;
 
@@ -151,6 +159,8 @@
         proxy_buffering off;
     }
   ```
+
+> 如果服务器端 `UPLOAD_SIZE_LIMIT` 也调整了，请确保 `client_max_body_size` 不低于该值。
 
 - 添加管理邮箱
   ```sh
