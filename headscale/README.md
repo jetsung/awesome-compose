@@ -75,7 +75,7 @@ HEADSCALE_METRICS_LISTEN_ADDR=0.0.0.0:9090
 
 ## 其它设置
 
-### 自定义 [DERP 服务器](https://headscale.net/0.27.1/ref/derp/)
+### 自定义 [DERP 服务器](https://headscale.net/latest/ref/derp/)
 - demo: https://github.com/juanfont/headscale/blob/main/derp-example.yaml
 
 配置文件 `derp.yaml`
