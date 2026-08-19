@@ -1,4 +1,6 @@
-- https://github.com/juanfont/headscale/blob/main/integration/hsic/config.go#L24
+- https://github.com/juanfont/headscale/blob/5aff68b5b9921db5ccb88013bb1740077ab872fb/integration/hsic/config.go#L24
+
+> 参考 headscale v0.29.3（commit 5aff68b5）的 `DefaultConfigEnv()`，与 v0.27.1 相比新增了嵌入式 DERP 相关变量。
 
 ```bash
 # 日志级别，可选：debug / info / warn / error / trace
@@ -49,8 +51,12 @@ HEADSCALE_NOISE_PRIVATE_KEY_PATH=/tmp/noise_private.key
 # Prometheus 兼容的 metrics 监听地址
 HEADSCALE_METRICS_LISTEN_ADDR=0.0.0.0:9090
 
+# Debug 端口，用于调试和诊断
+HEADSCALE_DEBUG_PORT=40000
+
 # DERP 服务器 URL，用于跨 NAT / 公网节点中继
-HEADSCALE_DERP_URLS=https://controlplane.tailscale.com/derpmap/default
+# v0.29.3 默认留空，使用嵌入式 DERP；仅在使用外部 DERP 时设置
+HEADSCALE_DERP_URLS=
 
 # 是否允许自动更新 DERP 地图
 HEADSCALE_DERP_AUTO_UPDATE_ENABLED=false
@@ -58,8 +64,29 @@ HEADSCALE_DERP_AUTO_UPDATE_ENABLED=false
 # DERP 自动更新频率（仅在自动更新开启时有效）
 HEADSCALE_DERP_UPDATE_FREQUENCY=1m
 
-# Debug 端口，用于调试和诊断
-HEADSCALE_DEBUG_PORT=40000
+# 嵌入式 DERP 服务器是否启用，true 表示启用
+HEADSCALE_DERP_SERVER_ENABLED=true
+
+# 嵌入式 DERP 服务器区域 ID
+HEADSCALE_DERP_SERVER_REGION_ID=999
+
+# 嵌入式 DERP 服务器区域代码
+HEADSCALE_DERP_SERVER_REGION_CODE=headscale
+
+# 嵌入式 DERP 服务器区域名称
+HEADSCALE_DERP_SERVER_REGION_NAME=Headscale Embedded DERP
+
+# 嵌入式 DERP 服务器 STUN 监听地址
+HEADSCALE_DERP_SERVER_STUN_LISTEN_ADDR=0.0.0.0:3478
+
+# 嵌入式 DERP 服务器私钥路径
+HEADSCALE_DERP_SERVER_PRIVATE_KEY_PATH=/tmp/derp.key
+
+# 是否启用 DERP 调试日志，true 表示启用
+DERP_DEBUG_LOGS=true
+
+# 是否启用 DERP 探测器调试日志，true 表示启用
+DERP_PROBER_DEBUG_LOGS=true
 
 # 分配节点 IP 的方式，可选：sequential（顺序）、random（随机）
 HEADSCALE_PREFIXES_ALLOCATION=sequential

@@ -17,7 +17,7 @@
 
 下载 `config.yaml` 配置文件
 ```bash
-curl -o config/headscale/config.yaml https://raw.githubusercontent.com/juanfont/headscale/v0.27.1/config-example.yaml
+curl -o config/headscale/config.yaml https://raw.githubusercontent.com/juanfont/headscale/v0.29.3/config-example.yaml
 ```
 
 ## 环境变量设置
@@ -44,10 +44,21 @@ HEADSCALE_DNS_MAGIC_DNS=true
 HEADSCALE_METRICS_LISTEN_ADDR=0.0.0.0:9090
 
 # DERP 服务器 URL，用于跨 NAT / 公网节点中继
+# v0.29.3 默认留空，使用嵌入式 DERP
 # HEADSCALE_DERP_URLS=https://controlplane.tailscale.com/derpmap/default
+
+# 嵌入式 DERP 服务器（v0.29.3 新增）
+# HEADSCALE_DERP_SERVER_ENABLED=false
+# HEADSCALE_DERP_SERVER_REGION_ID=999
+# HEADSCALE_DERP_SERVER_REGION_CODE=headscale
+# HEADSCALE_DERP_SERVER_REGION_NAME=Headscale Embedded DERP
+# HEADSCALE_DERP_SERVER_STUN_LISTEN_ADDR=0.0.0.0:3478
+# HEADSCALE_DERP_SERVER_PRIVATE_KEY_PATH=/var/lib/headscale/derp_server_private.key
+# DERP_DEBUG_LOGS=false
+# DERP_PROBER_DEBUG_LOGS=false
 ```
 
-### [环境变量 config](https://github.com/juanfont/headscale/blob/main/integration/hsic/config.go#L24)
+### [环境变量 config](https://github.com/juanfont/headscale/blob/v0.29.3/integration/hsic/config.go#L24)
 
 查看 [ENV_CONFIG.md](ENV_CONFIG.md)
 
@@ -56,8 +67,9 @@ HEADSCALE_METRICS_LISTEN_ADDR=0.0.0.0:9090
 > 2. `HEADSCALE_PREFIXES_V4/V6` 决定了 Tailscale 分配给节点的 IP 地址池
 > 3. `HEADSCALE_EPHEMERAL_NODE_INACTIVITY_TIMEOUT` 适合短期临时节点，如 CI/CD 测试容器
 > 4. `HEADSCALE_NOISE_PRIVATE_KEY_PATH` 与 `HEADSCALE_PRIVATE_KEY_PATH` 建议挂载 volume 保持持久，否则容器重启节点会换身份
+> 5. v0.29.3 起嵌入式 DERP 相关变量（`HEADSCALE_DERP_SERVER_*`、`DERP_DEBUG_LOGS`、`DERP_PROBER_DEBUG_LOGS`）随 `config.yaml` 的 `derp.server` 段一并生效
 
-### [环境变量 hsic](https://github.com/juanfont/headscale/blob/main/integration/hsic/hsic.go)
+### [环境变量 hsic](https://github.com/juanfont/headscale/blob/v0.29.3/integration/hsic/hsic.go)
 
 查看 [ENV_HSIC.md](ENV_HSIC.md)
 
