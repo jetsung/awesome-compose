@@ -15,6 +15,22 @@
 
 文档：https://komo.do/docs/setup/ferretdb
 
+## 备份与恢复
+
+[备份与恢复文档][5]
+
+### 恢复
+
+1. 执行恢复（还原最近的备份，或取消注释 `--restore-folder` 指定某次备份）：
+```bash
+docker compose -f restore.yaml up
+```
+
+2. 恢复完成后，**所有服务都需要重新设置**：
+   进入 **Config** -> **Server** -> **`Local`**，对每个服务重新配置后方可启动。
+
+[5]:https://komo.do/docs/setup/backup#restore
+
 ## 安装
 
 ### 快速安装
