@@ -1,4 +1,4 @@
-import{_ as i,o as a,c as n,aj as l}from"./chunks/framework.DpVzuYkC.js";const d=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"headscale/ENV_CONFIG.md","filePath":"headscale/ENV_CONFIG.md"}'),p={name:"headscale/ENV_CONFIG.md"};function h(k,s,e,t,E,A){return a(),n("div",null,[...s[0]||(s[0]=[l(`<ul><li><a href="https://github.com/juanfont/headscale/blob/main/integration/hsic/config.go#L24" target="_blank" rel="noreferrer">https://github.com/juanfont/headscale/blob/main/integration/hsic/config.go#L24</a></li></ul><div class="language-bash"><button title="Copy Code" class="copy"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e;" tabindex="0" dir="ltr"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 日志级别，可选：debug / info / warn / error / trace</span></span>
+import{_ as i,o as a,c as n,aj as l}from"./chunks/framework.DpVzuYkC.js";const r=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"headscale/ENV_CONFIG.md","filePath":"headscale/ENV_CONFIG.md"}'),p={name:"headscale/ENV_CONFIG.md"};function h(k,s,e,t,E,A){return a(),n("div",null,[...s[0]||(s[0]=[l(`<ul><li><a href="https://github.com/juanfont/headscale/blob/5aff68b5b9921db5ccb88013bb1740077ab872fb/integration/hsic/config.go#L24" target="_blank" rel="noreferrer">https://github.com/juanfont/headscale/blob/5aff68b5b9921db5ccb88013bb1740077ab872fb/integration/hsic/config.go#L24</a></li></ul><blockquote><p>参考 headscale v0.29.3（commit 5aff68b5）的 <code>DefaultConfigEnv()</code>，与 v0.27.1 相比新增了嵌入式 DERP 相关变量。</p></blockquote><div class="language-bash"><button title="Copy Code" class="copy"></button><span class="lang">bash</span><pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e;" tabindex="0" dir="ltr"><code><span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 日志级别，可选：debug / info / warn / error / trace</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_LOG_LEVEL</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">trace</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 自定义策略文件路径（ACL 配置），留空表示默认</span></span>
@@ -46,8 +46,12 @@ import{_ as i,o as a,c as n,aj as l}from"./chunks/framework.DpVzuYkC.js";const d
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Prometheus 兼容的 metrics 监听地址</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_METRICS_LISTEN_ADDR</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">0.0.0.0:9090</span></span>
 <span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Debug 端口，用于调试和诊断</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DEBUG_PORT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">40000</span></span>
+<span class="line"></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># DERP 服务器 URL，用于跨 NAT / 公网节点中继</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_URLS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">https://controlplane.tailscale.com/derpmap/default</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># v0.29.3 默认留空，使用嵌入式 DERP；仅在使用外部 DERP 时设置</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_URLS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 是否允许自动更新 DERP 地图</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_AUTO_UPDATE_ENABLED</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">false</span></span>
@@ -55,8 +59,29 @@ import{_ as i,o as a,c as n,aj as l}from"./chunks/framework.DpVzuYkC.js";const d
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># DERP 自动更新频率（仅在自动更新开启时有效）</span></span>
 <span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_UPDATE_FREQUENCY</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">1m</span></span>
 <span class="line"></span>
-<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># Debug 端口，用于调试和诊断</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DEBUG_PORT</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">40000</span></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 嵌入式 DERP 服务器是否启用，true 表示启用</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_SERVER_ENABLED</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 嵌入式 DERP 服务器区域 ID</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_SERVER_REGION_ID</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">999</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 嵌入式 DERP 服务器区域代码</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_SERVER_REGION_CODE</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">headscale</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 嵌入式 DERP 服务器区域名称</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_SERVER_REGION_NAME</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">Headscale</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;"> Embedded</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;"> DERP</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 嵌入式 DERP 服务器 STUN 监听地址</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_SERVER_STUN_LISTEN_ADDR</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">0.0.0.0:3478</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 嵌入式 DERP 服务器私钥路径</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_DERP_SERVER_PRIVATE_KEY_PATH</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">/tmp/derp.key</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 是否启用 DERP 调试日志，true 表示启用</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">DERP_DEBUG_LOGS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">true</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 是否启用 DERP 探测器调试日志，true 表示启用</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">DERP_PROBER_DEBUG_LOGS</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">true</span></span>
 <span class="line"></span>
 <span class="line"><span style="--shiki-light:#6A737D;--shiki-dark:#6A737D;"># 分配节点 IP 的方式，可选：sequential（顺序）、random（随机）</span></span>
-<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_PREFIXES_ALLOCATION</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">sequential</span></span></code></pre></div>`,2)])])}const D=i(p,[["render",h]]);export{d as __pageData,D as default};
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">HEADSCALE_PREFIXES_ALLOCATION</span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">=</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">sequential</span></span></code></pre></div>`,3)])])}const d=i(p,[["render",h]]);export{r as __pageData,d as default};
