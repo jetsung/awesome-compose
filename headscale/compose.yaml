@@ -37,8 +37,8 @@ services:
     restart: unless-stopped
     volumes:
       # - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./config/headscale/config:/etc/headscale
-      - ./config/headplane/config:/etc/headplane
+      - ./config/headscale:/etc/headscale
+      - ./config/headplane:/etc/headplane
       - ./data/headplane:/var/lib/headplane
     profiles:
       - plane
