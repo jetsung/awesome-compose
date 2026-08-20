@@ -83,6 +83,7 @@ SERV_PORT=
 | 在用 | [ferron](./ferron/) | 基于 Zola 的静态网站生成器 |
 | 在用 | [file-downloader](./file-downloader/) | 文件下载工具 |
 | 在用 | [filetas](./filetas/) | 文件传输加速服务 |
+| | [flarum](./flarum/) | Flarum 是一个设计简洁、优雅的开源论坛软件，让在线社区讨论变得简单愉悦。 |
 | | [frp](./frp/) | 专注内网穿透的高性能反向代理应用 |
 | 在用 | [gitea](./gitea/) | 轻量级的 DevOps 平台软件，提供 Git 托管、代码审查、团队协作等功能 |
 | 在用 | [gitlab](./gitlab/) | 完整的企业级 DevOps 平台，提供代码托管、CI/CD、项目管理等完整开发流程 |

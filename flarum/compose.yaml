@@ -1,0 +1,8 @@
+services:
+  flarum:
+    image: ghcr.io/forkdo/flarum:edge
+    container_name: flarum
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false

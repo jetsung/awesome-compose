@@ -1,0 +1,25 @@
+---
+services:
+  flarum:
+    # 数据库在单独的 mysql 栈中，不在 sharenet 上，通过宿主机 3306 端口访问
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      # 腾讯云 Alpine 源（apk 安装 PHP 扩展时使用，避免访问国外源）
+      - /srv/flarum/apk-repositories:/etc/apk/repositories:ro
+      # 自定义配置文件夹（redis / asciinema，可写挂载，重建容器不丢）
+      - /srv/flarum/conf:/flarum/app/conf
+      # extend.php 入口（可写挂载，startup 会对 /flarum 执行 chown，只读会报错）
+      - /srv/flarum/conf/extend.php:/flarum/app/extend.php
+      - /srv/flarum/assets:/flarum/app/public/assets
+      - /srv/flarum/extensions:/flarum/app/extensions
+      - /srv/flarum/logs:/flarum/app/storage/logs
+      - /srv/flarum/nginx:/etc/nginx/flarum
+    networks:
+      sharenet:
+        ipv4_address: 172.19.0.243
+
+networks:
+  sharenet:
+    external: true
