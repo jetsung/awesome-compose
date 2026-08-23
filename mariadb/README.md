@@ -38,7 +38,7 @@ pids_limit: 200        # 限制进程/线程总数，防失控
 
 ```yaml
 command:
-  - mysqld
+  - mariadbd
   - --innodb-buffer-pool-size=320M   # 缓冲池 < mem_limit，防 OOM
   - --max-connections=100            # 限制最大连接数
   - --max-user-connections=80       # 单账号连接上限，预留管理员通道
