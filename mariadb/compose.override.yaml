@@ -4,3 +4,22 @@ services:
       - ${SERV_PORT:-3306}:3306
     volumes:
       - ./data:/var/lib/mysql
+    # 资源限制：防止 MariaDB 占满宿主资源导致 VPS 卡死
+    mem_limit: 1g          # 内存硬上限，超出即被 OOM 终止
+    mem_reservation: 512m  # 内存软下限（调度参考）
+    cpus: "1.50"           # CPU 硬上限，最多使用 1.5 个核心
+    pids_limit: 200        # 限制进程/线程总数，防失控
+    command:
+      - mysqld
+      - --innodb-buffer-pool-size=320M   # 缓冲池 < mem_limit(1g)，防 OOM
+      - --max-connections=100            # 限制最大连接数，防连接爆炸拖垮内存
+      - --max-user-connections=80       # 单账号连接上限，预留给管理员
+      - --sort-buffer-size=512K         # 单连接排序缓冲，默认 2M→收紧
+      - --read-buffer-size=256K         # 单连接顺序读缓冲
+      - --read-rnd-buffer-size=512K     # 单连接随机读缓冲
+      - --join-buffer-size=512K         # 单连接 JOIN 缓冲
+      - --tmp-table-size=32M            # 内存临时表上限，超限转磁盘
+      - --max-allowed-packet=16M        # 单包上限，防大包占内存
+      - --wait-timeout=300              # 非交互连接空闲 300s 后回收
+      - --interactive-timeout=300       # 交互连接空闲 300s 后回收
+
