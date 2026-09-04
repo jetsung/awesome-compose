@@ -1,0 +1,11 @@
+---
+services:
+  warpgate:
+    ports: !override
+      - ${SSH_PORT:-2222}:2222
+      - ${WEB_PORT:-8888}:8888
+    volumes:
+      - ./data:/data
+    stdin_open: true
+    tty: true
+    user: 0:0

@@ -143,6 +143,7 @@ SERV_PORT=
 | 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
 | 在用 | [vaultwarden](./vaultwarden/) | Bitwarden 密码管理器的非官方服务器实现 |
 | 在用 | [vaultwarden-backup](./vaultwarden-backup/) | 为 Vaultwarden 提供备份功能的服务 |
+| 在用 | [warpgate](./warpgate/) | 一个完全透明的代理/堡垒机，用于管理内部基础设施的访问。支持 SSH、HTTPS、RDP、VNC、Kubernetes、PostgreSQL 和 MySQL 目标，提供 SSO、RBAC 和会话录制功能——无需安装专用客户端软件。 |
 | 在用 | [waline](./waline/) | 原 Waline 评论系统的 Rust 语言高性能实现版本。它旨在为资源受限的服务器提供一个轻量级、高效率的替代方案，在保持与原版功能同步的同时，极大地降低了系统资源消耗 |
 | | [wingetty](./wingetty/) | 自托管的 winget 包源 |
 | | [woodpecker](./woodpecker/) | 简单、强大、轻量级的 CI/CD 引擎 |

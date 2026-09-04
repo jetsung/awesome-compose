@@ -1,0 +1,13 @@
+---
+# https://ghcr.io/warp-tech/warpgate
+services:
+  warpgate:
+    container_name: warpgate
+    env_file:
+      - path: ./.env
+        required: false
+    image: ghcr.io/warp-tech/warpgate:latest
+    ports:
+      - 2222:2222
+      - 8888:8888
+    restart: unless-stopped
