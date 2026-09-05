@@ -96,6 +96,176 @@ warpgate run
 
 ---
 
+## 配置文件（warpgate.yaml）
+
+### 配置文件位置与加载
+
+- 默认路径 `/etc/warpgate.yaml`（Docker 中为数据卷内的 `warpgate.yaml`），可通过 `--config <path>` 指定；`warpgate setup` 交互生成
+- 配置文件仅包含**全局设置与监听器**：用户、目标、角色、SSH 密钥等实体存储在数据库中，通过 Admin UI（或 API、Terraform）管理
+- 保存后自动热重载：文件变更约 500ms 后生效，已建立的连接不受影响，新连接使用新配置
+- 修改后可用 `warpgate check` 验证语法与未知字段（拼写错误会被警告并忽略）
+
+### 顶层字段
+
+| 字段 | 默认值 | 说明 |
+|------|--------|------|
+| `database_url` | `sqlite:data/db` | 数据库连接串。内置 SQLite（`sqlite:<路径>`）或外部 `mysql://…` / `postgres://…`（集群必需） |
+| `external_host` | 空 | 对外访问地址（可含端口），用于生成连接指导、SSO 回调 URL 等 |
+
+### 监听器
+
+`ssh`、`http`、`kubernetes`、`mysql`、`postgres`、`rdp`、`vnc` 七个监听器共用以下字段：
+
+| 字段 | 说明 |
+|------|------|
+| `enable` | 是否启用该监听器（`http` 无此字段，始终启用） |
+| `listen` | 监听地址，如 `[::]:2222`（IPv6 兼容）或 `0.0.0.0:2222` |
+| `certificate` / `key` | TLS 证书与私钥路径（`http` 必需；`ssh`/`kubernetes`/`mysql`/`postgres`/`rdp`/`vnc` 按需） |
+| `external_host` / `external_port` | 对外公布地址，覆盖顶层 `external_host`，用于生成连接指导 |
+| `proxy_protocol` | 是否接受 HAProxy PROXY protocol v1/v2 头（v0.27+，仅当上游四层负载均衡器确实前置时才开启） |
+
+各监听器专用字段：
+
+| 监听器 | 专用字段 | 说明 |
+|--------|----------|------|
+| `ssh` | `host_key_verification` | 主机密钥验证模式：`prompt` / `auto_accept` / `auto_reject` / `ignore`（仅在建库时写入，之后由 Admin UI 接管） |
+| `ssh` | `inactivity_timeout` | 空闲超时，默认 `5m`；超时无数据活动即断开连接 |
+| `ssh` | `keepalive_interval` | 保活间隔（默认关闭）。同时作用于监听端与 target 连接端，详见上文「SSH 目标」第 5 节 |
+| `ssh` | `keys` | 遗留字段：SSH 客户端密钥已迁移至数据库（Admin UI > SSH keys），此处仅作首次启动导入 |
+| `http` | `session_max_age` | Web 会话最大时长，默认 `30m`；超过后敏感操作需重新认证（v0.27+） |
+| `http` | `cookie_max_age` | 浏览器登录 Cookie 寿命，默认 `1day` |
+| `http` | `trust_x_forwarded_headers` | 反向代理场景信任 `X-Forwarded-*` 头（SSO 必须） |
+| `http` | `sni_certificates` | SNI 证书列表：`[{certificate, key}]`，按域名匹配，主证书兜底（v0.15+） |
+| `kubernetes` | — | 端口默认 `8443` |
+| `mysql` | `advertised_version` | 向客户端宣告的版本串，默认 `8.0.3-Warpgate` |
+| `vnc` | `enable_ard_auth` | 启用 Apple-DH（ARD）认证（不支持 TLS） |
+
+### 日志
+
+```yaml
+log:
+  format: text          # text | json（json 供日志采集）
+  retention: 7days      # 常规日志保留时长（humantime 格式）
+  audit_retention: 11months 30days 3h 50m 24s   # 审计日志保留时长（约一年）
+  send_to: null         # UNIX 数据报 socket 路径（如 /var/run/vector-warpgate.sock），null 为仅 stdout
+```
+
+### SSO 提供商
+
+```yaml
+sso_providers:
+  - name: oidc-custom       # 唯一名称，必填
+    label: ACME SSO         # 登录界面显示名
+    auto_create_users: true # v0.13+：新用户首次 SSO 登录自动创建
+    return_url_domain: external_host   # external_host | host_header（v0.23/0.25+ 域处理策略）
+    return_url_prefix: '@'  # Azure 等不支持 @ 的提供商可用 '_'（v0.22+）
+    provider:
+      type: custom          # google | azure | apple | custom
+      client_id: ...
+      client_secret: ...
+      issuer_url: https://sso.acme.inc
+      scopes: [openid, email]
+      role_mappings:        # 将 SSO claim 值映射到 Warpgate 角色
+        'QA group': qa
+      admin_role_mappings:  # 管理员角色映射
+        Admins: 'warpgate:admin'
+```
+
+不同类型提供商字段差异：
+
+- `google` — `client_id` / `client_secret`，可选 `service_account_email` / `service_account_key` / `admin_email` / `role_mappings`（Google Workspace 目录组同步，v0.22+）
+- `azure` — `client_id` / `client_secret` / `tenant`
+- `apple` — `client_id`（Service ID，非 App ID）/ `client_secret`（.p8 密钥的 Base64）/ `team_id` / `key_id`
+- `custom` — `client_id` / `client_secret` / `issuer_url` / `scopes`，可选 `roles_claim` / `admin_roles_claim`（v0.26+ 读取 `groups` 等标准 claim）、`additional_trusted_audiences`、`trust_unknown_audiences`、`role_mappings` / `admin_role_mappings`
+
+SSO 回调地址：`https://<external_host>/@warpgate/api/sso/return`（使用 `_` 前缀时为 `/_warpgate/api/sso/return`），需在提供商侧准确配置。
+
+### 完整配置示例
+
+```yaml
+# ===== 全局 =====
+database_url: sqlite:/var/lib/warpgate/db
+external_host: warpgate.acme.inc
+
+# ===== SSH 监听器（用户通过 ssh 连接）=====
+ssh:
+  enable: true
+  listen: '[::]:2222'
+  external_host: warpgate.acme.inc
+  external_port: 2222
+  host_key_verification: prompt
+  inactivity_timeout: 5m
+  keepalive_interval: 1m     # 防止空闲断连（必须小于 inactivity_timeout）
+  proxy_protocol: false
+
+# ===== HTTP 管理界面 =====
+http:
+  listen: '[::]:8888'
+  certificate: /var/lib/warpgate/tls.certificate.pem
+  key: /var/lib/warpgate/tls.key.pem
+  session_max_age: 30m
+  cookie_max_age: 1day
+  trust_x_forwarded_headers: true    # 前置反向代理时开启
+  # sni_certificates:
+  # - certificate: other.pem
+  #   key: other.key.pem
+
+# ===== 数据库监听器（按需启用）=====
+mysql:
+  enable: false
+  listen: '[::]:33306'
+  certificate: /var/lib/warpgate/tls.certificate.pem
+  key: /var/lib/warpgate/tls.key.pem
+
+postgres:
+  enable: false
+  listen: '[::]:55432'
+  certificate: /var/lib/warpgate/tls.certificate.pem
+  key: /var/lib/warpgate/tls.key.pem
+
+kubernetes:
+  enable: false
+  listen: '[::]:8443'
+  certificate: /var/lib/warpgate/tls.certificate.pem
+  key: /var/lib/warpgate/tls.key.pem
+
+rdp:
+  enable: false
+  listen: '[::]:3389'
+  certificate: /var/lib/warpgate/tls.certificate.pem
+  key: /var/lib/warpgate/tls.key.pem
+
+vnc:
+  enable: false
+  listen: '[::]:5900'
+  certificate: /var/lib/warpgate/tls.certificate.pem
+  key: /var/lib/warpgate/tls.key.pem
+
+# ===== 日志 =====
+log:
+  format: text
+  retention: 7days
+  audit_retention: 11months 30days 3h 50m 24s
+
+# ===== SSO =====
+sso_providers:
+  - name: google
+    label: Google login
+    provider:
+      type: google
+      client_id: 1234...
+      client_secret: ABC...
+```
+
+### 注意事项
+
+- `recordings` 配置段已废弃：会话录制的启用与存储路径已并入数据库，由 Admin UI 管理；旧配置会产生迁移警告，建议删除
+- SSH 客户端密钥同样迁移至数据库，勿再依赖 `ssh.keys` 文件路径
+- 内部私网 CA：原生部署自动使用宿主信任根；Docker 需将证书挂载到 `/etc/ssl/certs`
+- 修改监听器端口/证书后，Warpgate 自动重载；`database_url` 等变更建议重启服务
+
+---
+
 ## Access Control（访问控制）
 
 ### 用户认证方式
@@ -216,6 +386,25 @@ ssh admin:myserver@warpgate.example.com -p 2222
 **4. Web 终端（v0.24+）**
 
 用户可直接在浏览器中打开 Web SSH 终端，无需安装客户端。
+
+**5. 保持 SSH 连接（防止空闲断连）**
+
+Warpgate 不提供到 target 的 SSH 连接复用（无 ControlMaster/连接池）——每个 SSH 会话都会向 target 新建一条独立连接。长时间不操作时连接断开，是因为默认的空闲超时：在 `ssh.inactivity_timeout`（默认 `5m`）内无数据活动，用户与 Warpgate、Warpgate 与 target 两段链路都会被断开。
+
+解决方法：设置 `ssh.keepalive_interval`。该全局参数会同时作用于监听端（用户与 Warpgate 之间）和 target 客户端端（Warpgate 连接 target 时），定期发送 SSH keepalive 请求，刷新两端的空闲计时器：
+
+```yaml
+# /etc/warpgate.yaml
+ssh:
+  keepalive_interval: 1m   # 每隔 1 分钟发送一次 keepalive（humantime 字符串）
+  inactivity_timeout: 5m   # 默认 5 分钟；keepalive 生效后一般不会触发
+```
+
+注意：
+
+- `keepalive_interval` 必须小于 `inactivity_timeout`，否则空闲计时器先于 keepalive 到期，连接照样断开。
+- 仅在用户客户端配置 `ServerAliveInterval` 不够：OpenSSH 客户端的 keepalive 只保用户到 Warpgate 段，Warpgate 不会把它透传给 target，Warpgate 到 target 段仍会空闲断开。两端保活都依赖 Warpgate 自身的配置。
+- 死连检测：连续 3 次（russh 默认 `keepalive_max`）keepalive 无响应时 Warpgate 会主动断开连接。正常 OpenSSH target 都会应答，仅网络彻底中断时触发。
 
 ### HTTP 目标
 
