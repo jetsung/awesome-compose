@@ -134,7 +134,7 @@ warpgate run
 | `ssh` | `keys` | 遗留字段：SSH 客户端密钥已迁移至数据库（Admin UI > SSH keys），此处仅作首次启动导入 |
 | `http` | `session_max_age` | Web 会话最大时长，默认 `30m`；超过后敏感操作需重新认证（v0.27+） |
 | `http` | `cookie_max_age` | 浏览器登录 Cookie 寿命，默认 `1day` |
-| `http` | `trust_x_forwarded_headers` | 反向代理场景信任 `X-Forwarded-*` 头（SSO 必须） |
+| `http` | `trust_x_forwarded_headers` | 反向代理场景信任 `X-Forwarded-Host` / `X-Forwarded-Proto` / `X-Forwarded-For`（代理必须转发这些头，详见「反向代理配置」） |
 | `http` | `sni_certificates` | SNI 证书列表：`[{certificate, key}]`，按域名匹配，主证书兜底（v0.15+） |
 | `kubernetes` | — | 端口默认 `8443` |
 | `mysql` | `advertised_version` | 向客户端宣告的版本串，默认 `8.0.3-Warpgate` |
@@ -698,6 +698,7 @@ server {
         proxy_pass https://192.168.10.1:8888;
         proxy_set_header Host $http_host;
         proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-For $remote_addr;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $http_connection;
         proxy_read_timeout 3600s;
@@ -712,6 +713,18 @@ server {
 http:
   trust_x_forwarded_headers: true
 ```
+
+**开启后信任的头（取逗号列表第一个非空值，代理负责追加真实信息）：**
+
+| 头 | 用途 | 代理必须转发 |
+|----|------|-------------|
+| `X-Forwarded-Host` | 构造外部 URL / SSO 回调（缺省回退 `Host`） | 推荐（不改写 `Host` 时可不发） |
+| `X-Forwarded-Proto` | 判定 http/https，构造正确重定向（SSO 必需） | **必须**（`$scheme`） |
+| `X-Forwarded-For` | 客户端真实 IP：登录保护、IP 封锁、审计 | **必须**（`$remote_addr`） |
+
+**安全前提：** 开启后 Warpgate 无条件信任这些头，因此 `8888` 端口绝不能直接暴露给客户端——防火墙必须只允许反向代理访问；否则任何人都可伪造 `X-Forwarded-For` 绕过 IP 封锁，或伪造 `X-Forwarded-Proto` 篡改重定向。Caddy/Traefik 反向代理默认自动追加 `X-Forwarded-*` 三件套，无需额外配置。
+
+**验证：** 开启后查看管理界面的会话列表或审计日志，客户端 IP 应显示真实公网地址而非代理地址；SSO 登录后浏览器地址栏的跳转域名应为 `external_host` 对应域名。
 
 **PROXY protocol（v0.27+）：**
 
