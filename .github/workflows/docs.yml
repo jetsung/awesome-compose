@@ -1,41 +1,46 @@
-name: Documentation
+name: Docs
 
 on:
   push:
     branches:
       - main
+      - dev*
     paths:
       - '.github/workflows/docs.yml'
       - 'registry.json'
       - '**/README.md'
       - '**/compose.yaml'
       - '**/compose.override.yaml'
+
   workflow_dispatch:
+
+# 同一分支仅保留最新一次文档部署，避免旧 run 覆盖新内容
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: false
-defaults:
-  run:
-    shell: bash
+env:
+  # 从 github.com/<owner>/<repo> 提取短名，如 jetsung/mtrans → mtrans
+  REPO: ${{ github.event.repository.name }}
 
 jobs:
-  build:
+  build-docs:
+    name: Build docs
     env:
       TZ: Asia/Shanghai
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
@@ -45,51 +50,47 @@ jobs:
         run: npm run docs:build
       - name: Copy Files
         run: cp {registry.json,schema.json} .vitepress/dist/
+      - name: Copy to site
+        run: cp -r .vitepress/dist/ ./site/
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: docs-site
           path: .vitepress/dist/
           retention-days: 1
 
-  deploy-github-pages:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
+  ### GitHub Pages
+  publish-pages:
+    name: Deploy · gh-pages branch
+    needs: [build-docs]
     runs-on: ubuntu-latest
     steps:
-      # - uses: actions/configure-pages@v5
-      - name: Download build artifacts
-        uses: actions/download-artifact@v7
+      - name: Download docs site
+        uses: actions/download-artifact@v8
         with:
           name: docs-site
-          path: ./public
-      - name: Deploy to Branch
+          path: site/
+
+      - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./site
           cname: ${{ vars.PAGES_DOMAIN }}
-      # - uses: actions/upload-pages-artifact@v4
-      #   with:
-      #     path: docsite/public
-      # - uses: actions/deploy-pages@v4
-      #   id: deployment
 
-  deploy-ssh-server:
-    if: ${{ vars.DEPLOY_SSH_ENABLED == 'true' }}
-    needs: build
+  ### SSH Server WEB
+  publish-ssh:
+    name: Deploy · SSH
+    needs: [build-docs]
+    if: ${{ vars.ENABLE_SSH_DEPLOY == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Download build artifacts
-        uses: actions/download-artifact@v7
+      - name: Download docs site
+        uses: actions/download-artifact@v8
         with:
           name: docs-site
-          path: ./public
-      - name: Compress to tar.xz
-        run: |
-          tar -cJf docs-site.tar.xz public/
+          path: site/
+
       - name: Set up SSH
         uses: LuisEnMarroquin/setup-ssh-action@v3.0.0
         with:
@@ -98,11 +99,52 @@ jobs:
           NAME: webserver
           PORT: ${{ secrets.SSH_PORT }}
           USER: ${{ secrets.SSH_USERNAME }}
-      - run: echo "" >> ~/.ssh/access  # fix
+
       - name: Deploy the website
         env:
-          WEBROOT: /data/wwwroot/compose
+          WEBROOT: /data/wwwroot/${{ env.REPO }}
         run: |
+          # setup-ssh-action 生成的 known_hosts/access 需补一空行，避免 scp 误判
+          echo "" >> ~/.ssh/access
           ssh webserver "rm -rf $WEBROOT && mkdir -p $WEBROOT"
-          scp docs-site.tar.xz webserver:${WEBROOT}/
-          ssh webserver "cd $WEBROOT && tar -xJf docs-site.tar.xz --strip-components=1 && rm -f docs-site.tar.xz"
+          scp -r site/* "webserver:$WEBROOT"
+
+  ### EdgeOne Pages
+  publish-edgeone:
+    name: Deploy · EdgeOne
+    needs: [build-docs]
+    runs-on: ubuntu-latest
+    env:
+      EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
+    steps:
+      # jobs.<job_id>.if 不可用 secrets，改为在 step 内判断再门控后续步骤
+      - name: Check EdgeOne token
+        id: cred
+        run: |
+          if [ -n "$EDGEONE_API_TOKEN" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::EDGEONE_API_TOKEN not set, skip EdgeOne deploy"
+          fi
+
+      - name: Download docs site
+        if: steps.cred.outputs.present == 'true'
+        uses: actions/download-artifact@v8
+        with:
+          name: docs-site
+          path: site/
+
+      - name: Set up Node.js
+        if: steps.cred.outputs.present == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Install EdgeOne CLI
+        if: steps.cred.outputs.present == 'true'
+        run: npm install -g edgeone
+
+      - name: Deploy to EdgeOne Pages
+        if: steps.cred.outputs.present == 'true'
+        run: edgeone makers deploy ./site --name "${{ env.REPO }}" --site global --area overseas --token "${{ env.EDGEONE_API_TOKEN }}"
