@@ -1,0 +1,16 @@
+---
+# https://ghcr.io/cluvexstudio/aether
+services:
+  aether:
+    container_name: aether
+    env_file:
+      - path: ./.env
+        required: false
+    image: ghcr.io/cluvexstudio/aether:latest
+#     身份文件在卷内 /data/aether.toml，必须持久化，否则每次启动重新注册设备会被限流
+    ports:
+      - 127.0.0.1:1819:1819
+#     SOCKS5 无认证，只发布到本机回环；共享局域网改为 192.168.x.x:1819:1819，
+#     绝不要写 1819:1819（绑定所有网卡，变成开放代理）
+    restart: unless-stopped
+

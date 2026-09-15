@@ -59,6 +59,7 @@ SERV_PORT=
 | 在用 | [apprise](./apprise/) | 集合通知服务推送的平台 |
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
 | | [agentgateway](./agentgateway/) | 一款基于原生人工智能协议（MCP 与 A2A）构建的开源代理，可为跨任何框架和环境的代理与大语言模型（LLM）之间、代理与工具之间以及代理与代理之间的通信，提供即插即用的安全性、可观测性和治理功能。 |
+| | [aether](./aether/) | 加密隧道客户端，自动扫描 Cloudflare WARP 边缘节点建立加密隧道，并在本地暴露 SOCKS5 代理，纯客户端无需自建服务端。 |
 | 在用 | [arcane](./arcane/) | 用于管理你的 Docker 容器、镜像、网络和卷的管理平台 |
 | 在用 | [aria2](./aria2/) | 行业标准的免费开源多协议下载工具，支持 HTTP、FTP 和 BitTorrent 协议的并行传输 |
 | 在用 | [adminer](./adminer/) | 开源数据库管理工具，允许用户通过 Web 界面管理数据库，如 MySQL、SQLite 等 |
@@ -90,7 +91,7 @@ SERV_PORT=
 | 在用 | [gitlab-runner](./gitlab-runner/) | GitLab CI/CD 的执行器，用于运行 CI/CD 任务 |
 | | [gotify](./gotify/) | 简单的发送和接收消息的服务器，用于实时消息推送 |
 | | [haproxy](./haproxy/) | 一款免费、非常快速且可靠的反向代理，为基于 TCP 和 HTTP 的应用提供高可用性、负载均衡和代理服务 |
-| 在用 | [headscale](./headscale/) | Tailscale 控制服务器的开源自托管实现。 |
+| | [headscale](./headscale/) | Tailscale 控制服务器的开源自托管实现。 |
 | | [hedgedoc](./hedgedoc/) | 开源的协作文档编辑器，支持 Markdown 编辑 |
 | 在用 | [hoppscotch](./hoppscotch/) | 轻量级的 API 开发生态系统，用于测试和调试 API |
 | 在用 | [it-tools](./it-tools/) | It-tools 是为开发者准备的一系列实用在线工具 |
@@ -137,7 +138,7 @@ SERV_PORT=
 | 在用 | [static-web-server](./static-web-server/) | 高性能的静态 Web 服务器 |
 | 在用 | [swagger](./swagger/) | 用于设计、构建和文档化 RESTful API 的工具 |
 | | [syncthing](./syncthing/) | 连续的文件同步程序，用于在不同设备间同步文件 |
-| 在用 | [tailscale](./tailscale/) | 一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载 |
+| | [tailscale](./tailscale/) | 一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载 |
 | 在用 | [tuwunel](./tuwunel/) | 功能强大的 Matrix 自建服务器 |
 | | [transfer](./transfer/) | 文件传输服务 |
 | 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
