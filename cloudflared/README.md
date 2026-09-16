@@ -1,6 +1,6 @@
 # cloudflared
 
-[Official Web][1] - [Source][2] - [Docker Image][3] - [Documentation][4] - [完整教程 (docs.md)](./docs.md)
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
@@ -64,14 +64,49 @@ docker compose up -d
 docker compose logs -f cloudflared
 ```
 
-### 4. 添加公开服务路由（Public Hostname）
-在控制台的 Tunnel 详情中切换到 **Public Hostname**，添加路由规则：
-- **Public Hostname**：填写域名与子域（例如 `app.yourdomain.com`）。
+### 4. Systemd 服务管理（裸机/虚拟机场景）
+若不在 Docker 中运行，可通过 systemd 进行服务托管：
+
+```bash
+# 安装服务（自动创建并启用 systemd cloudflared.service）
+cloudflared service install <TOKEN>
+
+# 卸载服务（systemd cloudflared.service）
+cloudflared service uninstall
+```
+
+常用管理命令：
+```bash
+sudo systemctl start cloudflared    # 启动
+sudo systemctl restart cloudflared  # 重启
+sudo systemctl status cloudflared   # 状态
+```
+
+### 5. 添加公开服务路由（Dashboard 方式）
+在 Zero Trust 控制台的 Tunnel 详情中切换到 **Public Hostname**，添加路由规则：
+- **Public Hostname**：填写域名与子域（例如 `app.example.com`）。
 - **Service Type**：选择 `HTTP` 或 `HTTPS`。
 - **URL**：输入本地服务地址（如内网 IP `192.168.1.100:8080`，或同 Docker 网络下的服务名 `web:80`）。
-- 保存后即可通过 `https://app.yourdomain.com` 安全访问本地服务。
+- 保存后即可通过 `https://app.example.com` 安全访问本地服务。
 
-> 进阶场景（SSH / RDP / 私有网络 CIDR / 高可用多副本 / Ingress 本地配置等）请参考 [完整使用教程 (docs.md)](./docs.md)。
+### 6. 安全访问 SSH（Dashboard 配置 + 命令行登录）
+1. **Dashboard 配置**：在 Public Hostname 中添加一条记录，Service Type 选择 `SSH`，URL 填写 `localhost:22`（域名例如 `ssh.example.com`）。
+2. **命令行直接登录**：客户端本地安装 `cloudflared` 后，执行以下命令直接连接：
+```bash
+# 命令行登录
+ssh -o ProxyCommand="/usr/local/bin/cloudflared access ssh --hostname %h" user@ssh.example.com
+```
+3. **SSH 配置文件方式（推荐）**：在客户端 `~/.ssh/config` 中配置别名：
+```text
+Host myserver
+    HostName ssh.example.com
+    User root
+    ProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h
+```
+配置完成后，即可通过简写命令一键登录：
+```bash
+ssh myserver
+```
 
 ---
 

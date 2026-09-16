@@ -10,14 +10,19 @@ Cloudflare Tunnel（守护程序为 `cloudflared`）提供了一种安全、无�
 3. [远程管理隧道（Dashboard 推荐方式）](#3-远程管理隧道dashboard-推荐方式)
 4. [本地管理隧道（CLI / 配置文件方式）](#4-本地管理隧道cli--配置文件方式)
 5. [Docker Compose 部署与运维](#5-docker-compose-部署与运维)
-6. [经典应用场景与示例](#6-经典应用场景与示例)
+6. [Systemd 系统服务管理](#6-systemd-系统服务管理)
+7. [经典应用场景与示例](#7-经典应用场景与示例)
    - 场景 1：发布公网 Web 服务（HTTP / HTTPS）
-   - 场景 2：安全访问 SSH 服务
+   - 场景 2：安全访问 SSH 服务（Dashboard 配置 + 命令行登录）
    - 场景 3：远程桌面访问（RDP）
    - 场景 4：连接私有网络（Private Network / CIDR）
-7. [进阶配置（Origin Parameters 与 Run Parameters）](#7-进阶配置)
-8. [防火墙要求与高可用部署](#8-防火墙要求与高可用部署)
-9. [常见问题与排错指南](#9-常见问题与排错指南)
+8. [Cloudflare Workers VPC 接入与绑定](#8-cloudflare-workers-vpc-接入与绑定)
+   - 什么是 Workers VPC
+   - 架构与接入方式（VPC Services vs VPC Networks）
+   - 配置流程与示例代码
+9. [进阶配置（Origin Parameters 与 Run Parameters）](#9-进阶配置origin-parameters-与-run-parameters)
+10. [防火墙要求与高可用部署](#10-防火墙要求与高可用部署)
+11. [常见问题与排错指南](#11-常见问题与排错指南)
 
 ---
 
@@ -57,7 +62,7 @@ Cloudflare Tunnel 采用 **仅出站连接（Outbound-only）** 模型：
 1. 登录 [Cloudflare Zero Trust 控制台](https://one.dash.cloudflare.com/)。
 2. 进入 **Networks** > **Tunnels**。
 3. 点击 **Add a tunnel**，选择 **Cloudflare Managed**。
-4. 输入隧道名称（例如 `home-lab`），点击 **Save tunnel**。
+4. 输入隧道名称（例如 `my-tunnel`），点击 **Save tunnel**。
 
 ### 第二步：获取并运行 Connector Token
 控制台会生成一段包含 `--token <TOKEN>` 的安装命令。复制其中的 Token 字符串，形如：
@@ -68,17 +73,17 @@ eyJhIjoiY2I4OD...
 使用 Docker 运行：
 ```bash
 docker run -d --name cloudflared --restart unless-stopped \
-  cloudflare/cloudflared:latest tunnel --no-autoupdate run --token <YOUR_TUNNEL_TOKEN>
+  cloudflare/cloudflared:latest tunnel --no-autoupdate run --token <TOKEN>
 ```
 
-或使用本目录的 `docker-compose.yaml` 进行管理（详见第 5 节）。
+或使用本目录的 `compose.yaml` 进行管理（详见第 5 节），亦可作为 systemd 服务运行（详见第 6 节）。
 
-### 第三步：配置路由与公开应用
+### 第三步：在 Dashboard 中配置公开服务路由
 在控制台隧道的 **Public Hostname** 页面中点击 **Add a public hostname**：
 - **Subdomain**：例如 `web`
-- **Domain**：选择你的域名 `example.com`
+- **Domain**：选择你的域名（例如 `example.com`）
 - **Path**：可留空
-- **Service Type**：`HTTP` / `HTTPS` / `SSH` / `TCP` 等
+- **Service Type**：选择协议（`HTTP`、`HTTPS`、`SSH`、`TCP` 等）
 - **URL**：容器或局域网内服务的地址，例如 `web:80`、`192.168.1.100:8080`、`localhost:3000`
 
 ---
@@ -197,52 +202,107 @@ docker compose down
 
 ---
 
-## 6. 经典应用场景与示例
+## 6. Systemd 系统服务管理
+
+在裸机或虚拟机宿主机上（非 Docker 场景），可直接将 `cloudflared` 安装为系统服务：
+
+### 安装服务（含 Token）
+```bash
+# 安装服务（自动创建并启用 systemd cloudflared.service）
+cloudflared service install <TOKEN>
+```
+此命令会自动生成 `/etc/systemd/system/cloudflared.service`，并将 Token 注入到服务启动参数中。
+
+### 常用 Systemd 服务管理命令
+```bash
+# 启动服务
+sudo systemctl start cloudflared
+
+# 停止服务
+sudo systemctl stop cloudflared
+
+# 重启服务
+sudo systemctl restart cloudflared
+
+# 查看服务运行状态
+sudo systemctl status cloudflared
+
+# 查看实时日志
+sudo journalctl -u cloudflared -f
+```
+
+### 卸载服务
+```bash
+# 卸载服务（停止并移除 systemd cloudflared.service）
+cloudflared service uninstall
+```
+
+---
+
+## 7. 经典应用场景与示例
 
 ### 场景 1：发布公网 Web 服务（HTTP / HTTPS）
 无论是本地开发机器还是内网 NAS，都可以将 HTTP 容器或服务发布到公网：
-- **服务类型**：`HTTP` 或 `HTTPS`
-- **地址示例**：
-  - 同一 Docker 网络下的容器名：`http://my-nginx:80`
-  - 宿主机内网 IP：`http://192.168.1.10:3000`
-  - 如果源端使用自签名证书（HTTPS），在 **Additional application settings** > **TLS** 中开启 `No TLS Verify`。
+- **Dashboard 操作**：
+  1. 进入 **Networks** > **Tunnels** > 目标隧道 > **Public Hostname**。
+  2. 点击 **Add a public hostname**：
+     - **Subdomain / Domain**：例如 `web.example.com`
+     - **Path**：可留空。
+     - **Type**：选择 `HTTP` 或 `HTTPS`。
+     - **URL**：输入宿主机内网 IP 或同一网络容器名（如 `localhost:8080`、`192.168.1.100:8080`）。
+  3. 若源端为自签名证书，在 **Additional application settings** > **TLS** 勾选 `No TLS Verify`。
 
-### 场景 2：安全访问 SSH 服务
-无需对外开放 22 端口，免遭暴力破解扫描：
-1. **服务端配置**：
-   - 远程隧道 Public Hostname 增加规则：
-     - Hostname: `ssh.example.com`
-     - Service: `ssh://localhost:22`
-2. **安全策略（推荐）**：在 Cloudflare Zero Trust 中为 `ssh.example.com` 添加 Access Policy，限制仅企业邮箱或特定用户可访问。
-3. **客户端连接**：
-   - 客户端机器安装 `cloudflared`。
-   - 编辑客户端 `~/.ssh/config`：
-     ```text
-     Host ssh.example.com
-       ProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h
-     ```
-   - 执行正常连接命令：
-     ```bash
-     ssh user@ssh.example.com
-     ```
-   - 首次连接会调起浏览器完成 Zero Trust 身份认证。
+### 场景 2：安全访问 SSH 服务（Dashboard 配置 + 命令行登录）
+无需在防火墙对外开放 22 端口，免遭爆破扫描：
+
+#### 1. Dashboard 控制台配置
+1. 访问 **Zero Trust 控制台** > **Networks** > **Tunnels** > 选择你的隧道。
+2. 点击 **Public Hostname** 选项卡 > **Add a public hostname**。
+3. 配置如下：
+   - **Subdomain**：例如 `ssh`
+   - **Domain**：选择你的域名（例如 `example.com`）
+   - **Service Type**：选择 `SSH`
+   - **URL**：输入目标服务器的本地地址，例如 `localhost:22`
+4. 点击 **Save hostname** 保存。
+5. （推荐）在 **Access** > **Applications** 中为 `ssh.example.com` 添加访问策略，限制仅授权邮箱或身份验证通过的用户可访问。
+
+#### 2. 客户端命令行连接（单次命令）
+客户端本地安装 `cloudflared` 后，可通过 `-o ProxyCommand` 单行命令直接登录：
+```bash
+# 命令行通过 cloudflared 代理登录 SSH
+ssh -o ProxyCommand="/usr/local/bin/cloudflared access ssh --hostname %h" user@ssh.example.com
+```
+
+#### 3. 客户端配置文件配置（推荐别名方式）
+在客户端 `~/.ssh/config` 中追加配置，可以自定义简短别名，指定真实 HostName 与登录用户名：
+```text
+Host myserver
+    HostName ssh.example.com
+    User root
+    ProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h
+```
+之后只需执行别名即可直接连接：
+```bash
+ssh myserver
+```
+*注：如果配置了 Access Policy，首次连接会弹出浏览器完成 Zero Trust 身份认证。*
 
 ### 场景 3：远程桌面访问（RDP）
 将 Windows 远程桌面端口 `3389` 安全映射：
-1. **服务端配置**：
+1. **Dashboard 配置**：
    - Hostname: `rdp.example.com`
    - Service: `rdp://localhost:3389`
-2. **客户端连接方式 A（原生 RDP 客户端代理）**：
+2. **客户端本地连接**：
    - 客户端终端运行：
      ```bash
      cloudflared access rdp --hostname rdp.example.com --url localhost:3389
      ```
-   - 然后打开远程桌面软件连接 `localhost:3389` 即可。
-3. **客户端连接方式 B（浏览器内渲染 Browser Rendering）**：
-   - 在 Cloudflare Access Application 中开启 **Browser Rendering**，员工可直接通过网页浏览器操作 Windows 桌面。
+   - 打开 Windows 远程桌面连接软件，地址填写 `localhost:3389`。
+3. **浏览器端渲染（Browser Rendering）**：
+   - 在 Access Application 中开启 **Browser Rendering**，支持直接通过网页登录操作 Windows 桌面。
 
 ### 场景 4：连接私有网络（Private Network / CIDR）
-充当公司内部软件定义网络（SDN / VPN 替代）：
+充当企业内部软件定义网络（SDN / VPN 替代）：
 1. 在 Zero Trust 中进入 **Networks** > **Routes** > **Create route**。
 2. 选择 **Tunnel CIDR**，关联已建好的 Tunnel。
 3. 输入内网 CIDR 段（如 `10.0.0.0/16` 或 `192.168.1.0/24`）。
@@ -251,12 +311,101 @@ docker compose down
 
 ---
 
-## 7. 进阶配置
+## 8. Cloudflare Workers VPC 接入与绑定
+
+Cloudflare Workers VPC 允许运行在全球边缘的 Workers Serverless 函数直接安全访问位于私有云（AWS、Azure、GCP、私有 IDC）或内网中的私有 API、内部微服务和数据库，而无需将这些服务暴露在公网上。
+
+### 架构与接入方式对比
+Workers VPC 主要通过已建立的 **Cloudflare Tunnel** 隧道建立私有打通链路，包含两种绑定模式：
+
+| 特性 | VPC Services（特定服务绑定） | VPC Networks（整网绑定） |
+| :--- | :--- | :--- |
+| **作用范围** | 绑定到私网中特定的单个主机和端口 | 绑定到整条 Cloudflare Tunnel 或 Cloudflare Mesh 网络 |
+| **配置项** | `service_id` | `tunnel_id` 或 `network_id: "cf1:network"` |
+| **支持协议** | HTTP (`fetch()`)、TCP（通过 Hyperdrive 连接数据库） | HTTP (`fetch()`)、Raw TCP (`connect()`) 如 Redis/MQTT |
+| **服务注册** | 必须在控制台逐个创建目标 Service | 无需预先注册单个服务，运行时由请求 URL 决定 |
+| **适用场景** | 固定、受控的后端私有微服务或数据库 | 动态服务发现、整网打通、多集群私网互通 |
+
+### 接入配置流程
+
+#### 第一步：准备 Cloudflare Tunnel
+确保目标私网环境内已部署 `cloudflared` 隧道，且隧道所在的机器能连通私网目标（如私有 API 或数据库）。
+
+#### 第二步：在 Dashboard 中创建 VPC Service
+1. 登录 Cloudflare 控制台，进入 **Workers & Pages** > **Workers VPC**。
+2. 切换到 **VPC Services** 标签页，点击 **Create**。
+3. 配置参数：
+   - **Service Name**：例如 `my-internal-api`
+   - **Tunnel**：选择此前建立的 Cloudflare Tunnel。
+   - **Host or IP address**：内部私网服务地址（如 `10.0.1.50` 或 `internal-api.example.local`）。
+   - **Ports**：选择默认端口（80/443）或自定义端口。
+4. 创建成功后，记录生成的 **Service ID**。
+
+*(亦可通过 Wrangler CLI 创建：`npx wrangler vpc service create my-internal-api --type http --tunnel-id <TUNNEL_ID> --hostname internal-api.example.local`)*
+
+#### 第三步：Worker 项目配置绑定
+在 Worker 项目的 `wrangler.jsonc` 中声明绑定：
+
+##### 方式 A：绑定 VPC Service
+```jsonc
+{
+  "name": "my-worker-app",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-02-04",
+  "vpc_services": [
+    {
+      "binding": "INTERNAL_API",
+      "service_id": "<YOUR_SERVICE_ID>",
+      "remote": true
+    }
+  ]
+}
+```
+
+##### 方式 B：绑定整个 Tunnel（VPC Networks）
+```jsonc
+{
+  "name": "my-worker-app",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-02-04",
+  "vpc_networks": [
+    {
+      "binding": "MY_VPC",
+      "tunnel_id": "<YOUR_TUNNEL_UUID>",
+      "remote": true
+    }
+  ]
+}
+```
+
+#### 第四步：在 Worker 代码中调用私网服务
+在 Worker 代码中即可直接对绑定的私网资源发起调用：
+
+```typescript
+export default {
+  async fetch(request, env, ctx): Promise<Response> {
+    // 1. 通过 VPC Service 绑定请求私有 API
+    const res = await env.INTERNAL_API.fetch("http://internal-api.example.local/api/users");
+    const data = await res.json();
+
+    // 2. （可选）如果使用 VPC Networks，可直接动态请求该 Tunnel 覆盖的任意私网 IP
+    // const vpcRes = await env.MY_VPC.fetch("http://10.0.1.50:8080/metrics");
+
+    return new Response(JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" }
+    });
+  }
+};
+```
+
+---
+
+## 9. 进阶配置（Origin Parameters 与 Run Parameters）
 
 ### 源站连接参数（Origin Parameters）
-在控制台 **Additional application settings** 或本地配置文件的 `originRequest` 中设置：
+在 Dashboard 的 **Public Hostname** > **Additional application settings** 或本地配置文件的 `originRequest` 中设置：
 - `noTLSVerify`（布尔值）：当源站使用自签证书或无效证书时，设为 `true` 跳过验证。
-- `httpHostHeader`（字符串）：覆写发往源站的 `Host` 头，适合源站部署了基于虚拟主机的反向代理（如 Nginx `server_name` 匹配）。
+- `httpHostHeader`（字符串）：覆写发往源站的 `Host` 头，适合源站基于虚拟主机的反向代理（如 Nginx `server_name` 匹配）。
 - `originServerName`（字符串）：验证源站证书时期望的 SNI 名称。
 - `connectTimeout`：连接源站的超时时间（默认 30s）。
 - `tlsTimeout`：TLS 握手超时时间（默认 10s）。
@@ -274,7 +423,7 @@ docker compose down
 
 ---
 
-## 8. 防火墙要求与高可用部署
+## 10. 防火墙要求与高可用部署
 
 ### 防火墙出站策略
 `cloudflared` 仅发起**出站（Outbound）**连接，不需要任何外部入站端口：
@@ -284,12 +433,12 @@ docker compose down
 
 ### 高可用副本（Deploy Replicas）
 想要避免单点故障，无需配置复杂的 Keepalived 或外部负载均衡：
-- 只需在多个主机或不同的物理机上，使用**相同的 TUNNEL_TOKEN** 启动多个 `cloudflared` 容器。
+- 只需在多个主机或不同的物理机上，使用**相同的 TUNNEL_TOKEN** 启动多个 `cloudflared` 容器或 systemd 服务。
 - Cloudflare 会自动识别这些活跃副本，并将流量均衡分配到健康的实例上。一旦某个实例宕机，Cloudflare 会在秒级内自动剔除并故障转移。
 
 ---
 
-## 9. 常见问题与排错指南
+## 11. 常见问题与排错指南
 
 ### 1. 隧道状态为 Inactive 或 Down
 - 检查防火墙是否放行了到公网的 **UDP/TCP 7844 端口**。
