@@ -1,33 +1,82 @@
 # cloudflared
 
-[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
+[Official Web][1] - [Source][2] - [Docker Image][3] - [Documentation][4] - [完整教程 (docs.md)](./docs.md)
 
 ---
 
-> [cloudflared][1] 是 Cloudflare 隧道客户端。将 Cloudflare 网络的流量代理到你的起源节点。
+> [cloudflared][1] 是 Cloudflare 隧道客户端。通过建立安全的仅出站（Outbound-only）连接，将 Cloudflare 全球网络的流量代理到你的本地或私有起源节点，无需公网 IP 和开放入站端口。
 
-[1]:https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/configure-tunnels/cloudflared-parameters/
+[1]:https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/
 [2]:https://github.com/cloudflare/cloudflared
 [3]:https://hub.docker.com/r/cloudflare/cloudflared
-[4]:https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/configure-tunnels/cloudflared-parameters/run-parameters/
+[4]:https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/configure-tunnels/run-parameters/
 
 ---
 
-## 配置环境变量
+## 快速入门教程
+
+### 1. 准备工作与获取 Token
+1. 访问 [Cloudflare Zero Trust 控制台](https://one.dash.cloudflare.com/)。
+2. 导航至 **Networks** > **Tunnels**，点击 **Add a tunnel**。
+3. 选择 **Cloudflare Managed**（远程托管模式），输入隧道名称。
+4. 在随后生成的安装命令中复制对应的 `token` 字符串（以 `eyJh...` 开头）。
+
+### 2. 配置环境变量
+在当前目录下创建并配置 `.env` 文件：
 ```bash
-# 日志保存文件
-TUNNEL_LOGFILE=
-# 日志等级 debug, info (default), warn, error, and fatal.
-TUNNEL_LOGLEVEL=
-# 禁用自动更新
-# NO_AUTOUPDATE=true
-# 密钥
-TUNNEL_TOKEN=
-# 密钥文件
-# TUNNEL_TOKEN_FILE=
+# 时区
+TZ=Asia/Shanghai
+
+# 隧道密钥 Token（必须）
+TUNNEL_TOKEN=eyJhIjoiXXXXXX...
+
+# 日志级别：debug, info (default), warn, error, fatal
+TUNNEL_LOGLEVEL=info
+
+# 禁用自动更新（容器环境建议设置为 true）
+NO_AUTOUPDATE=true
+
+# 可选：日志保存文件
+# TUNNEL_LOGFILE=/var/log/cloudflared.log
 ```
 
-## 构建（使用 `alpine` 作为底座）
+### 3. 使用 Docker Compose 启动
+编辑或使用自带的 `compose.yaml`：
+```yaml
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    command: ["tunnel", "run"]
+    hostname: cloudflared
+    env_file:
+      - path: ./.env
+        required: false
+```
+
+启动隧道服务：
+```bash
+# 启动容器
+docker compose up -d
+
+# 查看运行状态与连接日志
+docker compose logs -f cloudflared
+```
+
+### 4. 添加公开服务路由（Public Hostname）
+在控制台的 Tunnel 详情中切换到 **Public Hostname**，添加路由规则：
+- **Public Hostname**：填写域名与子域（例如 `app.yourdomain.com`）。
+- **Service Type**：选择 `HTTP` 或 `HTTPS`。
+- **URL**：输入本地服务地址（如内网 IP `192.168.1.100:8080`，或同 Docker 网络下的服务名 `web:80`）。
+- 保存后即可通过 `https://app.yourdomain.com` 安全访问本地服务。
+
+> 进阶场景（SSH / RDP / 私有网络 CIDR / 高可用多副本 / Ingress 本地配置等）请参考 [完整使用教程 (docs.md)](./docs.md)。
+
+---
+
+## 进阶构建（使用 `alpine` 作为基础镜像）
+如果希望使用更加轻量的 Alpine 基础镜像构建：
 ```dockerfile
 FROM cloudflare/cloudflared:latest AS builder
 
@@ -42,7 +91,7 @@ ENTRYPOINT ["cloudflared", "--no-autoupdate"]
 CMD ["version"]
 ```
 
-基于 cloudflare/cloudflared:latest 构建对应的 alpine 为基础的镜像。
+执行构建命令：
 ```bash
 docker build -t cloudflared .
 ```
