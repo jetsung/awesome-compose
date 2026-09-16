@@ -33,6 +33,19 @@
       ]
     },
     {
+      "id": "aether",
+      "name": "Aether",
+      "description": "一个面向受限网络的加密隧道客户端：自动扫描发现可达的 Cloudflare WARP 边缘节点，建立加密隧道（MASQUE / WireGuard / WARP-in-WARP），并在本地暴露一个 SOCKS5 代理给应用程序使用。**纯客户端，无需自建服务端**。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aether/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aether/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/aether/README.md",
+      "tags": [
+        "aether"
+      ]
+    },
+    {
       "id": "agentgateway",
       "name": "Agentgateway",
       "description": "一款基于原生人工智能协议（[MCP](https://modelcontextprotocol.io/introduction) 与 [A2A](https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/)）构建的开源代理，可为跨任何框架和环境的代理与大语言模型（LLM）之间、代理与工具之间以及代理与代理之间的通信，提供即插即用的安全性、可观测性和治理功能。",
@@ -230,7 +243,7 @@
     {
       "id": "cloudflared",
       "name": "cloudflared",
-      "description": " Cloudflare 隧道客户端。将 Cloudflare 网络的流量代理到你的起源节点。",
+      "description": " Cloudflare 隧道客户端。通过建立安全的仅出站（Outbound-only）连接，将 Cloudflare 全球网络的流量代理到你的本地或私有起源节点，无需公网 IP 和开放入站端口。",
       "version": "1.0.0",
       "author": "jetsung",
       "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/cloudflared/compose.yaml",
@@ -355,6 +368,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/filetas/README.md",
       "tags": [
         "filetas"
+      ]
+    },
+    {
+      "id": "flarum",
+      "name": "Flarum",
+      "description": "一个设计简洁、优雅的开源论坛软件，让在线社区讨论变得简单愉悦。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/flarum/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/flarum/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/flarum/README.md",
+      "tags": [
+        "flarum"
       ]
     },
     {
@@ -1159,6 +1185,19 @@
       "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/waline/README.md",
       "tags": [
         "waline"
+      ]
+    },
+    {
+      "id": "warpgate",
+      "name": "Warpgate",
+      "description": "**Warpgate** 是一个完全透明的代理/堡垒机，用于管理内部基础设施的访问。它支持 SSH、HTTPS、RDP、VNC、Kubernetes、PostgreSQL 和 MySQL 目标，提供 SSO、RBAC 和会话录制功能——无需安装专用客户端软件。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/warpgate/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/warpgate/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/warpgate/README.md",
+      "tags": [
+        "warpgate"
       ]
     },
     {
