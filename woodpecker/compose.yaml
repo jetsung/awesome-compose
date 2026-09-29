@@ -10,14 +10,10 @@ services:
     ports:
       - 8000:8000
     restart: unless-stopped
-    volumes:
-      - woodpecker-data:/var/lib/woodpecker
 
   agent:
     command: agent
     container_name: woodpecker-agent
-    depends_on:
-      - server
     env_file:
       - path: ./.env
         required: false
@@ -25,6 +21,3 @@ services:
     restart: unless-stopped
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-volumes:
-  woodpecker-data:

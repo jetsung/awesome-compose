@@ -25,7 +25,7 @@ Woodpecker Server 提供了丰富的环境变量用于配置各项功能，包�
 
 Woodpecker 内置支持以下代码托管平台（Forge）。下表列出了各平台支持的功能：
 
-| 功能 | GitHub | Gitea | Forgejo | GitLab | Bitbucket | Bitbucket Datacenter | AtomGit |
+| 功能 | GitHub | Gitea | Forgejo | GitLab | Bitbucket | Bitbucket Datacenter | GitCode |
 |------|--------|-------|---------|--------|-----------|----------------------|---------|
 | 事件: Push | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | 事件: Tag | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -276,14 +276,14 @@ Bitbucket Server 不支持使用 OAuth 令牌克隆仓库，因此需要创建�
 
 ---
 
-### AtomGit
+### GitCode
 
-Woodpecker 内置支持 [AtomGit](https://atomgit.com)。需要在 Server 组件中设置以下环境变量：
+Woodpecker 内置支持 [GitCode](https://gitcode.com)。需要在 Server 组件中设置以下环境变量：
 
 ```ini
-WOODPECKER_ATOMGIT=true
-WOODPECKER_ATOMGIT_CLIENT=YOUR_ATOMGIT_CLIENT_ID
-WOODPECKER_ATOMGIT_SECRET=YOUR_ATOMGIT_CLIENT_SECRET
+WOODPECKER_GITCODE=true
+WOODPECKER_GITCODE_CLIENT=YOUR_GITCODE_CLIENT_ID
+WOODPECKER_GITCODE_SECRET=YOUR_GITCODE_CLIENT_SECRET
 ```
 
 前往个人设置 -> OAuth2 Applications -> Create a new OAuth2 App 注册应用。
@@ -298,14 +298,14 @@ WOODPECKER_ATOMGIT_SECRET=YOUR_ATOMGIT_CLIENT_SECRET
 
 | 环境变量 | 默认值 | 说明 |
 |----------|--------|------|
-| `WOODPECKER_ATOMGIT` | `false` | 启用 AtomGit 驱动 |
-| `WOODPECKER_ATOMGIT_URL` | `https://api.atomgit.com` | AtomGit API 服务器地址 |
-| `WOODPECKER_ATOMGIT_CLIENT` | 无 | AtomGit OAuth 客户端 ID |
-| `WOODPECKER_ATOMGIT_CLIENT_FILE` | 无 | 从文件读取 `WOODPECKER_ATOMGIT_CLIENT` |
-| `WOODPECKER_ATOMGIT_SECRET` | 无 | AtomGit OAuth 客户端密钥 |
-| `WOODPECKER_ATOMGIT_SECRET_FILE` | 无 | 从文件读取 `WOODPECKER_ATOMGIT_SECRET` |
+| `WOODPECKER_GITCODE` | `false` | 启用 GitCode 驱动 |
+| `WOODPECKER_GITCODE_URL` | `https://api.gitcode.com` | GitCode API 服务器地址 |
+| `WOODPECKER_GITCODE_CLIENT` | 无 | GitCode OAuth 客户端 ID |
+| `WOODPECKER_GITCODE_CLIENT_FILE` | 无 | 从文件读取 `WOODPECKER_GITCODE_CLIENT` |
+| `WOODPECKER_GITCODE_SECRET` | 无 | GitCode OAuth 客户端密钥 |
+| `WOODPECKER_GITCODE_SECRET_FILE` | 无 | 从文件读取 `WOODPECKER_GITCODE_SECRET` |
 | `WOODPECKER_FORGE_SKIP_VERIFY` | `false` | 是否跳过 SSL 验证 |
-| `WOODPECKER_FORGE_OAUTH_HOST` | `https://atomgit.com` | OAuth 授权端点地址 |
+| `WOODPECKER_FORGE_OAUTH_HOST` | `https://gitcode.com` | OAuth 授权端点地址 |
 
 ---
 

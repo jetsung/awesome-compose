@@ -2,3 +2,10 @@ services:
   server:
     ports: !override
       - ${SERV_PORT:-8000}:8000
+    volumes:
+      - ./data:/var/lib/woodpecker
+    user: 0:0
+
+  agent:
+    depends_on:
+      - server

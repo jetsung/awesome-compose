@@ -523,4 +523,4 @@
 | GitLab | [Server 环境变量 - WOODPECKER_GITLAB_\*](./README.md#gitlab) |
 | Bitbucket | [Server 环境变量 - WOODPECKER_BITBUCKET_\*](./README.md#bitbucket) |
 | Bitbucket Datacenter | [Server 环境变量 - WOODPECKER_BITBUCKET_DC_\*](./README.md#bitbucket-datacenter--server) |
-| AtomGit | [Server 环境变量 - WOODPECKER_ATOMGIT_\*](./README.md#atomgit) |
+| GitCode | [Server 环境变量 - WOODPECKER_GITCODE_\*](./README.md#gitcode) |
