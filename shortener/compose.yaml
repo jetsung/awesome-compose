@@ -1,24 +1,29 @@
 ---
 # https://github.com/jetsung/shortener
+# 统一镜像：shortener-server 单进程直接托管前端静态资源并对外提供 API（8080）
+# 外层 nginx 仅负责 HTTPS 终结与域名接入（原样转发，无需路径改写）
 services:
-  backend:
-    container_name: shortener-server
-    depends_on:
-      - valkey
+  shortener:
+    container_name: shortener
+    image: jetsung/shortener:latest
+    restart: unless-stopped
     env_file:
       - path: ./.env
         required: false
     healthcheck:
       disable: true
-    image: jetsung/shortener-server:latest
-    restart: unless-stopped
-    user: 0:0
+    environment:
+      # WORKDIR 为 /app：相对路径 ./data/... 即 /app/data/...（挂载卷 ./data:/app/data）
+      - DATABASE__URL=sqlite://./data/shortener.db?mode=rwc
+      - CACHE__ENABLED=true
+      - CACHE__URL=valkey://valkey:6379/1
+      - GEOIP__ENABLED=true
+      - GEOIP__IP2REGION__PATH=./data/ip2region.xdb
     volumes:
       - ./config.toml:/app/config.toml
-  frontend:
-    container_name: shortener-frontend
-    image: jetsung/shortener-frontend:latest
-    restart: unless-stopped
+      - ./data:/app/data
+    depends_on:
+      - valkey
   valkey:
     image: valkey/valkey:latest
     restart: unless-stopped
@@ -26,7 +31,7 @@ services:
     container_name: shortener-nginx
     image: nginx:alpine
     ports:
-      - 80:80
+      - ${SERV_PORT:-80}:80
     restart: unless-stopped
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf

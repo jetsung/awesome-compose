@@ -1,173 +1,107 @@
-# Shortener Server Configuration # This is the default configuration file # For detailed configuration options, see config/config.example.toml
+# Shortener Server Configuration
+# 完整配置说明: https://github.com/jetsung/shortener/blob/main/docs/general/CONFIGURATION.md
+# 环境变量优先于本文件（SERVER__* / DATABASE__URL / CACHE__URL 等，见 compose.yaml）
+#
+# 注意：镜像 WORKDIR 为 /app，相对路径（./data/...）以 /app 为基准解析。
+
 # ============================================================================
 # Server Configuration
 # ============================================================================
 [server]
-# Server listen address
-address = ":8080"
+# 监听地址（容器内单进程直接对外）
+address = "0.0.0.0:8080"
 
-# Trusted platform header for getting real client IP (optional)
+# 可信平台头（可选）：外层反代获取真实客户端 IP 用，如 "X-Real-IP"
 trusted-platform = ""
 
-# Public site URL (used for generating short URLs)
-site_url = "https://localhost:8080"
+# 短址专用域名（可选）
+# 未设置：从监听地址推断并追加 /go 前缀（链接形如 http://host:8080/go/<code>）
+# 显式设置：链接直接为 <short_url>/<code>（专用短域名需在外层 nginx 把
+# 根路径短码转发到 /go/，参考 nginx.conf 中注释的短域名 server 块）
+short_url = ""
 
-# API key for authentication (REQUIRED)
+# 前端静态资源目录（可选）：统一镜像已内置 /app/static，一般无需修改
+static-dir = "/app/static"
+
+# API key（必填，敏感）
 # Generate with: openssl rand -base64 32
 # IMPORTANT: Change this in production!
 api_key = "apikey_for_shortener"
 
 # ============================================================================
-# Shortener Configuration
+# Slug Configuration（短码生成规则）
 # ============================================================================
-[shortener]
-# Length of auto-generated short codes (4-16)
-code_length = 6
+[slug]
+# 短码长度（4-16）
+length = 6
 
-# Character set for generating short codes
-code_charset = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+# 短码字母表
+alphabet = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 # ============================================================================
 # Admin Account Configuration
 # ============================================================================
 [admin]
-# Admin username (REQUIRED)
+# 管理员用户名（默认 "admin"）
 username = "admin"
 
-# Admin password (REQUIRED)
+# 管理员口令哈希（必填）— Argon2id PHC 格式，明文口令不落盘
+# Generate with: shortener-server hash-password --password "your-secure-password"
 # IMPORTANT: Change this in production!
-password = "admin888"
+password_hash = ""
 
 # ============================================================================
 # Database Configuration
 # ============================================================================
+# 连接字符串，引擎由 scheme 推断：sqlite:// / postgres:// / mysql://
+# 镜像 WORKDIR 为 /app：相对路径 ./data/... 即 /app/data/...（挂载卷 ./data:/app/data）
 [database]
-# Database type: "sqlite", "postgres", or "mysql"
-type = "sqlite"
+url = "sqlite://./data/shortener.db?mode=rwc"
 
-# Database log level: 1=Silent, 2=Error, 3=Warn, 4=Info
-log_level = 4
-
-# ----------------------------------------------------------------------------
-# SQLite Configuration
-# ----------------------------------------------------------------------------
-[database.sqlite]
-# Database file path
-path = "data/shortener.db"
-
-# ----------------------------------------------------------------------------
-# PostgreSQL Configuration (保留原始，未被覆盖)
-# ----------------------------------------------------------------------------
-[database.postgres]
-host = "localhost"
-port = 5432
-user = "postgres"
-password = "postgres"
-database = "shortener"
-sslmode = "disable"
-timezone = "Asia/Shanghai"
-
-# ----------------------------------------------------------------------------
-# MySQL Configuration (保留原始，未被覆盖)
-# ----------------------------------------------------------------------------
-[database.mysql]
-host = "localhost"
-port = 3306
-user = "root"
-password = "root"
-database = "shortener"
-charset = "utf8mb4"
-parse_time = true
-loc = "Local"
+# 数据库日志级别: 1=Silent, 2=Error, 3=Warn, 4=Info
+log_level = 2
 
 # ============================================================================
-# Cache Configuration
+# Cache Configuration（valkey / redis）
 # ============================================================================
 [cache]
-# Enable caching (recommended for production)
 enabled = true
 
-# Cache type: "redis" or "valkey"
-type = "valkey"
+# 连接字符串，引擎由 scheme 推断："valkey://" 或 "redis://"
+# 默认连接 compose 中的 valkey 服务（db 1）
+url = "valkey://valkey:6379/1"
 
-# Cache expiration time in seconds (default: 1 hour)
+# 缓存过期时间（秒，默认 1 小时）
 expire = 3600
 
-# Cache key prefix
+# 缓存键前缀
 prefix = "shorten:"
-
-# ----------------------------------------------------------------------------
-# Redis Configuration (保留原始，未被覆盖)
-# ----------------------------------------------------------------------------
-[cache.redis]
-host = "redis"
-port = 6379
-password = ""
-db = 0
-
-# ----------------------------------------------------------------------------
-# Valkey Configuration
-# ----------------------------------------------------------------------------
-[cache.valkey]
-# redis://default:password@host:6379
-host = "valkey"
-port = 6379
-username = ""
-password = ""
-db = 1
 
 # ============================================================================
 # GeoIP Configuration
 # ============================================================================
 [geoip]
-# Enable GeoIP lookup for visitor location tracking
-# NOTE: Requires ip2region database file (see docs for setup instructions)
-enabled = false
+# 启用 IP 归属地查询（需要 ip2region 数据库文件，见 README）
+enabled = true
 
-# GeoIP provider type (currently only "ip2region" is supported)
 type = "ip2region"
 
-# ----------------------------------------------------------------------------
-# ip2region Configuration
-# ----------------------------------------------------------------------------
 [geoip.ip2region]
-# Path to ip2region.xdb database file
+# ip2region.xdb 路径（相对路径以 WORKDIR /app 为基准）
 # Download from: https://github.com/lionsoul2014/ip2region/raw/master/data/ip2region_v4.xdb
-path = "data/ip2region.xdb"
+path = "./data/ip2region.xdb"
 
-# Search mode: "vector" (fastest), "btree" (balanced), or "binary" (smallest memory)
+# 搜索模式: "vector"(最快) / "btree"(均衡) / "binary"(内存最小)
 mode = "vector"
 
-# IP version: "4" for IPv4, "6" for IPv6
+# IP 版本: "4" / "6"
 version = "4"
 
 # ============================================================================
 # Logging Configuration
 # ============================================================================
 [logging]
-# Log level: "error", "warn", "info", "debug", "trace"
-level = "debug"
-
-# Log format: "json", "pretty", or "compact"
-format = "pretty"
-
-# Include timestamp in logs
+level = "info"
+format = "json"
 with_timestamp = true
-
-# Include module/target name in logs
 with_target = true
-
-# Include thread ID in logs
-with_thread_ids = false
-
-# Include thread name in logs
-with_thread_names = false
-
-# Include source file name in logs
-with_file = false
-
-# Include line number in logs
-with_line_number = false
-
-# Use ANSI colors in logs (disable for log files)
-with_ansi = true
