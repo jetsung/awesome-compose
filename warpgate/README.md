@@ -59,10 +59,27 @@ docker run --rm --name warpgate \
 # 下载配置文件
 curl -LO https://raw.githubusercontent.com/warp-tech/warpgate/main/docker/docker-compose.yml
 
-# 初始化并启动
-docker compose run warpgate setup
-docker compose up
+# 启动（首次启动会使用镜像默认配置）
+docker compose up -d
+
+# 交互式初始化配置（生成 warpgate.yaml、设置管理员密码）
+docker exec -it warpgate setup
+
+# 配置完成后重启生效
+docker compose restart
 ```
+
+> **注意：** `docker exec -it` 需要容器开启交互，请确认 `compose.yaml` 中包含以下配置：
+>
+> ```yaml
+> stdin_open: true   # 等价于 docker run -i
+> tty: true          # 等价于 docker run -t
+> command: setup
+> ```
+>
+> 添加后 `docker compose up` 启动即进入 setup 交互模式，配置完成后再改为正常运行（去掉 `command: setup` 或按上方 `docker exec` 方式操作）。
+>
+> 另一种方式：不修改 compose 文件，直接 `docker compose run warpgate setup` 一次性初始化，然后 `docker compose up` 启动。
 
 ### Helm（Kubernetes）
 
@@ -306,9 +323,19 @@ Warpgate 有两种角色类型：
 # 取消勾选 "Any credential"，选择需要的认证方式组合
 ```
 
-### SSO 配置
+### SSO / OIDC 配置
 
-在配置文件中添加 SSO 提供商：
+Warpgate 可使用任意 OpenID Connect（OIDC）提供商，基于用户**已验证的邮箱**认证登录。OIDC 提供商包括但不限于：Google Accounts、Sign in with Apple、GitLab、Microsoft Azure、Okta、Authentik。
+
+在提供商侧注册 Warpgate 为应用，获得 Client ID / Client Secret，并配置回调（Redirect）URL：
+
+```
+https://<external_host>/@warpgate/api/sso/return
+```
+
+> Azure 等不允许 URL 中出现 `@` 的提供商，可改用下划线前缀（v0.22+）：`return_url_prefix: _`，回调地址相应变为 `/_warpgate/api/sso/return`。
+
+然后在配置文件中添加 SSO 提供商：
 
 ```yaml
 external_host: warpgate.acme.inc
@@ -322,15 +349,19 @@ sso_providers:
       client_secret: ABC...
 ```
 
-支持的 SSO 提供商：
+支持的 SSO 提供商类型：
 - `google` — Google Accounts
-- `azure` — Microsoft Azure
-- `apple` — Apple ID
-- `custom` — 任意 OIDC 提供商（Okta、Authentik、GitLab 等）
+- `azure` — Microsoft Azure（额外需要 `tenant`）
+- `apple` — Apple ID（需要 `team_id` / `key_id`，`client_id` 为 Service ID）
+- `custom` — 任意 OIDC 提供商（Okta、Authentik、GitLab 等），需要 `issuer_url` / `scopes`
 
-### 通过 SSO 同步角色
+**自动创建用户（v0.13+）：** 设置 `auto_create_users: true` 后，新用户首次 SSO 登录时自动创建账号——用户名取自 `preferred_username` claim（缺失时回退 `email`）。已有同名用户需手动在其凭据列表中添加 SSO 凭据进行关联。
 
-使用 `custom` 类型 OIDC 提供商时，可通过 `warpgate_roles` claim 同步用户角色：
+**用户关联 SSO：** 用户基于邮箱与 SSO 账号关联（若提供商声明邮箱未验证，Warpgate 会拒绝）。在用户的凭据区点击 `Add SSO` 关联，并可将 SSO 设为 HTTP 连接的唯一认证方式；SSH 可改用浏览器内（out-of-band）认证，在终端打印登录 URL 由用户在浏览器中完成 SSO 登录。
+
+**OIDC audience 校验（仅 `custom`）：** 若提供商签发的 token audience 不只针对 Warpgate，可用 `additional_trusted_audiences` 白名单额外 audience，或 `trust_unknown_audiences: true`（v0.13.1+）忽略多余 audience。
+
+**通过 SSO 同步角色：** `custom` 类型提供商可通过 `warpgate_roles` / `warpgate_admin_roles` claim（v0.26+ 支持 `roles_claim: groups` 等标准 claim）同步用户角色，或用 `role_mappings` / `admin_role_mappings` 显式映射：
 
 ```yaml
 sso_providers:
@@ -341,6 +372,10 @@ sso_providers:
         'QA group': 'qa'
         Admins: 'warpgate:admin'
 ```
+
+> **Authentik 注意：** 必须为 provider 分配签名密钥（RSA 或 ECDSA），否则其 JWKS 端点返回空文档，Warpgate 会报 `provider discovery error: Failed to parse server response`。
+
+若用户主要使用 SSO，可在 `Config` > `Global parameters` > `Login` 中隐藏或禁用密码登录表单。
 
 ### 浏览器内审批（Out-of-band 认证）
 
@@ -357,15 +392,20 @@ Warpgate 可要求用户在浏览器中批准登录请求，适用于无法交�
 
 ### SSH 目标
 
-**1. 配置公钥认证**
+**1. 配置公钥认证（两侧）**
 
-查看 Warpgate 的公钥：
+- **用户侧**：把本地主机的公钥（`~/.ssh/id_ed25519.pub` 等）添加到 Warpgate 的 **Public keys** —— 登录后进入个人资料页 `/@warpgate/#/profile/credentials`，点击 `Add public key` 粘贴保存。这样用户即可用本地私钥通过 Warpgate 认证。
+- **目标主机侧**：target 主机需要信任 Warpgate 的公钥。查看 Warpgate 公钥（管理界面 `Config` > `SSH keys`，或命令行）：
 
 ```bash
 warpgate client-keys
 ```
 
-将公钥添加到目标服务器的 `~/.ssh/authorized_keys`。
+将公钥添加到 target 主机的 `~/.ssh/authorized_keys`（文件不存在则创建，注意属主与权限为 `600`）：
+
+```bash
+echo "<warpgate公钥>" >> ~/.ssh/authorized_keys
+```
 
 **2. 添加目标**
 
