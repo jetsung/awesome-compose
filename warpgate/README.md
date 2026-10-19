@@ -323,6 +323,45 @@ Warpgate 有两种角色类型：
 # 取消勾选 "Any credential"，选择需要的认证方式组合
 ```
 
+#### 排查：已删除 MFA 密钥并关闭 MFA，登录仍要求验证码
+
+**现象：** 删除了用户的 TOTP 密钥，全局 MFA 强制策略也已设为 `Off`，但该用户登录（HTTP 与 SSH 均如此）仍被要求输入 OTP，且输入任何验证码都无法通过，形成「要求 OTP 但永远无法通过」的死锁。
+
+**根因：** Warpgate 对 MFA 的判定有**两条相互独立的路径**，只关其一不够：
+
+1. **全局 MFA 强制策略**（`parameters` 表 `mfa_enforcement`，`Off`/`Enroll`/`Require`）——设为 `Off` 只是不追加全局强制，**不能移除用户级策略中已有的要求**。
+2. **用户级凭证策略**（`users` 表 `credential_policy` 列，即管理界面中的 "Required credential types"，如 `{"http":["password","otp"],"ssh":["password","otp"]}`）——判定逻辑要求有效凭证覆盖全部要求项；残留的 `otp` 会让登录流程持续索要验证码，而 TOTP 密钥已删（`credentials_otp` 表无记录），输入什么都会失败 → 死锁。
+
+**排查步骤**（SQLite 存储，路径见 `warpgate.yaml` 的 `database_url`，数据卷内 `db/db.sqlite3`）：
+
+```bash
+# 1. 全局 MFA 设置（输出 Off|0 说明问题不在这里）
+sqlite3 db/db.sqlite3 "SELECT mfa_enforcement, mfa_policy_exempt_sso_users FROM parameters;"
+
+# 2. 各用户凭证策略 —— "otp" 出现在哪个协议列表，该协议登录就会索要验证码
+sqlite3 db/db.sqlite3 "SELECT username, credential_policy FROM users;"
+
+# 3. 确认 OTP 密钥是否已删干净
+sqlite3 db/db.sqlite3 "SELECT COUNT(*) FROM credentials_otp;"
+```
+
+**解决方法：**
+
+- 方法一（推荐）：管理界面 → 用户管理 → 对应用户 → 编辑「要求的凭证类型」，去掉对应协议（HTTP / SSH）下的 **Totp** 勾选并保存。
+- 方法二（直接改库，改前备份、建议先停止服务）：
+
+  ```bash
+  cp db/db.sqlite3 db/db.sqlite3.bak-mfa
+  sqlite3 db/db.sqlite3 "UPDATE users SET credential_policy='{\"http\":[\"password\"],\"ssh\":[\"password\"]}' WHERE username='admin';"
+  ```
+
+  策略是登录时实时读取的，通常无需重启即可生效；若 Web 端仍有残留会话状态，重新打开登录页即可。
+
+**预防建议：**
+
+- 删除 TOTP 密钥**前**，先取消用户策略中对 Totp 的强制要求，避免死锁。
+- 排查时全局「MFA 强制」与用户「要求的凭证类型」都要检查，两者独立生效。
+
 ### SSO / OIDC 配置
 
 Warpgate 可使用任意 OpenID Connect（OIDC）提供商，基于用户**已验证的邮箱**认证登录。OIDC 提供商包括但不限于：Google Accounts、Sign in with Apple、GitLab、Microsoft Azure、Okta、Authentik。
@@ -357,7 +396,39 @@ sso_providers:
 
 **自动创建用户（v0.13+）：** 设置 `auto_create_users: true` 后，新用户首次 SSO 登录时自动创建账号——用户名取自 `preferred_username` claim（缺失时回退 `email`）。已有同名用户需手动在其凭据列表中添加 SSO 凭据进行关联。
 
-**用户关联 SSO：** 用户基于邮箱与 SSO 账号关联（若提供商声明邮箱未验证，Warpgate 会拒绝）。在用户的凭据区点击 `Add SSO` 关联，并可将 SSO 设为 HTTP 连接的唯一认证方式；SSH 可改用浏览器内（out-of-band）认证，在终端打印登录 URL 由用户在浏览器中完成 SSO 登录。
+**报错 `No user matching <email>`：** SSO 登录按**邮箱**匹配 Warpgate 用户；若 SSO 登录的邮箱（如 `user@example.com`）不是任何已有用户的邮箱，Warpgate 会拒绝登录。修复方式二选一：
+
+1. **自动创建用户（推荐）**——在对应 SSO 提供商下开启 `auto_create_users: true`，该邮箱首次登录时会自动创建名为 user1（取自 `preferred_username`）的新用户；之后在管理界面 `Config` > `Users` > 新用户 > `Access roles` 给它分配角色即可访问目标：
+
+   ```yaml
+   sso_providers:
+     - name: oidc-custom
+       label: My SSO
+       auto_create_users: true     # SSO 新邮箱自动建用户
+       provider:
+         type: custom
+         ...
+   ```
+
+   修改的是数据卷内的 `warpgate.yaml`（Docker 中为 `/data/warpgate.yaml`），改完 `docker compose restart` 生效。
+
+2. **手动关联已有用户**——保持 `auto_create_users` 关闭，先用 admin 登录管理界面，进入 `Config` > `Users` > 选择用户（如 user1）> 凭据区点击 `Add SSO`，绑定 `user@example.com`。注意：用户是按邮箱匹配的，若 admin 用户的邮箱就是 `user@example.com`，给 admin 添加 SSO 凭据即可；若想让 SSO 账号对应一个独立用户，需先创建该用户并确保其邮箱与 SSO 邮箱一致（或走方式 1）。
+
+   前提：SSO 提供商侧该邮箱必须是**已验证**状态，否则 Warpgate 仍会拒绝关联。
+
+**用户关联 SSO（Add SSO）：** 在管理界面 `Config` > `Users` > 选择用户 > **Credentials** 区域点击 `Add SSO`，弹窗包含两个字段：
+
+| 字段 | 说明 |
+|------|------|
+| **E-mail**（必填） | 用于与 SSO 登录时 IdP 返回的邮箱匹配。只有该邮箱通过 SSO 登录，才能以此 Warpgate 用户身份登录。 |
+| **SSO provider**（下拉，默认 `Any`） | `Any` 表示任何已配置的 SSO 提供方返回该邮箱即匹配；指定某提供方（如 `Authelia`）则仅该提供方登录时匹配。选项来自 `warpgate.yaml` 的 `sso_providers`（显示 `label`，无 `label` 则显示 `name`）。 |
+
+注意事项：
+
+- **未配置任何 SSO 提供方时**，弹窗会警告 "You don't have any SSO providers configured"——需先在配置文件中添加 `sso_providers`。
+- **邮箱必须已验证**：若提供方返回 `email_verified: false`，Warpgate 会拒绝登录；邮箱不一致或未验证都会匹配失败。
+- 关联后可将 SSO 设为 HTTP 连接的唯一认证方式；SSH 可改用浏览器内（out-of-band）认证，在终端打印登录 URL 由用户在浏览器中完成 SSO 登录。
+- 若勾选了全局参数中的 "Exempt SSO users from MFA enforcement"，拥有 SSO 凭证的用户可豁免全局 MFA 强制（但用户级凭证策略中残留的 `otp` 要求仍独立生效，见下方 MFA 排查）。
 
 **OIDC audience 校验（仅 `custom`）：** 若提供商签发的 token audience 不只针对 Warpgate，可用 `additional_trusted_audiences` 白名单额外 audience，或 `trust_unknown_audiences: true`（v0.13.1+）忽略多余 audience。
 
@@ -370,6 +441,28 @@ sso_providers:
       type: custom
       role_mappings:
         'QA group': 'qa'
+        Admins: 'warpgate:admin'
+```
+
+**Authelia 示例（custom 类型 OIDC）：**
+
+```yaml
+sso_providers:
+  - name: authelia
+    label: Authelia
+    # return_url_domain: external_host   # external_host | host_header（v0.23/0.25+ 域处理策略）
+    return_url_domain: host_header
+    return_url_prefix: '@'  # Azure 等不支持 @ 的提供商可用 '_'（v0.22+）
+    provider:
+      type: custom
+      client_id: <Client ID>          # Authelia OIDC 客户端 ID
+      client_secret: <Client Secret>  # Authelia OIDC 客户端密钥
+      issuer_url: https://auth.example.com
+      scopes: [openid, email]
+      role_mappings:        # 将 SSO claim 值映射到 Warpgate 角色
+        'QA group': qa
+        'user@example.com': admin
+      admin_role_mappings:  # 管理员角色映射
         Admins: 'warpgate:admin'
 ```
 
