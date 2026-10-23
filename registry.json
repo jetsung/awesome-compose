@@ -1175,6 +1175,19 @@
       ]
     },
     {
+      "id": "vikunja",
+      "name": "Vikunja",
+      "description": "一款开源的待办事项（To-do）管理应用，支持任务列表、甘特图、看板、表格等多种视图，可自托管，提供 Web、桌面与移动端客户端。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vikunja/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vikunja/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/vikunja/README.md",
+      "tags": [
+        "vikunja"
+      ]
+    },
+    {
       "id": "waline",
       "name": "Waline",
       "description": "原 Waline 评论系统的 Rust 语言高性能实现版本。它旨在为资源受限的服务器提供一个轻量级、高效率的替代方案，在保持与原版功能同步的同时，极大地降低了系统资源消耗。",
