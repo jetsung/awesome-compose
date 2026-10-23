@@ -1,0 +1,8 @@
+---
+services:
+  vikunja:
+#     ports: !reset []
+#     ports: !override
+#       - ${SERV_PORT:-3456}:3456
+    user: 0:0
+
