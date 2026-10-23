@@ -93,9 +93,11 @@ services:
     restart: unless-stopped
 ```
 
-> 注意：不可将宿主目录挂载到 `/app/vikunja` —— 可执行文件位于 `/app/vikunja/vikunja`，覆盖该目录会导致容器报 `exec: "/app/vikunja/vikunja": no such file or directory` 无法启动。因此只挂载 `/app/vikunja/files`，并通过 `VIKUNJA_DATABASE_PATH` 将 SQLite 数据库文件也存入该目录。
+> 注意：不可将宿主目录挂载到 `/app/vikunja` —— 可执行文件位于 `/app/vikunja/vikunja`，覆盖该目录会导致容器报 `exec: "/app/vikunja/vikunja": no such file or directory` 无法启动。
+>
+> 官方镜像预置了 `VIKUNJA_DATABASE_PATH=/db/vikunja.db`（数据库默认存放在 `/db`），`.env` 中的 `VIKUNJA_DATABASE_PATH=/app/vikunja/files/vikunja.db` 是对该预置值的显式覆盖，使数据库文件与上传附件统一存放在 `./data` 挂载目录中。若保持官方默认，也可将挂载改为 `./data:/db`。
 
-SQLite 数据库文件（`vikunja.db`）与上传附件均存放在 `./data` 目录中，备份时打包该目录即可。
+SQLite 数据库文件（`vikunja.db`）与上传附件均存放在 `./data` 目录中，备份方式见[数据备份](#数据备份)。
 
 ## 使用 PostgreSQL
 
@@ -197,6 +199,79 @@ services:
 ```
 
 > 使用 MySQL 时若报 `Migration failed: commands out of sync`，需停止容器后删除 `./data/db` 目录再重新启动。
+
+## 数据备份
+
+> Vikunja 中删除项目是**永久且不可恢复的**，没有回收站，请确保有可靠的备份策略。
+
+需备份两部分：数据库与附件文件。
+
+**SQLite**：直接复制数据库文件（`./data/vikunja.db`）即可。
+
+**PostgreSQL**：
+
+```bash
+# 备份
+docker compose exec db pg_dump -U vikunja vikunja > vikunja-backup.sql
+# 恢复
+docker compose exec -T db psql -U vikunja vikunja < vikunja-backup.sql
+```
+
+**MySQL / MariaDB**：
+
+```bash
+# 备份
+docker compose exec db sh -c 'exec mariadb-dump -uvikunja -p"$MYSQL_PASSWORD" vikunja' > vikunja-backup.sql
+# 恢复
+docker compose exec -T db sh -c 'exec mariadb -uvikunja -p"$MYSQL_PASSWORD" vikunja' < vikunja-backup.sql
+```
+
+**附件文件**：直接复制 `./data/files/` 目录（`files.basepath` 相对于 `service.rootpath`，即容器内 `/app/vikunja/files`）。
+
+也可配合项目根目录的 `backup.sh` 模板，将 `./data` 打包为 `.tar.xz` 归档。
+
+## 反向代理（NGINX）
+
+假设 Vikunja 运行在本机 `3456` 端口，`server_name` 按实际域名调整：
+
+```conf
+# WebSocket 升级所需，映射 $connection_upgrade
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
+
+server {
+    listen       80;
+    server_name  vikunja.example.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:3456;
+        # 与 Vikunja 最大上传大小保持一致，调大上传限制时需同步修改
+        client_max_body_size 20M;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # WebSocket 支持（/api/v2/ws），缺少会导致实时更新连接失败
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_read_timeout 3600s;
+    }
+}
+```
+
+反向代理后 Vikunja 默认记录到的是代理的地址，若需要让日志与限流识别真实客户端 IP，在 `.env` 中追加：
+
+```bash
+# 从 X-Forwarded-For 头提取客户端 IP
+VIKUNJA_SERVICE_IPEXTRACTIONMETHOD=xff
+# 仅信任代理来源地址，范围越小越安全，不要写成 10.0.0.0/8 这类宽网段
+VIKUNJA_SERVICE_TRUSTEDPROXIES=127.0.0.1/32
+```
 
 ## 相关链接
 
