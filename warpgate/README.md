@@ -329,8 +329,10 @@ Warpgate 有两种角色类型：
 
 **根因：** Warpgate 对 MFA 的判定有**两条相互独立的路径**，只关其一不够：
 
-1. **全局 MFA 强制策略**（`parameters` 表 `mfa_enforcement`，`Off`/`Enroll`/`Require`）——设为 `Off` 只是不追加全局强制，**不能移除用户级策略中已有的要求**。
-2. **用户级凭证策略**（`users` 表 `credential_policy` 列，即管理界面中的 "Required credential types"，如 `{"http":["password","otp"],"ssh":["password","otp"]}`）——判定逻辑要求有效凭证覆盖全部要求项；残留的 `otp` 会让登录流程持续索要验证码，而 TOTP 密钥已删（`credentials_otp` 表无记录），输入什么都会失败 → 死锁。
+1. **全局 MFA 强制策略**（`parameters` 表 `mfa_enforcement`，取值 `Off`/`Enroll`/`Require`，见 `warpgate-db-entities/src/Parameters.rs` 的 `mfa_required_factor()`）——`Off`/`Enroll` 不强制第二因子，`Require` 才按协议强制第二因子（`Totp` 或浏览器内审批）；设为 `Off` 只是不追加全局强制，**不能移除用户级策略中已有的要求**。
+2. **用户级凭证策略**（`users` 表 `credential_policy` 列，即管理界面中的 "Required credential types"，如 `{"http":["password","otp"],"ssh":["password","otp"]}`）——`credential_policy_for_user()`（`warpgate-core/src/config_providers/db.rs`）把策略中列出的每一项交给 `AllCredentialsPolicy::is_sufficient()`（`warpgate-common/src/auth/policy.rs`）判定，要求有效凭证**覆盖全部要求项**，缺哪项就继续索要哪项；残留的 `otp` 会让登录流程持续要求验证码，而 TOTP 密钥已删（`credentials_otp` 表无记录），`verify_totp()` 找不到任何可校验的密钥，输入什么都会失败 → 死锁。
+
+**为什么会死锁：** 删除 TOTP 密钥只清空 `credentials_otp`，关闭全局 MFA 只改 `parameters.mfa_enforcement`，两者都**不会修改** `users.credential_policy`——残留的 `otp` 要求无人清理，形成「永远索要、永远失败」的死循环。
 
 **排查步骤**（SQLite 存储，路径见 `warpgate.yaml` 的 `database_url`，数据卷内 `db/db.sqlite3`）：
 
@@ -353,6 +355,10 @@ sqlite3 db/db.sqlite3 "SELECT COUNT(*) FROM credentials_otp;"
   ```bash
   cp db/db.sqlite3 db/db.sqlite3.bak-mfa
   sqlite3 db/db.sqlite3 "UPDATE users SET credential_policy='{\"http\":[\"password\"],\"ssh\":[\"password\"]}' WHERE username='admin';"
+
+  # 验证
+  sqlite3 db/db.sqlite3 "SELECT username, credential_policy FROM users WHERE username='admin';"
+  sqlite3 db/db.sqlite3 "SELECT COUNT(*) FROM credentials_otp;"
   ```
 
   策略是登录时实时读取的，通常无需重启即可生效；若 Web 端仍有残留会话状态，重新打开登录页即可。
@@ -361,6 +367,7 @@ sqlite3 db/db.sqlite3 "SELECT COUNT(*) FROM credentials_otp;"
 
 - 删除 TOTP 密钥**前**，先取消用户策略中对 Totp 的强制要求，避免死锁。
 - 排查时全局「MFA 强制」与用户「要求的凭证类型」都要检查，两者独立生效。
+- **上游改进方向**：删除 OTP 凭证时自动从受影响用户的 `credential_policy` 移除对应项，或无可用 OTP 密钥时放行降级登录，避免管理员误操作把用户完全锁死。
 
 ### SSO / OIDC 配置
 
@@ -423,12 +430,14 @@ sso_providers:
 | **E-mail**（必填） | 用于与 SSO 登录时 IdP 返回的邮箱匹配。只有该邮箱通过 SSO 登录，才能以此 Warpgate 用户身份登录。 |
 | **SSO provider**（下拉，默认 `Any`） | `Any` 表示任何已配置的 SSO 提供方返回该邮箱即匹配；指定某提供方（如 `Authelia`）则仅该提供方登录时匹配。选项来自 `warpgate.yaml` 的 `sso_providers`（显示 `label`，无 `label` 则显示 `name`）。 |
 
+保存行为（弹窗组件 `warpgate-web/src/admin/SsoCredentialModal.svelte`）：点击 `Save` 提交（E-mail 为空不提交，并触发浏览器原生 email 格式校验），`Cancel` 关闭弹窗不做修改；编辑已有凭证时弹窗自动回填 `provider` 与 `email`。保存后写入数据库 `credentials_sso` 表（`email`、`provider` 两列，provider 为空即 `Any`）。
+
 注意事项：
 
 - **未配置任何 SSO 提供方时**，弹窗会警告 "You don't have any SSO providers configured"——需先在配置文件中添加 `sso_providers`。
 - **邮箱必须已验证**：若提供方返回 `email_verified: false`，Warpgate 会拒绝登录；邮箱不一致或未验证都会匹配失败。
 - 关联后可将 SSO 设为 HTTP 连接的唯一认证方式；SSH 可改用浏览器内（out-of-band）认证，在终端打印登录 URL 由用户在浏览器中完成 SSO 登录。
-- 若勾选了全局参数中的 "Exempt SSO users from MFA enforcement"，拥有 SSO 凭证的用户可豁免全局 MFA 强制（但用户级凭证策略中残留的 `otp` 要求仍独立生效，见下方 MFA 排查）。
+- 若勾选了全局参数中的 "Exempt SSO users from MFA enforcement"，拥有 SSO 凭证的用户可豁免全局 MFA 强制（但用户级凭证策略中残留的 `otp` 要求仍独立生效，见上文「多因素认证」排查章节）。
 
 **OIDC audience 校验（仅 `custom`）：** 若提供商签发的 token audience 不只针对 Warpgate，可用 `additional_trusted_audiences` 白名单额外 audience，或 `trust_unknown_audiences: true`（v0.13.1+）忽略多余 audience。
 
