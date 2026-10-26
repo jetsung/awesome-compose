@@ -71,6 +71,172 @@ SHOW_REGISTRATION_BUTTON = false
 DEFAULT_REPO_UNITS = ...,repo.actions
 ```
 
+## Nginx 反向代理
+
+> 参考：[官方反向代理文档](https://docs.gitea.com/zh-cn/administration/reverse-proxies)
+
+### 通用配置
+
+1. 在 `app.ini` 中设置 `[server] ROOT_URL = https://git.example.com/`。
+2. 让反向代理将 `https://git.example.com/foo` 转发到 `http://gitea:3000/foo`。
+3. 确保反向代理不解码 URI，即 `https://git.example.com/a%2Fb` 应原样转发为 `http://gitea:3000/a%2Fb`。
+4. 确保 `Host` 和 `X-Forwarded-Proto` 请求头正确传递给 Gitea，使其能看到真实访问的 URL。
+5. 确保 Web 服务器证书完整（含中间证书和根证书），否则 `git clone`、`git pull` 会失败。
+6. Gitea 通过 `/-/ws` 的 WebSocket 连接实现实时更新（如通知计数）。反向代理必须使用 HTTP/1.1 并转发 `Upgrade`、`Connection` 请求头，否则 Gitea 会退化为周期性轮询。
+7. 确保反向代理设置了 `X-Real-IP` 请求头，否则 Gitea 会使用客户端发送的值。如需在日志中记录客户端端口，还需设置 `X-Real-Port`。
+
+### 基础配置
+
+将以下 `server` 段添加到 `nginx.conf` 的 `http` 段中：
+
+> 注意 `client_max_body_size` 要足够大，否则上传大文件时会报 `413 Request Entity Too Large` 错误。
+
+```nginx
+server {
+    ...
+    location / {
+        client_max_body_size 512M;
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Connection $http_connection;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+### 子路径（Sub-path）部署
+
+若已有站点，想让 Gitea 共用同一域名，可将其部署在子路径下（通常**不推荐**，部分场景可能有兼容性问题）：
+
+```nginx
+server {
+    ...
+    location ~ ^/(gitea|v2)($|/) {
+        client_max_body_size 512M;
+
+        # 让 nginx 使用未转义的 URI，保留 "%2F" 原样，去掉 "/gitea" 子路径前缀，"/v2" 原样透传。
+        rewrite ^ $request_uri;
+        rewrite ^/(gitea($|/))?(.*) /$3 break;
+        proxy_pass http://127.0.0.1:3000$uri;
+        proxy_http_version 1.1;
+
+        # 其他通用请求头，见上方「基础配置」
+        proxy_set_header Connection $http_connection;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+> 子路径下容器镜像仓库需要根级别的固定子路径 `/v2`，上面配置中的 `v2` 已一并处理。
+
+然后**必须**在配置中正确设置 `[server] ROOT_URL = http://git.example.com/gitea/`。
+
+### Nginx 直接托管静态资源（性能优化）
+
+可将请求分为静态与动态两类：CSS、JavaScript、图片、Web 字体属于静态内容；首页、仓库视图、Issue 列表属于动态内容。Nginx 直接返回静态资源、仅将动态请求代理给 Gitea，可获得更好的性能。
+
+下载 Gitea 源码仓库快照到 `/path/to/gitea/`，在仓库目录执行 `make frontend` 生成静态资源（需要 Node.js/npm 和 make），只需保留其中的 `public/` 目录。
+
+**单节点单域名**：在配置中设置 `[server] STATIC_URL_PREFIX = /_/static`
+
+```nginx
+server {
+    listen 80;
+    server_name git.example.com;
+
+    location /_/static/assets/ {
+        alias /path/to/gitea/public/;
+    }
+
+    location / {
+        # 其余指令见上方「基础配置」
+        proxy_pass http://localhost:3000;
+    }
+}
+```
+
+**双节点双域名**：在配置中设置 `[server] STATIC_URL_PREFIX = http://cdn.example.com/gitea`
+
+```nginx
+# 运行 Gitea 的应用服务器
+server {
+    listen 80;
+    server_name git.example.com;
+
+    location / {
+        # 其余指令见上方「基础配置」
+        proxy_pass http://localhost:3000;
+    }
+}
+```
+
+```nginx
+# 静态内容分发服务器
+server {
+    listen 80;
+    server_name cdn.example.com;
+
+    location /gitea/ {
+        alias /path/to/gitea/public/;
+    }
+
+    location / {
+        return 404;
+    }
+}
+```
+
+### SSH（22 端口）反向代理
+
+适用场景：Gitea 部署在海外 VPS，国内无法直连其 22 端口，需要用一台国内 VPS 中转 SSH 流量，以便 `git clone`、`git push`、`ssh` 正常工作。
+
+> SSH 是四层 TCP 流量，**必须使用 nginx 的 `stream` 模块**，而不是上面 `http` 模块的反向代理。检查是否已编译该模块：`nginx -V 2>&1 | grep with-stream`（发行版官方源安装的 nginx 一般已包含）。
+> `stream {}` 块必须写在 `nginx.conf` 的**顶层**（与 `http {}` 平级），不能放进 `http` 或 `conf.d/*.conf` 中。
+
+假设：海外 VPS 为 `overseas.example.com`，Gitea 容器的 SSH 端口映射为宿主机 `2222`；国内中转 VPS 监听 22 端口。
+
+**国内中转 VPS** 的 `nginx.conf` 顶层添加：
+
+```nginx
+stream {
+    server {
+        listen 22;
+        proxy_pass overseas.example.com:2222;
+        # SSH 为长连接，超时时间设置长一些，避免大仓库传输中途断开
+        proxy_timeout 300s;
+        proxy_connect_timeout 10s;
+    }
+}
+```
+
+**海外 VPS** 上无需任何改动，只需确保：
+1. 防火墙/安全组放行来自国内中转 VPS 的 `2222` 端口（更安全的做法：仅允许中转 VPS 的 IP 访问，不对公网开放）。
+2. `app.ini` 中 `[server] SSH_DOMAIN` 设置为国内中转 VPS 的域名（或 IP），这样 Gitea 页面上展示的克隆地址才是国内可直连的：
+
+```ini
+[server]
+SSH_DOMAIN = relay.example.com
+```
+
+使用方式：
+
+```bash
+# 对用户而言与直连完全一样，只是实际流量走了国内中转
+git clone git@relay.example.com:username/repo.git
+```
+
+> 若中转 VPS 的 22 端口被占用（如自身 SSH 服务），可监听其他端口（如 `listen 2222;`），用户端改用 `ssh://git@relay.example.com:2222/username/repo.git` 形式克隆；此时若希望 Gitea 页面展示的 SSH 地址也带端口，可继续配合 `SSH_PORT` 配置。
+>
+> 更轻量的替代方案：中转 VPS 也可以不做任何代理，仅修改用户端 `~/.ssh/config` 走跳板：`ProxyJump` 或 `ProxyCommand`。nginx `stream` 的优点是全透明，团队所有成员无需各自配置。
+
 ## CI/CD 自动构建平台
 
 ### [Gitea Runner](https://docs.gitea.com/zh-cn/usage/actions/act-runner#%E4%BD%BF%E7%94%A8-docker-compose-%E8%BF%90%E8%A1%8C-runner)
