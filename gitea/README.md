@@ -198,7 +198,8 @@ server {
 
 适用场景：Gitea 部署在海外 VPS，国内无法直连其 22 端口，需要用一台国内 VPS 中转 SSH 流量，以便 `git clone`、`git push`、`ssh` 正常工作。
 
-> SSH 是四层 TCP 流量，**必须使用 nginx 的 `stream` 模块**，而不是上面 `http` 模块的反向代理。检查是否已编译该模块：`nginx -V 2>&1 | grep with-stream`（发行版官方源安装的 nginx 一般已包含）。
+> SSH 是四层 TCP 流量，**必须使用 nginx 的 `stream` 模块**，而不是上面 `http` 模块的反向代理。
+> `stream` 模块自 nginx 1.9.0 起可用，但**默认不编译**，需以 `--with-stream` 参数启用。检查是否已编译：`nginx -V 2>&1 | grep with-stream`（Debian/Ubuntu/RHEL 等发行版官方源安装的 nginx 一般已包含）。
 > `stream {}` 块必须写在 `nginx.conf` 的**顶层**（与 `http {}` 平级），不能放进 `http` 或 `conf.d/*.conf` 中。
 
 假设：海外 VPS 为 `overseas.example.com`，Gitea 容器的 SSH 端口映射为宿主机 `2222`；国内中转 VPS 监听 22 端口。
@@ -209,13 +210,31 @@ server {
 stream {
     server {
         listen 22;
-        proxy_pass overseas.example.com:2222;
         # SSH 为长连接，超时时间设置长一些，避免大仓库传输中途断开
-        proxy_timeout 300s;
         proxy_connect_timeout 10s;
+        proxy_timeout 300s;
+        proxy_pass overseas.example.com:2222;
     }
 }
 ```
+
+> `proxy_pass` 中的域名只在 nginx **启动/重载时解析一次**。若海外 VPS 的 IP 会变化，可改用变量形式并配合 `resolver`，让 nginx 按缓存的 TTL 重新解析，无需 reload：
+>
+> ```nginx
+> stream {
+>     resolver 223.5.5.5 119.29.29.29 valid=30s;
+>     resolver_timeout 5s;
+>     server {
+>         listen 22;
+>         proxy_connect_timeout 10s;
+>         proxy_timeout 300s;
+>         set $backend overseas.example.com:2222;
+>         proxy_pass $backend;
+>     }
+> }
+> ```
+>
+> 若大仓库推送/拉取长时间无数据传输导致连接被中断，可在 `listen` 上追加 `so_keepalive=on` 启用 TCP 保活：`listen 22 so_keepalive=on;`。
 
 **海外 VPS** 上无需任何改动，只需确保：
 1. 防火墙/安全组放行来自国内中转 VPS 的 `2222` 端口（更安全的做法：仅允许中转 VPS 的 IP 访问，不对公网开放）。
@@ -340,5 +359,5 @@ ghcr.io/catthehacker/ubuntu:act-latest
 
 ## 教程
 - **视频教程：**
-> 1. 哔哩哔哩: https://www.bilibili.com/video/BV1te4y1Z7bL
-> 西瓜视频: https://www.ixigua.com/7136483138939093535
+> 1. 哔哩哔哩: https://www.bilibili.com/video/BV1te4y1Z7bL  
+> 2. 西瓜视频: https://www.ixigua.com/7136483138939093535
