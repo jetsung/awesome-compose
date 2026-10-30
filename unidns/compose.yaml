@@ -1,0 +1,12 @@
+---
+# https://ghcr.io/jetsung/unidns
+services:
+  unidns:
+    image: ghcr.io/jetsung/unidns:latest
+    container_name: unidns
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - "18686:18686"

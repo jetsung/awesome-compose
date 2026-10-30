@@ -1,0 +1,6 @@
+services:
+  unidns:
+    ports: !override
+      - ${SERV_PORT:-18686}:18686
+    volumes:
+      - ./data:/app/data

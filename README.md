@@ -141,6 +141,7 @@ SERV_PORT=
 | | [tailscale](./tailscale/) | 一个零信任基于身份的连接平台，取代了您的遗留 VPN、SASE 和 PAM，连接远程团队、多云环境、CI/CD 流水线、边缘与物联网设备以及 AI 工作负载 |
 | 在用 | [tuwunel](./tuwunel/) | 功能强大的 Matrix 自建服务器 |
 | | [transfer](./transfer/) | 文件传输服务 |
+| 在用 | [unidns](./unidns/) | 多平台 DNS 记录统一管理系统，聚合阿里云、DNSPod（国内/国际）、EdgeOne（国内/国际）、CloudFlare、火山引擎的域名与解析记录，支持手动/定时同步与 REST API |
 | 在用 | [valkey](./valkey/) | 开源的、内存中的数据存储，用于高速数据处理 |
 | 在用 | [vaultwarden](./vaultwarden/) | Bitwarden 密码管理器的非官方服务器实现 |
 | 在用 | [vaultwarden-backup](./vaultwarden-backup/) | 为 Vaultwarden 提供备份功能的服务 |
