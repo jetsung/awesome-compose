@@ -1,0 +1,11 @@
+---
+services:
+  acme-dns:
+#     ports: !reset []
+#     ports: !override
+#       - 53:53
+#       - 53:53/udp
+#       - ${SERV_PORT:-80}:80
+#     volumes:
+#       - ./config:/etc/acme-dns:ro
+#       - ./data:/var/lib/acme-dns

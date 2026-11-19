@@ -58,6 +58,7 @@ SERV_PORT=
 | --- | --- | --- |
 | 在用 | [apprise](./apprise/) | 集合通知服务推送的平台 |
 | 在用 | [acme](./acme/) | 自动化证书管理环境，用于自动获取和续期 SSL/TLS 证书 |
+| 在用 | [acme-dns](./acme-dns/) | 简化版 DNS 服务器，附带 RESTful HTTP API，用于自动化 ACME DNS 质询 |
 | | [agentgateway](./agentgateway/) | 一款基于原生人工智能协议（MCP 与 A2A）构建的开源代理，可为跨任何框架和环境的代理与大语言模型（LLM）之间、代理与工具之间以及代理与代理之间的通信，提供即插即用的安全性、可观测性和治理功能。 |
 | | [aether](./aether/) | 加密隧道客户端，自动扫描 Cloudflare WARP 边缘节点建立加密隧道，并在本地暴露 SOCKS5 代理，纯客户端无需自建服务端。 |
 | 在用 | [arcane](./arcane/) | 用于管理你的 Docker 容器、镜像、网络和卷的管理平台 |
@@ -154,7 +155,7 @@ SERV_PORT=
 
 ## Arcane 容器管理工具
 
-- [**Arcane Registry**](https://compose.asfd.cn/registry.json)
+- [**Arcane Registry**](/registry.json)
 
 ### 模板
 - [schema.json](https://github.com/getarcaneapp/templates/blob/main/schema.json)
