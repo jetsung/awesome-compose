@@ -1,0 +1,14 @@
+---
+# ghcr.io/jetsung/linklist
+services:
+  linklist:
+    container_name: linklist
+    env_file:
+      - path: ./.env
+        required: false
+    image: ghcr.io/jetsung/linklist:latest
+#     ports:
+#       - 9090:9090
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data

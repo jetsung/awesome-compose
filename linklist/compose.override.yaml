@@ -1,0 +1,8 @@
+---
+services:
+  linklist:
+#     ports: !reset []
+#     ports: !override
+#       - ${SERV_PORT:-9090}:9090
+#     volumes:
+#       - ./data:/app/data

@@ -99,6 +99,7 @@ SERV_PORT=
 | | [joplin](./joplin/) | 开源的笔记和待办事项应用程序，支持端到端加密 |
 | 在用 | [komodo](./komodo/) | 提供管理服务器、构建、部署和自动化流程的结构 |
 | 在用 | [linkding](./linkding/) | 简单、快速的自托管书签服务 |
+| 在用 | [linklist](./linklist/) | 自托管书签管理服务（Rust 重写的 linkding 替代品），支持 SQLite / PostgreSQL / MySQL |
 | | [litellm](./litellm/) | 非常实用的开源 Python 库，使用 OpenAI 的输入/输出格式，调用 100+ 个大型语言模型 |
 | | [listmonk](./listmonk/) | 高性能、可自托管的邮件通讯和营销自动化工具 |
 | 在用 | [logto](./logto/) | 现代开源的 SaaS 和 AI 应用认证基础设施 |

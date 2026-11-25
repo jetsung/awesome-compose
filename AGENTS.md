@@ -88,17 +88,21 @@ services:
 ```markdown
 # <项目名>
 
-[Office Web][1] · [Source][2] · [Docker Image][3] · [Documentation][4]
+[Office Web][1] - [Source][2] - [Docker Image][3] - [Document][4]
 
 ---
 
-> [<项目名>][1]
+> [<项目名>][1] 一句话简介。
 
 [1]: <官网地址>
 [2]: <源码仓库>
 [3]: <镜像地址>
 [4]: <文档地址>
 ```
+
+约定：
+
+- 引用链接（`[1]:` `[2]:` `[3]:` `[4]:`）的 URL 列表紧跟在简介（`>` 引用块）下方，不要放在文档最后。
 
 ### backup.sh 模板
 
