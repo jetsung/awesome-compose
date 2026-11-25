@@ -592,6 +592,19 @@
       ]
     },
     {
+      "id": "linklist",
+      "name": "linklist",
+      "description": "一个自托管书签管理服务（Rust 重写的 linkding 替代品），单二进制交付，支持 SQLite（默认）/ PostgreSQL / MySQL 三种数据库。",
+      "version": "1.0.0",
+      "author": "jetsung",
+      "compose_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/linklist/compose.yaml",
+      "env_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/linklist/.env",
+      "documentation_url": "https://raw.githubusercontent.com/jetsung/awesome-compose/refs/heads/main/linklist/README.md",
+      "tags": [
+        "linklist"
+      ]
+    },
+    {
       "id": "listmonk",
       "name": "listmonk",
       "description": "一个自托管的、高性能的单向邮件列表和新闻通讯管理器。它作为独立的二进制文件提供，唯一的依赖项是 Postgres 数据库。",
